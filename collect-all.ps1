@@ -1,3 +1,5 @@
+$graphQlPlusDir = "..\graphql-plus\test\GqlPlus.Verifier.ComponentTests\Sample\Schema"
+
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
   $sections = @{ "Complete" = @() }
@@ -46,6 +48,12 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     }
   }
   $doc | Set-Content $_.FullName
+
+  if ($name -eq "Intro") {
+    foreach ($section in $sections.Keys) {
+      $sections[$section] | Set-Content "$graphQlPlusDir\Intro_$section.graphql+"
+    }
+  }
 }
 
 prettier -w .
