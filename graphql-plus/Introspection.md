@@ -6,9 +6,11 @@ The `_Schema` output type is automatically defined as followed and can be used t
 
 ```gqlp
 output _Schema {
-        category(_CategoryFilter): _Category[String]
-        directive(_Filter): _Directive[String]
-        type(_TypeFilter): _Type[String]
+    : _Named
+        categories(_CategoryFilter): _Categories[String]
+        directives(_Filter): _Directives[String]
+        types(_TypeFilter): _Type[String]
+        settings(_Filter): _Setting[String]
     }
 
 input _Filter  {
@@ -41,10 +43,15 @@ output _Named {
 ## Category
 
 ```gqlp
+output _Categories {
+    | _Category
+    | _Type
+}
+
 output _Category {
     : _Aliased
         resolution: _Resolution
-        type: _Type[String]
+        output: String
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -53,6 +60,11 @@ enum _Resolution { Parallel Sequential Single }
 ## Directive
 
 ```gqlp
+output _Directives {
+    | _Directive
+    | _Type
+}
+
 output _Directive {
     : _Aliased
         parameters: _Parameter[]
@@ -62,6 +74,15 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+```
+
+## Setting
+
+```gqlp
+output _Setting {
+    : _Named
+        value: _Constant
+}
 ```
 
 ## Types
@@ -87,51 +108,6 @@ output _TypeSimple {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Scalar>
     | _BaseType<_TypeKind.Enum>
-    }
-```
-
-## Enum type
-
-```gqlp
-output _TypeEnum {
-    : _BaseType<_TypeKind.Enum>
-        base: String?
-        values: _Aliased[]
-    }
-```
-
-## Object Union type
-
-```gqlp
-output _TypeObject<$kind $base $field> {
-    : _BaseType<$kind>
-        typeParameters: _Named[]
-        base: $base?
-        fields: $field[]
-        alternates: _Alternate<$base>[]
-    }
-
-output _Ref<$base> {
-    | _BaseType<_TypeKind.Internal>
-    | _TypeSimple
-    | $base
-    }
-
-output _Alternate<$base> {
-      type: _Ref<$base>
-      modifiers: _Modifier[]
-    }
-
-output _Field<$base> {
-    : _Aliased
-      type: _Ref<$base>
-      modifiers: _Modifier[]
-    }
-
-output _Parameter {
-    : _Ref<_InputBase>
-        modifiers: _Modifier[]
-        default: _Constant?
     }
 ```
 
@@ -173,46 +149,13 @@ output _ModifierDictionary {
     }
 ```
 
-## Input type (Object Union)
+## Enum type
 
 ```gqlp
-output _InputBase {
-        input: String
-        arguments: _Ref<_InputBase>[]
-    | "TypeParameter" String
-    }
-
-output _InputField {
-    : _Field<_InputBase>
-        default: _Constant?
-    }
-```
-
-## Output type (Object Union)
-
-```gqlp
-output _OutputBase {
-        output: String
-        arguments: _OutputArgument[]
-    | "TypeParameter" String
-    }
-
-output _OutputField {
-    : _Field<_OutputBase>
-        parameter: _Parameter[]
-    | _OutputEnum
-    }
-
-output _OutputArgument {
+output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        value: String
-    | _Ref<_OutputBase>
-    }
-
-output _OutputEnum {
-    : _BaseType<_TypeKind.Enum>
-        field: String
-        value: String
+        base: String?
+        values: _Aliased[]
     }
 ```
 
@@ -260,13 +203,92 @@ output _ScalarUnion {
     }
 ```
 
+## Object Union type
+
+```gqlp
+output _TypeObject<$kind $base $field> {
+    : _BaseType<$kind>
+        typeParameters: _Named[]
+        base: $base?
+        fields: $field[]
+        alternates: _Alternate<$base>[]
+    }
+
+output _Ref<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _TypeSimple
+    | $base
+    }
+
+output _Alternate<$base> {
+      type: _Ref<$base>
+      modifiers: _Modifier[]
+    }
+
+output _Field<$base> {
+    : _Aliased
+      type: _Ref<$base>
+      modifiers: _Modifier[]
+    }
+
+output _Parameter {
+    : _Alternate<_InputBase>
+        default: _Constant?
+    }
+```
+
+## Input type (Object Union)
+
+```gqlp
+output _InputBase {
+        input: String
+        arguments: _Ref<_InputBase>[]
+    | "TypeParameter" String
+    }
+
+output _InputField {
+    : _Field<_InputBase>
+        default: _Constant?
+    }
+```
+
+## Output type (Object Union)
+
+```gqlp
+output _OutputBase {
+        output: String
+        arguments: _OutputArgument[]
+    | "TypeParameter" String
+    }
+
+output _OutputField {
+    : _Field<_OutputBase>
+        parameter: _Parameter[]
+    | _OutputEnum
+    }
+
+output _OutputArgument {
+    : _BaseType<_TypeKind.Enum>
+        value: String
+    | _Ref<_OutputBase>
+    }
+
+output _OutputEnum {
+    : _BaseType<_TypeKind.Enum>
+        field: String
+        value: String
+    }
+```
+
 ## Complete Definition
 
 ```gqlp
 output _Schema {
-        category(_CategoryFilter): _Category[String]
-        directive(_Filter): _Directive[String]
-        type(_TypeFilter): _Type[String]
+    : _Named
+        categories(_CategoryFilter): _Categories[String]
+        directives(_Filter): _Directives[String]
+        types(_TypeFilter): _Type[String]
+        settings(_Filter): _Setting[String]
     }
 
 input _Filter  {
@@ -295,13 +317,23 @@ output _Named {
         description: String?
     }
 
+output _Categories {
+    | _Category
+    | _Type
+}
+
 output _Category {
     : _Aliased
         resolution: _Resolution
-        type: _Type[String]
+        output: String
     }
 
 enum _Resolution { Parallel Sequential Single }
+
+output _Directives {
+    | _Directive
+    | _Type
+}
 
 output _Directive {
     : _Aliased
@@ -312,6 +344,11 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
+output _Setting {
+    : _Named
+        value: _Constant
+}
 
 output _Type {
     | _BaseType<_TypeKind.Basic>
@@ -333,43 +370,6 @@ output _TypeSimple {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Scalar>
     | _BaseType<_TypeKind.Enum>
-    }
-
-output _TypeEnum {
-    : _BaseType<_TypeKind.Enum>
-        base: String?
-        values: _Aliased[]
-    }
-
-output _TypeObject<$kind $base $field> {
-    : _BaseType<$kind>
-        typeParameters: _Named[]
-        base: $base?
-        fields: $field[]
-        alternates: _Alternate<$base>[]
-    }
-
-output _Ref<$base> {
-    | _BaseType<_TypeKind.Internal>
-    | _TypeSimple
-    | $base
-    }
-
-output _Alternate<$base> {
-      type: _Ref<$base>
-      modifiers: _Modifier[]
-    }
-
-output _Field<$base> {
-    : _Aliased
-      type: _Ref<$base>
-      modifiers: _Modifier[]
-    }
-
-output _Parameter {
-    : _Ref<_InputBase>
-        modifiers: _Modifier[]
-        default: _Constant?
     }
 
 output _Constant {
@@ -406,39 +406,10 @@ output _ModifierDictionary {
         by: _TypeSimple
     }
 
-output _InputBase {
-        input: String
-        arguments: _Ref<_InputBase>[]
-    | "TypeParameter" String
-    }
-
-output _InputField {
-    : _Field<_InputBase>
-        default: _Constant?
-    }
-
-output _OutputBase {
-        output: String
-        arguments: _OutputArgument[]
-    | "TypeParameter" String
-    }
-
-output _OutputField {
-    : _Field<_OutputBase>
-        parameter: _Parameter[]
-    | _OutputEnum
-    }
-
-output _OutputArgument {
+output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        value: String
-    | _Ref<_OutputBase>
-    }
-
-output _OutputEnum {
-    : _BaseType<_TypeKind.Enum>
-        field: String
-        value: String
+        base: String?
+        values: _Aliased[]
     }
 
 enum _Scalar { Number String Union }
@@ -479,6 +450,71 @@ output _ScalarRegex {
 output _ScalarUnion {
     : _BaseScalar<_Scalar.Union>
         references: _TypeSimple[]
+    }
+
+output _TypeObject<$kind $base $field> {
+    : _BaseType<$kind>
+        typeParameters: _Named[]
+        base: $base?
+        fields: $field[]
+        alternates: _Alternate<$base>[]
+    }
+
+output _Ref<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _TypeSimple
+    | $base
+    }
+
+output _Alternate<$base> {
+      type: _Ref<$base>
+      modifiers: _Modifier[]
+    }
+
+output _Field<$base> {
+    : _Aliased
+      type: _Ref<$base>
+      modifiers: _Modifier[]
+    }
+
+output _Parameter {
+    : _Alternate<_InputBase>
+        default: _Constant?
+    }
+
+output _InputBase {
+        input: String
+        arguments: _Ref<_InputBase>[]
+    | "TypeParameter" String
+    }
+
+output _InputField {
+    : _Field<_InputBase>
+        default: _Constant?
+    }
+
+output _OutputBase {
+        output: String
+        arguments: _OutputArgument[]
+    | "TypeParameter" String
+    }
+
+output _OutputField {
+    : _Field<_OutputBase>
+        parameter: _Parameter[]
+    | _OutputEnum
+    }
+
+output _OutputArgument {
+    : _BaseType<_TypeKind.Enum>
+        value: String
+    | _Ref<_OutputBase>
+    }
+
+output _OutputEnum {
+    : _BaseType<_TypeKind.Enum>
+        field: String
+        value: String
     }
 
 ```

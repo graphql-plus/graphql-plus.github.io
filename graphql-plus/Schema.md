@@ -99,14 +99,14 @@ Locations will be merged by value.
 
 ```PEG
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = Opt_Kind '=' Boolean
-Opt_Kind = 'Strict' | 'GraphQl_Compatibility'
+Opt_Setting = STRING? setting Default
 ```
 
 An Option defines valid options for the Schema as a whole, including the Schema name and Aliases.
 A Schema must have only one name.
 
-Options can be merged if Option Settings are unique.
+Options can be merged only if Option Settings can be merged.
+Option Settings values are merged in the same way as Constant Object values.
 
 ## Type declarations
 
@@ -232,7 +232,7 @@ An Object Union type is defined as either:
 - one or more Alternate object Type references
 
 The order of Alternates is significant.
-An Alternate must not include itelf, recursively.
+An Alternate must not include itself, recursively.
 
 An object Type reference may be an Internal, Simple or another object Type.
 If an object Type it may have Type Arguments of object Type references.
@@ -408,8 +408,7 @@ Dir_Repeatable = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = Opt_Kind '=' Boolean
-Opt_Kind = 'Strict' | 'GraphQl_Compatibility'
+Opt_Setting = STRING? setting Default
 
 Internal = 'Null' | 'null' | 'Object' | '%' | 'Void'  # Redefined
 

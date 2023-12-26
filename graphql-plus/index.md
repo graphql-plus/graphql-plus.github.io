@@ -1,6 +1,6 @@
 # GraphQL+
 
-Defining a successor to GraphQL <img src="../images/GraphQL_Logo.svg" width="50">
+Defining a successor to GraphQL <img src="../images/GraphQL_Logo.svg" width="50" alt="GraphQL logo">
 
 ## Intent
 
