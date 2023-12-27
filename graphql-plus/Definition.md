@@ -120,13 +120,19 @@ A Constant is a single value. Commas (`,`) can be used to separate list values a
 
 If a Constant Object FieldKey appears more than once, all the values will be merged as follows:
 
-> A merged with B results in:
+> A merged with B results as follows:
 >
-> |                          |     B Value `b` | B List `[b1,b2]` |    B Object `{b1:b2,b3:b4}` |
-> | -----------------------: | --------------: | ---------------: | --------------------------: |
-> |              A Value `a` |             `b` |      `[a,b1,b2]` |             `{b1:b2,b3:b4}` |
-> |         A List `[a1,a2]` |     `[a1,a2,b]` |  `[a1,a2,b1,b2]` |             `{b1:b2,b3:b4}` |
-> | A Object `{a1:a2,a3:a4}` | `{a1:a2,a3:a4}` |  `{a1:a2,a3:a4}` | `{a1:a2,a3:a4,b1:b2,b3:b4}` |
+> |                         | B Value `b` |       B List `[b1,b2]` | B Object `{k:b3,b4:b5}` |
+> | ----------------------: | ----------: | ---------------------: | ----------------------: |
+> |             A Value `a` |         `b` |            `[a,b1,b2]` |          `{k:b3,b4:b5}` |
+> |        A List `[a1,a2]` | `[a1,a2,b]` |        `[a1,a2,b1,b2]` |  `[a1,a2,{k:b3,b4:b5}]` |
+> | A Object `{k:a3,a4:a5}` |         `b` | `[{k:a3,a4:a5},b1,b2]` |    `{k:b3,a4:a5,b4:b5}` |
+>
+> ie:
+>
+> 1. If either value is a List, the merged value is a List with the A value(s) first then the B value(s)
+> 2. If both values are Objects, the keys are combined and any common keys value's are merged.
+> 3. Otherwise the B value is used.
 
 ## Complete Grammar
 

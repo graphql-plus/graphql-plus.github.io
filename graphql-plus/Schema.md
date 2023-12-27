@@ -106,7 +106,7 @@ An Option defines valid options for the Schema as a whole, including the Schema 
 A Schema must have only one name.
 
 Options can be merged only if Option Settings can be merged.
-Option Settings values are merged in the same way as Constant Object values.
+Option Settings are merged by name and values are merged in the same way as Constant Object values.
 
 ## Type declarations
 
@@ -215,11 +215,13 @@ Input and Output types are both Object Union types.
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' STRING? Obj_Reference Modifiers?
+Obj_Field = STRING? field fieldAlias* ':' Obj_Type
 
-Obj_Alternate = '|' STRING? Obj_Reference Modifiers?
+Obj_Type = STRING? Obj_Reference Modifiers?
+Obj_Alternate = '|' Obj_Type
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Reference+ '>' )?
+Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
+Obj_Argument = Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 ```
@@ -260,14 +262,14 @@ Alternates are merged by Type and can be merged if their Modifiers match.
 ### Parameter
 
 ```PEG
-InputParameters = '(' InParam_Type+ ')'
-InParam_Type = STRING? In_Reference Modifiers? Default?
+InputParameters = '(' In_TypeDefault+ ')'
 ```
 
 Input Parameters define one or more Alternate Input type references, possibly with a documentation string, Modifiers and/or a Default.
 
 The order of Alternates is significant.
 Alternates are merged by their Input type and can be merged if their Modifiers match.
+Default values are merged as Constant values.
 
 ### Modifiers
 
@@ -326,15 +328,11 @@ These Generic types are the Input types if `$T` is an Input type and Output type
 
 ## Input type
 
-```PEG
-Input = 'input' input TypeParameters? Aliases? '{' In_Definition '}'
-In_Definition = In_Object? In_Alternate*
-In_Object = ( ':' STRING? In_Base )? In_Field+
-In_Field = STRING? field fieldAlias* ':' STRING? In_Reference Modifiers? Default?
+An Input type is an Object type with the following Term differences,
+after replacing "object" with "input" and "Obj" with "In".
 
-In_Alternate = '|' STRING? In_Reference Modifiers?
-In_Reference = Internal | Simple | In_Base
-In_Base = '$'typeParameter | input ( '<' STRING? In_Reference+ '>' )?
+```PEG
+In_Field = STRING? field fieldAlias* ':' In_Type Default?
 ```
 
 Input types define the type of Output field's Argument.
@@ -354,17 +352,15 @@ A Default of `null` is only allowed on Optional fields. The Default must be comp
 
 ## Output type
 
-```PEG
-Output = 'output' output TypeParameters? Aliases? '{' Out_Definition '}'
-Out_Definition = Out_Object? Out_Alternate*
-Out_Object = ( ':' STRING? Out_Base )? ( STRING? field Out_EnumField )+
-Out_EnumField = Out_Field | Out_Enum
-Out_Field = InputParameters? fieldAlias* ':' STRING? Out_Reference Modifiers?
-Out_Enum = fieldAlias* '=' STRING? EnumValue
+An Input type is an Object type with the following Term differences,
+after replacing "object" with "output" and "Obj" with "Out".
 
-Out_Alternate = '|' STRING? Out_Reference Modifiers?
-Out_Reference = Internal | Simple | Out_Base
-Out_Base = '$'typeParameter | output ( '<' ( STRING? Out_Reference |  STRING? EnumValue )+ '>' )?
+```PEG
+Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type
+Out_EnumField = fieldAlias* '=' STRING? EnumValue
+
+Out_Argument = Out_Reference | EnumValue
 ```
 
 Output types define the result values for Categories and Output fields.
@@ -432,35 +428,24 @@ Scal_Reference = '|' Simple
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' STRING? Obj_Reference Modifiers?
+Obj_Field = STRING? field fieldAlias* ':' Obj_Type
 
-Obj_Alternate = '|' STRING? Obj_Reference Modifiers?
+Obj_Type = STRING? Obj_Reference Modifiers?
+Obj_Alternate = '|' Obj_Type
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Reference+ '>' )?
+Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
+Obj_Argument = Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
-InputParameters = '(' InParam_Type+ ')'
-InParam_Type = STRING? In_Reference Modifiers? Default?
+InputParameters = '(' In_TypeDefault+ ')'
 
-Input = 'input' input TypeParameters? Aliases? '{' In_Definition '}'
-In_Definition = In_Object? In_Alternate*
-In_Object = ( ':' STRING? In_Base )? In_Field+
-In_Field = STRING? field fieldAlias* ':' STRING? In_Reference Modifiers? Default?
+In_Field = STRING? field fieldAlias* ':' In_Type Default?
 
-In_Alternate = '|' STRING? In_Reference Modifiers?
-In_Reference = Internal | Simple | In_Base
-In_Base = '$'typeParameter | input ( '<' STRING? In_Reference+ '>' )?
+Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type
+Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Output = 'output' output TypeParameters? Aliases? '{' Out_Definition '}'
-Out_Definition = Out_Object? Out_Alternate*
-Out_Object = ( ':' STRING? Out_Base )? ( STRING? field Out_EnumField )+
-Out_EnumField = Out_Field | Out_Enum
-Out_Field = InputParameters? fieldAlias* ':' STRING? Out_Reference Modifiers?
-Out_Enum = fieldAlias* '=' STRING? EnumValue
-
-Out_Alternate = '|' STRING? Out_Reference Modifiers?
-Out_Reference = Internal | Simple | Out_Base
-Out_Base = '$'typeParameter | output ( '<' ( STRING? Out_Reference |  STRING? EnumValue )+ '>' )?
+Out_Argument = Out_Reference | EnumValue
 
 ```
