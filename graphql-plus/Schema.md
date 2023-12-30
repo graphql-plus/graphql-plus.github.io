@@ -59,7 +59,7 @@ It is an error if merging of duplicate items is not possible.
 ## Category declaration
 
 ```PEG
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 ```
 
@@ -76,7 +76,7 @@ but this can be changed with the following Category Options:
 | `sequential` | Multiple fields specified in an operation of this category will be resolved in the order given. |
 | `single`     | One and only one field can be specified in an operation of this category.                       |
 
-Categories can be merged if their Options and Output Types match.
+Categories can be merged if their Options and Modified Output Types match.
 
 ## Directive declaration
 
@@ -215,10 +215,10 @@ Input and Output types are both Object Union types.
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' Obj_Type
+Obj_Field = STRING? field fieldAlias* ':' Obj_Type Modifiers?
 
-Obj_Type = STRING? Obj_Reference Modifiers?
-Obj_Alternate = '|' Obj_Type
+Obj_Type = STRING? Obj_Reference
+Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
 Obj_Argument = Obj_Reference
@@ -235,6 +235,7 @@ An Object Union type is defined as either:
 
 The order of Alternates is significant.
 An Alternate must not include itself, recursively.
+Alternates may include Collections, but not nullability.
 
 An object Type reference may be an Internal, Simple or another object Type.
 If an object Type it may have Type Arguments of object Type references.
@@ -257,7 +258,7 @@ Object Unions can be merged if their base Types match and their Fields and Alter
 
 Fields can be merged if their Modified Types match.
 
-Alternates are merged by Type and can be merged if their Modifiers match.
+Alternates are merged by Type and can be merged if their Collections match.
 
 ### Parameter
 
@@ -271,9 +272,9 @@ The order of Alternates is significant.
 Alternates are merged by their Input type and can be merged if their Modifiers match.
 Default values are merged as Constant values.
 
-### Modifiers
+### Modifiers / Collections
 
-Note that Schema Modifiers include Scalar and Enum types as valid Dictionary keys.
+Note that Schema Collections include Scalar and Enum types as valid Dictionary keys.
 
 <details>
 <summary>Modifiers</summary>
@@ -332,7 +333,7 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_Field = STRING? field fieldAlias* ':' In_Type Default?
+In_Field = STRING? field fieldAlias* ':' In_Type Modifiers? Default?
 ```
 
 Input types define the type of Output field's Argument.
@@ -357,7 +358,7 @@ after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Argument = Out_Reference | EnumValue
@@ -396,7 +397,7 @@ Type = Enum | Input | Output | Scalar
 
 Aliases = '[' alias+ ']'
 
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
 Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Repeatable? Dir_Location+ '}'
@@ -428,10 +429,10 @@ Scal_Reference = '|' Simple
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' Obj_Type
+Obj_Field = STRING? field fieldAlias* ':' Obj_Type Modifiers?
 
-Obj_Type = STRING? Obj_Reference Modifiers?
-Obj_Alternate = '|' Obj_Type
+Obj_Type = STRING? Obj_Reference
+Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
 Obj_Argument = Obj_Reference
@@ -440,10 +441,10 @@ TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 InputParameters = '(' In_TypeDefault+ ')'
 
-In_Field = STRING? field fieldAlias* ':' In_Type Default?
+In_Field = STRING? field fieldAlias* ':' In_Type Modifiers? Default?
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Argument = Out_Reference | EnumValue

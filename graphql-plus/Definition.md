@@ -59,8 +59,11 @@ Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 
 Internal = 'Void' | 'Null' | 'null'
 
-Modifier = '?' | '[]' Modifier? | '[' Simple '?'? ']' Modifier?
+Modifiers = Collections? '?'?
+Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
 ```
+
+Defaults must match the Modifiers/Collections Type of the item the Default is on.
 
 An Enum Value reference may drop the Enum portion if the Value is unique.
 Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and (`Unit.`)`_`.
@@ -68,7 +71,10 @@ Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and
 `Boolean`, `Null`, `Unit` and `Void` are all Enum types.
 `Number` and `String` are Scalar types.
 
-### Modifiers
+### Modifiers / Collections
+
+Collections are any combination of Lists and/or Dictionaries.
+Modifiers are zero or more Collections optionally followed by Optionality (also know as Nullability).
 
 | Modifier   | Syntax           | Notes                                                                                                                        | Description                   |
 | ---------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
@@ -150,7 +156,8 @@ Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 
 Internal = 'Void' | 'Null' | 'null'
 
-Modifier = '?' | '[]' Modifier? | '[' Simple '?'? ']' Modifier?
+Modifiers = Collections? '?'?
+Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
 
 Constant = Const_List | Const_Object | Const_Value
 Const_Value = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue

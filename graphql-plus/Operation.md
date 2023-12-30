@@ -16,7 +16,7 @@ If not specified, an Operation's category is "query". This is for GraphQL compat
 
 ```PEG
 Variables = '(' Variable+ ')'
-Variable = '$'variable ( ':' Var_Type )? Modifier? Default? Directive*
+Variable = '$'variable ( ':' Var_Type )? Modifiers? Default? Directive*
 Var_Type = Var_Null '!'?
 Var_Null = '[' Var_Type ']' | type
 ```
@@ -27,9 +27,9 @@ A Variable with the Optional Modifier has an implied Default of `null` and a Var
 
 A Variable's Type name (`type`) is only included for GraphQL compatibility and is otherwise ignored.
 
-If a Variable's Modifier and Default are both specified they should be validated, recursively, as follows:
+If a Variable's Modifiers and Default are both specified they should be validated, recursively, as follows:
 
-| Modifier  | Default       | Comment                                                                      |
+| Modifiers | Default       | Comment                                                                      |
 | --------- | ------------- | ---------------------------------------------------------------------------- |
 | `?`       | `null`        | A default of `null` is only allowed on Optional types.                       |
 | `[]`      | object        | **ERROR** A List type cannot have an Object default.                         |
@@ -49,13 +49,13 @@ The order of directives may be significant.
 ## Result
 
 ```PEG
-Result = ( ':' Scalar Argument? | Object ) Modifier?
+Result = ( ':' Scalar Argument? | Object ) Modifiers?
 ```
 
 An Operation's Result is either:
 
-- a Scalar type with an optional Argument and/or Modifier(s), or
-- an Object type with optional Modifier(s).
+- a Scalar type with an optional Argument and/or Modifiers, or
+- an Object type with optional Modifiers.
 
 ## Scalar
 
@@ -80,7 +80,7 @@ Any unknown identifier used as a Dictionary key Type will be treated as an Enum 
 
 ```PEG
 Object = '{' ( Selection | Field )+ '}'
-Field = ( alias ':' )? field Argument? Modifier? Directive* Object?
+Field = ( alias ':' )? field Argument? Modifiers? Directive* Object?
 Selection = ( '...' | '|' ) ( Inline | Spread )
 Inline = TypeCondition? Directive* Object
 Spread = fragment Directive*
@@ -141,18 +141,18 @@ If a Argument Object FieldKey appears more than once, all the values will be mer
 Operation = ( category name? )? Variables? Directive* Fragment* Result Frag_End*
 
 Variables = '(' Variable+ ')'
-Variable = '$'variable ( ':' Var_Type )? Modifier? Default? Directive*
+Variable = '$'variable ( ':' Var_Type )? Modifiers? Default? Directive*
 Var_Type = Var_Null '!'?
 Var_Null = '[' Var_Type ']' | type
 
 Directive = '@'directive Argument?
 
-Result = ( ':' Scalar Argument? | Object ) Modifier?
+Result = ( ':' Scalar Argument? | Object ) Modifiers?
 
 Scalar = Internal | Simple
 
 Object = '{' ( Selection | Field )+ '}'
-Field = ( alias ':' )? field Argument? Modifier? Directive* Object?
+Field = ( alias ':' )? field Argument? Modifiers? Directive* Object?
 Selection = ( '...' | '|' ) ( Inline | Spread )
 Inline = TypeCondition? Directive* Object
 Spread = fragment Directive*

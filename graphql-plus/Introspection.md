@@ -52,6 +52,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: String
+        modifiers: _Modifier[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -131,10 +132,14 @@ output _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Modifier {
-    | _BaseModifier<_ModifierKind.Optional>
+output _Collection {
     | _BaseModifier<_ModifierKind.List>
     | _ModifierDictionary
+    }
+
+output _Modifier {
+    | _BaseModifier<_ModifierKind.Optional>
+    | _Collection
     }
 
 enum _ModifierKind { Optional List Dictionary }
@@ -222,7 +227,7 @@ output _Ref<$base> {
 
 output _Alternate<$base> {
       type: _Ref<$base>
-      modifiers: _Modifier[]
+      collections: _Collection[]
     }
 
 output _Field<$base> {
@@ -326,6 +331,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: String
+        modifiers: _Modifier[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -389,10 +395,14 @@ output _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Modifier {
-    | _BaseModifier<_ModifierKind.Optional>
+output _Collection {
     | _BaseModifier<_ModifierKind.List>
     | _ModifierDictionary
+    }
+
+output _Modifier {
+    | _BaseModifier<_ModifierKind.Optional>
+    | _Collection
     }
 
 enum _ModifierKind { Optional List Dictionary }
@@ -468,7 +478,7 @@ output _Ref<$base> {
 
 output _Alternate<$base> {
       type: _Ref<$base>
-      modifiers: _Modifier[]
+      collections: _Collection[]
     }
 
 output _Field<$base> {
