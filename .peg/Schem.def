@@ -1,0 +1,19 @@
+alias = ID
+category = ID
+output = ID
+directive = ID
+name = ID
+setting = ID
+scalar = ID
+object = ID
+field = ID
+fieldAlias = ID
+typeParameter = ID
+
+Input = Object
+In_Type = Obj_Type
+Output = Object
+Out_Reference = Obj_Reference
+Out_Type = Obj_Type
+
+REGEX = "/" ( [^/] / "\\/" )+ "/"

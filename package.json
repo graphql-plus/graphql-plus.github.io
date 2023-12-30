@@ -1,0 +1,27 @@
+{
+  "name": "graphql-plus.github.io",
+  "version": "0.1.0",
+  "description": "Defining a successor to GraphQL <img src=\"images/GraphQL_Logo.svg\" width=\"50\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graphql-plus/graphql-plus.github.io.git"
+  },
+  "keywords": [
+    "GraphQL",
+    "Specification",
+    "DocFx"
+  ],
+  "author": "Struan Judd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/graphql-plus/graphql-plus.github.io/issues"
+  },
+  "homepage": "https://github.com/graphql-plus/graphql-plus.github.io#readme",
+  "devDependencies": {
+    "peggy": "^3.0.2"
+  }
+}

@@ -35,6 +35,13 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
       if ($_ -match "# Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
+          
+          $all["PEG"] -replace ' \| ', ' / ' | Set-Content ".peg/$name.pegjs"
+          Get-Content ".peg/$name.def" | Add-Content ".peg/$name.pegjs"
+          if ($name -ne "Defin") {
+            Get-Content ".peg/Defin.pegjs" | Add-Content ".peg/$name.pegjs"
+          }
+
           $end = $true
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
@@ -57,3 +64,8 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 }
 
 prettier -w .
+
+Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
+  Write-Host "PEG linting $_"
+  npx peggy $_.FullName
+}

@@ -482,3 +482,4 @@ _site/
 _exported_templates/
 coverage/
 output.cobertura.xml
+.peg/*js

@@ -118,9 +118,9 @@ Merging of Types is only possible if the kinds match.
 ### Built-In types
 
 ```PEG
-Internal = 'Null' | 'null' | 'Object' | '%' | 'Void'  # Redefined
+Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
-Simple = Basic | scalar | enum  # Redefined
+Simple_ReDef = Basic | scalar | enum  // Redefined Simple
 ```
 
 The above types from [Definition](Definition.md) are redefined for Schemas
@@ -139,7 +139,7 @@ enum Null [null] { null }
 
 enum Unit [_] { _ }
 
-enum Void { }  # no valid value
+enum Void { }  // no valid value
 ```
 
 Number and String are effectively scalar types as follows:
@@ -187,14 +187,14 @@ Enums can be merged if their base Enums match and their Values can be merged.
 
 ```PEG
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
-ScalarDefinition = Scal_Number | Scal_String | Scalar_Union
+ScalarDefinition = Scal_Number | Scal_String | Scal_Union
 
 Scal_Number = 'Number' Scal_Range*
 Scal_String = 'String' Scal_Regex*
 Scal_Union = 'Union' Scal_Reference+
 
 Scal_Range = ':' '<'? NUMBER | NUMBER '>'? ':' ( '<'? NUMBER )?
-Scal_RegEx = REGEX '!'?
+Scal_Regex = REGEX '!'?
 Scal_Reference = '|' Simple
 ```
 
@@ -211,7 +211,7 @@ Scalar declarations can be merged if their kinds match and their Ranges or Regex
 Input and Output types are both Object Union types.
 
 ```PEG
-# base definition
+// base definition
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
@@ -333,7 +333,8 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_Field = STRING? field fieldAlias* ':' In_Type Modifiers? Default?
+In_Field = STRING? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = In_Type Modifiers? Default?
 ```
 
 Input types define the type of Output field's Argument.
@@ -407,25 +408,25 @@ Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragm
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = STRING? setting Default
 
-Internal = 'Null' | 'null' | 'Object' | '%' | 'Void'  # Redefined
+Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
-Simple = Basic | scalar | enum  # Redefined
+Simple_ReDef = Basic | scalar | enum  // Redefined Simple
 
 Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Value+ '}'
 En_Value = STRING? value Aliases?
 
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
-ScalarDefinition = Scal_Number | Scal_String | Scalar_Union
+ScalarDefinition = Scal_Number | Scal_String | Scal_Union
 
 Scal_Number = 'Number' Scal_Range*
 Scal_String = 'String' Scal_Regex*
 Scal_Union = 'Union' Scal_Reference+
 
 Scal_Range = ':' '<'? NUMBER | NUMBER '>'? ':' ( '<'? NUMBER )?
-Scal_RegEx = REGEX '!'?
+Scal_Regex = REGEX '!'?
 Scal_Reference = '|' Simple
 
-# base definition
+// base definition
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
@@ -441,7 +442,8 @@ TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 InputParameters = '(' In_TypeDefault+ ')'
 
-In_Field = STRING? field fieldAlias* ':' In_Type Modifiers? Default?
+In_Field = STRING? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = In_Type Modifiers? Default?
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
