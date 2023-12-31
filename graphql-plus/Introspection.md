@@ -7,16 +7,16 @@ The `_Schema` output type is automatically defined as followed and can be used t
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter): _Categories[String]
-        directives(_Filter): _Directives[String]
-        types(_TypeFilter): _Type[String]
-        settings(_Filter): _Setting[String]
+        categories(_CategoryFilter?): _Categories[String]
+        directives(_Filter?): _Directives[String]
+        types(_TypeFilter?): _Type[String]
+        settings(_Filter?): _Setting[String]
     }
 
 input _Filter  {
         names: String[]
         includeReferencedTypes: Boolean = false
-    | "Names" String[]?
+    | "Names" String[]
     }
 
 input _CategoryFilter {
@@ -290,16 +290,16 @@ output _OutputEnum {
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter): _Categories[String]
-        directives(_Filter): _Directives[String]
-        types(_TypeFilter): _Type[String]
-        settings(_Filter): _Setting[String]
+        categories(_CategoryFilter?): _Categories[String]
+        directives(_Filter?): _Directives[String]
+        types(_TypeFilter?): _Type[String]
+        settings(_Filter?): _Setting[String]
     }
 
 input _Filter  {
         names: String[]
         includeReferencedTypes: Boolean = false
-    | "Names" String[]?
+    | "Names" String[]
     }
 
 input _CategoryFilter {
