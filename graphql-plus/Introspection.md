@@ -161,6 +161,12 @@ output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
         base: String?
         values: _Aliased[]
+        allValues: _EnumValue[]
+    }
+
+output _EnumValue {
+    : _Aliased
+        enum: String
     }
 ```
 
@@ -192,6 +198,10 @@ output _ScalarRange {
         toInclusive: Boolean
     }
 
+output _ScalarRange {
+    : _Range
+    }
+
 output _ScalarString {
     : _BaseScalar<_Scalar.String>
         regexes: _ScalarRegex[]
@@ -213,10 +223,13 @@ output _ScalarUnion {
 ```gqlp
 output _TypeObject<$kind $base $field> {
     : _BaseType<$kind>
-        typeParameters: _Named[]
         base: $base?
+        typeParameters: _Named[]
         fields: $field[]
         alternates: _Alternate<$base>[]
+        allTypeParameters: _Object<_Named>[]
+        allFields: _Object<$field>[]
+        allAlternates: _Object<Alternate<$base>>[]
     }
 
 output _Ref<$base> {
@@ -228,6 +241,11 @@ output _Ref<$base> {
 output _Alternate<$base> {
       type: _Ref<$base>
       collections: _Collection[]
+    }
+
+output _Object<$for> {
+    : $for
+        object: String
     }
 
 output _Field<$base> {
@@ -420,6 +438,12 @@ output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
         base: String?
         values: _Aliased[]
+        allValues: _EnumValue[]
+    }
+
+output _EnumValue {
+    : _Aliased
+        enum: String
     }
 
 enum _Scalar { Number String Union }
@@ -447,6 +471,10 @@ output _ScalarRange {
         toInclusive: Boolean
     }
 
+output _ScalarRange {
+    : _Range
+    }
+
 output _ScalarString {
     : _BaseScalar<_Scalar.String>
         regexes: _ScalarRegex[]
@@ -464,10 +492,13 @@ output _ScalarUnion {
 
 output _TypeObject<$kind $base $field> {
     : _BaseType<$kind>
-        typeParameters: _Named[]
         base: $base?
+        typeParameters: _Named[]
         fields: $field[]
         alternates: _Alternate<$base>[]
+        allTypeParameters: _Object<_Named>[]
+        allFields: _Object<$field>[]
+        allAlternates: _Object<Alternate<$base>>[]
     }
 
 output _Ref<$base> {
@@ -479,6 +510,11 @@ output _Ref<$base> {
 output _Alternate<$base> {
       type: _Ref<$base>
       collections: _Collection[]
+    }
+
+output _Object<$for> {
+    : $for
+        object: String
     }
 
 output _Field<$base> {

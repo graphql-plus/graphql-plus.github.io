@@ -215,13 +215,13 @@ Input and Output types are both Object Union types.
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' Obj_Type Modifiers?
+Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
-Obj_Argument = Obj_Reference
+Obj_Base = '$'typeParameter | object ( '<' Obj_Argument+ '>' )?
+Obj_Argument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 ```
@@ -430,13 +430,13 @@ Scal_Reference = '|' Simple
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field fieldAlias* ':' Obj_Type Modifiers?
+Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' STRING? Obj_Argument+ '>' )?
-Obj_Argument = Obj_Reference
+Obj_Base = '$'typeParameter | object ( '<' Obj_Argument+ '>' )?
+Obj_Argument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
