@@ -198,10 +198,6 @@ output _ScalarRange {
         toInclusive: Boolean
     }
 
-output _ScalarRange {
-    : _Range
-    }
-
 output _ScalarString {
     : _BaseScalar<_Scalar.String>
         regexes: _ScalarRegex[]
@@ -229,7 +225,7 @@ output _TypeObject<$kind $base $field> {
         alternates: _Alternate<$base>[]
         allTypeParameters: _Object<_Named>[]
         allFields: _Object<$field>[]
-        allAlternates: _Object<Alternate<$base>>[]
+        allAlternates: _Object<_Alternate<$base>>[]
     }
 
 output _Ref<$base> {
@@ -471,10 +467,6 @@ output _ScalarRange {
         toInclusive: Boolean
     }
 
-output _ScalarRange {
-    : _Range
-    }
-
 output _ScalarString {
     : _BaseScalar<_Scalar.String>
         regexes: _ScalarRegex[]
@@ -498,7 +490,7 @@ output _TypeObject<$kind $base $field> {
         alternates: _Alternate<$base>[]
         allTypeParameters: _Object<_Named>[]
         allFields: _Object<$field>[]
-        allAlternates: _Object<Alternate<$base>>[]
+        allAlternates: _Object<_Alternate<$base>>[]
     }
 
 output _Ref<$base> {
