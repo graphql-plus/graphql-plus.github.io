@@ -48,7 +48,7 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? value
+EnumValue = ( enum '.' )? member
 
 FieldKey = EnumValue | NUMBER | STRING
 
@@ -65,7 +65,7 @@ Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
 
 Defaults must match the Modifiers/Collections Type of the item the Default is on.
 
-An Enum Value reference may drop the Enum portion if the Value is unique.
+An Enum Value may drop the Enum portion if the Member is unique.
 Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and (`Unit.`)`_`.
 
 `Boolean`, `Null`, `Unit` and `Void` are all Enum types.
@@ -145,7 +145,7 @@ If a Constant Object FieldKey appears more than once, all the values will be mer
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? value
+EnumValue = ( enum '.' )? member
 
 FieldKey = EnumValue | NUMBER | STRING
 

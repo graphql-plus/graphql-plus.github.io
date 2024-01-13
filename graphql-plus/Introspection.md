@@ -51,7 +51,7 @@ output _Categories {
 output _Category {
     : _Aliased
         resolution: _Resolution
-        output: String
+        output: _TypeRef<_TypeKind.Output>
         modifiers: _Modifier[]
     }
 
@@ -103,12 +103,19 @@ output _BaseType<$kind> {
         kind: $kind
     }
 
-enum _TypeKind { Basic Enum Internal Input Output Scalar }
+enum _SimpleKind { Basic Enum Internal Scalar }
+
+enum _TypeKind { : _SimpleKind Input Output }
+
+output _TypeRef<$kind> {
+        kind: $kind
+        name: String
+}
 
 output _TypeSimple {
-    | _BaseType<_TypeKind.Basic>
-    | _BaseType<_TypeKind.Scalar>
-    | _BaseType<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Basic>
+    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Enum>
     }
 ```
 
@@ -116,20 +123,26 @@ output _TypeSimple {
 
 ```gqlp
 output _Constant {
-        enum: _BaseType<_TypeKind.Enum>
-        value: String
-    | Internal
-    | Simple
+    | _Simple
     | _ConstantList
     | _ConstantMap
     }
+
+output _Simple {
+    | Boolean
+    | String
+    | Number
+    | _ScalarValue<_Scalar.String String>
+    | _ScalarValue<_Scalar.Number Number>
+    | _EnumValue
+}
 
 output _ConstantList {
     | _Constant[]
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Simple]
     }
 
 output _Collection {
@@ -159,14 +172,19 @@ output _ModifierDictionary {
 ```gqlp
 output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        base: String?
-        values: _Aliased[]
-        allValues: _EnumValue[]
+        base: _TypeRef<_TypeKind.Enum>?
+        members: _Aliased[]
+        allMembers: _EnumMember[]
+    }
+
+output _EnumMember {
+    : _Aliased
+        enum: String
     }
 
 output _EnumValue {
-    : _Aliased
-        enum: String
+    : _TypeRef<_TypeKind.Enum>
+        value: String
     }
 ```
 
@@ -181,9 +199,14 @@ output _TypeScalar {
     | _ScalarUnion
     }
 
+output _ScalarRef<$base> {
+    : _TypeRef<_TypeKind.Scalar>
+        scalar: $base
+    }
+
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        base: $base
+        base: _ScalarRef<$base>
     }
 
 output _ScalarNumber {
@@ -212,6 +235,11 @@ output _ScalarUnion {
     : _BaseScalar<_Scalar.Union>
         references: _TypeSimple[]
     }
+
+output _ScalarValue<$base $value> {
+    : _ScalarRef<$base>
+        value: $value
+}
 ```
 
 ## Object Union type
@@ -344,7 +372,7 @@ output _Categories {
 output _Category {
     : _Aliased
         resolution: _Resolution
-        output: String
+        output: _TypeRef<_TypeKind.Output>
         modifiers: _Modifier[]
     }
 
@@ -384,29 +412,42 @@ output _BaseType<$kind> {
         kind: $kind
     }
 
-enum _TypeKind { Basic Enum Internal Input Output Scalar }
+enum _SimpleKind { Basic Enum Internal Scalar }
+
+enum _TypeKind { : _SimpleKind Input Output }
+
+output _TypeRef<$kind> {
+        kind: $kind
+        name: String
+}
 
 output _TypeSimple {
-    | _BaseType<_TypeKind.Basic>
-    | _BaseType<_TypeKind.Scalar>
-    | _BaseType<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Basic>
+    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _Constant {
-        enum: _BaseType<_TypeKind.Enum>
-        value: String
-    | Internal
-    | Simple
+    | _Simple
     | _ConstantList
     | _ConstantMap
     }
+
+output _Simple {
+    | Boolean
+    | String
+    | Number
+    | _ScalarValue<_Scalar.String String>
+    | _ScalarValue<_Scalar.Number Number>
+    | _EnumValue
+}
 
 output _ConstantList {
     | _Constant[]
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Simple]
     }
 
 output _Collection {
@@ -432,14 +473,19 @@ output _ModifierDictionary {
 
 output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        base: String?
-        values: _Aliased[]
-        allValues: _EnumValue[]
+        base: _TypeRef<_TypeKind.Enum>?
+        members: _Aliased[]
+        allMembers: _EnumMember[]
+    }
+
+output _EnumMember {
+    : _Aliased
+        enum: String
     }
 
 output _EnumValue {
-    : _Aliased
-        enum: String
+    : _TypeRef<_TypeKind.Enum>
+        value: String
     }
 
 enum _Scalar { Number String Union }
@@ -450,9 +496,14 @@ output _TypeScalar {
     | _ScalarUnion
     }
 
+output _ScalarRef<$base> {
+    : _TypeRef<_TypeKind.Scalar>
+        scalar: $base
+    }
+
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        base: $base
+        base: _ScalarRef<$base>
     }
 
 output _ScalarNumber {
@@ -481,6 +532,11 @@ output _ScalarUnion {
     : _BaseScalar<_Scalar.Union>
         references: _TypeSimple[]
     }
+
+output _ScalarValue<$base $value> {
+    : _ScalarRef<$base>
+        value: $value
+}
 
 output _TypeObject<$kind $base $field> {
     : _BaseType<$kind>

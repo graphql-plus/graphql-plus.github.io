@@ -170,18 +170,18 @@ The internal types `_Scalar`, `_Output`, `_Input` and `_Enum` are automatically 
 ## Enum type
 
 ```PEG
-Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Value+ '}'
-En_Value = STRING? value Aliases?
+Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Member+ '}'
+En_Member = STRING? member Aliases?
 ```
 
-An Enum is a Type defined with one or more Values.
+An Enum is a Type defined with one or more Members.
 
-Each Value can be preceded by a documentation string and may have one or more Aliases.
+Each Member can be preceded by a documentation string and may have one or more Aliases.
 
-An Enum can extend another Enum, called it's base Enum, and it's Values are merged into the base Enum's Values.
-An Enum cannot be based on itself, recursively.
+An Enum can extend another Enum, called it's base Enum, and it's Members are merged into the base Enum's Members.
+An Enum cannot be based on itself, even recursively.
 
-Enums can be merged if their base Enums match and their Values can be merged.
+Enums can be merged if their base Enums match and their Members can be merged.
 
 ## Scalar type
 
@@ -412,8 +412,8 @@ Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
 Simple_ReDef = Basic | scalar | enum  // Redefined Simple
 
-Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Value+ '}'
-En_Value = STRING? value Aliases?
+Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Member+ '}'
+En_Member = STRING? member Aliases?
 
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
 ScalarDefinition = Scal_Number | Scal_String | Scal_Union

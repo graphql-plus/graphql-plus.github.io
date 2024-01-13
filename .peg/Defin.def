@@ -1,5 +1,5 @@
 enum = ID
-value = ID
+member = ID
 
 NUMBER = [-+]? [0-9_]+ ( '.' [0-9_]+ )?
 
