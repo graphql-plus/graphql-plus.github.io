@@ -130,10 +130,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | String
-    | Number
-    | _ScalarValue<_Scalar.String String>
     | _ScalarValue<_Scalar.Number Number>
+    | _ScalarValue<_Scalar.String String>
     | _EnumValue
 }
 
@@ -142,7 +140,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[_Simple]
+    | _Constant[Simple]
     }
 
 output _Collection {
@@ -435,10 +433,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | String
-    | Number
-    | _ScalarValue<_Scalar.String String>
     | _ScalarValue<_Scalar.Number Number>
+    | _ScalarValue<_Scalar.String String>
     | _EnumValue
 }
 
@@ -447,7 +443,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[_Simple]
+    | _Constant[Simple]
     }
 
 output _Collection {

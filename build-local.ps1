@@ -1,2 +1,2 @@
 dotnet tool restore
-dotnet tool run docfx -s
+dotnet tool run docfx -s -p 8765
