@@ -178,10 +178,10 @@ An Enum is a Type defined with one or more Members.
 
 Each Member can be preceded by a documentation string and may have one or more Aliases.
 
-An Enum can extend another Enum, called it's base Enum, and it's Members are merged into the base Enum's Members.
-An Enum cannot be based on itself, even recursively.
+An Enum can extend another Enum, and it's Members are merged into the extended Enum's Members.
+An Enum cannot extend itself, even recursively.
 
-Enums can be merged if their base Enums match and their Members can be merged.
+Enums can be merged if their extended Enums match and their Members can be merged.
 
 ## Scalar type
 
@@ -240,21 +240,21 @@ Alternates may include Collections, but not nullability.
 An object Type reference may be an Internal, Simple or another object Type.
 If an object Type it may have Type Arguments of object Type references.
 
-An object is defined with an optional base Type and has one or more Fields.
-An object most not be based on itself, recursively.
+An object is defined with an optional extended Type and has one or more Fields.
+An object can not extend itself, even recursively.
 
 A Field is defined with at least:
 
 - an optional documentation string,
 - a Field name
 - zero or more Field Aliases
-- a type parameter or object type references, the Field's base Type
+- a type parameter or object type references, the Field's Type
 - zero or more Modifiers
 
-Field names and Field Aliases must be unique within the object, including any base object.
+Field names and Field Aliases must be unique within the object, including any extended object.
 Explicit Field names will override the same name being used as a Field Alias.
 
-Object Unions can be merged if their base Types match and their Fields and Alternates can both be merged.
+Object Unions can be merged if their extended Types match and their Fields and Alternates can both be merged.
 
 Fields can be merged if their Modified Types match.
 

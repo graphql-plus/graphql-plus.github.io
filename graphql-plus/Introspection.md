@@ -170,7 +170,7 @@ output _ModifierDictionary {
 ```gqlp
 output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        base: _TypeRef<_TypeKind.Enum>?
+        extends: _TypeRef<_TypeKind.Enum>?
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
@@ -204,7 +204,7 @@ output _ScalarRef<$base> {
 
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        base: _ScalarRef<$base>
+        extends: _ScalarRef<$base>
     }
 
 output _ScalarNumber {
@@ -245,7 +245,7 @@ output _ScalarValue<$base $value> {
 ```gqlp
 output _TypeObject<$kind $base $field> {
     : _BaseType<$kind>
-        base: $base?
+        extends: $base?
         typeParameters: _Named[]
         fields: $field[]
         alternates: _Alternate<$base>[]
@@ -469,7 +469,7 @@ output _ModifierDictionary {
 
 output _TypeEnum {
     : _BaseType<_TypeKind.Enum>
-        base: _TypeRef<_TypeKind.Enum>?
+        extends: _TypeRef<_TypeKind.Enum>?
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
@@ -499,7 +499,7 @@ output _ScalarRef<$base> {
 
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        base: _ScalarRef<$base>
+        extends: _ScalarRef<$base>
     }
 
 output _ScalarNumber {
@@ -536,7 +536,7 @@ output _ScalarValue<$base $value> {
 
 output _TypeObject<$kind $base $field> {
     : _BaseType<$kind>
-        base: $base?
+        extends: $base?
         typeParameters: _Named[]
         fields: $field[]
         alternates: _Alternate<$base>[]
