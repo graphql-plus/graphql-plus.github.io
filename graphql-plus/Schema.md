@@ -187,24 +187,32 @@ Enums can be merged if their extended Enums match and their Members can be merge
 
 ```PEG
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
-ScalarDefinition = Scal_Number | Scal_String | Scal_Union
+ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Number = 'Number' Scal_Range*
-Scal_String = 'String' Scal_Regex*
-Scal_Union = 'Union' Scal_Reference+
+Scal_Boolean = 'Boolean' ( ':' scalar )?
+Scal_Enum = 'Enum' ( ':' scalar )? enum Scal_Member*
+Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
+Scal_String = 'String' ( ':' scalar )? Scal_Regex*
+Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
-Scal_Range = ':' '<'? NUMBER | NUMBER '>'? ':' ( '<'? NUMBER )?
+Scal_Member = Scal_MemberRange '!'?
+Scal_MemberRange = '~' '<'? member | member ( '>'? '~' ( '<'? member )? )?
+Scal_Num = Scal_NumRange '!'?
+Scal_NumRange = '~' '<'? NUMBER | NUMBER ( '>'? '~' ( '<'? NUMBER )? )?
 Scal_Regex = REGEX '!'?
 Scal_Reference = '|' Simple
 ```
 
 Scalar types define specific domains of the following kinds:
 
-- Numbers, possibly only those in a given range. Ranges may be upper and/or lower bounded and each bound may be inclusive or exclusive.
-- Strings, possibly only those that match (or don't match) one or more regular expressions.
+- Enum, which is based on a specific Enum type, but limited to only those members in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and each bound may be inclusive or exclusive.
+- Number, comprising only those numbers in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and each bound may be inclusive or exclusive.
+- Strings, comprising only those strings that match (or don't match) one or more regular expressions.
 - Union of one or more Simple types. A Scalar Union must not include itself, recursively.
 
-Scalar declarations can be merged if their kinds match and their Ranges or Regexes can be merged.
+A Scalar can extend another Scalar of the same Kind and it's Ranges or Regexes are merged into the extended Scalars ones.
+
+Scalar declarations can be merged if their Kinds, extended Scalars and, if of the Enum Kind, base Enums match and their Ranges or Regexes can be merged.
 
 ## Object Union types
 
@@ -416,13 +424,18 @@ Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
-ScalarDefinition = Scal_Number | Scal_String | Scal_Union
+ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Number = 'Number' Scal_Range*
-Scal_String = 'String' Scal_Regex*
-Scal_Union = 'Union' Scal_Reference+
+Scal_Boolean = 'Boolean' ( ':' scalar )?
+Scal_Enum = 'Enum' ( ':' scalar )? enum Scal_Member*
+Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
+Scal_String = 'String' ( ':' scalar )? Scal_Regex*
+Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
-Scal_Range = ':' '<'? NUMBER | NUMBER '>'? ':' ( '<'? NUMBER )?
+Scal_Member = Scal_MemberRange '!'?
+Scal_MemberRange = '~' '<'? member | member ( '>'? '~' ( '<'? member )? )?
+Scal_Num = Scal_NumRange '!'?
+Scal_NumRange = '~' '<'? NUMBER | NUMBER ( '>'? '~' ( '<'? NUMBER )? )?
 Scal_Regex = REGEX '!'?
 Scal_Reference = '|' Simple
 

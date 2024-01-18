@@ -189,9 +189,11 @@ output _EnumValue {
 ## Scalar type
 
 ```gqlp
-enum _Scalar { Number String Union }
+enum _Scalar { Boolean Enum Number String Union }
 
 output _TypeScalar {
+    | _ScalarBoolean
+    | _ScalarEnum
     | _ScalarNumber
     | _ScalarString
     | _ScalarUnion
@@ -204,15 +206,38 @@ output _ScalarRef<$base> {
 
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        extends: _ScalarRef<$base>
+        extends: _ScalarRef<$base>?
+    }
+
+output _BaseScalarItem {
+        exclude: Boolean
+    }
+
+output _ScalarBoolean {
+    : _BaseScalar<_Scalar.Boolean>
+    }
+
+output _ScalarEnum {
+    : _BaseScalar<_Scalar.Enum>
+        enum: _TypeRef<_TypeKind.Enum>
+        ranges: _ScalarEnumRange[]
+    }
+
+output _ScalarEnumRange {
+    : _BaseScalarItem
+        from: _EnumValue?
+        fromInclusive: Boolean
+        to: _EnumValue?
+        toInclusive: Boolean
     }
 
 output _ScalarNumber {
     : _BaseScalar<_Scalar.Number>
-        ranges: _ScalarRange[]
+        ranges: _ScalarNumRange[]
     }
 
-output _ScalarRange {
+output _ScalarNumRange {
+    : _BaseScalarItem
         from: Number?
         fromInclusive: Boolean
         to: Number?
@@ -225,8 +250,8 @@ output _ScalarString {
     }
 
 output _ScalarRegex {
+    : _BaseScalarItem
         regex: String
-        exclude: Boolean
     }
 
 output _ScalarUnion {
@@ -484,9 +509,11 @@ output _EnumValue {
         value: String
     }
 
-enum _Scalar { Number String Union }
+enum _Scalar { Boolean Enum Number String Union }
 
 output _TypeScalar {
+    | _ScalarBoolean
+    | _ScalarEnum
     | _ScalarNumber
     | _ScalarString
     | _ScalarUnion
@@ -499,15 +526,38 @@ output _ScalarRef<$base> {
 
 output _BaseScalar<$base> {
     : _BaseType<_TypeKind.Scalar>
-        extends: _ScalarRef<$base>
+        extends: _ScalarRef<$base>?
+    }
+
+output _BaseScalarItem {
+        exclude: Boolean
+    }
+
+output _ScalarBoolean {
+    : _BaseScalar<_Scalar.Boolean>
+    }
+
+output _ScalarEnum {
+    : _BaseScalar<_Scalar.Enum>
+        enum: _TypeRef<_TypeKind.Enum>
+        ranges: _ScalarEnumRange[]
+    }
+
+output _ScalarEnumRange {
+    : _BaseScalarItem
+        from: _EnumValue?
+        fromInclusive: Boolean
+        to: _EnumValue?
+        toInclusive: Boolean
     }
 
 output _ScalarNumber {
     : _BaseScalar<_Scalar.Number>
-        ranges: _ScalarRange[]
+        ranges: _ScalarNumRange[]
     }
 
-output _ScalarRange {
+output _ScalarNumRange {
+    : _BaseScalarItem
         from: Number?
         fromInclusive: Boolean
         to: Number?
@@ -520,8 +570,8 @@ output _ScalarString {
     }
 
 output _ScalarRegex {
+    : _BaseScalarItem
         regex: String
-        exclude: Boolean
     }
 
 output _ScalarUnion {
