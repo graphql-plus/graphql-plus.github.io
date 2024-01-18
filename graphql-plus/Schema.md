@@ -133,7 +133,7 @@ The above types from [Definition](Definition.md) are redefined for Schemas
 Boolean, Null, Unit and Void are effectively enum types as follows:
 
 ```gqlp
-enum Boolean [~] { true false }
+enum Boolean [bool, ^] { true false }
 
 enum Null [null] { null }
 
@@ -145,9 +145,9 @@ enum Void { }  // no valid value
 Number and String are effectively scalar types as follows:
 
 ```gqlp
-scalar Number [0] { Number }
+scalar Number [int, 0] { Number }
 
-scalar String [*] { String }
+scalar String [str, *] { String }
 ```
 
 Object is a general Dictionary as follows:
@@ -195,18 +195,18 @@ Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
 Scal_String = 'String' ( ':' scalar )? Scal_Regex*
 Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
-Scal_Member = Scal_MemberRange '!'?
-Scal_MemberRange = '~' '<'? member | member ( '>'? '~' ( '<'? member )? )?
-Scal_Num = Scal_NumRange '!'?
-Scal_NumRange = '~' '<'? NUMBER | NUMBER ( '>'? '~' ( '<'? NUMBER )? )?
-Scal_Regex = REGEX '!'?
+Scal_Member = '!'? Scal_MemberRange
+Scal_MemberRange = '~' member | member ( '~' ( member )? )?
+Scal_Num = '!'? Scal_NumRange
+Scal_NumRange = '~' NUMBER | NUMBER ( '~' ( NUMBER )? )?
+Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 ```
 
 Scalar types define specific domains of the following kinds:
 
-- Enum, which is based on a specific Enum type, but limited to only those members in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and each bound may be inclusive or exclusive.
-- Number, comprising only those numbers in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and each bound may be inclusive or exclusive.
+- Enum, which is based on a specific Enum type, but limited to only those members in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and are inclusive of those bounds.
+- Number, comprising only those numbers in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and are inclusive of those bounds.
 - Strings, comprising only those strings that match (or don't match) one or more regular expressions.
 - Union of one or more Simple types. A Scalar Union must not include itself, recursively.
 
@@ -432,11 +432,11 @@ Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
 Scal_String = 'String' ( ':' scalar )? Scal_Regex*
 Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
-Scal_Member = Scal_MemberRange '!'?
-Scal_MemberRange = '~' '<'? member | member ( '>'? '~' ( '<'? member )? )?
-Scal_Num = Scal_NumRange '!'?
-Scal_NumRange = '~' '<'? NUMBER | NUMBER ( '>'? '~' ( '<'? NUMBER )? )?
-Scal_Regex = REGEX '!'?
+Scal_Member = '!'? Scal_MemberRange
+Scal_MemberRange = '~' member | member ( '~' ( member )? )?
+Scal_Num = '!'? Scal_NumRange
+Scal_NumRange = '~' NUMBER | NUMBER ( '~' ( NUMBER )? )?
+Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 
 // base definition
