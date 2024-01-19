@@ -196,9 +196,9 @@ Scal_String = 'String' ( ':' scalar )? Scal_Regex*
 Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
 Scal_Member = '!'? Scal_MemberRange
-Scal_MemberRange = '~' member | member ( '~' ( member )? )?
+Scal_MemberRange = '<' member | member ( '~' member )? | member '>'
 Scal_Num = '!'? Scal_NumRange
-Scal_NumRange = '~' NUMBER | NUMBER ( '~' ( NUMBER )? )?
+Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 ```
@@ -433,9 +433,9 @@ Scal_String = 'String' ( ':' scalar )? Scal_Regex*
 Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
 
 Scal_Member = '!'? Scal_MemberRange
-Scal_MemberRange = '~' member | member ( '~' ( member )? )?
+Scal_MemberRange = '<' member | member ( '~' member )? | member '>'
 Scal_Num = '!'? Scal_NumRange
-Scal_NumRange = '~' NUMBER | NUMBER ( '~' ( NUMBER )? )?
+Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 
