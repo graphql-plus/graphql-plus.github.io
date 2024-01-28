@@ -4,6 +4,7 @@ output = ID
 directive = ID
 name = ID
 setting = ID
+parent = ID
 scalar = ID
 object = ID
 field = ID

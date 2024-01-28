@@ -115,6 +115,14 @@ Most declarations define a Type.
 The names and Aliases of all Types must be unique across all kinds of Types within the Schema.
 Merging of Types is only possible if the kinds match.
 
+All Types may specify another Type of the same Kind that they extend.
+Child (Extending) Types merge in the definition of the Parent (Extended) Type.
+A Type cannot extend itself, even recursively.
+
+```PEG
+Parent = ':' parent
+```
+
 ### Built-In types
 
 ```PEG
@@ -170,7 +178,7 @@ The internal types `_Scalar`, `_Output`, `_Input` and `_Enum` are automatically 
 ## Enum type
 
 ```PEG
-Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Member+ '}'
+Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 ```
 
@@ -178,26 +186,25 @@ An Enum is a Type defined with one or more Members.
 
 Each Member can be preceded by a documentation string and may have one or more Aliases.
 
-An Enum can extend another Enum, and it's Members are merged into the extended Enum's Members.
-An Enum cannot extend itself, even recursively.
+A child Enum's Members are merged with the parent's Members.
 
-Enums can be merged if their extended Enums match and their Members can be merged.
+Enums can be merged if their parents match and their Members can be merged.
 
 ## Scalar type
 
 Scalar type definitions are of the following general form:
 
-> `Kind ( ':' Extends )? Item*`
+> `Kind Parent? Item*`
 
 ```PEG
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean' ( ':' scalar )?
-Scal_Enum = 'Enum' ( ':' scalar )? Scal_Member*
-Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
-Scal_String = 'String' ( ':' scalar )? Scal_Regex*
-Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
+Scal_Boolean = 'Boolean' Parent?
+Scal_Enum = 'Enum' Parent? Scal_Member*
+Scal_Number = 'Number' Parent? Scal_Num*
+Scal_String = 'String' Parent? Scal_Regex*
+Scal_Union = 'Union' Parent? Scal_Reference+
 
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
@@ -214,11 +221,11 @@ Scalar types define specific domains of the following kinds:
 - Strings, comprising only those strings that match (or don't match) one or more regular expressions.
 - Union of one or more Simple types. A Scalar Union must not include itself, recursively.
 
-A Scalar can extend another Scalar of the same Kind and it's Items are merged into the extended Scalars ones.
+A child Scalar's Items are merged into the parent's Items.
 
 Item exclusions take precedence over inclusions and Enum scalars must contain only unique members after merging.
 
-Scalar declarations can be merged if their Kinds and extended Scalars match and their Items can be merged.
+Scalar declarations can be merged if their Kinds and parents match and their Items can be merged.
 
 ## Object Union types
 
@@ -248,14 +255,13 @@ An Object Union type is defined as either:
 - one or more Alternate object Type references
 
 The order of Alternates is significant.
-An Alternate must not include itself, recursively.
+An Alternate must not reference itself, even recursively.
 Alternates may include Collections, but not nullability.
 
 An object Type reference may be an Internal, Simple or another object Type.
 If an object Type it may have Type Arguments of object Type references.
 
-An object is defined with an optional extended Type and has one or more Fields.
-An object can not extend itself, even recursively.
+A object is defined with an optional Parent Type and has one or more Fields.
 
 A Field is defined with at least:
 
@@ -265,10 +271,12 @@ A Field is defined with at least:
 - a type parameter or object type references, the Field's Type
 - zero or more Modifiers
 
-Field names and Field Aliases must be unique within the object, including any extended object.
+Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
-Object Unions can be merged if their extended Types match and their Fields and Alternates can both be merged.
+A child Object Union's Fields and Alternates are merged with the parent's.
+
+Object Unions can be merged if their parent Types match and their Fields and Alternates can both be merged.
 
 Fields can be merged if their Modified Types match.
 
@@ -422,21 +430,23 @@ Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragm
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = STRING? setting Default
 
+Parent = ':' parent
+
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
 Simple_ReDef = Basic | scalar | enum  // Redefined Simple
 
-Enum = 'enum' enum Aliases? '{' ( ':' enum )? En_Member+ '}'
+Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
 Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean' ( ':' scalar )?
-Scal_Enum = 'Enum' ( ':' scalar )? Scal_Member*
-Scal_Number = 'Number' ( ':' scalar )? Scal_Num*
-Scal_String = 'String' ( ':' scalar )? Scal_Regex*
-Scal_Union = 'Union' ( ':' scalar )? Scal_Reference+
+Scal_Boolean = 'Boolean' Parent?
+Scal_Enum = 'Enum' Parent? Scal_Member*
+Scal_Number = 'Number' Parent? Scal_Num*
+Scal_String = 'String' Parent? Scal_Regex*
+Scal_Union = 'Union' Parent? Scal_Reference+
 
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange

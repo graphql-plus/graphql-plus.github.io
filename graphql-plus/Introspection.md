@@ -30,13 +30,17 @@ input _TypeFilter {
     }
 
 output _Aliased {
-    : _Named
+    : _Described<_Named>
         aliases: String[]
+    }
+
+output _Described<$base> {
+    : $base
+        description: String?
     }
 
 output _Named {
         name: String
-        description: String?
     }
 ```
 
@@ -81,7 +85,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```gqlp
 output _Setting {
-    : _Named
+    : _Described<_Named>
         value: _Constant
 }
 ```
@@ -101,6 +105,11 @@ output _Type {
 output _BaseType<$kind> {
     : _Aliased
         kind: $kind
+    }
+
+output _ChildType<$kind $parent> {
+    : _BaseType<$kind>
+        parent: $parent
     }
 
 enum _SimpleKind { Basic Enum Internal Scalar }
@@ -169,8 +178,7 @@ output _ModifierDictionary {
 
 ```gqlp
 output _TypeEnum {
-    : _BaseType<_TypeKind.Enum>
-        extends: _TypeRef<_TypeKind.Enum>?
+    : _ChildType<_TypeKind.Enum String>
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
@@ -199,14 +207,14 @@ output _TypeScalar {
     | _BaseScalar<_Scalar.Union _TypeSimple>
     }
 
-output _ScalarRef<$base> {
+output _ScalarRef<$kind> {
     : _TypeRef<_TypeKind.Scalar>
-        scalar: $base
+        scalar: $kind
     }
 
-output _BaseScalar<$base $item> {
-    : _BaseType<_TypeKind.Scalar>
-        extends: _ScalarRef<$base>?
+output _BaseScalar<$kind $item> {
+    : _ChildType<_TypeKind.Scalar String>
+        scalar: $kind
         items: $item[]
         allItems: _ScalarItem<$item>[]
     }
@@ -239,8 +247,8 @@ output _ScalarItem<$item> {
         scalar: String
     }
 
-output _ScalarValue<$base $value> {
-    : _ScalarRef<$base>
+output _ScalarValue<$kind $value> {
+    : _ScalarRef<$kind>
         value: $value
     }
 ```
@@ -249,12 +257,11 @@ output _ScalarValue<$base $value> {
 
 ```gqlp
 output _TypeObject<$kind $base $field> {
-    : _BaseType<$kind>
-        extends: $base?
-        typeParameters: _Named[]
+    : _ChildType<$kind _Described<$base>>
+        typeParameters: _Described<_Named>[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allTypeParameters: _Object<_Named>[]
+        allTypeParameters: _Object<_Described<_Named>>[]
         allFields: _Object<$field>[]
         allAlternates: _Object<_Alternate<$base>>[]
     }
@@ -318,13 +325,13 @@ output _OutputField {
     }
 
 output _OutputArgument {
-    : _BaseType<_TypeKind.Enum>
+    : _TypeRef<_TypeKind.Enum>
         value: String
     | _Ref<_OutputBase>
     }
 
 output _OutputEnum {
-    : _BaseType<_TypeKind.Enum>
+    : _TypeRef<_TypeKind.Enum>
         field: String
         value: String
     }
@@ -358,13 +365,17 @@ input _TypeFilter {
     }
 
 output _Aliased {
-    : _Named
+    : _Described<_Named>
         aliases: String[]
+    }
+
+output _Described<$base> {
+    : $base
+        description: String?
     }
 
 output _Named {
         name: String
-        description: String?
     }
 
 output _Categories {
@@ -397,7 +408,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
 output _Setting {
-    : _Named
+    : _Described<_Named>
         value: _Constant
 }
 
@@ -413,6 +424,11 @@ output _Type {
 output _BaseType<$kind> {
     : _Aliased
         kind: $kind
+    }
+
+output _ChildType<$kind $parent> {
+    : _BaseType<$kind>
+        parent: $parent
     }
 
 enum _SimpleKind { Basic Enum Internal Scalar }
@@ -473,8 +489,7 @@ output _ModifierDictionary {
     }
 
 output _TypeEnum {
-    : _BaseType<_TypeKind.Enum>
-        extends: _TypeRef<_TypeKind.Enum>?
+    : _ChildType<_TypeKind.Enum String>
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
@@ -499,14 +514,14 @@ output _TypeScalar {
     | _BaseScalar<_Scalar.Union _TypeSimple>
     }
 
-output _ScalarRef<$base> {
+output _ScalarRef<$kind> {
     : _TypeRef<_TypeKind.Scalar>
-        scalar: $base
+        scalar: $kind
     }
 
-output _BaseScalar<$base $item> {
-    : _BaseType<_TypeKind.Scalar>
-        extends: _ScalarRef<$base>?
+output _BaseScalar<$kind $item> {
+    : _ChildType<_TypeKind.Scalar String>
+        scalar: $kind
         items: $item[]
         allItems: _ScalarItem<$item>[]
     }
@@ -539,18 +554,17 @@ output _ScalarItem<$item> {
         scalar: String
     }
 
-output _ScalarValue<$base $value> {
-    : _ScalarRef<$base>
+output _ScalarValue<$kind $value> {
+    : _ScalarRef<$kind>
         value: $value
     }
 
 output _TypeObject<$kind $base $field> {
-    : _BaseType<$kind>
-        extends: $base?
-        typeParameters: _Named[]
+    : _ChildType<$kind _Described<$base>>
+        typeParameters: _Described<_Named>[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allTypeParameters: _Object<_Named>[]
+        allTypeParameters: _Object<_Described<_Named>>[]
         allFields: _Object<$field>[]
         allAlternates: _Object<_Alternate<$base>>[]
     }
@@ -606,13 +620,13 @@ output _OutputField {
     }
 
 output _OutputArgument {
-    : _BaseType<_TypeKind.Enum>
+    : _TypeRef<_TypeKind.Enum>
         value: String
     | _Ref<_OutputBase>
     }
 
 output _OutputEnum {
-    : _BaseType<_TypeKind.Enum>
+    : _TypeRef<_TypeKind.Enum>
         field: String
         value: String
     }
