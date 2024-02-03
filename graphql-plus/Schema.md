@@ -63,7 +63,8 @@ Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modi
 Cat_Option = 'parallel' | 'sequential' | 'single'
 ```
 
-A Category is a set of fields defined by an Output type.
+A Category is a set of fields defined by an Output type with zero or more Modifiers.
+A Category's output type must not be a Generic type.
 
 A Category has a default name of the Output type name with the first character changed to lowercase.
 
@@ -215,11 +216,24 @@ Scal_Reference = '|' Simple
 
 Scalar types define specific domains of the following kinds:
 
-- Boolean, comprising only the values true and false.
-- Enum, comprising only those enum values explicitly included, or excluded. All enum values of an enum type can also be included.
-- Number, comprising only those numbers in (or out) of a given range or specific value. Ranges may be upper and/or lower bounded and are inclusive of those bounds.
-- Strings, comprising only those strings that match (or don't match) one or more regular expressions.
-- Union of one or more Simple types. A Scalar Union must not include itself, recursively.
+<dl compact=true>
+<dt>Boolean</dt>
+<dd>comprising only the values true and false.</dd>
+<dt>Enum</dt>
+<dd>comprising only those enum Values explicitly included (or excluded).<br/>
+All enum values of an enum type can also be included.<br/>
+Enum values can be merged if their type and inclusion/exclusion matches.</dd>
+<dt>Number</dt>
+<dd>comprising only those numbers in (or out) of a given Range or specific value.<br/>
+Ranges may be upper and/or lower bounded and are inclusive of those bounds.<br/>
+Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.</dd>
+<dt>String</dt>
+<dd>comprising only those strings that match (or don't match) one or more Regular expressions.<br/>
+Regular expressions can only be merged if their inclusion/exclusion matches.</dd>
+<dt>Union</dt>
+<dd>comprising one or more Simple types.<br/>
+A Scalar Union must not include itself, even recursively.</dd>
+</dl>
 
 A child Scalar's Items are merged into the parent's Items.
 
@@ -241,13 +255,17 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_Argument+ '>' )?
-Obj_Argument = STRING? Obj_Reference
+Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
+Obj_TypeArgument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 ```
 
-Type parameters can be defined on Object union types. Each parameter can be preceded by a documentation string.
+An Object Union type may have Type parameters.
+Each Type parameter can be preceded by a documentation string.
+An Object Union type with Type parameters is called a Generic type.
+A reference to a Generic type must include the correct number of Type arguments.
+Generic Type references match if all their Type arguments match, recursively.
 
 An Object Union type is defined as either:
 
@@ -384,7 +402,7 @@ Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Argument = Out_Reference | EnumValue
+Out_TypeArgument = Out_Reference | EnumValue
 ```
 
 Output types define the result values for Categories and Output fields.
@@ -463,8 +481,8 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Reference = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_Argument+ '>' )?
-Obj_Argument = STRING? Obj_Reference
+Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
+Obj_TypeArgument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
@@ -477,6 +495,6 @@ Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Argument = Out_Reference | EnumValue
+Out_TypeArgument = Out_Reference | EnumValue
 
 ```
