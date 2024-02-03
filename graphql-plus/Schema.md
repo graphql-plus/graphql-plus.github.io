@@ -163,16 +163,23 @@ Object is a general Dictionary as follows:
 
 ```gqlp
 "%"
-input|output _Object [Object,%] { : _Map<Any> } // recursive
+input|output _Object [Object, obj, %] { : _Map<Any> } // recursive
 
 input|output _Most<$T> [Most] { $T | Object | _Most<$T>? | _Most<$T>[] | _Most<$T>[Simple] | _Most<$T>[Simple?] } // recursive! not in _Input or _Output
 
 input _Any [Any] { : _Most<_Input> } // not in _Input
 output _Any [Any] { : _Most<_Output> } // not in _Output
-scalar _Any [Any] { | Basic | Internal | _Enum | _Scalar } // not in _Scalar
+scalar _Any [Any] { Union | Basic | Internal | _Enum | _Scalar } // not in _Scalar
 ```
 
-The internal types `_Scalar`, `_Output`, `_Input` and `_Enum` are automatically defined to be a union of all Scalar, Output, Input and Enum types respectively.
+The internal types `_Scalar [Scalar]`, `_Output [Output]`, `_Input [Input]` and `_Enum [Enum]` are automatically defined to be a union of all user defined Scalar, Output, Input and Enum types respectively, as follows:
+
+```gqlp
+scalar _Scalar [Scalar] { Union } // All user defined Scalar types
+scalar _Enum [Enum] { Union } // All user defined Enum types
+input _Input [Input] { } // All user defined Input types
+output _Output [Output] { } // All user defined Output types
+```
 
 </details>
 
@@ -214,36 +221,52 @@ Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 ```
 
-Scalar types define specific domains of the following kinds:
+Scalar types define specific domains of the following kinds, each with different Item definitions:
 
-<dl compact=true>
-<dt>Boolean</dt>
-<dd>comprising only the values true and false.</dd>
-<dt>Enum</dt>
-<dd>comprising only those enum Values explicitly included (or excluded).<br/>
-All enum values of an enum type can also be included.<br/>
-Enum values can be merged if their type and inclusion/exclusion matches.</dd>
-<dt>Number</dt>
-<dd>comprising only those numbers in (or out) of a given Range or specific value.<br/>
-Ranges may be upper and/or lower bounded and are inclusive of those bounds.<br/>
-Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.</dd>
-<dt>String</dt>
-<dd>comprising only those strings that match (or don't match) one or more Regular expressions.<br/>
-Regular expressions can only be merged if their inclusion/exclusion matches.</dd>
-<dt>Union</dt>
-<dd>comprising one or more Simple types.<br/>
-A Scalar Union must not include itself, even recursively.</dd>
-</dl>
+> Boolean, Enum, Number, String, Union
 
 A child Scalar's Items are merged into the parent's Items.
 
-Item exclusions take precedence over inclusions and Enum scalars must contain only unique members after merging.
+Item exclusions (where defined) take precedence over inclusions.
 
 Scalar declarations can be merged if their Kinds and parents match and their Items can be merged.
 
-## Object Union types
+### Boolean scalar
 
-Input and Output types are both Object Union types.
+Comprises only the values true and false.
+
+### Enum scalar
+
+Comprises only those enum Values explicitly included (or excluded).
+
+All enum values of an enum type can also be included.
+
+Enum values can be merged if their type and inclusion/exclusion matches.
+Enum scalars must contain only unique members after merging, irrelevant of the type the member is defined for.
+
+### Number scalar
+
+Comprises only those numbers included in (or excluded from) a given Range or specific value.
+
+A Range may specify either or both of its upper or lower bounds and is inclusive of those bounds.
+
+Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.
+
+### String scalar
+
+Comprises only those strings that match (or don't match) one or more Regular expressions.
+
+Regular expressions can only be merged if their inclusion/exclusion matches.
+
+### Union scalar
+
+Comprises one or more Simple types.
+
+A Scalar Union must not include itself, even recursively.
+
+## Object types
+
+Input and Output types are both Object types.
 
 ```PEG
 // base definition
@@ -261,13 +284,13 @@ Obj_TypeArgument = STRING? Obj_Reference
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 ```
 
-An Object Union type may have Type parameters.
+An Object type may have Type parameters.
 Each Type parameter can be preceded by a documentation string.
-An Object Union type with Type parameters is called a Generic type.
+An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match, recursively.
 
-An Object Union type is defined as either:
+An Object type is defined as either:
 
 - an object definition followed by zero or more Alternate object Type references, or
 - one or more Alternate object Type references
@@ -292,7 +315,7 @@ A Field is defined with at least:
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
-A child Object Union's Fields and Alternates are merged with the parent's.
+A child Object's Fields and Alternates are merged with the parent's.
 
 Object Unions can be merged if their parent Types match and their Fields and Alternates can both be merged.
 
@@ -379,7 +402,7 @@ In_TypeDefault = In_Type Modifiers? Default?
 
 Input types define the type of Output field's Argument.
 
-An Input type is defined as an object union type with the following alterations.
+An Input type is defined as an object type with the following alterations.
 
 An Input Field redefines an object Field as follows:
 
@@ -407,7 +430,7 @@ Out_TypeArgument = Out_Reference | EnumValue
 
 Output types define the result values for Categories and Output fields.
 
-An Output type is defined as an object union type with the following alterations.
+An Output type is defined as an object type with the following alterations.
 
 An Output type reference may have Type Arguments of Output type references and/or Enum Values.
 If there is a conflict between a bare Enum Value and a Type, the Type will have precedence.
