@@ -205,14 +205,14 @@ Scalar type definitions are of the following general form:
 > `Kind Parent? Item*`
 
 ```PEG
-Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
+Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean' Parent?
-Scal_Enum = 'Enum' Parent? Scal_Member*
-Scal_Number = 'Number' Parent? Scal_Num*
-Scal_String = 'String' Parent? Scal_Regex*
-Scal_Union = 'Union' Parent? Scal_Reference+
+Scal_Boolean = 'Boolean'
+Scal_Enum = 'Enum' Scal_Member*
+Scal_Number = 'Number' Scal_Num*
+Scal_String = 'String' Scal_Regex*
+Scal_Union = 'Union' Scal_Reference+
 
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
@@ -480,14 +480,14 @@ Simple_ReDef = Basic | scalar | enum  // Redefined Simple
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
-Scalar = 'scalar' scalar Aliases? '{' ScalarDefinition '}'
+Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean' Parent?
-Scal_Enum = 'Enum' Parent? Scal_Member*
-Scal_Number = 'Number' Parent? Scal_Num*
-Scal_String = 'String' Parent? Scal_Regex*
-Scal_Union = 'Union' Parent? Scal_Reference+
+Scal_Boolean = 'Boolean'
+Scal_Enum = 'Enum' Scal_Member*
+Scal_Number = 'Number' Scal_Num*
+Scal_String = 'String' Scal_Regex*
+Scal_Union = 'Union' Scal_Reference+
 
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
