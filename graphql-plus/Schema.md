@@ -46,7 +46,7 @@ Some item lists can be merged and thus de-duplicated.
 Merging two (or more) lists will be done by some matching criteria.
 If the items are named the default matching criteria is by name.
 
-- List components of any matching items will be merged.
+- List components of any matching items will be merged. If a list component can't be merged, then the items can't be merged.
 - Other (ie, not lists or part of the matching criteria) required components of any matching items must be the same.
 - Optional components, if present, must be the same.
 - If only present on some items before merging, optional components will be retained on the merged item.
@@ -92,7 +92,7 @@ A Directive may have Input Parameters.
 
 By default a Directive can only appear once at any Location, but this can be changed with the `repeatable` Directive option.
 
-Directives can be merged if their Options match and their Parameters can be merged.
+Directives can be merged if their Options match.
 
 Locations will be merged by value.
 
@@ -106,7 +106,6 @@ Opt_Setting = STRING? setting Default
 An Option defines valid options for the Schema as a whole, including the Schema name and Aliases.
 A Schema must have only one name.
 
-Options can be merged only if Option Settings can be merged.
 Option Settings are merged by name and values are merged in the same way as Constant Object values.
 
 ## Type declarations
@@ -163,12 +162,12 @@ Object is a general Dictionary as follows:
 
 ```gqlp
 "%"
-input|output _Object [Object, obj, %] { : _Map<Any> } // recursive
+input|output _Object [Object, obj, %] { :_Map<Any> } // recursive
 
 input|output _Most<$T> [Most] { $T | Object | _Most<$T>? | _Most<$T>[] | _Most<$T>[Simple] | _Most<$T>[Simple?] } // recursive! not in _Input or _Output
 
-input _Any [Any] { : _Most<_Input> } // not in _Input
-output _Any [Any] { : _Most<_Output> } // not in _Output
+input _Any [Any] { :_Most<_Input> } // not in _Input
+output _Any [Any] { :_Most<_Output> } // not in _Output
 scalar _Any [Any] { Union | Basic | Internal | _Enum | _Scalar } // not in _Scalar
 ```
 
@@ -194,9 +193,7 @@ An Enum is a Type defined with one or more Members.
 
 Each Member can be preceded by a documentation string and may have one or more Aliases.
 
-A child Enum's Members are merged with the parent's Members.
-
-Enums can be merged if their parents match and their Members can be merged.
+Enums can be merged if their parents match.
 
 ## Scalar type
 
@@ -225,11 +222,9 @@ Scalar types define specific domains of the following kinds, each with different
 
 > Boolean, Enum, Number, String, Union
 
-A child Scalar's Items are merged into the parent's Items.
-
 Item exclusions (where defined) take precedence over inclusions.
 
-Scalar declarations can be merged if their Kinds and parents match and their Items can be merged.
+Scalar declarations can be merged if their Kinds and Parents match.
 
 ### Boolean scalar
 
@@ -315,9 +310,7 @@ A Field is defined with at least:
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
-A child Object's Fields and Alternates are merged with the parent's.
-
-Object Unions can be merged if their parent Types match and their Fields and Alternates can both be merged.
+Object Unions can be merged if their parent Types match.
 
 Fields can be merged if their Modified Types match.
 
