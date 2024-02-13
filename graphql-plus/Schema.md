@@ -19,10 +19,10 @@ A Schema is one (or more) Declarations. Each declaration can be preceded by a do
 
 Declarations have the following general form:
 
-> `label name Parameters? Aliases? '{' ( '(' Options ')' )? Definition '}'`
+> `label name Parameters? Aliases? '{' ( '(' Option ')' )? Definition '}'`
 
-Multiple Declarations with the same label and name are permitted if their Options and Definitions can be merged.
-When merging Declarations, Parameters and Aliases will be merged.
+Declarations are matched by label and name.
+When merging Declarations, Options and Definitions will also be merged.
 
 The following declarations are implied but can be specified explicitly:
 
@@ -33,9 +33,13 @@ The following declarations are implied but can be specified explicitly:
 
 ### Names and Aliases
 
+Names beginning with an underscore (`_`) are reserved and such items are considered system items.
+
+Within any list of named items, after merging all names must be unique.
+
 Many named items can also have Aliases, which are a list of alternate ids for a given item.
 
-Within any list of named items with Aliases, after merging, Aliases must be unique.
+Within any list of named items with Aliases, after merging all Aliases must be unique.
 Any conflicts between names and Aliases will be resolved in the favour of the name,
 ie. Any Aliases in a list of items that match any of the item's names will simply be removed.
 
@@ -44,7 +48,9 @@ ie. Any Aliases in a list of items that match any of the item's names will simpl
 Some item lists can be merged and thus de-duplicated.
 
 Merging two (or more) lists will be done by some matching criteria.
-If the items are named the default matching criteria is by name.
+If the items are named the default matching criteria is their names.
+
+Unless otherwise specified, items are merged as follows:
 
 - List components of any matching items will be merged. If a list component can't be merged, then the items can't be merged.
 - Other (ie, not lists or part of the matching criteria) required components of any matching items must be the same.
@@ -66,7 +72,7 @@ Cat_Option = 'parallel' | 'sequential' | 'single'
 A Category is a set of fields defined by an Output type with zero or more Modifiers.
 A Category's output type must not be a Generic type.
 
-A Category has a default name of the Output type name with the first character changed to lowercase.
+A Category's name defaults to the Output type name with the first character changed to lowercase.
 
 By default an operation over a Category can specify multiple fields that are resolved in parallel
 but this can be changed with the following Category Options:
@@ -82,8 +88,8 @@ Categories can be merged if their Options and Modified Output Types match.
 ## Directive declaration
 
 ```PEG
-Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Repeatable? Dir_Location+ '}'
-Dir_Repeatable = '(' 'repeatable' ')'
+Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 ```
 
@@ -291,13 +297,13 @@ An Object type is defined as either:
 - one or more Alternate object Type references
 
 The order of Alternates is significant.
-An Alternate must not reference itself, even recursively.
 Alternates may include Collections, but not nullability.
+An Alternate must not reference itself, without Collections, even recursively.
 
 An object Type reference may be an Internal, Simple or another object Type.
 If an object Type it may have Type Arguments of object Type references.
 
-A object is defined with an optional Parent Type and has one or more Fields.
+A object is defined with an optional Parent Type and one or more Fields.
 
 A Field is defined with at least:
 
@@ -311,6 +317,8 @@ Field names and Field Aliases must be unique within the object, including any pa
 Explicit Field names will override the same name being used as a Field Alias.
 
 Object Unions can be merged if their parent Types match.
+
+Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
 
 Fields can be merged if their Modified Types match.
 
@@ -457,8 +465,8 @@ Aliases = '[' alias+ ']'
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
-Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Repeatable? Dir_Location+ '}'
-Dir_Repeatable = '(' 'repeatable' ')'
+Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
