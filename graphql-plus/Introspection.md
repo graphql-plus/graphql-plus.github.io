@@ -7,11 +7,13 @@ The `_Schema` output type is automatically defined as followed and can be used t
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[String]
-        directives(_Filter?): _Directives[String]
-        types(_TypeFilter?): _Type[String]
-        settings(_Filter?): _Setting[String]
+        categories(_CategoryFilter?): _Categories[Identifier]
+        directives(_Filter?): _Directives[Identifier]
+        types(_TypeFilter?): _Type[Identifier]
+        settings(_Filter?): _Setting[Identifier]
     }
+
+scalar Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: String[]
@@ -31,7 +33,7 @@ input _TypeFilter {
 
 output _Aliased {
     : _Described<_Named>
-        aliases: String[]
+        aliases: Identifier[]
     }
 
 output _Described<$base> {
@@ -40,7 +42,7 @@ output _Described<$base> {
     }
 
 output _Named {
-        name: String
+        name: Identifier
     }
 ```
 
@@ -118,7 +120,7 @@ enum _TypeKind { :_SimpleKind Input Output }
 
 output _TypeRef<$kind> {
         kind: $kind
-        name: String
+        name: Identifier
 }
 
 output _TypeSimple {
@@ -178,19 +180,19 @@ output _ModifierDictionary {
 
 ```gqlp
 output _TypeEnum {
-    : _ChildType<_TypeKind.Enum String>
+    : _ChildType<_TypeKind.Enum Identifier>
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
 
 output _EnumMember {
     : _Aliased
-        enum: String
+        enum: Identifier
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: String
+        value: Identifier
     }
 ```
 
@@ -213,7 +215,7 @@ output _ScalarRef<$kind> {
     }
 
 output _BaseScalar<$kind $item> {
-    : _ChildType<_TypeKind.Scalar String>
+    : _ChildType<_TypeKind.Scalar Identifier>
         scalar: $kind
         items: $item[]
         allItems: _ScalarItem<$item>[]
@@ -244,7 +246,7 @@ output _ScalarRegex {
 
 output _ScalarItem<$item> {
     : $item
-        scalar: String
+        scalar: Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -272,6 +274,11 @@ output _Ref<$base> {
     | $base
     }
 
+output _TypeBase<$arg> {
+        arguments: $arg[]
+    | "TypeParameter" Identifier
+    }
+
 output _Alternate<$base> {
       type: _Ref<$base>
       collections: _Collection[]
@@ -279,7 +286,7 @@ output _Alternate<$base> {
 
 output _Object<$for> {
     : $for
-        object: String
+        object: Identifier
     }
 
 output _Field<$base> {
@@ -298,9 +305,8 @@ output _Parameter {
 
 ```gqlp
 output _InputBase {
-        input: String
-        arguments: _Ref<_InputBase>[]
-    | "TypeParameter" String
+    : _TypeBase<_Ref<_InputBase>>
+        input: Identifier
     }
 
 output _InputField {
@@ -313,9 +319,8 @@ output _InputField {
 
 ```gqlp
 output _OutputBase {
-        output: String
-        arguments: _OutputArgument[]
-    | "TypeParameter" String
+    : _TypeBase<_OutputArgument>
+        output: Identifier
     }
 
 output _OutputField {
@@ -326,14 +331,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: String
+        value: Identifier
     | _Ref<_OutputBase>
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: String
-        value: String
+        field: Identifier
+        value: Identifier
     }
 ```
 
@@ -342,11 +347,13 @@ output _OutputEnum {
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[String]
-        directives(_Filter?): _Directives[String]
-        types(_TypeFilter?): _Type[String]
-        settings(_Filter?): _Setting[String]
+        categories(_CategoryFilter?): _Categories[Identifier]
+        directives(_Filter?): _Directives[Identifier]
+        types(_TypeFilter?): _Type[Identifier]
+        settings(_Filter?): _Setting[Identifier]
     }
+
+scalar Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: String[]
@@ -366,7 +373,7 @@ input _TypeFilter {
 
 output _Aliased {
     : _Described<_Named>
-        aliases: String[]
+        aliases: Identifier[]
     }
 
 output _Described<$base> {
@@ -375,7 +382,7 @@ output _Described<$base> {
     }
 
 output _Named {
-        name: String
+        name: Identifier
     }
 
 output _Categories {
@@ -437,7 +444,7 @@ enum _TypeKind { :_SimpleKind Input Output }
 
 output _TypeRef<$kind> {
         kind: $kind
-        name: String
+        name: Identifier
 }
 
 output _TypeSimple {
@@ -489,19 +496,19 @@ output _ModifierDictionary {
     }
 
 output _TypeEnum {
-    : _ChildType<_TypeKind.Enum String>
+    : _ChildType<_TypeKind.Enum Identifier>
         members: _Aliased[]
         allMembers: _EnumMember[]
     }
 
 output _EnumMember {
     : _Aliased
-        enum: String
+        enum: Identifier
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: String
+        value: Identifier
     }
 
 enum _Scalar { Boolean Enum Number String Union }
@@ -520,7 +527,7 @@ output _ScalarRef<$kind> {
     }
 
 output _BaseScalar<$kind $item> {
-    : _ChildType<_TypeKind.Scalar String>
+    : _ChildType<_TypeKind.Scalar Identifier>
         scalar: $kind
         items: $item[]
         allItems: _ScalarItem<$item>[]
@@ -551,7 +558,7 @@ output _ScalarRegex {
 
 output _ScalarItem<$item> {
     : $item
-        scalar: String
+        scalar: Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -575,6 +582,11 @@ output _Ref<$base> {
     | $base
     }
 
+output _TypeBase<$arg> {
+        arguments: $arg[]
+    | "TypeParameter" Identifier
+    }
+
 output _Alternate<$base> {
       type: _Ref<$base>
       collections: _Collection[]
@@ -582,7 +594,7 @@ output _Alternate<$base> {
 
 output _Object<$for> {
     : $for
-        object: String
+        object: Identifier
     }
 
 output _Field<$base> {
@@ -597,9 +609,8 @@ output _Parameter {
     }
 
 output _InputBase {
-        input: String
-        arguments: _Ref<_InputBase>[]
-    | "TypeParameter" String
+    : _TypeBase<_Ref<_InputBase>>
+        input: Identifier
     }
 
 output _InputField {
@@ -608,9 +619,8 @@ output _InputField {
     }
 
 output _OutputBase {
-        output: String
-        arguments: _OutputArgument[]
-    | "TypeParameter" String
+    : _TypeBase<_OutputArgument>
+        output: Identifier
     }
 
 output _OutputField {
@@ -621,14 +631,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: String
+        value: Identifier
     | _Ref<_OutputBase>
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: String
-        value: String
+        field: Identifier
+        value: Identifier
     }
 
 ```

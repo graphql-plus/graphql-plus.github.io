@@ -116,13 +116,13 @@ Option Settings are merged by name and values are merged in the same way as Cons
 
 ## Type declarations
 
-Most declarations define a Type.
+Most declarations define a Type. A Type's Kind is defined as their Declaration label.
 
 The names and Aliases of all Types must be unique across all kinds of Types within the Schema.
-Merging of Types is only possible if the kinds match.
+Merging of Types is only possible if their Kinds match.
 
 All Types may specify another Type of the same Kind that they extend.
-Child (Extending) Types merge in the definition of the Parent (Extended) Type.
+Child (Extending) Types merge in the definition of their Parent (Extended) Type.
 A Type cannot extend itself, even recursively.
 
 ```PEG
@@ -199,7 +199,7 @@ An Enum is a Type defined with one or more Members.
 
 Each Member can be preceded by a documentation string and may have one or more Aliases.
 
-Enums can be merged if their parents match.
+Enums can be merged if their Parents, including lack thereof, match.
 
 ## Scalar type
 
@@ -224,13 +224,13 @@ Scal_Regex = '!'? REGEX
 Scal_Reference = '|' Simple
 ```
 
-Scalar types define specific domains of the following kinds, each with different Item definitions:
+Scalar types define specific domains of the following Sorts, each with different Item definitions:
 
 > Boolean, Enum, Number, String, Union
 
 Item exclusions (where defined) take precedence over inclusions.
 
-Scalar declarations can be merged if their Kinds and Parents match.
+Scalar declarations can be merged if their Sorts and Parents match.
 
 ### Boolean scalar
 
@@ -240,10 +240,10 @@ Comprises only the values true and false.
 
 Comprises only those enum Values explicitly included (or excluded).
 
-All enum values of an enum type can also be included.
+All enum Members of an enum Type can also be included.
 
-Enum values can be merged if their type and inclusion/exclusion matches.
-Enum scalars must contain only unique members after merging, irrelevant of the type the member is defined for.
+Enum Values can be merged if their Type and inclusion/exclusion matches.
+Enum scalars must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
 
 ### Number scalar
 
