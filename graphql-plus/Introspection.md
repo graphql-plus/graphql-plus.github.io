@@ -202,8 +202,8 @@ output _EnumValue {
 enum _Scalar { Boolean Enum Number String Union }
 
 output _TypeScalar {
-    | _BaseScalar<_Scalar.Boolean _ScalarBoolean>
-    | _BaseScalar<_Scalar.Enum _ScalarEnum>
+    | _BaseScalar<_Scalar.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_Scalar.Enum _ScalarMember>
     | _BaseScalar<_Scalar.Number _ScalarRange>
     | _BaseScalar<_Scalar.String _ScalarRegex>
     | _BaseScalar<_Scalar.Union _TypeSimple>
@@ -225,10 +225,12 @@ output _BaseScalarItem {
         exclude: Boolean
     }
 
-output _ScalarBoolean {
+output _ScalarTrueFalse {
+    : _BaseScalarItem
+        value: Boolean
     }
 
-output _ScalarEnum {
+output _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }
@@ -514,8 +516,8 @@ output _EnumValue {
 enum _Scalar { Boolean Enum Number String Union }
 
 output _TypeScalar {
-    | _BaseScalar<_Scalar.Boolean _ScalarBoolean>
-    | _BaseScalar<_Scalar.Enum _ScalarEnum>
+    | _BaseScalar<_Scalar.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_Scalar.Enum _ScalarMember>
     | _BaseScalar<_Scalar.Number _ScalarRange>
     | _BaseScalar<_Scalar.String _ScalarRegex>
     | _BaseScalar<_Scalar.Union _TypeSimple>
@@ -537,10 +539,12 @@ output _BaseScalarItem {
         exclude: Boolean
     }
 
-output _ScalarBoolean {
+output _ScalarTrueFalse {
+    : _BaseScalarItem
+        value: Boolean
     }
 
-output _ScalarEnum {
+output _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }

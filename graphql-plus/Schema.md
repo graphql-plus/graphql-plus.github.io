@@ -211,12 +211,13 @@ Scalar type definitions are of the following general form:
 Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean'
+Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 Scal_Union = 'Union' Scal_Reference+
 
+Scal_TrueFalse = '!'? Boolean
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
@@ -234,7 +235,10 @@ Scalar declarations can be merged if their Sorts and Parents match.
 
 ### Boolean scalar
 
-Comprises only the values true and false.
+Comprises only those Boolean values explicitly included (or excluded).
+If no included or excluded values are specified, a Boolean scalar includes both values, ie. true and false.
+
+Boolean values can only be merged if their inclusion/exclusion matches.
 
 ### Enum scalar
 
@@ -484,12 +488,13 @@ En_Member = STRING? member Aliases?
 Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
 
-Scal_Boolean = 'Boolean'
+Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 Scal_Union = 'Union' Scal_Reference+
 
+Scal_TrueFalse = '!'? Boolean
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
