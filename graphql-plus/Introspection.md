@@ -141,8 +141,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | _ScalarValue<_Scalar.Number Number>
-    | _ScalarValue<_Scalar.String String>
+    | _ScalarValue<_ScalarKind.Number Number>
+    | _ScalarValue<_ScalarKind.String String>
     | _EnumValue
 }
 
@@ -176,7 +176,7 @@ output _ModifierDictionary {
     }
 ```
 
-## Enum type
+## Enum
 
 ```gqlp
 output _TypeEnum {
@@ -196,17 +196,17 @@ output _EnumValue {
     }
 ```
 
-## Scalar type
+## Scalar
 
 ```gqlp
-enum _Scalar { Boolean Enum Number String Union }
+enum _ScalarKind { Boolean Enum Number String Union }
 
 output _TypeScalar {
-    | _BaseScalar<_Scalar.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_Scalar.Enum _ScalarMember>
-    | _BaseScalar<_Scalar.Number _ScalarRange>
-    | _BaseScalar<_Scalar.String _ScalarRegex>
-    | _BaseScalar<_Scalar.Union _TypeSimple>
+    | _BaseScalar<_ScalarKind.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_ScalarKind.Enum _ScalarMember>
+    | _BaseScalar<_ScalarKind.Number _ScalarRange>
+    | _BaseScalar<_ScalarKind.String _ScalarRegex>
+    | _BaseScalar<_ScalarKind.Union _TypeSimple>
     }
 
 output _ScalarRef<$kind> {
@@ -257,7 +257,7 @@ output _ScalarValue<$kind $value> {
     }
 ```
 
-## Object Union type
+## Object
 
 ```gqlp
 output _TypeObject<$kind $base $field> {
@@ -303,7 +303,7 @@ output _Parameter {
     }
 ```
 
-## Input type (Object Union)
+## Input
 
 ```gqlp
 output _InputBase {
@@ -317,7 +317,7 @@ output _InputField {
     }
 ```
 
-## Output type (Object Union)
+## Output
 
 ```gqlp
 output _OutputBase {
@@ -463,8 +463,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | _ScalarValue<_Scalar.Number Number>
-    | _ScalarValue<_Scalar.String String>
+    | _ScalarValue<_ScalarKind.Number Number>
+    | _ScalarValue<_ScalarKind.String String>
     | _EnumValue
 }
 
@@ -513,14 +513,14 @@ output _EnumValue {
         value: Identifier
     }
 
-enum _Scalar { Boolean Enum Number String Union }
+enum _ScalarKind { Boolean Enum Number String Union }
 
 output _TypeScalar {
-    | _BaseScalar<_Scalar.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_Scalar.Enum _ScalarMember>
-    | _BaseScalar<_Scalar.Number _ScalarRange>
-    | _BaseScalar<_Scalar.String _ScalarRegex>
-    | _BaseScalar<_Scalar.Union _TypeSimple>
+    | _BaseScalar<_ScalarKind.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_ScalarKind.Enum _ScalarMember>
+    | _BaseScalar<_ScalarKind.Number _ScalarRange>
+    | _BaseScalar<_ScalarKind.String _ScalarRegex>
+    | _BaseScalar<_ScalarKind.Union _TypeSimple>
     }
 
 output _ScalarRef<$kind> {
