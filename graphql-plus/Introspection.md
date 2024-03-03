@@ -270,19 +270,19 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _Object<_Alternate<$base>>[]
     }
 
-output _Ref<$base> {
+output _ObjRef<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-output _TypeBase<$arg> {
+output _ObjBase<$arg> {
         arguments: $arg[]
     | "TypeParameter" Identifier
     }
 
 output _Alternate<$base> {
-      type: _Ref<$base>
+      type: _Described<_ObjRef<$base>>
       collections: _Collection[]
     }
 
@@ -293,7 +293,7 @@ output _Object<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _Ref<$base>
+      type: _Described<_ObjRef<$base>>
       modifiers: _Modifier[]
     }
 
@@ -307,7 +307,7 @@ output _Parameter {
 
 ```gqlp
 output _InputBase {
-    : _TypeBase<_Ref<_InputBase>>
+    : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
     }
 
@@ -321,7 +321,7 @@ output _InputField {
 
 ```gqlp
 output _OutputBase {
-    : _TypeBase<_OutputArgument>
+    : _ObjBase<_OutputArgument>
         output: Identifier
     }
 
@@ -334,7 +334,7 @@ output _OutputField {
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
-    | _Ref<_OutputBase>
+    | _ObjRef<_OutputBase>
     }
 
 output _OutputEnum {
@@ -580,19 +580,19 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _Object<_Alternate<$base>>[]
     }
 
-output _Ref<$base> {
+output _ObjRef<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-output _TypeBase<$arg> {
+output _ObjBase<$arg> {
         arguments: $arg[]
     | "TypeParameter" Identifier
     }
 
 output _Alternate<$base> {
-      type: _Ref<$base>
+      type: _Described<_ObjRef<$base>>
       collections: _Collection[]
     }
 
@@ -603,7 +603,7 @@ output _Object<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _Ref<$base>
+      type: _Described<_ObjRef<$base>>
       modifiers: _Modifier[]
     }
 
@@ -613,7 +613,7 @@ output _Parameter {
     }
 
 output _InputBase {
-    : _TypeBase<_Ref<_InputBase>>
+    : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
     }
 
@@ -623,7 +623,7 @@ output _InputField {
     }
 
 output _OutputBase {
-    : _TypeBase<_OutputArgument>
+    : _ObjBase<_OutputArgument>
         output: Identifier
     }
 
@@ -636,7 +636,7 @@ output _OutputField {
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
-    | _Ref<_OutputBase>
+    | _ObjRef<_OutputBase>
     }
 
 output _OutputEnum {
