@@ -98,7 +98,7 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeEnum
+    | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
     | _TypeObject<_TypeKind.Input _InputBase _InputField>
     | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     | _TypeScalar
@@ -112,6 +112,12 @@ output _BaseType<$kind> {
 output _ChildType<$kind $parent> {
     : _BaseType<$kind>
         parent: $parent
+    }
+
+output _ParentType<$kind, $item, $allItem> {
+    : _ChildType<$kind Identifier>
+        items: $item[]
+        allItems: $allItem[]
     }
 
 enum _SimpleKind { Basic Enum Internal Scalar }
@@ -179,12 +185,6 @@ output _ModifierDictionary {
 ## Enum
 
 ```gqlp
-output _TypeEnum {
-    : _ChildType<_TypeKind.Enum Identifier>
-        members: _Aliased[]
-        allMembers: _EnumMember[]
-    }
-
 output _EnumMember {
     : _Aliased
         enum: Identifier
@@ -215,10 +215,8 @@ output _ScalarRef<$kind> {
     }
 
 output _BaseScalar<$kind $item> {
-    : _ChildType<_TypeKind.Scalar Identifier>
+    : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
         scalar: $kind
-        items: $item[]
-        allItems: _ScalarItem<$item>[]
     }
 
 output _BaseScalarItem {
@@ -424,7 +422,7 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeEnum
+    | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
     | _TypeObject<_TypeKind.Input _InputBase _InputField>
     | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     | _TypeScalar
@@ -438,6 +436,12 @@ output _BaseType<$kind> {
 output _ChildType<$kind $parent> {
     : _BaseType<$kind>
         parent: $parent
+    }
+
+output _ParentType<$kind, $item, $allItem> {
+    : _ChildType<$kind Identifier>
+        items: $item[]
+        allItems: $allItem[]
     }
 
 enum _SimpleKind { Basic Enum Internal Scalar }
@@ -497,12 +501,6 @@ output _ModifierDictionary {
         by: _TypeSimple
     }
 
-output _TypeEnum {
-    : _ChildType<_TypeKind.Enum Identifier>
-        members: _Aliased[]
-        allMembers: _EnumMember[]
-    }
-
 output _EnumMember {
     : _Aliased
         enum: Identifier
@@ -529,10 +527,8 @@ output _ScalarRef<$kind> {
     }
 
 output _BaseScalar<$kind $item> {
-    : _ChildType<_TypeKind.Scalar Identifier>
+    : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
         scalar: $kind
-        items: $item[]
-        allItems: _ScalarItem<$item>[]
     }
 
 output _BaseScalarItem {
