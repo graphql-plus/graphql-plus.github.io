@@ -58,7 +58,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifier[]
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -160,25 +160,26 @@ output _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Collection {
-    | _BaseModifier<_ModifierKind.List>
+output _Collections {
+    | _Modifier<_ModifierKind.List>
     | _ModifierDictionary
     }
 
-output _Modifier {
-    | _BaseModifier<_ModifierKind.Optional>
-    | _Collection
+output _ModifierDictionary {
+    : _Modifier<_ModifierKind.Dictionary>
+        by: _TypeSimple
+        optional: Boolean
+    }
+
+output _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
     }
 
 enum _ModifierKind { Optional List Dictionary }
 
-output _BaseModifier<$kind> {
+output _Modifier<$kind> {
         kind: $kind
-    }
-
-output _ModifierDictionary {
-    : _BaseModifier<_ModifierKind.Dictionary>
-        by: _TypeSimple
     }
 ```
 
@@ -263,7 +264,6 @@ output _TypeObject<$kind $base $field> {
         typeParameters: _Described<_Named>[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allTypeParameters: _Object<_Described<_Named>>[]
         allFields: _Object<$field>[]
         allAlternates: _Object<_Alternate<$base>>[]
     }
@@ -281,7 +281,7 @@ output _ObjBase<$arg> {
 
 output _Alternate<$base> {
       type: _Described<_ObjRef<$base>>
-      collections: _Collection[]
+      collections: _Collections[]
     }
 
 output _Object<$for> {
@@ -292,7 +292,7 @@ output _Object<$for> {
 output _Field<$base> {
     : _Aliased
       type: _Described<_ObjRef<$base>>
-      modifiers: _Modifier[]
+      modifiers: _Modifiers[]
     }
 
 output _Parameter {
@@ -394,7 +394,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifier[]
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -480,25 +480,26 @@ output _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Collection {
-    | _BaseModifier<_ModifierKind.List>
+output _Collections {
+    | _Modifier<_ModifierKind.List>
     | _ModifierDictionary
     }
 
-output _Modifier {
-    | _BaseModifier<_ModifierKind.Optional>
-    | _Collection
+output _ModifierDictionary {
+    : _Modifier<_ModifierKind.Dictionary>
+        by: _TypeSimple
+        optional: Boolean
+    }
+
+output _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
     }
 
 enum _ModifierKind { Optional List Dictionary }
 
-output _BaseModifier<$kind> {
+output _Modifier<$kind> {
         kind: $kind
-    }
-
-output _ModifierDictionary {
-    : _BaseModifier<_ModifierKind.Dictionary>
-        by: _TypeSimple
     }
 
 output _EnumMember {
@@ -571,7 +572,6 @@ output _TypeObject<$kind $base $field> {
         typeParameters: _Described<_Named>[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allTypeParameters: _Object<_Described<_Named>>[]
         allFields: _Object<$field>[]
         allAlternates: _Object<_Alternate<$base>>[]
     }
@@ -589,7 +589,7 @@ output _ObjBase<$arg> {
 
 output _Alternate<$base> {
       type: _Described<_ObjRef<$base>>
-      collections: _Collection[]
+      collections: _Collections[]
     }
 
 output _Object<$for> {
@@ -600,7 +600,7 @@ output _Object<$for> {
 output _Field<$base> {
     : _Aliased
       type: _Described<_ObjRef<$base>>
-      modifiers: _Modifier[]
+      modifiers: _Modifiers[]
     }
 
 output _Parameter {
