@@ -31,17 +31,17 @@ input _TypeFilter {
         kinds: _TypeKind[]
     }
 
-output _Aliased {
+dual _Aliased {
     : _Described<_Named>
         aliases: Identifier[]
     }
 
-output _Described<$base> {
+dual _Described<$base> {
     : $base
         description: String?
     }
 
-output _Named {
+dual _Named {
         name: Identifier
     }
 ```
@@ -49,12 +49,12 @@ output _Named {
 ## Category
 
 ```gqlp
-output _Categories {
+dual _Categories {
     | _Category
     | _Type
 }
 
-output _Category {
+dual _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
@@ -67,12 +67,12 @@ enum _Resolution { Parallel Sequential Single }
 ## Directive
 
 ```gqlp
-output _Directives {
+dual _Directives {
     | _Directive
     | _Type
 }
 
-output _Directive {
+dual _Directive {
     : _Aliased
         parameters: _Parameter[]
         repeatable: Boolean
@@ -86,7 +86,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 ## Setting
 
 ```gqlp
-output _Setting {
+dual _Setting {
     : _Described<_Named>
         value: _Constant
 }
@@ -95,90 +95,93 @@ output _Setting {
 ## Types
 
 ```gqlp
-output _Type {
+dual _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
+    | _ParentType<_TypeKind.Dual _DualBase _Field<_DualBase>>
     | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
     | _TypeObject<_TypeKind.Input _InputBase _InputField>
     | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     | _TypeScalar
+    | _ParentType<_TypeKind.Union _Named _UnionMember>
     }
 
-output _BaseType<$kind> {
+dual _BaseType<$kind> {
     : _Aliased
         kind: $kind
     }
 
-output _ChildType<$kind $parent> {
+dual _ChildType<$kind $parent> {
     : _BaseType<$kind>
         parent: $parent
     }
 
-output _ParentType<$kind, $item, $allItem> {
+dual _ParentType<$kind $item $allItem> {
     : _ChildType<$kind Identifier>
         items: $item[]
         allItems: $allItem[]
     }
 
-enum _SimpleKind { Basic Enum Internal Scalar }
+enum _SimpleKind { Basic Enum Internal Scalar Union }
 
-enum _TypeKind { :_SimpleKind Input Output }
+enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+dual _TypeRef<$kind> {
         kind: $kind
         name: Identifier
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
-    | _TypeRef<_TypeKind.Scalar>
     | _TypeRef<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Union>
     }
 ```
 
 ## Common
 
 ```gqlp
-output _Constant {
+dual _Constant {
     | _Simple
     | _ConstantList
     | _ConstantMap
     }
 
-output _Simple {
+dual _Simple {
     | Boolean
-    | _ScalarValue<_ScalarKind.Number Number>
-    | _ScalarValue<_ScalarKind.String String>
+    | _ScalarValue<_ScalarDomain.Number Number>
+    | _ScalarValue<_ScalarDomain.String String>
     | _EnumValue
 }
 
-output _ConstantList {
+dual _ConstantList {
     | _Constant[]
     }
 
-output _ConstantMap {
+dual _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Collections {
+dual _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierDictionary
     }
 
-output _ModifierDictionary {
+dual _ModifierDictionary {
     : _Modifier<_ModifierKind.Dictionary>
         by: _TypeSimple
         optional: Boolean
     }
 
-output _Modifiers {
+dual _Modifiers {
     | _Modifier<_ModifierKind.Optional>
     | _Collections
     }
 
 enum _ModifierKind { Optional List Dictionary }
 
-output _Modifier<$kind> {
+dual _Modifier<$kind> {
         kind: $kind
     }
 ```
@@ -186,12 +189,12 @@ output _Modifier<$kind> {
 ## Enum
 
 ```gqlp
-output _EnumMember {
+dual _EnumMember {
     : _Aliased
         enum: Identifier
     }
 
-output _EnumValue {
+dual _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
     }
@@ -200,66 +203,74 @@ output _EnumValue {
 ## Scalar
 
 ```gqlp
-enum _ScalarKind { Boolean Enum Number String Union }
+enum _ScalarDomain { Boolean Enum Number String Union }
 
-output _TypeScalar {
-    | _BaseScalar<_ScalarKind.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_ScalarKind.Enum _ScalarMember>
-    | _BaseScalar<_ScalarKind.Number _ScalarRange>
-    | _BaseScalar<_ScalarKind.String _ScalarRegex>
-    | _BaseScalar<_ScalarKind.Union _TypeSimple>
+dual _TypeScalar {
+    | _BaseScalar<_ScalarDomain.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_ScalarDomain.Enum _ScalarMember>
+    | _BaseScalar<_ScalarDomain.Number _ScalarRange>
+    | _BaseScalar<_ScalarDomain.String _ScalarRegex>
     }
 
-output _ScalarRef<$kind> {
+dual _ScalarRef<$kind> {
     : _TypeRef<_TypeKind.Scalar>
         scalar: $kind
     }
 
-output _BaseScalar<$kind $item> {
+dual _BaseScalar<$kind $item> {
     : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
         scalar: $kind
     }
 
-output _BaseScalarItem {
+dual _BaseScalarItem {
         exclude: Boolean
     }
 
-output _ScalarTrueFalse {
+dual _ScalarTrueFalse {
     : _BaseScalarItem
         value: Boolean
     }
 
-output _ScalarMember {
+dual _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }
 
-output _ScalarRange {
+dual _ScalarRange {
     : _BaseScalarItem
         from: Number?
         to: Number?
     }
 
-output _ScalarRegex {
+dual _ScalarRegex {
     : _BaseScalarItem
         regex: String
     }
 
-output _ScalarItem<$item> {
+dual _ScalarItem<$item> {
     : $item
         scalar: Identifier
     }
 
-output _ScalarValue<$kind $value> {
+dual _ScalarValue<$kind $value> {
     : _ScalarRef<$kind>
         value: $value
+    }
+```
+
+## Union
+
+```gqlp
+dual _UnionMember {
+    : _Named
+        union: Identifier
     }
 ```
 
 ## Object
 
 ```gqlp
-output _TypeObject<$kind $base $field> {
+dual _TypeObject<$kind $base $field> {
     : _ChildType<$kind _Described<$base>>
         typeParameters: _Described<_Named>[]
         fields: $field[]
@@ -268,48 +279,57 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _Object<_Alternate<$base>>[]
     }
 
-output _ObjRef<$base> {
+dual _ObjRef<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-output _ObjBase<$arg> {
+dual _ObjBase<$arg> {
         arguments: $arg[]
     | "TypeParameter" Identifier
     }
 
-output _Alternate<$base> {
+dual _Alternate<$base> {
       type: _Described<_ObjRef<$base>>
       collections: _Collections[]
     }
 
-output _Object<$for> {
+dual _Object<$for> {
     : $for
         object: Identifier
     }
 
-output _Field<$base> {
+dual _Field<$base> {
     : _Aliased
       type: _Described<_ObjRef<$base>>
       modifiers: _Modifiers[]
     }
 
-output _Parameter {
+dual _Parameter {
     : _Alternate<_InputBase>
         default: _Constant?
+    }
+```
+
+## Dual
+
+```gqlp
+dual _DualBase {
+    : _ObjBase<_ObjRef<_DualBase>>
+        dual: Identifier
     }
 ```
 
 ## Input
 
 ```gqlp
-output _InputBase {
+dual _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
     }
 
-output _InputField {
+dual _InputField {
     : _Field<_InputBase>
         default: _Constant?
     }
@@ -318,24 +338,24 @@ output _InputField {
 ## Output
 
 ```gqlp
-output _OutputBase {
+dual _OutputBase {
     : _ObjBase<_OutputArgument>
         output: Identifier
     }
 
-output _OutputField {
+dual _OutputField {
     : _Field<_OutputBase>
         parameter: _Parameter[]
     | _OutputEnum
     }
 
-output _OutputArgument {
+dual _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
     | _ObjRef<_OutputBase>
     }
 
-output _OutputEnum {
+dual _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: Identifier
         value: Identifier
@@ -371,26 +391,26 @@ input _TypeFilter {
         kinds: _TypeKind[]
     }
 
-output _Aliased {
+dual _Aliased {
     : _Described<_Named>
         aliases: Identifier[]
     }
 
-output _Described<$base> {
+dual _Described<$base> {
     : $base
         description: String?
     }
 
-output _Named {
+dual _Named {
         name: Identifier
     }
 
-output _Categories {
+dual _Categories {
     | _Category
     | _Type
 }
 
-output _Category {
+dual _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
@@ -399,12 +419,12 @@ output _Category {
 
 enum _Resolution { Parallel Sequential Single }
 
-output _Directives {
+dual _Directives {
     | _Directive
     | _Type
 }
 
-output _Directive {
+dual _Directive {
     : _Aliased
         parameters: _Parameter[]
         repeatable: Boolean
@@ -414,160 +434,167 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
-output _Setting {
+dual _Setting {
     : _Described<_Named>
         value: _Constant
 }
 
-output _Type {
+dual _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
+    | _ParentType<_TypeKind.Dual _DualBase _Field<_DualBase>>
     | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
     | _TypeObject<_TypeKind.Input _InputBase _InputField>
     | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     | _TypeScalar
+    | _ParentType<_TypeKind.Union _Named _UnionMember>
     }
 
-output _BaseType<$kind> {
+dual _BaseType<$kind> {
     : _Aliased
         kind: $kind
     }
 
-output _ChildType<$kind $parent> {
+dual _ChildType<$kind $parent> {
     : _BaseType<$kind>
         parent: $parent
     }
 
-output _ParentType<$kind, $item, $allItem> {
+dual _ParentType<$kind $item $allItem> {
     : _ChildType<$kind Identifier>
         items: $item[]
         allItems: $allItem[]
     }
 
-enum _SimpleKind { Basic Enum Internal Scalar }
+enum _SimpleKind { Basic Enum Internal Scalar Union }
 
-enum _TypeKind { :_SimpleKind Input Output }
+enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+dual _TypeRef<$kind> {
         kind: $kind
         name: Identifier
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
-    | _TypeRef<_TypeKind.Scalar>
     | _TypeRef<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Union>
     }
 
-output _Constant {
+dual _Constant {
     | _Simple
     | _ConstantList
     | _ConstantMap
     }
 
-output _Simple {
+dual _Simple {
     | Boolean
-    | _ScalarValue<_ScalarKind.Number Number>
-    | _ScalarValue<_ScalarKind.String String>
+    | _ScalarValue<_ScalarDomain.Number Number>
+    | _ScalarValue<_ScalarDomain.String String>
     | _EnumValue
 }
 
-output _ConstantList {
+dual _ConstantList {
     | _Constant[]
     }
 
-output _ConstantMap {
+dual _ConstantMap {
     | _Constant[Simple]
     }
 
-output _Collections {
+dual _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierDictionary
     }
 
-output _ModifierDictionary {
+dual _ModifierDictionary {
     : _Modifier<_ModifierKind.Dictionary>
         by: _TypeSimple
         optional: Boolean
     }
 
-output _Modifiers {
+dual _Modifiers {
     | _Modifier<_ModifierKind.Optional>
     | _Collections
     }
 
 enum _ModifierKind { Optional List Dictionary }
 
-output _Modifier<$kind> {
+dual _Modifier<$kind> {
         kind: $kind
     }
 
-output _EnumMember {
+dual _EnumMember {
     : _Aliased
         enum: Identifier
     }
 
-output _EnumValue {
+dual _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
     }
 
-enum _ScalarKind { Boolean Enum Number String Union }
+enum _ScalarDomain { Boolean Enum Number String Union }
 
-output _TypeScalar {
-    | _BaseScalar<_ScalarKind.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_ScalarKind.Enum _ScalarMember>
-    | _BaseScalar<_ScalarKind.Number _ScalarRange>
-    | _BaseScalar<_ScalarKind.String _ScalarRegex>
-    | _BaseScalar<_ScalarKind.Union _TypeSimple>
+dual _TypeScalar {
+    | _BaseScalar<_ScalarDomain.Boolean _ScalarTrueFalse>
+    | _BaseScalar<_ScalarDomain.Enum _ScalarMember>
+    | _BaseScalar<_ScalarDomain.Number _ScalarRange>
+    | _BaseScalar<_ScalarDomain.String _ScalarRegex>
     }
 
-output _ScalarRef<$kind> {
+dual _ScalarRef<$kind> {
     : _TypeRef<_TypeKind.Scalar>
         scalar: $kind
     }
 
-output _BaseScalar<$kind $item> {
+dual _BaseScalar<$kind $item> {
     : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
         scalar: $kind
     }
 
-output _BaseScalarItem {
+dual _BaseScalarItem {
         exclude: Boolean
     }
 
-output _ScalarTrueFalse {
+dual _ScalarTrueFalse {
     : _BaseScalarItem
         value: Boolean
     }
 
-output _ScalarMember {
+dual _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }
 
-output _ScalarRange {
+dual _ScalarRange {
     : _BaseScalarItem
         from: Number?
         to: Number?
     }
 
-output _ScalarRegex {
+dual _ScalarRegex {
     : _BaseScalarItem
         regex: String
     }
 
-output _ScalarItem<$item> {
+dual _ScalarItem<$item> {
     : $item
         scalar: Identifier
     }
 
-output _ScalarValue<$kind $value> {
+dual _ScalarValue<$kind $value> {
     : _ScalarRef<$kind>
         value: $value
     }
 
-output _TypeObject<$kind $base $field> {
+dual _UnionMember {
+    : _Named
+        union: Identifier
+    }
+
+dual _TypeObject<$kind $base $field> {
     : _ChildType<$kind _Described<$base>>
         typeParameters: _Described<_Named>[]
         fields: $field[]
@@ -576,66 +603,71 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _Object<_Alternate<$base>>[]
     }
 
-output _ObjRef<$base> {
+dual _ObjRef<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-output _ObjBase<$arg> {
+dual _ObjBase<$arg> {
         arguments: $arg[]
     | "TypeParameter" Identifier
     }
 
-output _Alternate<$base> {
+dual _Alternate<$base> {
       type: _Described<_ObjRef<$base>>
       collections: _Collections[]
     }
 
-output _Object<$for> {
+dual _Object<$for> {
     : $for
         object: Identifier
     }
 
-output _Field<$base> {
+dual _Field<$base> {
     : _Aliased
       type: _Described<_ObjRef<$base>>
       modifiers: _Modifiers[]
     }
 
-output _Parameter {
+dual _Parameter {
     : _Alternate<_InputBase>
         default: _Constant?
     }
 
-output _InputBase {
+dual _DualBase {
+    : _ObjBase<_ObjRef<_DualBase>>
+        dual: Identifier
+    }
+
+dual _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
     }
 
-output _InputField {
+dual _InputField {
     : _Field<_InputBase>
         default: _Constant?
     }
 
-output _OutputBase {
+dual _OutputBase {
     : _ObjBase<_OutputArgument>
         output: Identifier
     }
 
-output _OutputField {
+dual _OutputField {
     : _Field<_OutputBase>
         parameter: _Parameter[]
     | _OutputEnum
     }
 
-output _OutputArgument {
+dual _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: Identifier
     | _ObjRef<_OutputBase>
     }
 
-output _OutputEnum {
+dual _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: Identifier
         value: Identifier

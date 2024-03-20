@@ -10,7 +10,7 @@
 Schema = Declaration+
 
 Declaration = STRING? ( Category | Directive | Option | Type )
-Type = Enum | Input | Output | Scalar
+Type = Dual | Enum | Input | Output | Scalar | Union
 
 Aliases = '[' alias+ ']'
 ```
@@ -168,22 +168,26 @@ Object is a general Dictionary as follows:
 
 ```gqlp
 "%"
-input|output _Object [Object, obj, %] { :_Map<Any> } // recursive
+dual _Object [Object, obj, %] { :_Map<Any> } // recursive
 
-input|output _Most<$T> [Most] { $T | Object | _Most<$T>? | _Most<$T>[] | _Most<$T>[Simple] | _Most<$T>[Simple?] } // recursive! not in _Input or _Output
+dual _Most<$T> [Most] { $T | Object | _Most<$T>? | _Most<$T>[] | _Most<$T>[Simple] | _Most<$T>[Simple?] } // recursive! not in _Dual, _Input or _Output
 
+dual _Any [Any] { :_Most<_dual> } // not in _Dual
 input _Any [Any] { :_Most<_Input> } // not in _Input
 output _Any [Any] { :_Most<_Output> } // not in _Output
-scalar _Any [Any] { Union | Basic | Internal | _Enum | _Scalar } // not in _Scalar
+union _Any [Any] { Basic Internal _Enum _Scalar _Union } // not in _Union
 ```
 
-The internal types `_Scalar [Scalar]`, `_Output [Output]`, `_Input [Input]` and `_Enum [Enum]` are automatically defined to be a union of all user defined Scalar, Output, Input and Enum types respectively, as follows:
+The internal types `_Union [Union]`, `_Scalar [Scalar]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]` and `_Dual [Dual]`
+are automatically defined to be a union of all user defined Union, Scalar, Output, Input, Enum and Dual types respectively, as follows:
 
 ```gqlp
-scalar _Scalar [Scalar] { Union } // All user defined Scalar types
-scalar _Enum [Enum] { Union } // All user defined Enum types
+dual _Dual [Dual] { } // All user defined Dual types
+union _Enum [Enum] { } // All user defined Enum types
 input _Input [Input] { } // All user defined Input types
 output _Output [Output] { } // All user defined Output types
+union _Scalar [Scalar] { } // All user defined Scalar types
+union _Union [Union] { } // All user defined Union types
 ```
 
 </details>
@@ -209,29 +213,27 @@ Scalar type definitions are of the following general form:
 
 ```PEG
 Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
-ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
+ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
-Scal_Union = 'Union' Scal_Reference+
 
 Scal_TrueFalse = '!'? Boolean
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
-Scal_Reference = '|' Simple
 ```
 
-Scalar types define specific domains of the following Sorts, each with different Item definitions:
+Scalar types define specific sub-domains of the following Domains, each with different Item definitions:
 
-> Boolean, Enum, Number, String, Union
+> Boolean, Enum, Number, String
 
 Item exclusions (where defined) take precedence over inclusions.
 
-Scalar declarations can be merged if their Sorts and Parents match.
+Scalar declarations can be merged if their Domains and Parents match.
 
 ### Boolean scalar
 
@@ -263,11 +265,18 @@ Comprises only those strings that match (or don't match) one or more Regular exp
 
 Regular expressions can only be merged if their inclusion/exclusion matches.
 
-### Union scalar
+## Union type
 
-Comprises one or more Simple types.
+```PEG
+Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
+UnionDefinition = Simple+
+```
 
-A Scalar Union must not include itself, even recursively.
+Union types define specific combinations of one or more Simple types.
+
+A Union type must not include itself, even recursively.
+
+Union declarations can be merged if their Parents match.
 
 ## Object types
 
@@ -282,7 +291,7 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Obj_Base
+Obj_Reference = Internal | Simple | Dual_Base | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
 Obj_TypeArgument = STRING? Obj_Reference
 
@@ -304,7 +313,7 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, without Collections, even recursively.
 
-An object Type reference may be an Internal, Simple or another object Type.
+An object Type reference may be an Internal, Simple, Dual or another object Type.
 If an object Type it may have Type Arguments of object Type references.
 
 A object is defined with an optional Parent Type and one or more Fields.
@@ -314,13 +323,13 @@ A Field is defined with at least:
 - an optional documentation string,
 - a Field name
 - zero or more Field Aliases
-- a type parameter or object type references, the Field's Type
+- a type parameter or object type reference, the Field's Type
 - zero or more Modifiers
 
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
-Object Unions can be merged if their parent Types match.
+Object types can be merged if their parent Types match.
 
 Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
 
@@ -353,32 +362,32 @@ Modifiers are equivalent to predefined generic Input and Output types as follows
 
 ```gqlp
 "$T?"
-input|output _Opt<$T> [Opt] { $T | Null }
+dual _Opt<$T> [Opt] { $T | Null }
 
 "$T[]"
-input|output _List<$T> [List] { $T[] }
+dual _List<$T> [List] { $T[] }
 
 "$T[$K]"
-input|output _Dict<$K $T> [Dict] { $K: $T }
+dual _Dict<$K $T> [Dict] { $K: $T }
 ```
 
 The following GraphQlPlus idioms have equivalent generic Input and Output types.
 
 ```gqlp
 "$T[*]"
-input|output _Map<$T> [Map] { _Dict<String $T> }
+dual _Map<$T> [Map] { _Dict<String $T> }
 
 "$T[0]"
-input|output _Array<$T> [Array] { _Dict<Number $T> }
+dual _Array<$T> [Array] { _Dict<Number $T> }
 
 "$T[~]"
-input|output _IfElse<$T> [IfElse] { _Dict<Boolean $T> }
+dual _IfElse<$T> [IfElse] { _Dict<Boolean $T> }
 
 "_[$K]"
-input|output _Set<$K> [Set] { _Dict<$K Unit> }
+dual _Set<$K> [Set] { _Dict<$K Unit> }
 
 "~[$K]"
-input|output _Mask<$K> [Mask] { _Dict<$K Boolean> }
+dual _Mask<$K> [Mask] { _Dict<$K Boolean> }
 ```
 
 These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
@@ -395,6 +404,12 @@ These Generic types are the Input types if `$T` is an Input type and Output type
 | `String[Number?]`          | Dict<Opt<Number> String>                 |
 | `String[][Number][Unit?]?` | Opt<Dict<Opt<Unit> Array<List<String>>>> |
 
+## Dual type
+
+A Dual type can be used as either an Input type or an Output type.
+
+A Dual type is defined as an object type with no alterations.
+
 ## Input type
 
 An Input type is an Object type with the following Term differences,
@@ -405,7 +420,7 @@ In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
 ```
 
-Input types define the type of Output field's Argument.
+Input types define the type of Arguments, used on Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
 
@@ -433,7 +448,7 @@ Out_EnumField = fieldAlias* '=' STRING? EnumValue
 Out_TypeArgument = Out_Reference | EnumValue
 ```
 
-Output types define the result values for Categories and Output fields.
+Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
@@ -462,7 +477,7 @@ or:
 Schema = Declaration+
 
 Declaration = STRING? ( Category | Directive | Option | Type )
-Type = Enum | Input | Output | Scalar
+Type = Dual | Enum | Input | Output | Scalar | Union
 
 Aliases = '[' alias+ ']'
 
@@ -486,20 +501,21 @@ Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
 Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
-ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String | Scal_Union
+ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
-Scal_Union = 'Union' Scal_Reference+
 
 Scal_TrueFalse = '!'? Boolean
 Scal_Member = '!'? EnumValue | enum '.' '*'
 Scal_Num = '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
-Scal_Reference = '|' Simple
+
+Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
+UnionDefinition = Simple+
 
 // base definition
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
@@ -509,7 +525,7 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Obj_Base
+Obj_Reference = Internal | Simple | Dual_Base | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
 Obj_TypeArgument = STRING? Obj_Reference
 
