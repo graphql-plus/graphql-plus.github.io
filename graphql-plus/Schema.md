@@ -170,7 +170,9 @@ Object is a general Dictionary as follows:
 "%"
 dual _Object [Object, obj, %] { :_Map<Any> } // recursive
 
-dual _Most<$T> [Most] { $T | Object | _Most<$T>? | _Most<$T>[] | _Most<$T>[Simple] | _Most<$T>[Simple?] } // recursive! not in _Dual, _Input or _Output
+dual _Most<$T> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictionary<$T> } // recursive! not in _Dual, _Input or _Output
+dual _MostList<$T> { _Most<$T>[] } // recursive! not in _Dual, _Input or _Output
+dual _MostDictionary<$T> { _Most<$T>[Simple?] } // recursive! not in _Dual, _Input or _Output
 
 dual _Any [Any] { :_Most<_dual> } // not in _Dual
 input _Any [Any] { :_Most<_Input> } // not in _Input
