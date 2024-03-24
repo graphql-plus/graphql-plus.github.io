@@ -16,8 +16,9 @@ Dual = Object
 Dual_Base = Obj_Base
 Input = Object
 In_Type = Obj_Type
+In_Base = Obj_Base
 Output = Object
-Out_Reference = Obj_Reference
+Out_Base = Obj_Base
 Out_Type = Obj_Type
 
 REGEX = "/" ( [^/] / "\\/" )+ "/"

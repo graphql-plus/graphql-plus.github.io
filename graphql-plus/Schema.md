@@ -293,7 +293,7 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Dual_Base | Obj_Base
+Obj_Reference = Internal | Simple | Dual_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
 Obj_TypeArgument = STRING? Obj_Reference
 
@@ -410,7 +410,8 @@ These Generic types are the Input types if `$T` is an Input type and Output type
 
 A Dual type can be used as either an Input type or an Output type.
 
-A Dual type is defined as an object type with no alterations.
+A Dual type is defined as an object type with no Term differences,
+after replacing "object" with "dual" and "Obj" with "Dual".
 
 ## Input type
 
@@ -420,6 +421,7 @@ after replacing "object" with "input" and "Obj" with "In".
 ```PEG
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
+In_Reference = Internal | Simple | Dual_Base | In_Base
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
@@ -448,6 +450,7 @@ Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_TypeArgument = Out_Reference | EnumValue
+Out_Reference = Internal | Simple | Dual_Base | Out_Base
 ```
 
 Output types define the result values for Categories.
@@ -527,7 +530,7 @@ Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
 
 Obj_Type = STRING? Obj_Reference
 Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Dual_Base | Obj_Base
+Obj_Reference = Internal | Simple | Dual_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
 Obj_TypeArgument = STRING? Obj_Reference
 
@@ -537,11 +540,13 @@ InputParameters = '(' In_TypeDefault+ ')'
 
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
+In_Reference = Internal | Simple | Dual_Base | In_Base
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_TypeArgument = Out_Reference | EnumValue
+Out_Reference = Internal | Simple | Dual_Base | Out_Base
 
 ```

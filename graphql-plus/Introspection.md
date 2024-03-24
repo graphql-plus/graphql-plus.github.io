@@ -72,7 +72,7 @@ output _Directives {
     | _Type
 }
 
-dual _Directive {
+output _Directive {
     : _Aliased
         parameters: _Parameter[]
         repeatable: Boolean
@@ -231,7 +231,7 @@ dual _ScalarTrueFalse {
         value: Boolean
     }
 
-dual _ScalarMember {
+output _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }
@@ -327,6 +327,7 @@ output _DualBase {
 output _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
+    | _DualBase
     }
 
 output _InputField {
@@ -341,6 +342,7 @@ output _InputField {
 output _OutputBase {
     : _ObjBase<_OutputArgument>
         output: Identifier
+    | _DualBase
     }
 
 output _OutputField {
@@ -424,7 +426,7 @@ output _Directives {
     | _Type
 }
 
-dual _Directive {
+output _Directive {
     : _Aliased
         parameters: _Parameter[]
         repeatable: Boolean
@@ -563,7 +565,7 @@ dual _ScalarTrueFalse {
         value: Boolean
     }
 
-dual _ScalarMember {
+output _ScalarMember {
     : _BaseScalarItem
         member: _EnumValue
     }
@@ -643,6 +645,7 @@ output _DualBase {
 output _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
+    | _DualBase
     }
 
 output _InputField {
@@ -653,6 +656,7 @@ output _InputField {
 output _OutputBase {
     : _ObjBase<_OutputArgument>
         output: Identifier
+    | _DualBase
     }
 
 output _OutputField {
