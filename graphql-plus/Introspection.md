@@ -32,13 +32,19 @@ input _TypeFilter {
     }
 
 dual _Aliased {
-    : _Described<_Named>
+    : _Described
         aliases: Identifier[]
     }
 
-dual _Described<$base> {
-    : $base
-        description: String?
+dual _Described {
+    : _Named
+        description: String
+    }
+
+dual _BaseDescribed<$base> {
+        base: $base
+        description: String
+    | $base
     }
 
 dual _Named {
@@ -87,7 +93,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```gqlp
 output _Setting {
-    : _Described<_Named>
+    : _Described
         value: _Constant
 }
 ```
@@ -271,8 +277,8 @@ dual _UnionMember {
 
 ```gqlp
 output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _Described<$base>>
-        typeParameters: _Described<_Named>[]
+    : _ChildType<$kind _BaseDescribed<$base>>
+        typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
         allFields: _Object<$field>[]
@@ -291,7 +297,7 @@ dual _ObjBase<$arg> {
     }
 
 output _Alternate<$base> {
-      type: _Described<_ObjRef<$base>>
+      type: _BaseDescribed<_ObjRef<$base>>
       collections: _Collections[]
     }
 
@@ -302,7 +308,7 @@ output _Object<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _Described<_ObjRef<$base>>
+      type: _BaseDescribed<_ObjRef<$base>>
       modifiers: _Modifiers[]
     }
 
@@ -394,13 +400,19 @@ input _TypeFilter {
     }
 
 dual _Aliased {
-    : _Described<_Named>
+    : _Described
         aliases: Identifier[]
     }
 
-dual _Described<$base> {
-    : $base
-        description: String?
+dual _Described {
+    : _Named
+        description: String
+    }
+
+dual _BaseDescribed<$base> {
+        base: $base
+        description: String
+    | $base
     }
 
 dual _Named {
@@ -437,7 +449,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
 output _Setting {
-    : _Described<_Named>
+    : _Described
         value: _Constant
 }
 
@@ -597,8 +609,8 @@ dual _UnionMember {
     }
 
 output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _Described<$base>>
-        typeParameters: _Described<_Named>[]
+    : _ChildType<$kind _BaseDescribed<$base>>
+        typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
         allFields: _Object<$field>[]
@@ -617,7 +629,7 @@ dual _ObjBase<$arg> {
     }
 
 output _Alternate<$base> {
-      type: _Described<_ObjRef<$base>>
+      type: _BaseDescribed<_ObjRef<$base>>
       collections: _Collections[]
     }
 
@@ -628,7 +640,7 @@ output _Object<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _Described<_ObjRef<$base>>
+      type: _BaseDescribed<_ObjRef<$base>>
       modifiers: _Modifiers[]
     }
 
