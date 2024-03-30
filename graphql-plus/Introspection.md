@@ -56,6 +56,8 @@ dual _Named {
 
 ```gqlp
 output _Categories {
+        category: _Category
+        type: _Type
     | _Category
     | _Type
 }
@@ -74,6 +76,8 @@ enum _Resolution { Parallel Sequential Single }
 
 ```gqlp
 output _Directives {
+        directive: _Directive
+        type: _Type
     | _Directive
     | _Type
 }
@@ -104,12 +108,12 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _ParentType<_TypeKind.Dual _DualBase _Field<_DualBase>>
-    | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    | _TypeObject<_TypeKind.Input _InputBase _InputField>
-    | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    | _TypeDual
+    | _TypeEnum
+    | _TypeInput
+    | _TypeOutput
     | _TypeScalar
-    | _ParentType<_TypeKind.Union _Named _UnionMember>
+    | _TypeUnion
     }
 
 output _BaseType<$kind> {
@@ -195,6 +199,10 @@ output _Modifier<$kind> {
 ## Enum
 
 ```gqlp
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    }
+
 dual _EnumMember {
     : _Aliased
         enum: Identifier
@@ -267,6 +275,10 @@ output _ScalarValue<$kind $value> {
 ## Union
 
 ```gqlp
+output _TypeUnion {
+    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    }
+
 dual _UnionMember {
     : _Named
         union: Identifier
@@ -321,6 +333,10 @@ output _Parameter {
 ## Dual
 
 ```gqlp
+output _TypeDual {
+    : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
+    }
+
 output _DualBase {
     : _ObjBase<_ObjRef<_DualBase>>
         dual: Identifier
@@ -330,6 +346,10 @@ output _DualBase {
 ## Input
 
 ```gqlp
+output _TypeInput {
+    : _TypeObject<_TypeKind.Input _InputBase _InputField>
+    }
+
 output _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
         input: Identifier
@@ -345,6 +365,10 @@ output _InputField {
 ## Output
 
 ```gqlp
+output _TypeOutput {
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    }
+
 output _OutputBase {
     : _ObjBase<_OutputArgument>
         output: Identifier
@@ -420,6 +444,8 @@ dual _Named {
     }
 
 output _Categories {
+        category: _Category
+        type: _Type
     | _Category
     | _Type
 }
@@ -434,6 +460,8 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 
 output _Directives {
+        directive: _Directive
+        type: _Type
     | _Directive
     | _Type
 }
@@ -456,12 +484,12 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _ParentType<_TypeKind.Dual _DualBase _Field<_DualBase>>
-    | _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    | _TypeObject<_TypeKind.Input _InputBase _InputField>
-    | _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    | _TypeDual
+    | _TypeEnum
+    | _TypeInput
+    | _TypeOutput
     | _TypeScalar
-    | _ParentType<_TypeKind.Union _Named _UnionMember>
+    | _TypeUnion
     }
 
 output _BaseType<$kind> {
@@ -539,6 +567,10 @@ output _Modifier<$kind> {
         kind: $kind
     }
 
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    }
+
 dual _EnumMember {
     : _Aliased
         enum: Identifier
@@ -603,6 +635,10 @@ output _ScalarValue<$kind $value> {
         value: $value
     }
 
+output _TypeUnion {
+    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    }
+
 dual _UnionMember {
     : _Named
         union: Identifier
@@ -649,9 +685,17 @@ output _Parameter {
         default: _Constant?
     }
 
+output _TypeDual {
+    : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
+    }
+
 output _DualBase {
     : _ObjBase<_ObjRef<_DualBase>>
         dual: Identifier
+    }
+
+output _TypeInput {
+    : _TypeObject<_TypeKind.Input _InputBase _InputField>
     }
 
 output _InputBase {
@@ -663,6 +707,10 @@ output _InputBase {
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
+    }
+
+output _TypeOutput {
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     }
 
 output _OutputBase {
