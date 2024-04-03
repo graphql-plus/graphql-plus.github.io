@@ -293,8 +293,8 @@ output _TypeObject<$kind $base $field> {
         typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allFields: _Object<$field>[]
-        allAlternates: _Object<_Alternate<$base>>[]
+        allFields: _ObjectFor<$field>[]
+        allAlternates: _ObjectFor<_Alternate<$base>>[]
     }
 
 output _ObjRef<$base> {
@@ -313,7 +313,7 @@ output _Alternate<$base> {
       collections: _Collections[]
     }
 
-output _Object<$for> {
+output _ObjectFor<$for> {
     : $for
         object: Identifier
     }
@@ -649,8 +649,8 @@ output _TypeObject<$kind $base $field> {
         typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
-        allFields: _Object<$field>[]
-        allAlternates: _Object<_Alternate<$base>>[]
+        allFields: _ObjectFor<$field>[]
+        allAlternates: _ObjectFor<_Alternate<$base>>[]
     }
 
 output _ObjRef<$base> {
@@ -669,7 +669,7 @@ output _Alternate<$base> {
       collections: _Collections[]
     }
 
-output _Object<$for> {
+output _ObjectFor<$for> {
     : $for
         object: Identifier
     }
