@@ -7,13 +7,13 @@ The `_Schema` output type is automatically defined as followed and can be used t
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[Identifier]
-        directives(_Filter?): _Directives[Identifier]
-        types(_TypeFilter?): _Type[Identifier]
-        settings(_Filter?): _Setting[Identifier]
+        categories(_CategoryFilter?): _Categories[_Identifier]
+        directives(_Filter?): _Directives[_Identifier]
+        types(_TypeFilter?): _Type[_Identifier]
+        settings(_Filter?): _Setting[_Identifier]
     }
 
-scalar Identifier { String /[A-Za-z_]+/ }
+scalar _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: String[]
@@ -33,7 +33,7 @@ input _TypeFilter {
 
 dual _Aliased {
     : _Described
-        aliases: Identifier[]
+        aliases: _Identifier[]
     }
 
 dual _Described {
@@ -48,7 +48,7 @@ dual _BaseDescribed<$base> {
     }
 
 dual _Named {
-        name: Identifier
+        name: _Identifier
     }
 ```
 
@@ -127,7 +127,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind Identifier>
+    : _ChildType<$kind _Identifier>
         items: $item[]
         allItems: $allItem[]
     }
@@ -138,7 +138,7 @@ enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind> {
         kind: $kind
-        name: Identifier
+        name: _Identifier
 }
 
 output _TypeSimple {
@@ -205,12 +205,12 @@ output _TypeEnum {
 
 dual _EnumMember {
     : _Aliased
-        enum: Identifier
+        enum: _Identifier
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: Identifier
+        value: _Identifier
     }
 ```
 
@@ -263,7 +263,7 @@ dual _ScalarRegex {
 
 dual _ScalarItem<$item> {
     : $item
-        scalar: Identifier
+        scalar: _Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -281,7 +281,7 @@ output _TypeUnion {
 
 dual _UnionMember {
     : _Named
-        union: Identifier
+        union: _Identifier
     }
 ```
 
@@ -305,7 +305,7 @@ output _ObjRef<$base> {
 
 dual _ObjBase<$arg> {
         arguments: $arg[]
-    | "TypeParameter" Identifier
+    | "TypeParameter" _Identifier
     }
 
 output _Alternate<$base> {
@@ -315,7 +315,7 @@ output _Alternate<$base> {
 
 output _ObjectFor<$for> {
     : $for
-        object: Identifier
+        object: _Identifier
     }
 
 output _Field<$base> {
@@ -339,7 +339,7 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_ObjRef<_DualBase>>
-        dual: Identifier
+        dual: _Identifier
     }
 ```
 
@@ -352,7 +352,7 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
-        input: Identifier
+        input: _Identifier
     | _DualBase
     }
 
@@ -371,7 +371,7 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputArgument>
-        output: Identifier
+        output: _Identifier
     | _DualBase
     }
 
@@ -383,14 +383,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: Identifier
+        value: _Identifier
     | _ObjRef<_OutputBase>
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: Identifier
-        value: Identifier
+        field: _Identifier
+        value: _Identifier
     }
 ```
 
@@ -399,13 +399,13 @@ output _OutputEnum {
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[Identifier]
-        directives(_Filter?): _Directives[Identifier]
-        types(_TypeFilter?): _Type[Identifier]
-        settings(_Filter?): _Setting[Identifier]
+        categories(_CategoryFilter?): _Categories[_Identifier]
+        directives(_Filter?): _Directives[_Identifier]
+        types(_TypeFilter?): _Type[_Identifier]
+        settings(_Filter?): _Setting[_Identifier]
     }
 
-scalar Identifier { String /[A-Za-z_]+/ }
+scalar _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: String[]
@@ -425,7 +425,7 @@ input _TypeFilter {
 
 dual _Aliased {
     : _Described
-        aliases: Identifier[]
+        aliases: _Identifier[]
     }
 
 dual _Described {
@@ -440,7 +440,7 @@ dual _BaseDescribed<$base> {
     }
 
 dual _Named {
-        name: Identifier
+        name: _Identifier
     }
 
 output _Categories {
@@ -503,7 +503,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind Identifier>
+    : _ChildType<$kind _Identifier>
         items: $item[]
         allItems: $allItem[]
     }
@@ -514,7 +514,7 @@ enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind> {
         kind: $kind
-        name: Identifier
+        name: _Identifier
 }
 
 output _TypeSimple {
@@ -573,12 +573,12 @@ output _TypeEnum {
 
 dual _EnumMember {
     : _Aliased
-        enum: Identifier
+        enum: _Identifier
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: Identifier
+        value: _Identifier
     }
 
 enum _ScalarDomain { Boolean Enum Number String Union }
@@ -627,7 +627,7 @@ dual _ScalarRegex {
 
 dual _ScalarItem<$item> {
     : $item
-        scalar: Identifier
+        scalar: _Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -641,7 +641,7 @@ output _TypeUnion {
 
 dual _UnionMember {
     : _Named
-        union: Identifier
+        union: _Identifier
     }
 
 output _TypeObject<$kind $base $field> {
@@ -661,7 +661,7 @@ output _ObjRef<$base> {
 
 dual _ObjBase<$arg> {
         arguments: $arg[]
-    | "TypeParameter" Identifier
+    | "TypeParameter" _Identifier
     }
 
 output _Alternate<$base> {
@@ -671,7 +671,7 @@ output _Alternate<$base> {
 
 output _ObjectFor<$for> {
     : $for
-        object: Identifier
+        object: _Identifier
     }
 
 output _Field<$base> {
@@ -691,7 +691,7 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_ObjRef<_DualBase>>
-        dual: Identifier
+        dual: _Identifier
     }
 
 output _TypeInput {
@@ -700,7 +700,7 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_ObjRef<_InputBase>>
-        input: Identifier
+        input: _Identifier
     | _DualBase
     }
 
@@ -715,7 +715,7 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputArgument>
-        output: Identifier
+        output: _Identifier
     | _DualBase
     }
 
@@ -727,14 +727,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: Identifier
+        value: _Identifier
     | _ObjRef<_OutputBase>
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: Identifier
-        value: Identifier
+        field: _Identifier
+        value: _Identifier
     }
 
 ```

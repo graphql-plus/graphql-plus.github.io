@@ -74,7 +74,7 @@ Scalar = Internal | Simple
 | Number  | NUMBER            |                                                                             |
 | String  | STRING            |                                                                             |
 
-Any unknown identifier used as a Dictionary key Type will be treated as an Enum Type name.
+Any unknown \_Identifier used as a Dictionary key Type will be treated as an Enum Type name.
 
 ## Object
 
