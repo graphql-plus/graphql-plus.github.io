@@ -16,10 +16,16 @@ output _Schema {
 scalar _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
-        names: String[]
-        includeReferencedTypes: Boolean = false
-    | "Names" String[]
+        names: _NameFilter[]
+        matchAliases: Boolean? = true
+        aliases: _NameFilter[]
+        returnByAlias: Boolean? = false
+        returnReferencedTypes: Boolean? = false
+    | _NameFilter[]
     }
+
+"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+scalar _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -305,8 +311,10 @@ output _ObjRef<$base> {
 
 dual _ObjBase<$arg> {
         arguments: $arg[]
-    | "TypeParameter" _Identifier
+    | _TypeParameter
     }
+
+scalar _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
       type: _BaseDescribed<_ObjRef<$base>>
@@ -408,10 +416,16 @@ output _Schema {
 scalar _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
-        names: String[]
-        includeReferencedTypes: Boolean = false
-    | "Names" String[]
+        names: _NameFilter[]
+        matchAliases: Boolean? = true
+        aliases: _NameFilter[]
+        returnByAlias: Boolean? = false
+        returnReferencedTypes: Boolean? = false
+    | _NameFilter[]
     }
+
+"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+scalar _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -661,8 +675,10 @@ output _ObjRef<$base> {
 
 dual _ObjBase<$arg> {
         arguments: $arg[]
-    | "TypeParameter" _Identifier
+    | _TypeParameter
     }
+
+scalar _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
       type: _BaseDescribed<_ObjRef<$base>>
