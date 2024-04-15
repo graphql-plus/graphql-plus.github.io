@@ -17,6 +17,8 @@ Aliases = '[' alias+ ']'
 
 A Schema is one (or more) Declarations. Each declaration can be preceded by a documentation string.
 
+### Declarations
+
 Declarations have the following general form:
 
 > `label name Parameters? Aliases? '{' ( '(' Option ')' )? Definition '}'`
@@ -31,7 +33,7 @@ The following declarations are implied but can be specified explicitly:
 - `category { (single) Subscription }` and thus `output Subscription { }`
 - `output _Schema { ... }` (see [Introspection](Introspection.md))
 
-### Names and Aliases
+#### Names and Aliases
 
 Names beginning with an underscore (`_`) are reserved and such items are considered system items.
 
@@ -43,7 +45,7 @@ Within any list of named items with Aliases, after merging all Aliases must be u
 Any conflicts between names and Aliases will be resolved in the favour of the name,
 ie. Any Aliases in a list of items that match any of the item's names will simply be removed.
 
-### Merging (and De-duplicating)
+#### Merging (and de-duplicating)
 
 Some item lists can be merged and thus de-duplicated.
 
@@ -62,7 +64,9 @@ As order is significant in most lists, the first item of any duplicates will be 
 
 It is an error if merging of duplicate items is not possible.
 
-## Category declaration
+## Global declarations
+
+### Category declaration
 
 ```PEG
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
@@ -85,7 +89,7 @@ but this can be changed with the following Category Options:
 
 Categories can be merged if their Options and Modified Output Types match.
 
-## Directive declaration
+### Directive declaration
 
 ```PEG
 Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
@@ -102,7 +106,7 @@ Directives can be merged if their Options match.
 
 Locations will be merged by value.
 
-## Option declaration
+### Option declaration
 
 ```PEG
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
@@ -129,7 +133,7 @@ A Type cannot extend itself, even recursively.
 Parent = ':' parent
 ```
 
-### Built-In types
+### BuiltIn types
 
 ```PEG
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
@@ -194,7 +198,7 @@ union _Union [Union] { } // All user defined Union types
 
 </details>
 
-## Enum type
+### Enum type
 
 ```PEG
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
@@ -207,7 +211,7 @@ Each Member can be preceded by a documentation string and may have one or more A
 
 Enums can be merged if their Parents, including lack thereof, match.
 
-## Scalar type
+### Scalar type
 
 Scalar type definitions are of the following general form:
 
@@ -237,14 +241,14 @@ Item exclusions (where defined) take precedence over inclusions.
 
 Scalar declarations can be merged if their Domains and Parents match.
 
-### Boolean scalar
+#### Boolean scalar
 
 Comprises only those Boolean values explicitly included (or excluded).
 If no included or excluded values are specified, a Boolean scalar includes both values, ie. true and false.
 
 Boolean values can only be merged if their inclusion/exclusion matches.
 
-### Enum scalar
+#### Enum scalar
 
 Comprises only those enum Values explicitly included (or excluded).
 
@@ -253,7 +257,7 @@ All enum Members of an enum Type can also be included.
 Enum Values can be merged if their Type and inclusion/exclusion matches.
 Enum scalars must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
 
-### Number scalar
+#### Number scalar
 
 Comprises only those numbers included in (or excluded from) a given Range or specific value.
 
@@ -261,13 +265,13 @@ A Range may specify either or both of its upper or lower bounds and is inclusive
 
 Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.
 
-### String scalar
+#### String scalar
 
 Comprises only those strings that match (or don't match) one or more Regular expressions.
 
 Regular expressions can only be merged if their inclusion/exclusion matches.
 
-## Union type
+### Union type
 
 ```PEG
 Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
@@ -280,9 +284,9 @@ A Union type must not include itself, even recursively.
 
 Union declarations can be merged if their Parents match.
 
-## Object types
+## Object Declarations
 
-Input and Output types are both Object types.
+Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
@@ -339,7 +343,9 @@ Fields can be merged if their Modified Types match.
 
 Alternates are merged by Type and can be merged if their Collections match.
 
-### Parameter
+### Object commonalities
+
+#### Parameter
 
 ```PEG
 InputParameters = '(' In_TypeDefault+ ')'
@@ -351,7 +357,7 @@ The order of Alternates is significant.
 Alternates are merged by their Input type and can be merged if their Modifiers match.
 Default values are merged as Constant values.
 
-### Modifiers / Collections
+#### Modifiers / Collections
 
 Note that Schema Collections include Scalar and Enum types as valid Dictionary keys.
 
@@ -406,14 +412,14 @@ These Generic types are the Input types if `$T` is an Input type and Output type
 | `String[Number?]`          | Dict<Opt<Number> String>                 |
 | `String[][Number][Unit?]?` | Opt<Dict<Opt<Unit> Array<List<String>>>> |
 
-## Dual type
+### Dual type
 
 A Dual type can be used as either an Input type or an Output type.
 
 A Dual type is defined as an object type with no Term differences,
 after replacing "object" with "dual" and "Obj" with "Dual".
 
-## Input type
+### Input type
 
 An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
@@ -439,7 +445,7 @@ An Input Field redefines an object Field as follows:
 
 A Default of `null` is only allowed on Optional fields. The Default must be compatible with the Modified Type of the field.
 
-## Output type
+### Output type
 
 An Input type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".

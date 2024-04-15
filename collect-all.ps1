@@ -13,7 +13,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($end) { return }
     $doc += @($_)
 
-    if ($_ -match "## (\w+)") {
+    if ($_ -match "^### (\w+)") {
       $section = $Matches[1]
     }
     
@@ -32,7 +32,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
         $current += @($_)
       }
     } else {
-      if ($_ -match "# Complete") {
+      if ($_ -match "^## Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
           

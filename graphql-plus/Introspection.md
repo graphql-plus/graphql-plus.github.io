@@ -4,6 +4,8 @@ The `_Schema` output type is automatically defined as followed and can be used t
 
 ## Schema
 
+### Declarations
+
 ```gqlp
 output _Schema {
     : _Named
@@ -36,7 +38,11 @@ input _TypeFilter {
     : _Filter
         kinds: _TypeKind[]
     }
+```
 
+### Names and Aliases
+
+```gqlp
 dual _Aliased {
     : _Described
         aliases: _Identifier[]
@@ -58,7 +64,9 @@ dual _Named {
     }
 ```
 
-## Category
+## Global
+
+### Category
 
 ```gqlp
 output _Categories {
@@ -78,7 +86,7 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 ```
 
-## Directive
+### Directive
 
 ```gqlp
 output _Directives {
@@ -99,7 +107,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
 
-## Setting
+### Setting
 
 ```gqlp
 output _Setting {
@@ -109,6 +117,8 @@ output _Setting {
 ```
 
 ## Types
+
+### Common
 
 ```gqlp
 output _Type {
@@ -155,7 +165,7 @@ output _TypeSimple {
     }
 ```
 
-## Common
+### BuiltIn
 
 ```gqlp
 output _Constant {
@@ -202,7 +212,7 @@ output _Modifier<$kind> {
     }
 ```
 
-## Enum
+### Enum
 
 ```gqlp
 output _TypeEnum {
@@ -220,7 +230,7 @@ output _EnumValue {
     }
 ```
 
-## Scalar
+### Scalar
 
 ```gqlp
 enum _ScalarDomain { Boolean Enum Number String Union }
@@ -278,7 +288,7 @@ output _ScalarValue<$kind $value> {
     }
 ```
 
-## Union
+### Union
 
 ```gqlp
 output _TypeUnion {
@@ -292,6 +302,8 @@ dual _UnionMember {
 ```
 
 ## Object
+
+### Object Commonalities
 
 ```gqlp
 output _TypeObject<$kind $base $field> {
@@ -338,7 +350,7 @@ output _Parameter {
     }
 ```
 
-## Dual
+### Dual
 
 ```gqlp
 output _TypeDual {
@@ -351,7 +363,7 @@ output _DualBase {
     }
 ```
 
-## Input
+### Input
 
 ```gqlp
 output _TypeInput {
@@ -370,7 +382,7 @@ output _InputField {
     }
 ```
 
-## Output
+### Output
 
 ```gqlp
 output _TypeOutput {
