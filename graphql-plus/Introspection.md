@@ -64,9 +64,9 @@ dual _Named {
     }
 ```
 
-## Global
+## Global declarations
 
-### Category
+### Category declaration
 
 ```gqlp
 output _Categories {
@@ -86,7 +86,7 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 ```
 
-### Directive
+### Directive declarations
 
 ```gqlp
 output _Directives {
@@ -107,7 +107,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
 
-### Setting
+### Option declarations
 
 ```gqlp
 output _Setting {
@@ -116,7 +116,7 @@ output _Setting {
 }
 ```
 
-## Types
+## Type declarations
 
 ### Common
 
@@ -165,7 +165,7 @@ output _TypeSimple {
     }
 ```
 
-### BuiltIn
+### Built-In types
 
 ```gqlp
 output _Constant {
@@ -212,7 +212,7 @@ output _Modifier<$kind> {
     }
 ```
 
-### Enum
+### Enum type
 
 ```gqlp
 output _TypeEnum {
@@ -230,7 +230,7 @@ output _EnumValue {
     }
 ```
 
-### Scalar
+### Scalar type
 
 ```gqlp
 enum _ScalarDomain { Boolean Enum Number String Union }
@@ -288,7 +288,7 @@ output _ScalarValue<$kind $value> {
     }
 ```
 
-### Union
+### Union type
 
 ```gqlp
 output _TypeUnion {
@@ -301,7 +301,7 @@ dual _UnionMember {
     }
 ```
 
-## Object
+## Object declarations
 
 ### Object Commonalities
 
@@ -350,7 +350,7 @@ output _Parameter {
     }
 ```
 
-### Dual
+### Dual type
 
 ```gqlp
 output _TypeDual {
@@ -363,7 +363,7 @@ output _DualBase {
     }
 ```
 
-### Input
+### Input type
 
 ```gqlp
 output _TypeInput {
@@ -382,7 +382,7 @@ output _InputField {
     }
 ```
 
-### Output
+### Output type
 
 ```gqlp
 output _TypeOutput {

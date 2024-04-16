@@ -133,7 +133,7 @@ A Type cannot extend itself, even recursively.
 Parent = ':' parent
 ```
 
-### BuiltIn types
+### Built-In types
 
 ```PEG
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
