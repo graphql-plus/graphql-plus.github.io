@@ -7,7 +7,18 @@ export default function (hljs) {
     aliases: ["gql-plus", "gqlp"],
     disableAutodetect: false,
     keywords: {
-      keyword: ["category", "output", "input", "schema", "directive", "scalar", "enum"],
+      keyword: [
+        "category", 
+        "directive",
+        "domain",
+        "dual",
+        "enum",
+        "input",
+        "option",
+        "output", 
+        "schema",
+        "union",
+      ],
       literal: ["true", "false", "null", "_"],
     },
     contains: [

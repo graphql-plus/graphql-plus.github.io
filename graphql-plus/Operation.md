@@ -49,18 +49,18 @@ The order of directives may be significant.
 ## Result
 
 ```PEG
-Result = ( ':' Scalar Argument? | Object ) Modifiers?
+Result = ( ':' Domain Argument? | Object ) Modifiers?
 ```
 
 An Operation's Result is either:
 
-- a Scalar type with an optional Argument and/or Modifiers, or
+- a Domain type with an optional Argument and/or Modifiers, or
 - an Object type with optional Modifiers.
 
-## Scalar
+## Domain
 
 ```PEG
-Scalar = Internal | Simple
+Domain = Internal | Simple
 ```
 
 | Type    | Value(s)          | Description                                                                 |
@@ -147,9 +147,9 @@ Var_Null = '[' Var_Type ']' | type
 
 Directive = '@'directive Argument?
 
-Result = ( ':' Scalar Argument? | Object ) Modifiers?
+Result = ( ':' Domain Argument? | Object ) Modifiers?
 
-Scalar = Internal | Simple
+Domain = Internal | Simple
 
 Object = '{' ( Selection | Field )+ '}'
 Field = ( alias ':' )? field Argument? Modifiers? Directive* Object?

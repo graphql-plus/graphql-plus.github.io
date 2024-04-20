@@ -4,5 +4,7 @@
   href: Operation.md
 - name: Schema
   href: Schema.md
+- name: Diagrams
+  href: Diagrams.md
 - name: Introspection
   href: Introspection.md

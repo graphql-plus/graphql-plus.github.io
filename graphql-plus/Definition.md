@@ -69,7 +69,7 @@ An Enum Value may drop the Enum portion if the Member is unique.
 Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and (`Unit.`)`_`.
 
 `Boolean`, `Null`, `Unit` and `Void` are all Enum types.
-`Number` and `String` are Scalar types.
+`Number` and `String` are Domain types.
 
 ### Modifiers / Collections
 

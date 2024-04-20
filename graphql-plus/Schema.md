@@ -10,7 +10,7 @@
 Schema = Declaration+
 
 Declaration = STRING? ( Category | Directive | Option | Type )
-Type = Dual | Enum | Input | Output | Scalar | Union
+Type = Dual | Enum | Input | Output | Domain | Union
 
 Aliases = '[' alias+ ']'
 ```
@@ -138,7 +138,7 @@ Parent = ':' parent
 ```PEG
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
-Simple_ReDef = Basic | scalar | enum  // Redefined Simple
+Simple_ReDef = Basic | domain | enum  // Redefined Simple
 ```
 
 The above types from [Definition](Definition.md) are redefined for Schemas
@@ -160,12 +160,12 @@ enum Unit [_] { _ }
 enum Void { }  // no valid value
 ```
 
-Number and String are effectively scalar types as follows:
+Number and String are effectively domain types as follows:
 
 ```gqlp
-scalar Number [int, 0] { Number }
+domain Number [int, 0] { Number }
 
-scalar String [str, *] { String }
+domain String [str, *] { String }
 ```
 
 Object is a general Dictionary as follows:
@@ -184,15 +184,15 @@ output _Any [Any] { :_Most<_Output> } // not in _Output
 union _Any [Any] { Basic Internal _Enum _Scalar _Union } // not in _Union
 ```
 
-The internal types `_Union [Union]`, `_Scalar [Scalar]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]` and `_Dual [Dual]`
-are automatically defined to be a union of all user defined Union, Scalar, Output, Input, Enum and Dual types respectively, as follows:
+The internal types `_Union [Union]`, `_Scalar [Domain]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]` and `_Dual [Dual]`
+are automatically defined to be a union of all user defined Union, Domain, Output, Input, Enum and Dual types respectively, as follows:
 
 ```gqlp
 dual _Dual [Dual] { } // All user defined Dual types
 union _Enum [Enum] { } // All user defined Enum types
 input _Input [Input] { } // All user defined Input types
 output _Output [Output] { } // All user defined Output types
-union _Scalar [Scalar] { } // All user defined Scalar types
+union _Scalar [Domain] { } // All user defined Domain types
 union _Union [Union] { } // All user defined Union types
 ```
 
@@ -211,14 +211,14 @@ Each Member can be preceded by a documentation string and may have one or more A
 
 Enums can be merged if their Parents, including lack thereof, match.
 
-### Scalar type
+### Domain type
 
-Scalar type definitions are of the following general form:
+Domain type definitions are of the following general form:
 
 > `Kind Parent? Item*`
 
 ```PEG
-Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
+Domain = 'domain' domain Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
@@ -233,22 +233,22 @@ Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
 ```
 
-Scalar types define specific sub-domains of the following Domains, each with different Item definitions:
+Domain types define specific sub-domains of the following Domains, each with different Item definitions:
 
 > Boolean, Enum, Number, String
 
 Item exclusions (where defined) take precedence over inclusions.
 
-Scalar declarations can be merged if their Domains and Parents match.
+Domain declarations can be merged if their Domains and Parents match.
 
-#### Boolean scalar
+#### Boolean domain
 
 Comprises only those Boolean values explicitly included (or excluded).
-If no included or excluded values are specified, a Boolean scalar includes both values, ie. true and false.
+If no included or excluded values are specified, a Boolean domain includes both values, ie. true and false.
 
 Boolean values can only be merged if their inclusion/exclusion matches.
 
-#### Enum scalar
+#### Enum domain
 
 Comprises only those enum Values explicitly included (or excluded).
 
@@ -257,7 +257,7 @@ All enum Members of an enum Type can also be included.
 Enum Values can be merged if their Type and inclusion/exclusion matches.
 Enum scalars must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
 
-#### Number scalar
+#### Number domain
 
 Comprises only those numbers included in (or excluded from) a given Range or specific value.
 
@@ -265,7 +265,7 @@ A Range may specify either or both of its upper or lower bounds and is inclusive
 
 Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.
 
-#### String scalar
+#### String domain
 
 Comprises only those strings that match (or don't match) one or more Regular expressions.
 
@@ -359,7 +359,7 @@ Default values are merged as Constant values.
 
 #### Modifiers / Collections
 
-Note that Schema Collections include Scalar and Enum types as valid Dictionary keys.
+Note that Schema Collections include Domain and Enum types as valid Dictionary keys.
 
 <details>
 <summary>Modifiers</summary>
@@ -488,7 +488,7 @@ or:
 Schema = Declaration+
 
 Declaration = STRING? ( Category | Directive | Option | Type )
-Type = Dual | Enum | Input | Output | Scalar | Union
+Type = Dual | Enum | Input | Output | Domain | Union
 
 Aliases = '[' alias+ ']'
 
@@ -506,12 +506,12 @@ Parent = ':' parent
 
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
-Simple_ReDef = Basic | scalar | enum  // Redefined Simple
+Simple_ReDef = Basic | domain | enum  // Redefined Simple
 
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
-Scalar = 'scalar' scalar Aliases? '{' Parent? ScalarDefinition '}'
+Domain = 'domain' domain Aliases? '{' Parent? ScalarDefinition '}'
 ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*

@@ -15,7 +15,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-scalar _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: _NameFilter[]
@@ -27,7 +27,7 @@ input _Filter  {
     }
 
 "_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
-scalar _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -148,7 +148,7 @@ output _ParentType<$kind $item $allItem> {
         allItems: $allItem[]
     }
 
-enum _SimpleKind { Basic Enum Internal Scalar Union }
+enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
@@ -160,7 +160,7 @@ output _TypeRef<$kind> {
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
-    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
 ```
@@ -230,7 +230,7 @@ output _EnumValue {
     }
 ```
 
-### Scalar type
+### Domain type
 
 ```gqlp
 enum _ScalarDomain { Boolean Enum Number String Union }
@@ -243,13 +243,13 @@ output _TypeScalar {
     }
 
 output _ScalarRef<$kind> {
-    : _TypeRef<_TypeKind.Scalar>
-        scalar: $kind
+    : _TypeRef<_TypeKind.Domain>
+        domain: $kind
     }
 
 output _BaseScalar<$domain $item> {
-    : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
-        scalar: $domain
+    : _ParentType<_TypeKind.Domain $item _ScalarItem<$item>>
+        domain: $domain
     }
 
 dual _BaseScalarItem {
@@ -279,7 +279,7 @@ dual _ScalarRegex {
 
 dual _ScalarItem<$item> {
     : $item
-        scalar: _Identifier
+        domain: _Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -326,7 +326,7 @@ dual _ObjBase<$arg> {
     | _TypeParameter
     }
 
-scalar _TypeParameter { :_Identifier String }
+domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
       type: _BaseDescribed<_ObjRef<$base>>
@@ -425,7 +425,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-scalar _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_]+/ }
 
 input _Filter  {
         names: _NameFilter[]
@@ -437,7 +437,7 @@ input _Filter  {
     }
 
 "_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
-scalar _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -534,7 +534,7 @@ output _ParentType<$kind $item $allItem> {
         allItems: $allItem[]
     }
 
-enum _SimpleKind { Basic Enum Internal Scalar Union }
+enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
@@ -546,7 +546,7 @@ output _TypeRef<$kind> {
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
-    | _TypeRef<_TypeKind.Scalar>
+    | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
 
@@ -617,13 +617,13 @@ output _TypeScalar {
     }
 
 output _ScalarRef<$kind> {
-    : _TypeRef<_TypeKind.Scalar>
-        scalar: $kind
+    : _TypeRef<_TypeKind.Domain>
+        domain: $kind
     }
 
 output _BaseScalar<$domain $item> {
-    : _ParentType<_TypeKind.Scalar $item _ScalarItem<$item>>
-        scalar: $domain
+    : _ParentType<_TypeKind.Domain $item _ScalarItem<$item>>
+        domain: $domain
     }
 
 dual _BaseScalarItem {
@@ -653,7 +653,7 @@ dual _ScalarRegex {
 
 dual _ScalarItem<$item> {
     : $item
-        scalar: _Identifier
+        domain: _Identifier
     }
 
 output _ScalarValue<$kind $value> {
@@ -690,7 +690,7 @@ dual _ObjBase<$arg> {
     | _TypeParameter
     }
 
-scalar _TypeParameter { :_Identifier String }
+domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
       type: _BaseDescribed<_ObjRef<$base>>
