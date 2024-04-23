@@ -10,26 +10,54 @@ classDiagram
     Declaration <|-- Global
     Declaration <|-- Type
 
-    Global <|-- Category
-    Global <|-- Directive
-    Global <|-- Option
+    Global <|-- "D"Option
+    Global <|-- "D"Directive
+    Global <|-- "D"Category
+
+    Option *-- Setting
 
     Type <|-- Built-In
     Type <|-- Simple
     Type <|-- Object
 
-    Simple <|-- Domain
-    Simple <|-- Enum
-    Simple <|-- Union
+    Simple <|-- "D"Domain
+    Simple <|-- "D"Enum
+    Simple <|-- "D"Union
 
-    Domain <|-- Boolean
-    Domain <|-- D_Enum
-    Domain <|-- Number
-    Domain <|-- String
-    class D_Enum["Enum"]
+    Domain *-- TrueFalse
+    Domain *-- Member
+    Domain *-- Range
+    Domain *-- Regex
 
-    Object <|-- Dual
-    Object <|-- Input
-    Object <|-- Output
+    Enum *-- Value
 
+    Union *-- Alternate
+
+    Object <|-- "D"Input
+    Object <|-- "D"Dual
+    Object <|-- "D"Output
+
+    Input *-- InputField
+    InputField *-- InputRef
+    InputField *.. DualField
+    InputRef *.. DualRef
+
+    Dual *-- DualField
+    DualField *-- DualRef
+
+    Output *-- OutputField
+    OutputField *-- OutputRef
+    OutputField *.. DualField
+    OutputRef *.. DualRef
+```
+
+## Operation
+
+```mermaid
+classDiagram
+  direction LR
+
+  Operation *.. Variable
+  Operation *.. Directive
+  Operation *.. Fragment
 ```
