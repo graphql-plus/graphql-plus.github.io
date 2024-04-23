@@ -181,10 +181,10 @@ dual _MostDictionary<$T> { _Most<$T>[Simple?] } // recursive! not in _Dual, _Inp
 dual _Any [Any] { :_Most<_dual> } // not in _Dual
 input _Any [Any] { :_Most<_Input> } // not in _Input
 output _Any [Any] { :_Most<_Output> } // not in _Output
-union _Any [Any] { Basic Internal _Enum _Scalar _Union } // not in _Union
+union _Any [Any] { Basic Internal _Enum _Domain _Union } // not in _Union
 ```
 
-The internal types `_Union [Union]`, `_Scalar [Domain]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]` and `_Dual [Dual]`
+The internal types `_Union [Union]`, `_Domain [Domain]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]` and `_Dual [Dual]`
 are automatically defined to be a union of all user defined Union, Domain, Output, Input, Enum and Dual types respectively, as follows:
 
 ```gqlp
@@ -192,7 +192,7 @@ dual _Dual [Dual] { } // All user defined Dual types
 union _Enum [Enum] { } // All user defined Enum types
 input _Input [Input] { } // All user defined Input types
 output _Output [Output] { } // All user defined Output types
-union _Scalar [Domain] { } // All user defined Domain types
+union _Domain [Domain] { } // All user defined Domain types
 union _Union [Union] { } // All user defined Union types
 ```
 
@@ -218,8 +218,8 @@ Domain type definitions are of the following general form:
 > `Kind Parent? Item*`
 
 ```PEG
-Domain = 'domain' domain Aliases? '{' Parent? ScalarDefinition '}'
-ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
+Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
+DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*
@@ -255,7 +255,7 @@ Comprises only those enum Values explicitly included (or excluded).
 All enum Members of an enum Type can also be included.
 
 Enum Values can be merged if their Type and inclusion/exclusion matches.
-Enum scalars must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
+Enum domains must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
 
 #### Number domain
 
@@ -511,8 +511,8 @@ Simple_ReDef = Basic | domain | enum  // Redefined Simple
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
 En_Member = STRING? member Aliases?
 
-Domain = 'domain' domain Aliases? '{' Parent? ScalarDefinition '}'
-ScalarDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
+Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
+DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
 Scal_Enum = 'Enum' Scal_Member*

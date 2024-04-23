@@ -128,7 +128,7 @@ output _Type {
     | _TypeEnum
     | _TypeInput
     | _TypeOutput
-    | _TypeScalar
+    | _TypeDomain
     | _TypeUnion
     }
 
@@ -176,8 +176,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | _ScalarValue<_ScalarDomain.Number Number>
-    | _ScalarValue<_ScalarDomain.String String>
+    | _DomainValue<_DomainKind.Number Number>
+    | _DomainValue<_DomainKind.String String>
     | _EnumValue
 }
 
@@ -233,57 +233,57 @@ output _EnumValue {
 ### Domain type
 
 ```gqlp
-enum _ScalarDomain { Boolean Enum Number String Union }
+enum _DomainKind { Boolean Enum Number String Union }
 
-output _TypeScalar {
-    | _BaseScalar<_ScalarDomain.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_ScalarDomain.Enum _ScalarMember>
-    | _BaseScalar<_ScalarDomain.Number _ScalarRange>
-    | _BaseScalar<_ScalarDomain.String _ScalarRegex>
+output _TypeDomain {
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex>
     }
 
-output _ScalarRef<$kind> {
+output _DomainRef<$kind> {
     : _TypeRef<_TypeKind.Domain>
         domain: $kind
     }
 
-output _BaseScalar<$domain $item> {
-    : _ParentType<_TypeKind.Domain $item _ScalarItem<$item>>
+output _BaseDomain<$domain $item> {
+    : _ParentType<_TypeKind.Domain $item _DomainItem<$item>>
         domain: $domain
     }
 
-dual _BaseScalarItem {
+dual _BaseDomainItem {
         exclude: Boolean
     }
 
-dual _ScalarTrueFalse {
-    : _BaseScalarItem
+dual _DomainTrueFalse {
+    : _BaseDomainItem
         value: Boolean
     }
 
-output _ScalarMember {
-    : _BaseScalarItem
+output _DomainMember {
+    : _BaseDomainItem
         member: _EnumValue
     }
 
-dual _ScalarRange {
-    : _BaseScalarItem
+dual _DomainRange {
+    : _BaseDomainItem
         from: Number?
         to: Number?
     }
 
-dual _ScalarRegex {
-    : _BaseScalarItem
+dual _DomainRegex {
+    : _BaseDomainItem
         regex: String
     }
 
-dual _ScalarItem<$item> {
+dual _DomainItem<$item> {
     : $item
         domain: _Identifier
     }
 
-output _ScalarValue<$kind $value> {
-    : _ScalarRef<$kind>
+output _DomainValue<$kind $value> {
+    : _DomainRef<$kind>
         value: $value
     }
 ```
@@ -514,7 +514,7 @@ output _Type {
     | _TypeEnum
     | _TypeInput
     | _TypeOutput
-    | _TypeScalar
+    | _TypeDomain
     | _TypeUnion
     }
 
@@ -558,8 +558,8 @@ output _Constant {
 
 output _Simple {
     | Boolean
-    | _ScalarValue<_ScalarDomain.Number Number>
-    | _ScalarValue<_ScalarDomain.String String>
+    | _DomainValue<_DomainKind.Number Number>
+    | _DomainValue<_DomainKind.String String>
     | _EnumValue
 }
 
@@ -607,57 +607,57 @@ output _EnumValue {
         value: _Identifier
     }
 
-enum _ScalarDomain { Boolean Enum Number String Union }
+enum _DomainKind { Boolean Enum Number String Union }
 
-output _TypeScalar {
-    | _BaseScalar<_ScalarDomain.Boolean _ScalarTrueFalse>
-    | _BaseScalar<_ScalarDomain.Enum _ScalarMember>
-    | _BaseScalar<_ScalarDomain.Number _ScalarRange>
-    | _BaseScalar<_ScalarDomain.String _ScalarRegex>
+output _TypeDomain {
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex>
     }
 
-output _ScalarRef<$kind> {
+output _DomainRef<$kind> {
     : _TypeRef<_TypeKind.Domain>
         domain: $kind
     }
 
-output _BaseScalar<$domain $item> {
-    : _ParentType<_TypeKind.Domain $item _ScalarItem<$item>>
+output _BaseDomain<$domain $item> {
+    : _ParentType<_TypeKind.Domain $item _DomainItem<$item>>
         domain: $domain
     }
 
-dual _BaseScalarItem {
+dual _BaseDomainItem {
         exclude: Boolean
     }
 
-dual _ScalarTrueFalse {
-    : _BaseScalarItem
+dual _DomainTrueFalse {
+    : _BaseDomainItem
         value: Boolean
     }
 
-output _ScalarMember {
-    : _BaseScalarItem
+output _DomainMember {
+    : _BaseDomainItem
         member: _EnumValue
     }
 
-dual _ScalarRange {
-    : _BaseScalarItem
+dual _DomainRange {
+    : _BaseDomainItem
         from: Number?
         to: Number?
     }
 
-dual _ScalarRegex {
-    : _BaseScalarItem
+dual _DomainRegex {
+    : _BaseDomainItem
         regex: String
     }
 
-dual _ScalarItem<$item> {
+dual _DomainItem<$item> {
     : $item
         domain: _Identifier
     }
 
-output _ScalarValue<$kind $value> {
-    : _ScalarRef<$kind>
+output _DomainValue<$kind $value> {
+    : _DomainRef<$kind>
         value: $value
     }
 
