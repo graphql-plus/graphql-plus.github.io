@@ -134,7 +134,7 @@ output _Type {
 
 output _BaseType<$kind> {
     : _Aliased
-        kind: $kind
+        typeKind: $kind
     }
 
 output _ChildType<$kind $parent> {
@@ -208,7 +208,7 @@ output _Modifiers {
 enum _ModifierKind { Optional List Dictionary }
 
 output _Modifier<$kind> {
-        kind: $kind
+        modifierKind: $kind
     }
 ```
 
@@ -520,7 +520,7 @@ output _Type {
 
 output _BaseType<$kind> {
     : _Aliased
-        kind: $kind
+        typeKind: $kind
     }
 
 output _ChildType<$kind $parent> {
@@ -590,7 +590,7 @@ output _Modifiers {
 enum _ModifierKind { Optional List Dictionary }
 
 output _Modifier<$kind> {
-        kind: $kind
+        modifierKind: $kind
     }
 
 output _TypeEnum {
