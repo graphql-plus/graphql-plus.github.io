@@ -233,7 +233,7 @@ output _EnumValue {
 ### Domain type
 
 ```gqlp
-enum _DomainKind { Boolean Enum Number String Union }
+enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>
@@ -607,7 +607,7 @@ output _EnumValue {
         value: _Identifier
     }
 
-enum _DomainKind { Boolean Enum Number String Union }
+enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>

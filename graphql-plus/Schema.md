@@ -222,7 +222,7 @@ Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
 DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
-Scal_Enum = 'Enum' Scal_Member*
+Scal_Enum = 'Enum' Scal_Member+
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 
@@ -251,8 +251,11 @@ Boolean values can only be merged if their inclusion/exclusion matches.
 #### Enum domain
 
 Comprises only those enum Values explicitly included (or excluded).
+An Enum domain must specify at least one inclusion (or exclusion).
 
-All enum Members of an enum Type can also be included.
+All enum Members of an Enum type can also be included (or excluded).
+
+If only exclusion Members are specified for an Enum type then an "All Members" inclusion is implied.
 
 Enum Values can be merged if their Type and inclusion/exclusion matches.
 Enum domains must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
@@ -260,6 +263,7 @@ Enum domains must contain only unique Members after merging, irrelevant of the e
 #### Number domain
 
 Comprises only those numbers included in (or excluded from) a given Range or specific value.
+If no included or excluded values are specified, a Number domain includes all values.
 
 A Range may specify either or both of its upper or lower bounds and is inclusive of those bounds.
 
@@ -268,6 +272,7 @@ Ranges are merged by their bounds, but can only be merged if their inclusion/exc
 #### String domain
 
 Comprises only those strings that match (or don't match) one or more Regular expressions.
+If no included or excluded values are specified, a String domain includes all values.
 
 Regular expressions can only be merged if their inclusion/exclusion matches.
 
@@ -515,7 +520,7 @@ Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
 DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
-Scal_Enum = 'Enum' Scal_Member*
+Scal_Enum = 'Enum' Scal_Member+
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 
