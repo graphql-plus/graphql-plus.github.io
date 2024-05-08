@@ -268,13 +268,13 @@ output _DomainMember {
 
 dual _DomainRange {
     : _BaseDomainItem
-        from: Number?
-        to: Number?
+        lower: Number?
+        upper: Number?
     }
 
 dual _DomainRegex {
     : _BaseDomainItem
-        regex: String
+        pattern: String
     }
 
 dual _DomainItem<$item> {
@@ -642,13 +642,13 @@ output _DomainMember {
 
 dual _DomainRange {
     : _BaseDomainItem
-        from: Number?
-        to: Number?
+        lower: Number?
+        upper: Number?
     }
 
 dual _DomainRegex {
     : _BaseDomainItem
-        regex: String
+        pattern: String
     }
 
 dual _DomainItem<$item> {
