@@ -298,13 +298,15 @@ Dual, Input and Output types are all Object types.
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
+Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
-Obj_Type = STRING? Obj_Reference
-Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Dual_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
-Obj_TypeArgument = STRING? Obj_Reference
+Obj_Alternate = '|' STRING? Obj_Type Collections?
+Obj_Type = Internal | Simple | Obj_Base
+Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
+Obj_BaseArgument = STRING? Obj_Base
+
+Obj_Reference = object ( '<' Obj_RefArgument+ '>' )?
+Obj_RefArgument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 ```
@@ -432,7 +434,9 @@ after replacing "object" with "input" and "Obj" with "In".
 ```PEG
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
-In_Reference = Internal | Simple | Dual_Base | In_Base
+
+In_Base = Dual_Base | input ( '<' In_BaseArgument+ '>' )?
+In_Reference = Dual_Reference | input ( '<' In_RefArgument+ '>' )?
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
@@ -460,8 +464,11 @@ Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_TypeArgument = Out_Reference | EnumValue
-Out_Reference = Internal | Simple | Dual_Base | Out_Base
+Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
+Out_BaseArgument = STRING? Out_Base | STRING? EnumValue
+
+Out_Reference = Dual_Reference | output ( '<' Out_RefArgument+ '>' )?
+Out_RefArgument = STRING? Out_Reference | STRING? EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -537,13 +544,15 @@ UnionDefinition = Simple+
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' Obj_Type Modifiers?
+Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
-Obj_Type = STRING? Obj_Reference
-Obj_Alternate = '|' Obj_Type Collections?
-Obj_Reference = Internal | Simple | Dual_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_TypeArgument+ '>' )?
-Obj_TypeArgument = STRING? Obj_Reference
+Obj_Alternate = '|' STRING? Obj_Type Collections?
+Obj_Type = Internal | Simple | Obj_Base
+Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
+Obj_BaseArgument = STRING? Obj_Base
+
+Obj_Reference = object ( '<' Obj_RefArgument+ '>' )?
+Obj_RefArgument = STRING? Obj_Reference
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
@@ -551,13 +560,18 @@ InputParameters = '(' In_TypeDefault+ ')'
 
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
-In_Reference = Internal | Simple | Dual_Base | In_Base
+
+In_Base = Dual_Base | input ( '<' In_BaseArgument+ '>' )?
+In_Reference = Dual_Reference | input ( '<' In_RefArgument+ '>' )?
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_TypeArgument = Out_Reference | EnumValue
-Out_Reference = Internal | Simple | Dual_Base | Out_Base
+Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
+Out_BaseArgument = STRING? Out_Base | STRING? EnumValue
+
+Out_Reference = Dual_Reference | output ( '<' Out_RefArgument+ '>' )?
+Out_RefArgument = STRING? Out_Reference | STRING? EnumValue
 
 ```

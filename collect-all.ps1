@@ -1,4 +1,4 @@
-$graphQlPlusDir = "..\graphql-plus\test\GqlPlus.Verifier.ComponentTests\Sample\Schema"
+$graphQlPlusDir = "..\graphql-plus\test\GqlPlus.ComponentTestBase\Sample\Schema"
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}

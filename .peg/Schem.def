@@ -1,5 +1,7 @@
 alias = ID
 category = ID
+dual = ID
+input = ID
 output = ID
 directive = ID
 name = ID
@@ -14,11 +16,14 @@ typeParameter = ID
 
 Dual = Object
 Dual_Base = Obj_Base
+Dual_Reference = Obj_Reference
+Dual_BaseArgument = Obj_BaseArgument
+Dual_RefArgument = Obj_RefArgument
 Input = Object
 In_Type = Obj_Type
-In_Base = Obj_Base
+In_BaseArgument = Obj_BaseArgument
+In_RefArgument = Obj_RefArgument
 Output = Object
-Out_Base = Obj_Base
 Out_Type = Obj_Type
 
 REGEX = "/" ( [^/] / "\\/" )+ "/"

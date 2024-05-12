@@ -315,14 +315,18 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _ObjectFor<_Alternate<$base>>[]
     }
 
-output _ObjRef<$base> {
+dual _ObjRef<$ref> {
+        typeArguments: $ref[]
+    }
+
+output _ObjType<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-dual _ObjBase<$arg> {
-        arguments: $arg[]
+dual _ObjBase<$base> {
+    : _ObjRef<$base>
     | _TypeParameter
     }
 
@@ -357,9 +361,13 @@ output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
     }
 
-output _DualBase {
-    : _ObjBase<_ObjRef<_DualBase>>
+output _DualRef {
+    : _ObjRef<_DualRef>
         dual: _Identifier
+    }
+
+output _DualBase {
+    : _ObjBase<_DualRef>
     }
 ```
 
@@ -679,14 +687,18 @@ output _TypeObject<$kind $base $field> {
         allAlternates: _ObjectFor<_Alternate<$base>>[]
     }
 
-output _ObjRef<$base> {
+dual _ObjRef<$ref> {
+        typeArguments: $ref[]
+    }
+
+output _ObjType<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
     | $base
     }
 
-dual _ObjBase<$arg> {
-        arguments: $arg[]
+dual _ObjBase<$base> {
+    : _ObjRef<$base>
     | _TypeParameter
     }
 
@@ -717,9 +729,13 @@ output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
     }
 
-output _DualBase {
-    : _ObjBase<_ObjRef<_DualBase>>
+output _DualRef {
+    : _ObjRef<_DualRef>
         dual: _Identifier
+    }
+
+output _DualBase {
+    : _ObjBase<_DualRef>
     }
 
 output _TypeInput {
