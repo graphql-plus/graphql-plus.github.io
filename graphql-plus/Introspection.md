@@ -53,12 +53,6 @@ dual _Described {
         description: String
     }
 
-dual _BaseDescribed<$base> {
-        base: $base
-        description: String
-    | $base
-    }
-
 dual _Named {
         name: _Identifier
     }
@@ -205,7 +199,7 @@ output _Modifiers {
     | _Collections
     }
 
-enum _ModifierKind { Optional List Dictionary }
+enum _ModifierKind { Optional List Dictionary TypeParameter }
 
 output _Modifier<$kind> {
         modifierKind: $kind
@@ -307,12 +301,18 @@ dual _UnionMember {
 
 ```gqlp
 output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _BaseDescribed<$base>>
+    : _ChildType<$kind _ObjDescribed<$base>>
         typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
         allFields: _ObjectFor<$field>[]
         allAlternates: _ObjectFor<_Alternate<$base>>[]
+    }
+
+dual _ObjDescribed<$base> {
+        base: $base
+        description: String
+    | $base
     }
 
 dual _ObjRef<$ref> {
@@ -333,8 +333,8 @@ dual _ObjBase<$base> {
 domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
-      type: _BaseDescribed<_ObjRef<$base>>
-      collections: _Collections[]
+      type: _ObjDescribed<_ObjRef<$base>>
+      collections: _ObjectCollections[]
     }
 
 output _ObjectFor<$for> {
@@ -344,13 +344,29 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _BaseDescribed<_ObjRef<$base>>
-      modifiers: _Modifiers[]
+      type: _ObjDescribed<_ObjRef<$base>>
+      modifiers: _ObjectModifiers[]
     }
 
 output _Parameter {
     : _Alternate<_InputBase>
         default: _Constant?
+    }
+
+output _ObjectCollections {
+    | _Collections
+    | _ModifierTypeParameter
+    }
+
+output _ModifierTypeParameter {
+    : _Modifier<_ModifierKind.TypeParameter>
+        typeParameter: _TypeParameter
+        optional: Boolean
+    }
+
+output _ObjectModifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _ObjectCollections
     }
 ```
 
@@ -465,12 +481,6 @@ dual _Aliased {
 dual _Described {
     : _Named
         description: String
-    }
-
-dual _BaseDescribed<$base> {
-        base: $base
-        description: String
-    | $base
     }
 
 dual _Named {
@@ -595,7 +605,7 @@ output _Modifiers {
     | _Collections
     }
 
-enum _ModifierKind { Optional List Dictionary }
+enum _ModifierKind { Optional List Dictionary TypeParameter }
 
 output _Modifier<$kind> {
         modifierKind: $kind
@@ -679,12 +689,18 @@ dual _UnionMember {
     }
 
 output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _BaseDescribed<$base>>
+    : _ChildType<$kind _ObjDescribed<$base>>
         typeParameters: _Described[]
         fields: $field[]
         alternates: _Alternate<$base>[]
         allFields: _ObjectFor<$field>[]
         allAlternates: _ObjectFor<_Alternate<$base>>[]
+    }
+
+dual _ObjDescribed<$base> {
+        base: $base
+        description: String
+    | $base
     }
 
 dual _ObjRef<$ref> {
@@ -705,8 +721,8 @@ dual _ObjBase<$base> {
 domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
-      type: _BaseDescribed<_ObjRef<$base>>
-      collections: _Collections[]
+      type: _ObjDescribed<_ObjRef<$base>>
+      collections: _ObjectCollections[]
     }
 
 output _ObjectFor<$for> {
@@ -716,13 +732,29 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _BaseDescribed<_ObjRef<$base>>
-      modifiers: _Modifiers[]
+      type: _ObjDescribed<_ObjRef<$base>>
+      modifiers: _ObjectModifiers[]
     }
 
 output _Parameter {
     : _Alternate<_InputBase>
         default: _Constant?
+    }
+
+output _ObjectCollections {
+    | _Collections
+    | _ModifierTypeParameter
+    }
+
+output _ModifierTypeParameter {
+    : _Modifier<_ModifierKind.TypeParameter>
+        typeParameter: _TypeParameter
+        optional: Boolean
+    }
+
+output _ObjectModifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _ObjectCollections
     }
 
 output _TypeDual {
