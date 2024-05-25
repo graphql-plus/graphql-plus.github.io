@@ -394,9 +394,14 @@ output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputField>
     }
 
-output _InputBase {
-    : _ObjBase<_ObjRef<_InputBase>>
+output _InputRef {
+    : _ObjRef<_InputRef>
         input: _Identifier
+    | _DualRef
+    }
+
+output _InputBase {
+    : _ObjBase<_InputRef>
     | _DualBase
     }
 
@@ -411,6 +416,12 @@ output _InputField {
 ```gqlp
 output _TypeOutput {
     : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    }
+
+output _OutputRef {
+    : _ObjRef<_OutputRef>
+        output: _Identifier
+    | _DualRef
     }
 
 output _OutputBase {
@@ -774,9 +785,14 @@ output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputField>
     }
 
-output _InputBase {
-    : _ObjBase<_ObjRef<_InputBase>>
+output _InputRef {
+    : _ObjRef<_InputRef>
         input: _Identifier
+    | _DualRef
+    }
+
+output _InputBase {
+    : _ObjBase<_InputRef>
     | _DualBase
     }
 
@@ -787,6 +803,12 @@ output _InputField {
 
 output _TypeOutput {
     : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    }
+
+output _OutputRef {
+    : _ObjRef<_OutputRef>
+        output: _Identifier
+    | _DualRef
     }
 
 output _OutputBase {
