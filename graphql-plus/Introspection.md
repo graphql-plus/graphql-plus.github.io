@@ -333,10 +333,6 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-dual _ObjRef<$ref> {
-        typeArguments: $ref[]
-    }
-
 output _ObjType<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
@@ -344,14 +340,14 @@ output _ObjType<$base> {
     }
 
 dual _ObjBase<$base> {
-    : _ObjRef<$base>
+        typeArguments: $base[]
     | _TypeParameter
     }
 
 domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
-      type: _ObjDescribed<_ObjRef<$base>>
+      type: _ObjDescribed<$base>
       collections: _ObjectCollections[]
     }
 
@@ -362,7 +358,7 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDescribed<_ObjRef<$base>>
+      type: _ObjDescribed<$base>
       modifiers: _ObjectModifiers[]
     }
 ```
@@ -394,13 +390,9 @@ output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
     }
 
-output _DualRef {
-    : _ObjRef<_DualRef>
-        dual: _Identifier
-    }
-
 output _DualBase {
-    : _ObjBase<_DualRef>
+    : _ObjBase<_DualBase>
+        dual: _Identifier
     }
 ```
 
@@ -411,19 +403,19 @@ output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputField>
     }
 
-output _InputRef {
-    : _ObjRef<_InputRef>
-        input: _Identifier
-    | _DualRef
-    }
-
 output _InputBase {
-    : _ObjBase<_InputRef>
+    : _ObjBase<_InputBase>
+        input: _Identifier
     | _DualBase
     }
 
 output _InputField {
     : _Field<_InputBase>
+        default: _Constant?
+    }
+
+output _Parameter {
+    : _Alternate<_InputBase>
         default: _Constant?
     }
 ```
@@ -433,12 +425,6 @@ output _InputField {
 ```gqlp
 output _TypeOutput {
     : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
-    }
-
-output _OutputRef {
-    : _ObjRef<_OutputRef>
-        output: _Identifier
-    | _DualRef
     }
 
 output _OutputBase {
@@ -456,22 +442,13 @@ output _OutputField {
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: _Identifier
-    | _ObjRef<_OutputBase>
+    | _OutputBase
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
         value: _Identifier
-    }
-```
-
-### Parameters
-
-```gqlp
-output _Parameter {
-    : _Alternate<_InputBase>
-        default: _Constant?
     }
 ```
 
@@ -740,10 +717,6 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-dual _ObjRef<$ref> {
-        typeArguments: $ref[]
-    }
-
 output _ObjType<$base> {
     | _BaseType<_TypeKind.Internal>
     | _TypeSimple
@@ -751,14 +724,14 @@ output _ObjType<$base> {
     }
 
 dual _ObjBase<$base> {
-    : _ObjRef<$base>
+        typeArguments: $base[]
     | _TypeParameter
     }
 
 domain _TypeParameter { :_Identifier String }
 
 output _Alternate<$base> {
-      type: _ObjDescribed<_ObjRef<$base>>
+      type: _ObjDescribed<$base>
       collections: _ObjectCollections[]
     }
 
@@ -769,7 +742,7 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDescribed<_ObjRef<$base>>
+      type: _ObjDescribed<$base>
       modifiers: _ObjectModifiers[]
     }
 
@@ -793,27 +766,18 @@ output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
     }
 
-output _DualRef {
-    : _ObjRef<_DualRef>
-        dual: _Identifier
-    }
-
 output _DualBase {
-    : _ObjBase<_DualRef>
+    : _ObjBase<_DualBase>
+        dual: _Identifier
     }
 
 output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputField>
     }
 
-output _InputRef {
-    : _ObjRef<_InputRef>
-        input: _Identifier
-    | _DualRef
-    }
-
 output _InputBase {
-    : _ObjBase<_InputRef>
+    : _ObjBase<_InputBase>
+        input: _Identifier
     | _DualBase
     }
 
@@ -822,14 +786,13 @@ output _InputField {
         default: _Constant?
     }
 
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+output _Parameter {
+    : _Alternate<_InputBase>
+        default: _Constant?
     }
 
-output _OutputRef {
-    : _ObjRef<_OutputRef>
-        output: _Identifier
-    | _DualRef
+output _TypeOutput {
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
     }
 
 output _OutputBase {
@@ -847,18 +810,13 @@ output _OutputField {
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
         value: _Identifier
-    | _ObjRef<_OutputBase>
+    | _OutputBase
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
         value: _Identifier
-    }
-
-output _Parameter {
-    : _Alternate<_InputBase>
-        default: _Constant?
     }
 
 ```

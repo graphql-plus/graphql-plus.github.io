@@ -69,7 +69,7 @@ It is an error if merging of duplicate items is not possible.
 ### Category declaration
 
 ```PEG
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 ```
 
@@ -311,9 +311,6 @@ Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
 Obj_BaseArgument = STRING? Obj_Type
 
-Obj_Reference = object ( '<' Obj_RefArgument+ '>' )?
-Obj_RefArgument = STRING? Obj_Type
-
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 ```
@@ -435,8 +432,7 @@ after replacing "object" with "input" and "Obj" with "In".
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type ObjectModifiers? Default?
 
-In_Base = Dual_Base | input ( '<' In_BaseArgument+ '>' )?
-In_Reference = Dual_Reference | input ( '<' In_RefArgument+ '>' )?
+InputParameters = '(' In_TypeDefault+ ')'
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
@@ -454,6 +450,12 @@ An Input Field redefines an object Field as follows:
 
 A Default of `null` is only allowed on Optional fields. The Default must be compatible with the Modified Type of the field.
 
+Input Parameters define one or more Alternate Input or Simple types, possibly with a documentation string, Modifiers and/or a Default.
+
+The order of Alternates is significant.
+Alternates are merged by their type and can be merged if their Modifiers match.
+Default values are merged as Constant values.
+
 ### Output type
 
 An Input type is an Object type with the following Term differences,
@@ -466,9 +468,6 @@ Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
 Out_BaseArgument = STRING? Out_Type | STRING? EnumValue
-
-Out_Reference = Dual_Reference | output ( '<' Out_RefArgument+ '>' )?
-Out_RefArgument = STRING? Out_Type | STRING? EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -494,18 +493,6 @@ or:
 - zero or more Field Aliases
 - an Enum Value (which will imply the field Type)
 
-### Parameters
-
-```PEG
-InputParameters = '(' In_TypeDefault+ ')'
-```
-
-Input Parameters define one or more Alternate Input type references, possibly with a documentation string, Modifiers and/or a Default.
-
-The order of Alternates is significant.
-Alternates are merged by their Input type and can be merged if their Modifiers match.
-Default values are merged as Constant values.
-
 ## Complete Grammar
 
 ```PEG
@@ -516,7 +503,7 @@ Type = Dual | Enum | Input | Output | Domain | Union
 
 Aliases = '[' alias+ ']'
 
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? output Modifiers? '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
 Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
@@ -563,9 +550,6 @@ Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
 Obj_BaseArgument = STRING? Obj_Type
 
-Obj_Reference = object ( '<' Obj_RefArgument+ '>' )?
-Obj_RefArgument = STRING? Obj_Type
-
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 
@@ -576,8 +560,7 @@ ObjectKey = Simple_ReDef | '$'typeParameter
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type ObjectModifiers? Default?
 
-In_Base = Dual_Base | input ( '<' In_BaseArgument+ '>' )?
-In_Reference = Dual_Reference | input ( '<' In_RefArgument+ '>' )?
+InputParameters = '(' In_TypeDefault+ ')'
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' Out_Type ObjectModifiers?
@@ -585,10 +568,5 @@ Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
 Out_BaseArgument = STRING? Out_Type | STRING? EnumValue
-
-Out_Reference = Dual_Reference | output ( '<' Out_RefArgument+ '>' )?
-Out_RefArgument = STRING? Out_Type | STRING? EnumValue
-
-InputParameters = '(' In_TypeDefault+ ')'
 
 ```

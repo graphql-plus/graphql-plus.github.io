@@ -16,13 +16,10 @@ typeParameter = ID
 
 Dual = Object
 Dual_Base = Obj_Base
-Dual_Reference = Obj_Reference
 Dual_BaseArgument = Obj_BaseArgument
-Dual_RefArgument = Obj_RefArgument
 Input = Object
 In_Type = Obj_Type
 In_BaseArgument = Obj_BaseArgument
-In_RefArgument = Obj_RefArgument
 Output = Object
 Out_Type = Obj_Type
 
