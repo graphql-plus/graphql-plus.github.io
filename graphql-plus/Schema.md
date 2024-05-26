@@ -33,7 +33,7 @@ The following declarations are implied but can be specified explicitly:
 - `category { (single) Subscription }` and thus `output Subscription { }`
 - `output _Schema { ... }` (see [Introspection](Introspection.md))
 
-#### Names and Aliases
+### Names and Aliases
 
 Names beginning with an underscore (`_`) are reserved and such items are considered system items.
 
@@ -45,7 +45,7 @@ Within any list of named items with Aliases, after merging all Aliases must be u
 Any conflicts between names and Aliases will be resolved in the favour of the name,
 ie. Any Aliases in a list of items that match any of the item's names will simply be removed.
 
-#### Merging (and de-duplicating)
+### Merging (and de-duplicating)
 
 Some item lists can be merged and thus de-duplicated.
 
@@ -125,6 +125,8 @@ Most declarations define a Type. A Type's Kind is defined as their Declaration l
 The names and Aliases of all Types must be unique across all kinds of Types within the Schema.
 Merging of Types is only possible if their Kinds match.
 
+### Common
+
 All Types may specify another Type of the same Kind that they extend.
 Child (Extending) Types merge in the definition of their Parent (Extended) Type.
 A Type cannot extend itself, even recursively.
@@ -197,6 +199,8 @@ union _Union [Union] { } // All user defined Union types
 ```
 
 </details>
+
+## Simple types
 
 ### Domain type
 
@@ -289,9 +293,11 @@ A Union type must not include itself, even recursively.
 
 Union declarations can be merged if their Parents match.
 
-## Object Declarations
+## Object types
 
 Dual, Input and Output types are all Object types.
+
+### Object Commonalities
 
 ```PEG
 // base definition
@@ -351,21 +357,7 @@ Fields can be merged if their Modified Types match.
 
 Alternates are merged by Type and can be merged if their Collections match.
 
-### Object commonalities
-
-#### Parameter
-
-```PEG
-InputParameters = '(' In_TypeDefault+ ')'
-```
-
-Input Parameters define one or more Alternate Input type references, possibly with a documentation string, Modifiers and/or a Default.
-
-The order of Alternates is significant.
-Alternates are merged by their Input type and can be merged if their Modifiers match.
-Default values are merged as Constant values.
-
-#### Modifiers / Collections
+### Modifiers / Collections
 
 ```PEG
 ObjectModifiers = ObjectCollections? '?'?
@@ -502,6 +494,18 @@ or:
 - zero or more Field Aliases
 - an Enum Value (which will imply the field Type)
 
+### Parameters
+
+```PEG
+InputParameters = '(' In_TypeDefault+ ')'
+```
+
+Input Parameters define one or more Alternate Input type references, possibly with a documentation string, Modifiers and/or a Default.
+
+The order of Alternates is significant.
+Alternates are merged by their Input type and can be merged if their Modifiers match.
+Default values are merged as Constant values.
+
 ## Complete Grammar
 
 ```PEG
@@ -565,8 +569,6 @@ Obj_RefArgument = STRING? Obj_Type
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 
-InputParameters = '(' In_TypeDefault+ ')'
-
 ObjectModifiers = ObjectCollections? '?'?
 ObjectCollections = '[]' ObjectCollections? | '[' ObjectKey '?'? ']' ObjectCollections?
 ObjectKey = Simple_ReDef | '$'typeParameter
@@ -586,5 +588,7 @@ Out_BaseArgument = STRING? Out_Type | STRING? EnumValue
 
 Out_Reference = Dual_Reference | output ( '<' Out_RefArgument+ '>' )?
 Out_RefArgument = STRING? Out_Type | STRING? EnumValue
+
+InputParameters = '(' In_TypeDefault+ ')'
 
 ```

@@ -80,7 +80,7 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 ```
 
-### Directive declarations
+### Directive declaration
 
 ```gqlp
 output _Directives {
@@ -101,7 +101,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
 
-### Option declarations
+### Option declaration
 
 ```gqlp
 output _Setting {
@@ -206,23 +206,7 @@ output _Modifier<$kind> {
     }
 ```
 
-### Enum type
-
-```gqlp
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    }
-
-dual _EnumMember {
-    : _Aliased
-        enum: _Identifier
-    }
-
-output _EnumValue {
-    : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
-    }
-```
+## Simple types
 
 ### Domain type
 
@@ -250,27 +234,6 @@ dual _BaseDomainItem {
         exclude: Boolean
     }
 
-dual _DomainTrueFalse {
-    : _BaseDomainItem
-        value: Boolean
-    }
-
-output _DomainMember {
-    : _BaseDomainItem
-        member: _EnumValue
-    }
-
-dual _DomainRange {
-    : _BaseDomainItem
-        lower: Number?
-        upper: Number?
-    }
-
-dual _DomainRegex {
-    : _BaseDomainItem
-        pattern: String
-    }
-
 dual _DomainItem<$item> {
     : $item
         domain: _Identifier
@@ -279,6 +242,61 @@ dual _DomainItem<$item> {
 output _DomainValue<$kind $value> {
     : _DomainRef<$kind>
         value: $value
+    }
+```
+
+#### Boolean domain
+
+```gqlp
+dual _DomainTrueFalse {
+    : _BaseDomainItem
+        value: Boolean
+    }
+```
+
+#### Enum domain
+
+```gqlp
+output _DomainMember {
+    : _BaseDomainItem
+        member: _EnumValue
+    }
+```
+
+#### Number domain
+
+```gqlp
+dual _DomainRange {
+    : _BaseDomainItem
+        lower: Number?
+        upper: Number?
+    }
+```
+
+#### String domain
+
+```gqlp
+dual _DomainRegex {
+    : _BaseDomainItem
+        pattern: String
+    }
+```
+
+### Enum type
+
+```gqlp
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    }
+
+dual _EnumMember {
+    : _Aliased
+        enum: _Identifier
+    }
+
+output _EnumValue {
+    : _TypeRef<_TypeKind.Enum>
+        value: _Identifier
     }
 ```
 
@@ -295,7 +313,7 @@ dual _UnionMember {
     }
 ```
 
-## Object declarations
+## Object types
 
 ### Object Commonalities
 
@@ -347,12 +365,11 @@ output _Field<$base> {
       type: _ObjDescribed<_ObjRef<$base>>
       modifiers: _ObjectModifiers[]
     }
+```
 
-output _Parameter {
-    : _Alternate<_InputBase>
-        default: _Constant?
-    }
+### Modifiers / Collections
 
+```gqlp
 output _ObjectCollections {
     | _Collections
     | _ModifierTypeParameter
@@ -446,6 +463,15 @@ output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
         value: _Identifier
+    }
+```
+
+### Parameters
+
+```gqlp
+output _Parameter {
+    : _Alternate<_InputBase>
+        default: _Constant?
     }
 ```
 
@@ -622,20 +648,6 @@ output _Modifier<$kind> {
         modifierKind: $kind
     }
 
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    }
-
-dual _EnumMember {
-    : _Aliased
-        enum: _Identifier
-    }
-
-output _EnumValue {
-    : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
-    }
-
 enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
@@ -659,6 +671,16 @@ dual _BaseDomainItem {
         exclude: Boolean
     }
 
+dual _DomainItem<$item> {
+    : $item
+        domain: _Identifier
+    }
+
+output _DomainValue<$kind $value> {
+    : _DomainRef<$kind>
+        value: $value
+    }
+
 dual _DomainTrueFalse {
     : _BaseDomainItem
         value: Boolean
@@ -680,14 +702,18 @@ dual _DomainRegex {
         pattern: String
     }
 
-dual _DomainItem<$item> {
-    : $item
-        domain: _Identifier
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
     }
 
-output _DomainValue<$kind $value> {
-    : _DomainRef<$kind>
-        value: $value
+dual _EnumMember {
+    : _Aliased
+        enum: _Identifier
+    }
+
+output _EnumValue {
+    : _TypeRef<_TypeKind.Enum>
+        value: _Identifier
     }
 
 output _TypeUnion {
@@ -745,11 +771,6 @@ output _Field<$base> {
     : _Aliased
       type: _ObjDescribed<_ObjRef<$base>>
       modifiers: _ObjectModifiers[]
-    }
-
-output _Parameter {
-    : _Alternate<_InputBase>
-        default: _Constant?
     }
 
 output _ObjectCollections {
@@ -833,6 +854,11 @@ output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
         value: _Identifier
+    }
+
+output _Parameter {
+    : _Alternate<_InputBase>
+        default: _Constant?
     }
 
 ```
