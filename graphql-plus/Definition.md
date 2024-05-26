@@ -58,9 +58,6 @@ Simple = Basic | enum
 Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 
 Internal = 'Void' | 'Null' | 'null'
-
-Modifiers = Collections? '?'?
-Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
 ```
 
 Defaults must match the Modifiers/Collections Type of the item the Default is on.
@@ -72,6 +69,11 @@ Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and
 `Number` and `String` are Domain types.
 
 ### Modifiers / Collections
+
+```PEG
+Modifiers = Collections? '?'?
+Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
+```
 
 Collections are any combination of Lists and/or Dictionaries.
 Modifiers are zero or more Collections optionally followed by Optionality (also know as Nullability).

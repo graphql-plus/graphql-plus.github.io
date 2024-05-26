@@ -12,7 +12,7 @@ Operation = ( category name? )? Variables? Directive* Fragment* Result Frag_End*
 
 If not specified, an Operation's category is "query". This is for GraphQL compatibility.
 
-## Variables
+### Variables
 
 ```PEG
 Variables = '(' Variable+ ')'
@@ -36,7 +36,7 @@ If a Variable's Modifiers and Default are both specified they should be validate
 | `[]`      | value         | A value is equivalent to a list containing just that value, ie. `[`value`]`. |
 | `[`any`]` | list or value | **ERROR** An Object type can only have an object default.                    |
 
-## Directives
+### Directives
 
 ```PEG
 Directive = '@'directive Argument?
@@ -45,6 +45,14 @@ Directive = '@'directive Argument?
 Note that there cannot be any other characters between the at sign (`@`) and the directive name.
 
 The order of directives may be significant.
+
+### Fragment
+
+```PEG
+Fragment = '&' fragment ':' type Frag_Body
+Frag_End = ( 'fragment' | '&' ) fragment TypeCondition Frag_Body
+Frag_Body = Directive* Object
+```
 
 ## Result
 
@@ -57,7 +65,7 @@ An Operation's Result is either:
 - a Domain type with an optional Argument and/or Modifiers, or
 - an Object type with optional Modifiers.
 
-## Domain
+### Domain
 
 ```PEG
 Domain = Internal | Simple
@@ -76,7 +84,7 @@ Domain = Internal | Simple
 
 Any unknown \_Identifier used as a Dictionary key Type will be treated as an Enum Type name.
 
-## Object
+### Object
 
 ```PEG
 Object = '{' ( Selection | Field )+ '}'
@@ -108,15 +116,7 @@ A Field may have none, one, more or even all of the following, in this order:
 | `{ user("A*") { id name } }`          | `{ user:{ id:12, name:"Andrew" } }`                              |
 | `{ All_A: user("A*")[] { id name } }` | `{ All_A:[ { id:12, name:"Andrew" }, { id:34, name:"Alan" } ] }` |
 
-## Fragment
-
-```PEG
-Fragment = '&' fragment ':' type Frag_Body
-Frag_End = ( 'fragment' | '&' ) fragment TypeCondition Frag_Body
-Frag_Body = Directive* Object
-```
-
-## Argument
+### Argument
 
 ```PEG
 Argument = '(' Arg_Fields+ | Arg_Values+ ')'
@@ -147,6 +147,10 @@ Var_Null = '[' Var_Type ']' | type
 
 Directive = '@'directive Argument?
 
+Fragment = '&' fragment ':' type Frag_Body
+Frag_End = ( 'fragment' | '&' ) fragment TypeCondition Frag_Body
+Frag_Body = Directive* Object
+
 Result = ( ':' Domain Argument? | Object ) Modifiers?
 
 Domain = Internal | Simple
@@ -157,10 +161,6 @@ Selection = ( '...' | '|' ) ( Inline | Spread )
 Inline = TypeCondition? Directive* Object
 Spread = fragment Directive*
 TypeCondition = ( 'on' | ':' ) type
-
-Fragment = '&' fragment ':' type Frag_Body
-Frag_End = ( 'fragment' | '&' ) fragment TypeCondition Frag_Body
-Frag_Body = Directive* Object
 
 Argument = '(' Arg_Fields+ | Arg_Values+ ')'
 Arg_Value = '$'variable | Arg_List | Arg_Object | Constant
