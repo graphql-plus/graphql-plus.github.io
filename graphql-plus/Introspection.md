@@ -194,6 +194,12 @@ output _ModifierDictionary {
         optional: Boolean
     }
 
+output _ModifierTypeParameter {
+    : _Modifier<_ModifierKind.TypeParameter>
+        typeParameter: _TypeParameter
+        optional: Boolean
+    }
+
 output _Modifiers {
     | _Modifier<_ModifierKind.Optional>
     | _Collections
@@ -360,26 +366,6 @@ output _Field<$base> {
     : _Aliased
       type: _ObjDescribed<$base>
       modifiers: _ObjectModifiers[]
-    }
-```
-
-### Modifiers / Collections
-
-```gqlp
-output _ObjectCollections {
-    | _Collections
-    | _ModifierTypeParameter
-    }
-
-output _ModifierTypeParameter {
-    : _Modifier<_ModifierKind.TypeParameter>
-        typeParameter: _TypeParameter
-        optional: Boolean
-    }
-
-output _ObjectModifiers {
-    | _Modifier<_ModifierKind.Optional>
-    | _ObjectCollections
     }
 ```
 
@@ -614,6 +600,12 @@ output _ModifierDictionary {
         optional: Boolean
     }
 
+output _ModifierTypeParameter {
+    : _Modifier<_ModifierKind.TypeParameter>
+        typeParameter: _TypeParameter
+        optional: Boolean
+    }
+
 output _Modifiers {
     | _Modifier<_ModifierKind.Optional>
     | _Collections
@@ -744,22 +736,6 @@ output _Field<$base> {
     : _Aliased
       type: _ObjDescribed<$base>
       modifiers: _ObjectModifiers[]
-    }
-
-output _ObjectCollections {
-    | _Collections
-    | _ModifierTypeParameter
-    }
-
-output _ModifierTypeParameter {
-    : _Modifier<_ModifierKind.TypeParameter>
-        typeParameter: _TypeParameter
-        optional: Boolean
-    }
-
-output _ObjectModifiers {
-    | _Modifier<_ModifierKind.Optional>
-    | _ObjectCollections
     }
 
 output _TypeDual {

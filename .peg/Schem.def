@@ -12,7 +12,6 @@ union = ID
 object = ID
 field = ID
 fieldAlias = ID
-typeParameter = ID
 
 Dual = Object
 Dual_Base = Obj_Base

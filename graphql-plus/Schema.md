@@ -304,9 +304,9 @@ Dual, Input and Output types are all Object types.
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type ObjectModifiers?
+Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
-Obj_Alternate = '|' STRING? Obj_Type ObjectCollections?
+Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
 Obj_BaseArgument = STRING? Obj_Type
@@ -355,12 +355,6 @@ Fields can be merged if their Modified Types match.
 Alternates are merged by Type and can be merged if their Collections match.
 
 ### Modifiers / Collections
-
-```PEG
-ObjectModifiers = ObjectCollections? '?'?
-ObjectCollections = '[]' ObjectCollections? | '[' ObjectKey '?'? ']' ObjectCollections?
-ObjectKey = Simple_ReDef | '$'typeParameter
-```
 
 Note that Schema Collections (and Modifiers) include Domain and Enum types as valid Dictionary keys (See Simple_ReDef).
 And Object Collections (and Modifiers) also include Type parameters as valid Dictionary Keys.
@@ -430,7 +424,7 @@ after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type ObjectModifiers? Default?
+In_TypeDefault = In_Type Modifiers? Default?
 
 InputParameters = '(' In_TypeDefault+ ')'
 ```
@@ -463,7 +457,7 @@ after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type ObjectModifiers?
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
@@ -543,9 +537,9 @@ UnionDefinition = Simple+
 Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type ObjectModifiers?
+Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
-Obj_Alternate = '|' STRING? Obj_Type ObjectCollections?
+Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
 Obj_BaseArgument = STRING? Obj_Type
@@ -553,17 +547,13 @@ Obj_BaseArgument = STRING? Obj_Type
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 
-ObjectModifiers = ObjectCollections? '?'?
-ObjectCollections = '[]' ObjectCollections? | '[' ObjectKey '?'? ']' ObjectCollections?
-ObjectKey = Simple_ReDef | '$'typeParameter
-
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type ObjectModifiers? Default?
+In_TypeDefault = In_Type Modifiers? Default?
 
 InputParameters = '(' In_TypeDefault+ ')'
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type ObjectModifiers?
+Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?

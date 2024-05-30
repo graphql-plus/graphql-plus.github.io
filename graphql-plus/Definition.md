@@ -72,17 +72,19 @@ Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and
 
 ```PEG
 Modifiers = Collections? '?'?
-Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
+Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
+Collection_Key = Simple | '$'typeParameter
 ```
 
 Collections are any combination of Lists and/or Dictionaries.
 Modifiers are zero or more Collections optionally followed by Optionality (also know as Nullability).
 
-| Modifier   | Syntax           | Notes                                                                                                                        | Description                   |
-| ---------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| Optional   | `?`              | An Optional Result may have the value of `null`. <br/> The `Null` type is effectively the same as `Void?` and so is `Null?`. | Optional _type_               |
-| List       | `[]`             | A List Result will be an array with zero or more entries.                                                                    | List of _type_                |
-| Dictionary | `[`Simple`?`?`]` | A Dictionary Result will be an object with the given Simple type as the Key. <br/> The Key may be Optional.                  | Dictionary by _key_ of _type_ |
+| Modifier   | Syntax           | Notes                                                                                                                         | Description                   |
+| ---------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| Optional   | `?`              | An Optional Result may have the value of `null`. <br/> The `Null` type is effectively the same as `Void?` and so is `Null?`.  | Optional _type_               |
+| List       | `[]`             | A List Result will be an array with zero or more entries.                                                                     | List of _type_                |
+| Dictionary | `[`Simple`?`?`]` | A Dictionary Result will be an object with the given Simple type as the Key. <br/> The Key may be Optional.                   | Dictionary by _key_ of _type_ |
+| Dictionary | `[$`param`?`?`]` | In Schema Objects, a Type parameter may be used to set the Key type. It is an error if the Type Argument is not a Simple type |
 
 Multiple Modifiers from left to right are from outside to inside finishing with the initial type.
 
@@ -159,7 +161,8 @@ Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 Internal = 'Void' | 'Null' | 'null'
 
 Modifiers = Collections? '?'?
-Collections = '[]' Collections? | '[' Simple '?'? ']' Collections?
+Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
+Collection_Key = Simple | '$'typeParameter
 
 Constant = Const_List | Const_Object | Const_Value
 Const_Value = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue
