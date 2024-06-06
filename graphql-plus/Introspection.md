@@ -260,7 +260,7 @@ dual _DomainTrueFalse {
 ```gqlp
 output _DomainMember {
     : _BaseDomainItem
-        member: _EnumValue
+        value: _EnumValue
     }
 ```
 
@@ -297,7 +297,7 @@ dual _EnumMember {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
+        member: _Identifier
     }
 ```
 
@@ -423,14 +423,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
+        member: _Identifier
     | _OutputBase
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        value: _Identifier
+        member: _Identifier
     }
 ```
 
@@ -648,7 +648,7 @@ dual _DomainTrueFalse {
 
 output _DomainMember {
     : _BaseDomainItem
-        member: _EnumValue
+        value: _EnumValue
     }
 
 dual _DomainRange {
@@ -673,7 +673,7 @@ dual _EnumMember {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
+        member: _Identifier
     }
 
 output _TypeUnion {
@@ -777,14 +777,14 @@ output _OutputField {
 
 output _OutputArgument {
     : _TypeRef<_TypeKind.Enum>
-        value: _Identifier
+        member: _Identifier
     | _OutputBase
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        value: _Identifier
+        member: _Identifier
     }
 
 ```
