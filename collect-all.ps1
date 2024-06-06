@@ -22,9 +22,8 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
         $all[$type] += $current + @("")
 
         if ($type -eq "gqlp" -and $section) {
-          $sections[$section] = $current + @()
+          $sections[$section] += $current + @()
           $sections["Complete"] += $current + @()
-          $section = ""
         }
 
         $type = ""
@@ -48,6 +47,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
           $end = $true
         }        
       }
+
       if ($_ -match "``````(\w+)") {
         $type = $Matches[1]
         $current = @()

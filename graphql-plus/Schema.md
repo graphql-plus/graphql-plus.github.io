@@ -137,13 +137,15 @@ Parent = ':' parent
 
 ### Built-In types
 
+The Common and Built-In types from [Definition](Definition.md) are available to Schemas.
+
+Though the following redefinitions apply.
+
 ```PEG
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
 Simple_ReDef = Basic | domain | enum | union // Redefined Simple
 ```
-
-The above types from [Definition](Definition.md) are redefined for Schemas
 
 <details>
 <summary>Built-In types</summary>
@@ -424,7 +426,7 @@ after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type Modifiers? Default?
+In_TypeDefault = STRING? In_Type Modifiers? Default?
 
 InputParameters = '(' In_TypeDefault+ ')'
 ```
@@ -457,7 +459,7 @@ after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
+Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
@@ -548,12 +550,12 @@ TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
 
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type Modifiers? Default?
+In_TypeDefault = STRING? In_Type Modifiers? Default?
 
 InputParameters = '(' In_TypeDefault+ ')'
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' Out_Type Modifiers?
+Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
