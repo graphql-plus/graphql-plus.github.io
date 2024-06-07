@@ -382,20 +382,20 @@ dual _Dict<$K $T> [Dict] { $K: $T }
 The following GraphQlPlus idioms have equivalent generic Input and Output types.
 
 ```gqlp
-"$T[*]"
-dual _Map<$T> [Map] { _Dict<String $T> }
+"$T[String] or $T[*]"
+dual _Map<$T> [Map] { _Dict<* $T> }
 
-"$T[0]"
-dual _Array<$T> [Array] { _Dict<Number $T> }
+"$T[Number] or $T[0]"
+dual _Array<$T> [Array] { _Dict<0 $T> }
 
-"$T[~]"
-dual _IfElse<$T> [IfElse] { _Dict<Boolean $T> }
+"$T[Boolean] or $T[^]"
+dual _IfElse<$T> [IfElse] { _Dict<^ $T> }
 
-"_[$K]"
-dual _Set<$K> [Set] { _Dict<$K Unit> }
+"Unit[$K] or _[$K]"
+dual _Set<$K> [Set] { _Dict<$K _> }
 
-"~[$K]"
-dual _Mask<$K> [Mask] { _Dict<$K Boolean> }
+"Boolean[$K] or ^[$K]"
+dual _Mask<$K> [Mask] { _Dict<$K ^> }
 ```
 
 These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
@@ -404,13 +404,13 @@ These Generic types are the Input types if `$T` is an Input type and Output type
 
 </details>
 
-| Syntax                     | Generic type                             |
-| -------------------------- | ---------------------------------------- |
-| `String?`                  | Opt<String>                              |
-| `String[]`                 | List<String>                             |
-| `String[]?`                | Opt<List<String>>                        |
-| `String[Number?]`          | Dict<Opt<Number> String>                 |
-| `String[][Number][Unit?]?` | Opt<Dict<Opt<Unit> Array<List<String>>>> |
+| Syntax        | Generic type                             |
+| ------------- | ---------------------------------------- |
+| `String?`     | Opt<String>                              |
+| `*[]`         | List<String>                             |
+| `String[]?`   | Opt<List<String>>                        |
+| `*[Number?]`  | Dict<Opt<Number> String>                 |
+| `*[][0][_?]?` | Opt<Dict<Opt<Unit> Array<List<String>>>> |
 
 ### Dual type
 

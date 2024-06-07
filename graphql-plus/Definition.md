@@ -55,7 +55,7 @@ FieldKey = EnumValue | NUMBER | STRING
 Boolean = 'true' | 'false'
 
 Simple = Basic | enum
-Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
+Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 
 Internal = 'Void' | 'Null' | 'null'
 ```
@@ -156,7 +156,7 @@ FieldKey = EnumValue | NUMBER | STRING
 Boolean = 'true' | 'false'
 
 Simple = Basic | enum
-Basic = 'Boolean' | '~' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
+Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
 
 Internal = 'Void' | 'Null' | 'null'
 
