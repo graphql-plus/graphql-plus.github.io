@@ -10,4 +10,5 @@ Whilst GraphQL is basically sufficient at it's core, there are a few limitations
 - No Generic types
 - No Dictionary / Map core type
 - No Input Union types
-- The introspection model is flawed with respect to Nullable and List type modifiers
+- The introspection model is flawed especially with respect to Nullable and List type modifiers. It's not possible
+  for one query be guaranteed to return a Type's full definition.
