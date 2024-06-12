@@ -19,3 +19,4 @@
 
 - [Liquid](https://shopify.github.io/liquid/)
 - [PicoCss](https://picocss.com/)
+- [Mermaid](https://mermaid.js.org/syntax/flowchart.html)
