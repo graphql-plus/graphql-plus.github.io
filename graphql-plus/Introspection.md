@@ -340,10 +340,15 @@ output _ObjType<$base> {
     | $base
     }
 
-dual _ObjBase<$base> {
-        typeArguments: $base[]
+dual _ObjBase {
+        typeArguments: _ObjDescribed<_ObjArgument>[]
     | _TypeParameter
     }
+
+output _ObjArgument {
+    : _TypeRef<TypeKind>
+    | _TypeParameter
+}
 
 domain _TypeParameter { :_Identifier String }
 
@@ -372,7 +377,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase<_DualBase>
+    : _ObjBase
         dual: _Identifier
     }
 ```
@@ -385,7 +390,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase<_InputBase>
+    : _ObjBase
         input: _Identifier
     | _DualBase
     }
@@ -410,7 +415,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase<_OutputArgument>
+    : _ObjBase
         output: _Identifier
     | _DualBase
     }
@@ -422,9 +427,9 @@ output _OutputField {
     }
 
 output _OutputArgument {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    | _OutputBase
+    : _TypeRef<TypeKind>
+        member: _Identifier?
+    | _TypeParameter
     }
 
 output _OutputEnum {
@@ -706,10 +711,15 @@ output _ObjType<$base> {
     | $base
     }
 
-dual _ObjBase<$base> {
-        typeArguments: $base[]
+dual _ObjBase {
+        typeArguments: _ObjDescribed<_ObjArgument>[]
     | _TypeParameter
     }
+
+output _ObjArgument {
+    : _TypeRef<TypeKind>
+    | _TypeParameter
+}
 
 domain _TypeParameter { :_Identifier String }
 
@@ -734,7 +744,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase<_DualBase>
+    : _ObjBase
         dual: _Identifier
     }
 
@@ -743,7 +753,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase<_InputBase>
+    : _ObjBase
         input: _Identifier
     | _DualBase
     }
@@ -764,7 +774,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase<_OutputArgument>
+    : _ObjBase
         output: _Identifier
     | _DualBase
     }
@@ -776,9 +786,9 @@ output _OutputField {
     }
 
 output _OutputArgument {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    | _OutputBase
+    : _TypeRef<TypeKind>
+        member: _Identifier?
+    | _TypeParameter
     }
 
 output _OutputEnum {
