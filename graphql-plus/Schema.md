@@ -311,7 +311,8 @@ Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
-Obj_BaseArgument = STRING? Obj_Type
+Obj_BaseArgument = STRING? Obj_Argument
+Obj_Argument = Internal | Simple | '$'typeParameter | object
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
@@ -321,7 +322,7 @@ An Object type may have Type parameters.
 Each Type parameter can be preceded by a documentation string.
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
-Generic Type references match if all their Type arguments match, recursively.
+Generic Type references match if all their Type arguments match.
 
 An Object type is defined as either:
 
@@ -330,10 +331,10 @@ An Object type is defined as either:
 
 The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
-An Alternate must not reference itself, without Collections, even recursively.
+An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal, Simple, Dual or another object Type.
-If an object Type it may have Type Arguments of object Type references.
+An object Type reference may be an Internal, Simple, Type parameter, Dual or another object Type.
+If a reference is an object Type it may have Type Arguments of object Type references, but without arguments.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -454,7 +455,7 @@ Default values are merged as Constant values.
 
 ### Output type
 
-An Input type is an Object type with the following Term differences,
+An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
@@ -462,15 +463,14 @@ Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
-Out_BaseArgument = STRING? Out_Type | STRING? EnumValue
+Out_Argument = Internal | Simple | '$'typeParameter | object | EnumValue
 ```
 
 Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
-An Output type reference may have Type Arguments of Output type references and/or Enum Values.
+An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Values.
 If there is a conflict between a bare Enum Value and a Type, the Type will have precedence.
 
 An Output Field redefines an object Field as follows:
@@ -544,7 +544,8 @@ Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
-Obj_BaseArgument = STRING? Obj_Type
+Obj_BaseArgument = STRING? Obj_Argument
+Obj_Argument = Internal | Simple | '$'typeParameter | object
 
 TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
 
@@ -558,7 +559,6 @@ Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Base = Dual_Base | output ( '<' Out_BaseArgument+ '>' )?
-Out_BaseArgument = STRING? Out_Type | STRING? EnumValue
+Out_Argument = Internal | Simple | '$'typeParameter | object | EnumValue
 
 ```

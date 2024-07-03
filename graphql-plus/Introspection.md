@@ -215,10 +215,10 @@ output _Modifier<$kind> {
 enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember>
-    | _BaseDomain<_DomainKind.Number _DomainRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex>
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
 
 output _DomainRef<$kind> {
@@ -226,8 +226,8 @@ output _DomainRef<$kind> {
         domainKind: $kind
     }
 
-output _BaseDomain<$domain $item> {
-    : _ParentType<_TypeKind.Domain $item _DomainItem<$item>>
+output _BaseDomain<$domain $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item  $domainItem>
         domain: $domain
     }
 
@@ -253,6 +253,10 @@ dual _DomainTrueFalse {
     : _BaseDomainItem
         value: Boolean
     }
+
+dual _DomainItemTrueFalse {
+    : _DomainItem<_DomainTrueFalse>
+    }
 ```
 
 #### Enum domain
@@ -261,6 +265,10 @@ dual _DomainTrueFalse {
 output _DomainMember {
     : _BaseDomainItem
         value: _EnumValue
+    }
+
+output _DomainItemMember {
+    : _DomainItem<_DomainMember>
     }
 ```
 
@@ -272,6 +280,10 @@ dual _DomainRange {
         lower: Number?
         upper: Number?
     }
+
+dual _DomainItemRange {
+    : _DomainItem<_DomainRange>
+    }
 ```
 
 #### String domain
@@ -280,6 +292,10 @@ dual _DomainRange {
 dual _DomainRegex {
     : _BaseDomainItem
         pattern: String
+    }
+
+dual _DomainItemRegex {
+    : _DomainItem<_DomainRegex>
     }
 ```
 
@@ -319,13 +335,13 @@ dual _UnionMember {
 ### Object Commonalities
 
 ```gqlp
-output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _ObjDescribed<$base>>
+output _TypeObject<$kind $parent $field $alternate> {
+    : _ChildType<$kind $parent>
         typeParameters: _Described[]
         fields: $field[]
-        alternates: _Alternate<$base>[]
+        alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<_Alternate<$base>>[]
+        allAlternates: _ObjectFor<$alternate>[]
     }
 
 dual _ObjDescribed<$base> {
@@ -340,10 +356,15 @@ output _ObjType<$base> {
     | $base
     }
 
-dual _ObjBase<$base> {
-        typeArguments: $base[]
+output _ObjBase {
+        typeArguments: _ObjDescribed<_ObjArgument>[]
     | _TypeParameter
     }
+
+output _ObjArgument {
+    : _TypeRef<_TypeKind>
+    | _TypeParameter
+}
 
 domain _TypeParameter { :_Identifier String }
 
@@ -368,12 +389,24 @@ output _Field<$base> {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
     }
 
 output _DualBase {
-    : _ObjBase<_DualBase>
+    : _ObjBase
         dual: _Identifier
+    }
+
+output _DualParent {
+    : _ObjDescribed<_DualBase>
+    }
+
+output _DualField {
+    : _Field<_DualBase>
+    }
+
+output _DualAlternate {
+    : _Alternate<_DualBase>
     }
 ```
 
@@ -381,18 +414,26 @@ output _DualBase {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputField>
+    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
     }
 
 output _InputBase {
-    : _ObjBase<_InputBase>
+    : _ObjBase
         input: _Identifier
     | _DualBase
+    }
+
+output _InputParent {
+    : _ObjDescribed<_InputBase>
     }
 
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
+    }
+
+output _InputAlternate {
+    : _Alternate<_InputBase>
     }
 
 output _InputParameter {
@@ -406,13 +447,17 @@ output _InputParameter {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
-    : _ObjBase<_OutputArgument>
+    : _ObjBase
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputParent {
+    : _ObjDescribed<_OutputBase>
     }
 
 output _OutputField {
@@ -421,10 +466,14 @@ output _OutputField {
     | _OutputEnum
     }
 
+output _OutputAlternate {
+    : _Alternate<_OutputBase>
+    }
+
 output _OutputArgument {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    | _OutputBase
+    : _TypeRef<_TypeKind>
+        member: _Identifier?
+    | _TypeParameter
     }
 
 output _OutputEnum {
@@ -611,10 +660,10 @@ output _Modifier<$kind> {
 enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember>
-    | _BaseDomain<_DomainKind.Number _DomainRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex>
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
 
 output _DomainRef<$kind> {
@@ -622,8 +671,8 @@ output _DomainRef<$kind> {
         domainKind: $kind
     }
 
-output _BaseDomain<$domain $item> {
-    : _ParentType<_TypeKind.Domain $item _DomainItem<$item>>
+output _BaseDomain<$domain $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item  $domainItem>
         domain: $domain
     }
 
@@ -646,9 +695,17 @@ dual _DomainTrueFalse {
         value: Boolean
     }
 
+dual _DomainItemTrueFalse {
+    : _DomainItem<_DomainTrueFalse>
+    }
+
 output _DomainMember {
     : _BaseDomainItem
         value: _EnumValue
+    }
+
+output _DomainItemMember {
+    : _DomainItem<_DomainMember>
     }
 
 dual _DomainRange {
@@ -657,9 +714,17 @@ dual _DomainRange {
         upper: Number?
     }
 
+dual _DomainItemRange {
+    : _DomainItem<_DomainRange>
+    }
+
 dual _DomainRegex {
     : _BaseDomainItem
         pattern: String
+    }
+
+dual _DomainItemRegex {
+    : _DomainItem<_DomainRegex>
     }
 
 output _TypeEnum {
@@ -685,13 +750,13 @@ dual _UnionMember {
         union: _Identifier
     }
 
-output _TypeObject<$kind $base $field> {
-    : _ChildType<$kind _ObjDescribed<$base>>
+output _TypeObject<$kind $parent $field $alternate> {
+    : _ChildType<$kind $parent>
         typeParameters: _Described[]
         fields: $field[]
-        alternates: _Alternate<$base>[]
+        alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<_Alternate<$base>>[]
+        allAlternates: _ObjectFor<$alternate>[]
     }
 
 dual _ObjDescribed<$base> {
@@ -706,10 +771,15 @@ output _ObjType<$base> {
     | $base
     }
 
-dual _ObjBase<$base> {
-        typeArguments: $base[]
+output _ObjBase {
+        typeArguments: _ObjDescribed<_ObjArgument>[]
     | _TypeParameter
     }
+
+output _ObjArgument {
+    : _TypeRef<_TypeKind>
+    | _TypeParameter
+}
 
 domain _TypeParameter { :_Identifier String }
 
@@ -730,27 +800,47 @@ output _Field<$base> {
     }
 
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _Field<_DualBase>>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
     }
 
 output _DualBase {
-    : _ObjBase<_DualBase>
+    : _ObjBase
         dual: _Identifier
     }
 
+output _DualParent {
+    : _ObjDescribed<_DualBase>
+    }
+
+output _DualField {
+    : _Field<_DualBase>
+    }
+
+output _DualAlternate {
+    : _Alternate<_DualBase>
+    }
+
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputField>
+    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
     }
 
 output _InputBase {
-    : _ObjBase<_InputBase>
+    : _ObjBase
         input: _Identifier
     | _DualBase
+    }
+
+output _InputParent {
+    : _ObjDescribed<_InputBase>
     }
 
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
+    }
+
+output _InputAlternate {
+    : _Alternate<_InputBase>
     }
 
 output _InputParameter {
@@ -760,13 +850,17 @@ output _InputParameter {
     }
 
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputField>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
-    : _ObjBase<_OutputArgument>
+    : _ObjBase
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputParent {
+    : _ObjDescribed<_OutputBase>
     }
 
 output _OutputField {
@@ -775,10 +869,14 @@ output _OutputField {
     | _OutputEnum
     }
 
+output _OutputAlternate {
+    : _Alternate<_OutputBase>
+    }
+
 output _OutputArgument {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    | _OutputBase
+    : _TypeRef<_TypeKind>
+        member: _Identifier?
+    | _TypeParameter
     }
 
 output _OutputEnum {
