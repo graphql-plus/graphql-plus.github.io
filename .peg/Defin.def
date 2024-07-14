@@ -1,6 +1,6 @@
 enum = ID
 member = ID
-typeParameter = ID
+typeParam = ID
 
 NUMBER = [-+]? [0-9_]+ ( '.' [0-9_]+ )?
 

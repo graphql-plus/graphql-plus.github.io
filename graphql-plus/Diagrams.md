@@ -39,7 +39,7 @@ classDiagram
     Category : Output
 
     <<Declaration>> Directive
-    Directive : Parameter[]
+    Directive : Param[]
 
     <<Declaration>> Option
     Option *-- Setting
@@ -68,6 +68,13 @@ classDiagram
     Domain *-- Range : Kind = Number
     Domain *-- Regex : Kind = String
 
+    TrueFalse --|> Item
+    Member --|> Item
+    Range --|> Item
+    Regex --|> Item
+
+    Item : Excluded
+
     <<Declaration>> Enum
     <<Declaration>> Union
 ```
@@ -82,31 +89,31 @@ classDiagram
     Object <|-- Dual
     Object <|-- Output
 
-    Object : TypeParameter[]
-    Object : Field~Ref~[]
-    Object : Alternate~Ref~[]
+    Object : TypeParam[]
+    Object : Field~Base~[]
+    Object : Alternate~Base~[]
 
     <<Declaration>> Input
     <<Declaration>> Dual
     <<Declaration>> Output
 
-    InputRef ..> DualRef
-    OutputRef : EnumValue
+    InputBase ..> DualBase
+    OutputBase : EnumValue
 
-    Dual <-- DualRef
-    Input <-- InputRef
-    Output <-- OutputRef
+    Dual <-- DualBase
+    Input <-- InputBase
+    Output <-- OutputBase
 
-    OutputRef ..> DualRef
+    OutputBase ..> DualBase
 
-    InputRef --|> Ref
-    DualRef --|> Ref
-    OutputRef --|> Ref
+    InputBase --|> Base
+    DualBase --|> Base
+    OutputBase --|> Base
 
-    Ref : *~Ref~[] TypeArguments
-    Ref : IsTypeParameter()
+    Base : TypeArg[]
+    Base : IsTypeParam()
 
-    Field : *~Ref~ Type
+    Field : *~Base~ Type
 
     Field <|-- InputField
     Field <|-- OutputField
@@ -117,7 +124,7 @@ classDiagram
     Field <|-- DualField
 
     OutputField ..> DualField
-    OutputField : Parameter
+    OutputField : InputParam[]
     OutputField : EnumValue
 
 ```

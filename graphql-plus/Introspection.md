@@ -92,7 +92,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParameter[]
+        parameters: _InputParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -186,7 +186,7 @@ output _ConstantMap {
 output _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
-    | _ModifierKeyed<_ModifierKind.TypeParameter>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
 output _ModifierKeyed<$kind> {
@@ -200,7 +200,7 @@ output _Modifiers {
     | _Collections
     }
 
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParameter] }
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
 output _Modifier<$kind> {
         modifierKind: $kind
@@ -337,7 +337,7 @@ dual _UnionMember {
 ```gqlp
 output _TypeObject<$kind $parent $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParameters: _Described[]
+        typeParams: _Described[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -357,16 +357,16 @@ output _ObjType<$base> {
     }
 
 output _ObjBase {
-        typeArguments: _ObjDescribed<_ObjArgument>[]
-    | _TypeParameter
+        typeArgs: _ObjDescribed<_ObjArg>[]
+    | _TypeParam
     }
 
-output _ObjArgument {
+output _ObjArg {
     : _TypeRef<_TypeKind>
-    | _TypeParameter
+    | _TypeParam
 }
 
-domain _TypeParameter { :_Identifier String }
+domain _TypeParam { :_Identifier String }
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -436,7 +436,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParameter {
+output _InputParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -462,7 +462,7 @@ output _OutputParent {
 
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParameter[]
+        parameter: _InputParam[]
     | _OutputEnum
     }
 
@@ -470,10 +470,10 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArgument {
+output _OutputArg {
     : _TypeRef<_TypeKind>
         member: _Identifier?
-    | _TypeParameter
+    | _TypeParam
     }
 
 output _OutputEnum {
@@ -557,7 +557,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParameter[]
+        parameters: _InputParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -637,7 +637,7 @@ output _ConstantMap {
 output _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
-    | _ModifierKeyed<_ModifierKind.TypeParameter>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
 output _ModifierKeyed<$kind> {
@@ -651,7 +651,7 @@ output _Modifiers {
     | _Collections
     }
 
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParameter] }
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
 output _Modifier<$kind> {
         modifierKind: $kind
@@ -752,7 +752,7 @@ dual _UnionMember {
 
 output _TypeObject<$kind $parent $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParameters: _Described[]
+        typeParams: _Described[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -772,16 +772,16 @@ output _ObjType<$base> {
     }
 
 output _ObjBase {
-        typeArguments: _ObjDescribed<_ObjArgument>[]
-    | _TypeParameter
+        typeArgs: _ObjDescribed<_ObjArg>[]
+    | _TypeParam
     }
 
-output _ObjArgument {
+output _ObjArg {
     : _TypeRef<_TypeKind>
-    | _TypeParameter
+    | _TypeParam
 }
 
-domain _TypeParameter { :_Identifier String }
+domain _TypeParam { :_Identifier String }
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -843,7 +843,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParameter {
+output _InputParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -865,7 +865,7 @@ output _OutputParent {
 
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParameter[]
+        parameter: _InputParam[]
     | _OutputEnum
     }
 
@@ -873,10 +873,10 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArgument {
+output _OutputArg {
     : _TypeRef<_TypeKind>
         member: _Identifier?
-    | _TypeParameter
+    | _TypeParam
     }
 
 output _OutputEnum {

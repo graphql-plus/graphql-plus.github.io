@@ -92,7 +92,7 @@ Categories can be merged if their Options and Modified Output Types match.
 ### Directive declaration
 
 ```PEG
-Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 ```
@@ -303,18 +303,18 @@ Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
-Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
+Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
 Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
 Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
-Obj_BaseArgument = STRING? Obj_Argument
-Obj_Argument = Internal | Simple | '$'typeParameter | object
+Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
+Obj_BaseArg = STRING? Obj_Argument
+Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
+TypeParams = '<' ( STRING? '$'typeParam )+ '>'
 
 ```
 
@@ -429,7 +429,7 @@ after replacing "object" with "input" and "Obj" with "In".
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = STRING? In_Type Modifiers? Default?
 
-InputParameters = '(' In_TypeDefault+ ')'
+InputParams = '(' In_TypeDefault+ ')'
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
@@ -460,10 +460,10 @@ after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
+Out_TypeField = InputParams? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Argument = Internal | Simple | '$'typeParameter | object | EnumValue
+Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -502,7 +502,7 @@ Aliases = '[' alias+ ']'
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
-Directive = 'directive' '@'directive InputParameters? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
@@ -536,29 +536,29 @@ Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
 UnionDefinition = Simple+
 
 // base definition
-Object = 'object' object TypeParameters? Aliases? '{' Obj_Definition '}'
+Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
 Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
 
 Obj_Alternate = '|' STRING? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParameter | object ( '<' Obj_BaseArgument+ '>' )?
-Obj_BaseArgument = STRING? Obj_Argument
-Obj_Argument = Internal | Simple | '$'typeParameter | object
+Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
+Obj_BaseArg = STRING? Obj_Argument
+Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParameters = '<' ( STRING? '$'typeParameter )+ '>'
+TypeParams = '<' ( STRING? '$'typeParam )+ '>'
 
 
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = STRING? In_Type Modifiers? Default?
 
-InputParameters = '(' In_TypeDefault+ ')'
+InputParams = '(' In_TypeDefault+ ')'
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParameters? fieldAlias* ':' STRING? Out_Type Modifiers?
+Out_TypeField = InputParams? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
-Out_Argument = Internal | Simple | '$'typeParameter | object | EnumValue
+Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 
 ```
