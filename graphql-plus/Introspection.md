@@ -235,7 +235,7 @@ dual _BaseDomainItem {
         exclude: Boolean
     }
 
-dual _DomainItem<$item> {
+output _DomainItem<$item> {
     : $item
         domain: _Identifier
     }
@@ -254,7 +254,7 @@ dual _DomainTrueFalse {
         value: Boolean
     }
 
-dual _DomainItemTrueFalse {
+output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
 ```
@@ -281,7 +281,7 @@ dual _DomainRange {
         upper: Number?
     }
 
-dual _DomainItemRange {
+output _DomainItemRange {
     : _DomainItem<_DomainRange>
     }
 ```
@@ -294,7 +294,7 @@ dual _DomainRegex {
         pattern: String
     }
 
-dual _DomainItemRegex {
+output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
 ```
@@ -680,7 +680,7 @@ dual _BaseDomainItem {
         exclude: Boolean
     }
 
-dual _DomainItem<$item> {
+output _DomainItem<$item> {
     : $item
         domain: _Identifier
     }
@@ -695,7 +695,7 @@ dual _DomainTrueFalse {
         value: Boolean
     }
 
-dual _DomainItemTrueFalse {
+output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
 
@@ -714,7 +714,7 @@ dual _DomainRange {
         upper: Number?
     }
 
-dual _DomainItemRange {
+output _DomainItemRange {
     : _DomainItem<_DomainRange>
     }
 
@@ -723,7 +723,7 @@ dual _DomainRegex {
         pattern: String
     }
 
-dual _DomainItemRegex {
+output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
 

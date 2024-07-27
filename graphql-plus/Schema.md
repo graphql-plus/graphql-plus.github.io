@@ -333,8 +333,9 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal, Simple, Type parameter, Dual or another object Type.
-If a reference is an object Type it may have Type Arguments of object Type references, but without arguments.
+An object Type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another object Type.
+If a reference is an object Type it may have Type Arguments.
+Type arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or the same object Type as the reference.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
