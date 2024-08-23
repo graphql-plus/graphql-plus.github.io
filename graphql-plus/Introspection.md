@@ -92,7 +92,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameters: _FieldParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -335,9 +335,9 @@ dual _UnionMember {
 ### Object Commonalities
 
 ```gqlp
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -350,10 +350,13 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -367,6 +370,13 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjParam<$base> {
+    typeParam: _TypeParam
+    description: String
+    constraint: _ObjConstraint<$base>
+}
+
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -389,7 +399,7 @@ output _Field<$base> {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -399,6 +409,10 @@ output _DualBase {
 
 output _DualParent {
     : _ObjDescribed<_DualBase>
+    }
+
+output _DualParam {
+    : _ObjParam<_DualBase>
     }
 
 output _DualField {
@@ -414,7 +428,7 @@ output _DualAlternate {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -427,6 +441,10 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
+output _InputParam {
+    : _ObjParam<_InputBase>
+    }
+
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
@@ -436,7 +454,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParam {
+output _FieldParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -447,7 +465,7 @@ output _InputParam {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -460,9 +478,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
+output _OutputParam {
+    : _ObjParam<_OutputBase>
+    }
+
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameter: _FieldParam[]
     | _OutputEnum
     }
 
@@ -557,7 +579,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameters: _FieldParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -750,9 +772,9 @@ dual _UnionMember {
         union: _Identifier
     }
 
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -765,10 +787,13 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -782,6 +807,13 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjParam<$base> {
+    typeParam: _TypeParam
+    description: String
+    constraint: _ObjConstraint<$base>
+}
+
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -800,7 +832,7 @@ output _Field<$base> {
     }
 
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -812,6 +844,10 @@ output _DualParent {
     : _ObjDescribed<_DualBase>
     }
 
+output _DualParam {
+    : _ObjParam<_DualBase>
+    }
+
 output _DualField {
     : _Field<_DualBase>
     }
@@ -821,7 +857,7 @@ output _DualAlternate {
     }
 
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -834,6 +870,10 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
+output _InputParam {
+    : _ObjParam<_InputBase>
+    }
+
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
@@ -843,14 +883,14 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParam {
+output _FieldParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
 
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -863,9 +903,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
+output _OutputParam {
+    : _ObjParam<_OutputBase>
+    }
+
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameter: _FieldParam[]
     | _OutputEnum
     }
 
