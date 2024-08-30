@@ -1,4 +1,5 @@
-$graphQlPlusDir = "..\graphql-plus\test\GqlPlus.ComponentTestBase\Sample\Schema"
+$graphQlPlusDir = "samples\Schema\Intro"
+New-Item $graphQlPlusDir -ItemType Directory -ErrorAction Ignore | Out-Null
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
@@ -58,7 +59,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 
   if ($name -eq "Intro") {
     foreach ($section in $sections.Keys) {
-      $sections[$section] | Set-Content "$graphQlPlusDir\Intro_$section.graphql+"
+      $sections[$section] | Set-Content "$graphQlPlusDir\$section.graphql+"
     }
   }
 }
