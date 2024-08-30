@@ -1,0 +1,3 @@
+domain DomEnum { Enum EnumDom.dom_enum }
+enum EnumDom { dom_enum }
+

@@ -1,0 +1,3 @@
+output FieldEnums { field = Boolean.true }
+output FieldEnums { field = true }
+

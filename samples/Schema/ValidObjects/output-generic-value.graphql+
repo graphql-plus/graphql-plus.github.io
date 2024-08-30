@@ -1,0 +1,4 @@
+output OutGenValue { | OutGenValueRef<outValueGen> }
+output OutGenValueRef<$type> { field: $type }
+enum OutValueGen { outValueGen }
+

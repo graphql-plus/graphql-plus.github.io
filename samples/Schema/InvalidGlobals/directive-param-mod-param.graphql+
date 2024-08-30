@@ -1,0 +1,3 @@
+directive @Test(TestIn[$a]) { all }
+input TestIn { }
+

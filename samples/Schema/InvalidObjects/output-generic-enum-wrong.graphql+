@@ -1,0 +1,4 @@
+output Test { | Ref<Wrong.unknown> }
+output Ref<$type> { field: $type }
+output Wrong { }
+

@@ -1,0 +1,3 @@
+enum EnValAlias { value [val1] }
+enum EnValAlias { value [val2] }
+

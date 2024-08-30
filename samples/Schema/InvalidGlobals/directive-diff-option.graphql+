@@ -1,0 +1,3 @@
+directive @Test { all }
+directive @Test { ( repeatable ) all }
+

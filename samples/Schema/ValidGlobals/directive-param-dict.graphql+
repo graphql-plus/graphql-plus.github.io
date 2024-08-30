@@ -1,0 +1,3 @@
+directive @DirParamDict(DirParamIn[String]) { all }
+input DirParamIn { }
+

@@ -1,0 +1,3 @@
+enum EnTestPrnt { :EnPrntTest val_prnt }
+enum EnPrntTest { val_test }
+

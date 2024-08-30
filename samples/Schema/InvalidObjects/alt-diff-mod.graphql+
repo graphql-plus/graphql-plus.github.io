@@ -1,0 +1,4 @@
+object Test { | Test1 }
+object Test { | Test1[] }
+object Test1 { }
+

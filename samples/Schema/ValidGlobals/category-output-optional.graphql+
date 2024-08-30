@@ -1,0 +1,3 @@
+category { CatOpt? }
+output CatOpt { }
+

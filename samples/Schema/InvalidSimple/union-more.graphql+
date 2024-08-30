@@ -1,0 +1,4 @@
+union Test { Bad }
+union Bad { More }
+union More { Test }
+

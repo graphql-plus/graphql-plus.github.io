@@ -1,0 +1,2 @@
+input Test { field: Test = null }
+

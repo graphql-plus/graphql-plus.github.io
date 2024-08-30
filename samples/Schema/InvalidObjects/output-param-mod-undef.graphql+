@@ -1,0 +1,3 @@
+output Test { field(Param[Domain]): Test }
+input Param { }
+

@@ -1,0 +1,3 @@
+output Test { field(Param[$a]): Test }
+input Param { }
+

@@ -1,0 +1,3 @@
+domain DomMember { enum dom_member }
+enum MemberDom { dom_member }
+

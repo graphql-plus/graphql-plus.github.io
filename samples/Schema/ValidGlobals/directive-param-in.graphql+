@@ -1,0 +1,3 @@
+directive @DirParam(DirParamIn) { all }
+input DirParamIn { }
+

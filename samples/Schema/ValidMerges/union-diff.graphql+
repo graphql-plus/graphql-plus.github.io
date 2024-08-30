@@ -1,0 +1,3 @@
+union UnDiff { Boolean }
+union UnDiff { Number }
+

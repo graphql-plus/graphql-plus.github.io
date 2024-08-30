@@ -1,0 +1,3 @@
+object ObjName { field: *[ObjEnumName] }
+enum ObjEnumName { value }
+

@@ -1,0 +1,3 @@
+enum Test [a] { test }
+enum Dup [a] { dup }
+

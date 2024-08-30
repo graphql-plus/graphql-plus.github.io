@@ -1,0 +1,6 @@
+object Test { :Recurse | Alt }
+object Recurse { :More }
+object More { :Parent }
+object Parent { | Alt[] }
+object Alt { }
+

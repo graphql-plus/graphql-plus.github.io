@@ -1,0 +1,3 @@
+output Test { field = true }
+output Test { field = false }
+

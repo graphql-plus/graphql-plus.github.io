@@ -1,0 +1,3 @@
+domain DomEnumAll { enum EnumDomAll.* }
+enum EnumDomAll { dom_all dom_enum_all }
+

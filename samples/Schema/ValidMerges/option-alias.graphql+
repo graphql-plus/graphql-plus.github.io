@@ -1,0 +1,3 @@
+option Schema [Opt1] { }
+option Schema [Opt2] { }
+

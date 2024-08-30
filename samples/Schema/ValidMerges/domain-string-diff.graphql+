@@ -1,0 +1,3 @@
+domain StrDiff { string /a+/ }
+domain StrDiff { string }
+

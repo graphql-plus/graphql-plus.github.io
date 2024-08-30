@@ -1,0 +1,4 @@
+enum EnSameParent { :EnParent sameP }
+enum EnSameParent { :EnParent sameP }
+enum EnParent { parent }
+

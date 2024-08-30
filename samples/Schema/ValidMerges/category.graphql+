@@ -1,0 +1,4 @@
+category { Category }
+category category { Category }
+output Category { }
+

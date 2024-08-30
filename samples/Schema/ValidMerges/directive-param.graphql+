@@ -1,0 +1,4 @@
+directive @DirParam(DirParamIn) { operation }
+directive @DirParam { fragment }
+input DirParamIn { }
+

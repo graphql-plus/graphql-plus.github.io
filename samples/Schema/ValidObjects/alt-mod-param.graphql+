@@ -1,0 +1,3 @@
+object ObjName<$mod> { | ObjNameAlt[$mod] }
+object ObjNameAlt { alt: Number | String }
+

@@ -1,0 +1,4 @@
+dual Test { field: Param<Bad> }
+dual Param<$T> { | $T }
+input Bad { }
+

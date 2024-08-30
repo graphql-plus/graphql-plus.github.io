@@ -1,0 +1,3 @@
+object ObjName<$a> { :ObjNameRef<$a> field: $a }
+object ObjNameRef<$b> { | $b }
+

@@ -1,0 +1,4 @@
+object Test { | Recurse }
+object Recurse { | More }
+object More { | Test }
+

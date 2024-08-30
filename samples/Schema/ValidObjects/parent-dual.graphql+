@@ -1,0 +1,3 @@
+object ObjName { :ObjNameRef }
+dual ObjNameRef { parent: Number | String }
+
