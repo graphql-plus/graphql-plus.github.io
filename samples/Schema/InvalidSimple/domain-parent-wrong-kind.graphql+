@@ -1,3 +1,2 @@
 domain Test { :Parent Boolean }
 domain Parent { String }
-

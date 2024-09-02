@@ -1,2 +1,1 @@
 input InFieldNum { field: Number = 0 }
-

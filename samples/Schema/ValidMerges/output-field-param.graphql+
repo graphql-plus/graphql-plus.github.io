@@ -3,4 +3,3 @@ output FieldParam { field(FieldParam2): FieldParamFld }
 input FieldParam1 { }
 input FieldParam2 { }
 output FieldParamFld { }
-

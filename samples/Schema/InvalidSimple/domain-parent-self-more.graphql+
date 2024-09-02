@@ -2,4 +2,3 @@ domain Test { :Parent Boolean }
 domain Parent { :Recurse Boolean }
 domain Recurse { :More Boolean }
 domain More { :Test Boolean }
-

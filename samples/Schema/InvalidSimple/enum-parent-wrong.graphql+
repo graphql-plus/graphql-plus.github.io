@@ -1,3 +1,2 @@
 enum Test { :Parent test }
 output Parent { }
-

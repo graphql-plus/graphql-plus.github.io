@@ -1,3 +1,2 @@
 input Test { field: Bad }
 output Bad { }
-

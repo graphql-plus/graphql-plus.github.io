@@ -1,3 +1,2 @@
 input InFieldEnum { field: InEnumField = value }
 enum InEnumField { value }
-

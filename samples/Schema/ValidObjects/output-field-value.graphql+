@@ -1,3 +1,2 @@
 output OutFieldValue { field = outEnumValue }
 enum OutEnumValue { outEnumValue }
-

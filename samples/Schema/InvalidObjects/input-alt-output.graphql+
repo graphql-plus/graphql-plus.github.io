@@ -1,3 +1,2 @@
 input Test { | Bad }
 output Bad { }
-

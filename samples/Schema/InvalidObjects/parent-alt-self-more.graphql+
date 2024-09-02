@@ -2,4 +2,3 @@ object Test { :Alt }
 object Alt { | More }
 object More { :Recurse }
 object Recurse { | Test }
-
