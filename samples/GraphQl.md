@@ -4,7 +4,7 @@
 
 ### Example_003.gql
 
-```
+```gqlp
 {
   user(id: 4) {
     name
@@ -14,7 +14,7 @@
 
 ### Example_005.gql
 
-```
+```gqlp
 mutation {
   likeStory(storyID: 12345) {
     story {
@@ -26,7 +26,7 @@ mutation {
 
 ### Example_006.gql
 
-```
+```gqlp
 {
   field
 }
@@ -34,7 +34,7 @@ mutation {
 
 ### Example_007.gql
 
-```
+```gqlp
 {
   id
   firstName
@@ -44,7 +44,7 @@ mutation {
 
 ### Example_008.gql
 
-```
+```gqlp
 {
   me {
     id
@@ -63,7 +63,7 @@ mutation {
 
 ### Example_009a.gql
 
-```
+```gqlp
 {
   me {
     name
@@ -73,7 +73,7 @@ mutation {
 
 ### Example_009b.gql
 
-```
+```gqlp
 {
   user(id: 4) {
     name
@@ -83,7 +83,7 @@ mutation {
 
 ### Example_010.gql
 
-```
+```gqlp
 {
   user(id: 4) {
     id
@@ -95,7 +95,7 @@ mutation {
 
 ### Example_011.gql
 
-```
+```gqlp
 {
   user(id: 4) {
     id
@@ -107,7 +107,7 @@ mutation {
 
 ### Example_012.gql
 
-```
+```gqlp
 {
   picture(width: 200, height: 100)
 }
@@ -115,7 +115,7 @@ mutation {
 
 ### Example_013.gql
 
-```
+```gqlp
 {
   picture(height: 100, width: 200)
 }
@@ -123,7 +123,7 @@ mutation {
 
 ### Example_014.gql
 
-```
+```gqlp
 {
   user(id: 4) {
     id
@@ -136,7 +136,7 @@ mutation {
 
 ### Example_016.gql
 
-```
+```gqlp
 {
   zuck: user(id: 4) {
     id
@@ -147,7 +147,7 @@ mutation {
 
 ### Example_018.gql
 
-```
+```gqlp
 query noFragments {
   user(id: 4) {
     friends(first: 10) {
@@ -166,7 +166,7 @@ query noFragments {
 
 ### Example_019.gql
 
-```
+```gqlp
 query withFragments {
   user(id: 4) {
     friends(first: 10) {
@@ -187,7 +187,7 @@ fragment friendFields on User {
 
 ### Example_020.gql
 
-```
+```gqlp
 query withNestedFragments {
   user(id: 4) {
     friends(first: 10) {
@@ -212,7 +212,7 @@ fragment standardProfilePic on User {
 
 ### Example_021.gql
 
-```
+```gqlp
 query FragmentTyping {
   profiles(handles: ["zuck", "coca-cola"]) {
     handle
@@ -236,7 +236,7 @@ fragment pageFragment on Page {
 
 ### Example_023.gql
 
-```
+```gqlp
 query inlineFragmentTyping {
   profiles(handles: ["zuck", "coca-cola"]) {
     handle
@@ -256,7 +256,7 @@ query inlineFragmentTyping {
 
 ### Example_024.gql
 
-```
+```gqlp
 query inlineFragmentNoType($expandedInfo: Boolean) {
   user(handle: "zuck") {
     id
@@ -272,7 +272,7 @@ query inlineFragmentNoType($expandedInfo: Boolean) {
 
 ### Example_025.gql
 
-```
+```gqlp
 mutation {
   sendEmail(
     message: """
@@ -288,7 +288,7 @@ mutation {
 
 ### Example_026.gql
 
-```
+```gqlp
 mutation {
   sendEmail(message: "Hello,\n  World!\n\nYours,\n  GraphQL.")
 }
@@ -296,7 +296,7 @@ mutation {
 
 ### Example_029.gql
 
-```
+```gqlp
 {
   field(arg: null)
   field
@@ -305,7 +305,7 @@ mutation {
 
 ### Example_030.gql
 
-```
+```gqlp
 {
   nearestThing(location: { lon: 12.43, lat: -53.211 })
 }
@@ -313,7 +313,7 @@ mutation {
 
 ### Example_031.gql
 
-```
+```gqlp
 {
   nearestThing(location: { lat: -53.211, lon: 12.43 })
 }
@@ -321,7 +321,7 @@ mutation {
 
 ### Example_032.gql
 
-```
+```gqlp
 query getZuckProfile($devicePicSize: Int) {
   user(id: 4) {
     id

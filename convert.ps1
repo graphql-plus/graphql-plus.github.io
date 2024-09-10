@@ -84,7 +84,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     }
 
     "### $_`n" | Add-Content $file
-    "``````" | Add-Content $file
+    "``````gqlp" | Add-Content $file
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
   }
