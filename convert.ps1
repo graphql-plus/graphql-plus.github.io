@@ -64,6 +64,32 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   }
 }
 
+Get-ChildItem ./samples -Directory -Name | ForEach-Object {
+  $name = $_
+  $file = "samples/$name.md"
+
+  "# $name Samples`n" | Set-Content $file
+
+  "## Root`n" | Add-Content $file
+
+  $dir = ""
+
+  Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
+    $path = $_ -split '\\'
+    if ($path.Count -gt 1) {
+      if ($path[0] -ne $dir) {
+        $dir = $path[0]        
+        "## $dir`n" | Add-Content $file
+      }
+    }
+
+    "### $_`n" | Add-Content $file
+    "``````" | Add-Content $file
+    Get-Content "samples/$name/$_" | Add-Content $file
+    "```````n" | Add-Content $file
+  }
+}
+
 prettier -w .
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
