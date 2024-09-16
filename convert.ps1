@@ -75,6 +75,10 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $dir = ""
 
   Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
+    if ($_ -notmatch ".*\.g.*") {
+      return
+    }
+
     $path = $_ -split '\\'
     if ($path.Count -gt 1) {
       if ($path[0] -ne $dir) {
@@ -87,6 +91,13 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     "``````gqlp" | Add-Content $file
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
+
+    $expected = "samples/$name/" + ($_ -split '.g')[0] + ".expected"
+    if (Test-Path $expected) {
+      "##### Expected errors`n" | Add-Content $file
+      Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
+      "" | Add-Content $file
+    }
   }
 }
 

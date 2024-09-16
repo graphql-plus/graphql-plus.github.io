@@ -39,6 +39,12 @@ output NoParams<> {}
 domain Other { Enum }
 ```
 
+##### Expected errors
+
+- `Invalid Category Output. '' not defined or not an Output type.`
+- `Invalid Category. Expected output type.`
+- `Invalid Schema. Expected no more text.`
+
 ### Intro_Built-In.graphql+
 
 ```gqlp
@@ -86,6 +92,14 @@ output _Modifier<$kind> {
         modifierKind: $kind
     }
 ```
+
+##### Expected errors
+
+- `Invalid Output Alternate. '_DomainValue' not defined.`
+- `Invalid Output Alternate. '_EnumValue' not defined.`
+- `Invalid Output Field. '_TypeSimple' not defined.`
+- `Invalid Output Alternate. '_DomainKind' not defined.`
+- `Invalid Output Arg Enum. '_DomainKind' is not an Enum type.`
 
 ### Intro_Category.graphql+
 
@@ -153,6 +167,18 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 ```
+
+##### Expected errors
+
+- `Invalid Output Alternate. '_TypeDual' not defined.`
+- `Invalid Output Alternate. '_TypeEnum' not defined.`
+- `Invalid Output Alternate. '_TypeInput' not defined.`
+- `Invalid Output Alternate. '_TypeOutput' not defined.`
+- `Invalid Output Alternate. '_TypeDomain' not defined.`
+- `Invalid Output Alternate. '_TypeUnion' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Identifier' not defined.`
 
 ### Intro_Complete.graphql+
 
@@ -576,6 +602,16 @@ input _TypeFilter {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Parent. '_Named' not defined.`
+- `Invalid Input Field. '_TypeKind' not defined.`
+- `Invalid Input Field. '_Resolution' not defined.`
+- `Invalid Output Field. '_Setting' not defined.`
+- `Invalid Output Field. '_Type' not defined.`
+- `Invalid Output Field. '_Directives' not defined.`
+- `Invalid Output Field. '_Categories' not defined.`
+
 ### Intro_Directive.graphql+
 
 ```gqlp
@@ -596,6 +632,13 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
+
+##### Expected errors
+
+- `Invalid Output Alternate. '_Type' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Field. '_Type' not defined.`
+- `Invalid Output Field. '_InputParam' not defined.`
 
 ### Intro_Domain.graphql+
 
@@ -667,6 +710,15 @@ output _DomainItemRegex {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Parent. '_TypeRef' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Field. '_EnumValue' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+
 ### Intro_Dual.graphql+
 
 ```gqlp
@@ -692,6 +744,17 @@ output _DualAlternate {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Parent. '_ObjBase' not defined.`
+- `Invalid Output Parent. '_ObjDescribed' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+
 ### Intro_Enum.graphql+
 
 ```gqlp
@@ -709,6 +772,17 @@ output _EnumValue {
         member: _Identifier
     }
 ```
+
+##### Expected errors
+
+- `Invalid Dual Parent. '_Aliased' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
+- `Invalid Dual Field. '_Identifier' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
 
 ### Intro_Input.graphql+
 
@@ -743,6 +817,20 @@ output _InputParam {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Alternate. '_DualBase' not defined.`
+- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Parent. '_ObjBase' not defined.`
+- `Invalid Output Parent. '_ObjDescribed' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Field. '_Constant' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Field. '_Modifiers' not defined.`
+
 ### Intro_Names.graphql+
 
 ```gqlp
@@ -760,6 +848,10 @@ dual _Named {
         name: _Identifier
     }
 ```
+
+##### Expected errors
+
+- `Invalid Dual Field. '_Identifier' not defined.`
 
 ### Intro_Object.graphql+
 
@@ -814,6 +906,22 @@ output _Field<$base> {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Alternate. '_BaseType' not defined.`
+- `Invalid Output Alternate. '_TypeSimple' not defined.`
+- `Invalid Output Parent. '_ChildType' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
+- `Invalid Domain Parent. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Alternate. '_TypeKind' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Field. '_Modifiers' not defined.`
+- `Invalid Output Field. '_Collections' not defined.`
+- `Invalid Output Field. '_Described' not defined.`
+
 ### Intro_Option.graphql+
 
 ```gqlp
@@ -822,6 +930,11 @@ output _Setting {
         value: _Constant
 }
 ```
+
+##### Expected errors
+
+- `Invalid Output Parent. '_Described' not defined.`
+- `Invalid Output Field. '_Constant' not defined.`
 
 ### Intro_Output.graphql+
 
@@ -863,6 +976,21 @@ output _OutputEnum {
     }
 ```
 
+##### Expected errors
+
+- `Invalid Output Alternate. '_DualBase' not defined.`
+- `Invalid Output Alternate. '_TypeParam' not defined.`
+- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Parent. '_ObjBase' not defined.`
+- `Invalid Output Parent. '_ObjDescribed' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Field. '_InputParam' not defined.`
+
 ### Intro_Union.graphql+
 
 ```gqlp
@@ -875,6 +1003,15 @@ dual _UnionMember {
         union: _Identifier
     }
 ```
+
+##### Expected errors
+
+- `Invalid Dual Parent. '_Named' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Dual Field. '_Identifier' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Parent. '_Named' not defined.`
 
 ## InvalidGlobals
 
