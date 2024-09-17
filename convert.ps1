@@ -64,6 +64,8 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   }
 }
 
+$prefixes = @("", "dual-", "input-", "output-")
+
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $name = $_
   $file = "samples/$name.md"
@@ -92,11 +94,24 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
 
-    $expected = "samples/$name/" + ($_ -split '.g')[0] + ".expected"
-    if (Test-Path $expected) {
-      "##### Expected errors`n" | Add-Content $file
-      Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-      "" | Add-Content $file
+    if ($_ -match 'Invalid') {
+      foreach ($prefix in $prefixes) {
+        $expected = "samples/$name/" + (($_ -split '.g')[0] -replace '\\',"/$prefix") + ".expected"
+        write-host "Trying $expected ..."
+        if (Test-Path $expected) {
+          $label = $prefix -replace '-',''
+          "##### Expected errors $label`n" | Add-Content $file
+          Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
+          "" | Add-Content $file
+        }
+      }
+    } else {
+      $expected = "samples/$name/" + ($_ -split '.g')[0] + ".expected"
+      if (Test-Path $expected) {
+        "##### Expected errors`n" | Add-Content $file
+        Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
+        "" | Add-Content $file
+      }
     }
   }
 }
