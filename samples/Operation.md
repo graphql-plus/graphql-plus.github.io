@@ -8,6 +8,11 @@
 {}
 ```
 
+##### Expected errors
+
+- `Invalid Operation. Expected at least one field or selection.`
+- `Invalid Operation. Expected Object or Type.`
+
 ### simple.gql+
 
 ```gqlp
@@ -22,11 +27,19 @@
 
 ```
 
+##### Expected errors
+
+- `Invalid Operation. Expected text.`
+
 ### Invalid\frag-undef.gql+
 
 ```gqlp
 {...named}
 ```
+
+##### Expected errors
+
+- `Invalid Spread usage. Spread not defined.`
 
 ### Invalid\frag-unused.gql+
 
@@ -34,11 +47,19 @@
 &named:Named{name}{name}
 ```
 
+##### Expected errors
+
+- `Invalid Spread definition. Spread not used.`
+
 ### Invalid\list-map-def.gql+
 
 ```gqlp
 ($var:Id[]={a:b}):Boolean($var)
 ```
+
+##### Expected errors
+
+- `Invalid Variable definition. List Type cannot have Object default.`
 
 ### Invalid\list-null-map-def.gql+
 
@@ -46,11 +67,19 @@
 ($var:Id[]?={a:b}):Boolean($var)
 ```
 
+##### Expected errors
+
+- `Invalid Variable definition. Optional List Type cannot have Object default.`
+
 ### Invalid\map-list-def.gql+
 
 ```gqlp
 ($var:Id[*]=[a]):Boolean($var)
 ```
+
+##### Expected errors
+
+- `Invalid Variable definition. Dictionary Type must have Object default.`
 
 ### Invalid\map-null-list-def.gql+
 
@@ -58,11 +87,19 @@
 ($var:Id[*]?=[a]):Boolean($var)
 ```
 
+##### Expected errors
+
+- `Invalid Variable definition. Optional Dictionary Type must have Object default.`
+
 ### Invalid\null-def-invalid.gql+
 
 ```gqlp
 ($var:Id=null):Boolean($var)
 ```
+
+##### Expected errors
+
+- `Invalid Variable definition. Default of 'null' must be on Optional Type.`
 
 ### Invalid\var-undef.gql+
 
@@ -70,11 +107,19 @@
 :Boolean($var)
 ```
 
+##### Expected errors
+
+- `Invalid Variable usage. Variable not defined.`
+
 ### Invalid\var-unused.gql+
 
 ```gqlp
 ($var):Boolean
 ```
+
+##### Expected errors
+
+- `Invalid Variable definition. Variable not used.`
 
 ## Valid
 

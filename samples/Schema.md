@@ -121,6 +121,16 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 ```
 
+##### Expected errors
+
+- `Invalid Output Alternate. '_Type' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Field. '_Type' not defined.`
+- `Invalid Output Field. '_TypeRef' not defined.`
+- `Invalid Output Field. '_Modifiers' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_TypeKind' not defined.`
+
 ### Intro_Common.graphql+
 
 ```gqlp
@@ -1021,6 +1031,10 @@ dual _UnionMember {
 
 ```
 
+##### Expected errors
+
+- `Parse Error: Invalid Schema. Expected text.`
+
 ### InvalidGlobals\category-diff-mod.graphql+
 
 ```gqlp
@@ -1028,6 +1042,11 @@ category { Test }
 category { Test? }
 output Test { }
 ```
+
+##### Expected errors
+
+- `Multiple Categories with name 'test' can't be merged.,`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~System.Linq.Enumerable+WhereSelectArrayIterator`2[GqlPlus.Abstractions.IGqlpModifier,System.String]~Parallel', 'Test~System.String[]~Parallel']`
 
 ### InvalidGlobals\category-dup-alias.graphql+
 
@@ -1038,6 +1057,10 @@ output Test { }
 output Output { }
 ```
 
+##### Expected errors
+
+- `Multiple Categories with alias 'a' found. Names 'test' 'output'`
+
 ### InvalidGlobals\category-duplicate.graphql+
 
 ```gqlp
@@ -1047,12 +1070,21 @@ output Test { }
 output Output { }
 ```
 
+##### Expected errors
+
+- `Multiple Categories with name 'test' can't be merged.,`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
+
 ### InvalidGlobals\category-output-generic.graphql+
 
 ```gqlp
 category { Test }
 output Test<$a> { | $a }
 ```
+
+##### Expected errors
+
+- `Invalid Category Output. 'Test' is a generic Output type.`
 
 ### InvalidGlobals\category-output-mod-param.graphql+
 
@@ -1061,11 +1093,19 @@ category { Test[$a] }
 output Test { }
 ```
 
+##### Expected errors
+
+- `Invalid Modifier. 'a' not defined.`
+
 ### InvalidGlobals\category-output-undef.graphql+
 
 ```gqlp
 category { Test }
 ```
+
+##### Expected errors
+
+- `Invalid Category Output. 'Test' not defined or not an Output type.`
 
 ### InvalidGlobals\category-output-wrong.graphql+
 
@@ -1074,12 +1114,21 @@ category { Test }
 input Test { }
 ```
 
+##### Expected errors
+
+- `Invalid Category Output. 'Test' not defined or not an Output type.`
+
 ### InvalidGlobals\directive-diff-option.graphql+
 
 ```gqlp
 directive @Test { all }
 directive @Test { ( repeatable ) all }
 ```
+
+##### Expected errors
+
+- `Multiple Directives with name 'Test' can't be merged.,`
+- `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
 
 ### InvalidGlobals\directive-diff-param.graphql+
 
@@ -1089,11 +1138,20 @@ directive @Test(Test?) { all }
 input Test { }
 ```
 
+##### Expected errors
+
+- `Multiple Directives with name 'Test' can't be merged.,`
+- `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
+
 ### InvalidGlobals\directive-no-param.graphql+
 
 ```gqlp
 directive @Test(Test) { all }
 ```
+
+##### Expected errors
+
+- `Invalid Directive Param. '( I@017/0001 Test )' not defined.`
 
 ### InvalidGlobals\directive-param-mod-param.graphql+
 
@@ -1102,12 +1160,20 @@ directive @Test(TestIn[$a]) { all }
 input TestIn { }
 ```
 
+##### Expected errors
+
+- `Invalid Modifier. 'a' not defined.`
+
 ### InvalidGlobals\option-diff-name.graphql+
 
 ```gqlp
 option Test { }
 option Schema { }
 ```
+
+##### Expected errors
+
+- `Multiple Schema names (Options) found.`
 
 ## InvalidObjects
 
@@ -1181,6 +1247,18 @@ object Alt { }
 object Test { | Alt[Test] }
 object Alt { }
 ```
+
+##### Expected errors dual
+
+- `Invalid Modifier. 'Test' invalid type.`
+
+##### Expected errors input
+
+- `Invalid Modifier. 'Test' invalid type.`
+
+##### Expected errors output
+
+- `Invalid Modifier. 'Test' invalid type.`
 
 ### InvalidObjects\alt-more.graphql+
 
@@ -1522,6 +1600,18 @@ object Test { field: Test[Random] }
 object Test { field: Test[Test] }
 ```
 
+##### Expected errors dual
+
+- `Invalid Modifier. 'Test' invalid type.`
+
+##### Expected errors input
+
+- `Invalid Modifier. 'Test' invalid type.`
+
+##### Expected errors output
+
+- `Invalid Modifier. 'Test' invalid type.`
+
 ### InvalidObjects\field-simple-param.graphql+
 
 ```gqlp
@@ -1546,12 +1636,36 @@ object Test { field: String<0> }
 object Test { | $type }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Alternate. '$type' not defined.`
+
+##### Expected errors input
+
+- `Invalid Input Alternate. '$type' not defined.`
+
+##### Expected errors output
+
+- `Invalid Output Alternate. '$type' not defined.`
+
 ### InvalidObjects\generic-arg-less.graphql+
 
 ```gqlp
 object Test { field: Ref }
 object Ref<$ref> { | $ref }
 ```
+
+##### Expected errors dual
+
+- `Invalid Dual Field. Args mismatch, expected 1 given 0.`
+
+##### Expected errors input
+
+- `Invalid Input Field. Args mismatch, expected 1 given 0.`
+
+##### Expected errors output
+
+- `Invalid Output Field. Args mismatch, expected 1 given 0.`
 
 ### InvalidObjects\generic-arg-more.graphql+
 
@@ -1560,6 +1674,18 @@ object Test<$type> { field: Ref<$type> }
 object Ref { }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Field. Args mismatch, expected 0 given 1.`
+
+##### Expected errors input
+
+- `Invalid Input Field. Args mismatch, expected 0 given 1.`
+
+##### Expected errors output
+
+- `Invalid Output Field. Args mismatch, expected 0 given 1.`
+
 ### InvalidObjects\generic-arg-undef.graphql+
 
 ```gqlp
@@ -1567,11 +1693,35 @@ object Test { field: Ref<$type> }
 object Ref<$ref> { | $ref }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Field. '$type' not defined.`
+
+##### Expected errors input
+
+- `Invalid Input Field. '$type' not defined.`
+
+##### Expected errors output
+
+- `Invalid Output Field. '$type' not defined.`
+
 ### InvalidObjects\generic-field-undef.graphql+
 
 ```gqlp
 object Test { field: $type }
 ```
+
+##### Expected errors dual
+
+- `Invalid Dual Field. '$type' not defined.`
+
+##### Expected errors input
+
+- `Invalid Input Field. '$type' not defined.`
+
+##### Expected errors output
+
+- `Invalid Output Field. '$type' not defined.`
 
 ### InvalidObjects\generic-param-undef.graphql+
 
@@ -1580,12 +1730,36 @@ object Test { field: Ref<Test1> }
 object Ref<$ref> { | $ref }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Field. 'Test1' not defined.`
+
+##### Expected errors input
+
+- `Invalid Input Field. 'Test1' not defined.`
+
+##### Expected errors output
+
+- `Invalid Output Field. 'Test1' not defined.`
+
 ### InvalidObjects\generic-parent-less.graphql+
 
 ```gqlp
 object Test { :Ref }
 object Ref<$ref> { | $ref }
 ```
+
+##### Expected errors dual
+
+- `Invalid Dual Parent. Args mismatch, expected 1 given 0.`
+
+##### Expected errors input
+
+- `Invalid Input Parent. Args mismatch, expected 1 given 0.`
+
+##### Expected errors output
+
+- `Invalid Output Parent. Args mismatch, expected 1 given 0.`
 
 ### InvalidObjects\generic-parent-more.graphql+
 
@@ -1594,17 +1768,53 @@ object Test { :Ref<Number> }
 object Ref { }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Parent. Args mismatch, expected 0 given 1.`
+
+##### Expected errors input
+
+- `Invalid Input Parent. Args mismatch, expected 0 given 1.`
+
+##### Expected errors output
+
+- `Invalid Output Parent. Args mismatch, expected 0 given 1.`
+
 ### InvalidObjects\generic-parent-undef.graphql+
 
 ```gqlp
 object Test { :$type }
 ```
 
+##### Expected errors dual
+
+- `Invalid Dual Parent. '$type' not defined.`
+
+##### Expected errors input
+
+- `Invalid Input Parent. '$type' not defined.`
+
+##### Expected errors output
+
+- `Invalid Output Parent. '$type' not defined.`
+
 ### InvalidObjects\generic-unused.graphql+
 
 ```gqlp
 object Test<$type> { }
 ```
+
+##### Expected errors dual
+
+- `Invalid Dual. '$type' not used.`
+
+##### Expected errors input
+
+- `Invalid Input. '$type' not used.`
+
+##### Expected errors output
+
+- `Invalid Output. '$type' not used.`
 
 ### InvalidObjects\input-alt-output.graphql+
 
@@ -1701,6 +1911,11 @@ output Test { field = Wrong.unknown }
 input Wrong { }
 ```
 
+##### Expected errors
+
+- `Invalid Output Field Enum. 'Wrong' is not an Enum type.,`
+- `Invalid Output Field. Type kind mismatch for Wrong. Found Input.`
+
 ### InvalidObjects\output-field-input.graphql+
 
 ```gqlp
@@ -1719,6 +1934,10 @@ output Test { | Ref<Boolean.unknown> }
 output Ref<$type> { field: $type }
 ```
 
+##### Expected errors
+
+- `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'.`
+
 ### InvalidObjects\output-generic-enum-wrong.graphql+
 
 ```gqlp
@@ -1726,6 +1945,10 @@ output Test { | Ref<Wrong.unknown> }
 output Ref<$type> { field: $type }
 output Wrong { }
 ```
+
+##### Expected errors
+
+- `Invalid Output Arg Enum. 'Wrong' is not an Enum type.`
 
 ### InvalidObjects\output-param-diff.graphql+
 
@@ -1769,6 +1992,10 @@ input Param { }
 output Test { field(Param[Test]): Test }
 input Param { }
 ```
+
+##### Expected errors
+
+- `Invalid Modifier. 'Test' invalid type.`
 
 ### InvalidObjects\output-param-undef.graphql+
 
@@ -2428,6 +2655,10 @@ domain Test { enum Bad.value }
 output Bad { }
 ```
 
+##### Expected errors
+
+- `Invalid Domain Enum. 'Bad' not an Enum type.`
+
 ### InvalidSimple\domain-number-parent.graphql+
 
 ```gqlp
@@ -2509,12 +2740,20 @@ domain Test { :Parent Boolean }
 domain Parent { String }
 ```
 
+##### Expected errors
+
+- `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'.`
+
 ### InvalidSimple\domain-parent-wrong-type.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
 output Parent { }
 ```
+
+##### Expected errors
+
+- `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'.`
 
 ### InvalidSimple\domain-string-diff.graphql+
 
@@ -2523,12 +2762,23 @@ domain Test { string /a+/}
 domain Test { string !/a+/ }
 ```
 
+##### Expected errors
+
+- `Multiple Domains with name 'Test' can't be merged.,`
+- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True'],`
+- `Multiple Types with name 'Test' can't be merged.`
+
 ### InvalidSimple\domain-string-parent.graphql+
 
 ```gqlp
 domain Test { :Parent string /a+/}
 domain Parent { string !/a+/ }
 ```
+
+##### Expected errors
+
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 
 ### InvalidSimple\enum-dup-alias.graphql+
 
@@ -2584,6 +2834,10 @@ enum Test { :Parent test }
 enum Test { :Parent test }
 output Parent { }
 ```
+
+##### Expected errors
+
+- `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
 
 ### InvalidSimple\union-more-parent.graphql+
 
@@ -2701,6 +2955,10 @@ union Test { Bad }
 union Test { Bad }
 input Bad { }
 ```
+
+##### Expected errors
+
+- `Invalid union. Type kind mismatch for Bad. Found Input.`
 
 ### InvalidSimple\unique-type-alias.graphql+
 

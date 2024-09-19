@@ -94,10 +94,11 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
 
+    $base = ($_ -split '\.g')[0]
     if ($_ -match 'Invalid') {
       foreach ($prefix in $prefixes) {
-        $expected = "samples/$name/" + (($_ -split '.g')[0] -replace '\\',"/$prefix") + ".expected"
-        write-host "Trying $expected ..."
+        $prefixed = $base -replace '\\',"/$prefix"
+        $expected = "samples/$name/$prefixed.expected"
         if (Test-Path $expected) {
           $label = $prefix -replace '-',''
           "##### Expected errors $label`n" | Add-Content $file
@@ -106,7 +107,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
         }
       }
     } else {
-      $expected = "samples/$name/" + ($_ -split '.g')[0] + ".expected"
+      $expected = "samples/$name/$base.expected"
       if (Test-Path $expected) {
         "##### Expected errors`n" | Add-Content $file
         Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
