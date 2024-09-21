@@ -39,11 +39,14 @@ output NoParams<> {}
 domain Other { Enum }
 ```
 
-##### Expected errors
+##### Expected Parse errors
 
-- `Invalid Category Output. '' not defined or not an Output type.`
 - `Invalid Category. Expected output type.`
 - `Invalid Schema. Expected no more text.`
+
+##### Expected Verify errors
+
+- `Invalid Category Output. '' not defined or not an Output type.`
 
 ### Intro_Built-In.graphql+
 
@@ -93,7 +96,7 @@ output _Modifier<$kind> {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DomainValue' not defined.`
 - `Invalid Output Alternate. '_EnumValue' not defined.`
@@ -121,7 +124,7 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_Type' not defined.`
 - `Invalid Output Parent. '_Aliased' not defined.`
@@ -178,7 +181,7 @@ output _TypeSimple {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_TypeDual' not defined.`
 - `Invalid Output Alternate. '_TypeEnum' not defined.`
@@ -612,7 +615,7 @@ input _TypeFilter {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Parent. '_Named' not defined.`
 - `Invalid Input Field. '_TypeKind' not defined.`
@@ -643,7 +646,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_Type' not defined.`
 - `Invalid Output Parent. '_Aliased' not defined.`
@@ -720,7 +723,7 @@ output _DomainItemRegex {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Parent. '_TypeRef' not defined.`
 - `Invalid Output Parent. '_ParentType' not defined.`
@@ -754,7 +757,7 @@ output _DualAlternate {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Parent. '_TypeObject' not defined.`
 - `Invalid Output Parent. '_ObjBase' not defined.`
@@ -783,7 +786,7 @@ output _EnumValue {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. '_Aliased' not defined.`
 - `Invalid Output Parent. '_ParentType' not defined.`
@@ -827,7 +830,7 @@ output _InputParam {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DualBase' not defined.`
 - `Invalid Output Parent. '_TypeObject' not defined.`
@@ -859,7 +862,7 @@ dual _Named {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Field. '_Identifier' not defined.`
 
@@ -916,7 +919,7 @@ output _Field<$base> {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_BaseType' not defined.`
 - `Invalid Output Alternate. '_TypeSimple' not defined.`
@@ -941,7 +944,7 @@ output _Setting {
 }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Parent. '_Described' not defined.`
 - `Invalid Output Field. '_Constant' not defined.`
@@ -986,7 +989,7 @@ output _OutputEnum {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DualBase' not defined.`
 - `Invalid Output Alternate. '_TypeParam' not defined.`
@@ -1014,7 +1017,7 @@ dual _UnionMember {
     }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. '_Named' not defined.`
 - `Invalid Output Parent. '_ParentType' not defined.`
@@ -1031,7 +1034,7 @@ dual _UnionMember {
 
 ```
 
-##### Expected errors
+##### Expected Parse errors
 
 - `Parse Error: Invalid Schema. Expected text.`
 
@@ -1043,7 +1046,7 @@ category { Test? }
 output Test { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged.,`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~System.Linq.Enumerable+WhereSelectArrayIterator`2[GqlPlus.Abstractions.IGqlpModifier,System.String]~Parallel', 'Test~System.String[]~Parallel']`
@@ -1057,7 +1060,7 @@ output Test { }
 output Output { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
 
@@ -1070,7 +1073,7 @@ output Test { }
 output Output { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged.,`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
@@ -1082,7 +1085,7 @@ category { Test }
 output Test<$a> { | $a }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Category Output. 'Test' is a generic Output type.`
 
@@ -1093,7 +1096,7 @@ category { Test[$a] }
 output Test { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Modifier. 'a' not defined.`
 
@@ -1103,7 +1106,7 @@ output Test { }
 category { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Category Output. 'Test' not defined or not an Output type.`
 
@@ -1114,7 +1117,7 @@ category { Test }
 input Test { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Category Output. 'Test' not defined or not an Output type.`
 
@@ -1125,7 +1128,7 @@ directive @Test { all }
 directive @Test { ( repeatable ) all }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged.,`
 - `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
@@ -1138,7 +1141,7 @@ directive @Test(Test?) { all }
 input Test { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged.,`
 - `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
@@ -1149,7 +1152,7 @@ input Test { }
 directive @Test(Test) { all }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Directive Param. '( I@017/0001 Test )' not defined.`
 
@@ -1160,7 +1163,7 @@ directive @Test(TestIn[$a]) { all }
 input TestIn { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Modifier. 'a' not defined.`
 
@@ -1171,7 +1174,7 @@ option Test { }
 option Schema { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Schema names (Options) found.`
 
@@ -1185,19 +1188,19 @@ object Test { | Test1[] }
 object Test1 { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]'],`
@@ -1210,15 +1213,15 @@ object Test { | Alt[$a] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'a' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'a' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'a' not defined.`
 
@@ -1229,15 +1232,15 @@ object Test { | Alt[Domain] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'Domain' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'Domain' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'Domain' not defined.`
 
@@ -1248,15 +1251,15 @@ object Test { | Alt[Test] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'Test' invalid type.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'Test' invalid type.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'Test' invalid type.`
 
@@ -1268,19 +1271,19 @@ object Recurse { | More }
 object More { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via More.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Recurse.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via More.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
@@ -1293,17 +1296,17 @@ object Test { | Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
@@ -1314,15 +1317,15 @@ object Recurse { | Test }
 object Test { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself.`
 
@@ -1332,15 +1335,15 @@ object Test { | Test }
 object Test { | Number<String> }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Alternate. Args invalid on Number, given 1.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Alternate. Args invalid on Number, given 1.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Alternate. Args invalid on Number, given 1.`
 
@@ -1351,7 +1354,7 @@ dual Test { | Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input.`
 
@@ -1362,7 +1365,7 @@ dual Test { | Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output.`
 
@@ -1374,7 +1377,7 @@ dual Param<$T> { | $T }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input.`
 
@@ -1386,7 +1389,7 @@ dual Param<$T> { | $T }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output.`
 
@@ -1397,7 +1400,7 @@ dual Test { field: Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input.`
 
@@ -1408,7 +1411,7 @@ dual Test { field: Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output.`
 
@@ -1420,7 +1423,7 @@ dual Param<$T> { | $T }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input.`
 
@@ -1432,7 +1435,7 @@ dual Param<$T> { | $T }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output.`
 
@@ -1443,7 +1446,7 @@ dual Test { :Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Input'.`
 
@@ -1454,7 +1457,7 @@ dual Test { :Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Output'.`
 
@@ -1466,7 +1469,7 @@ dual Param<$T> { | $T }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Input.`
 
@@ -1478,7 +1481,7 @@ dual Param<$T> { | $T }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Output.`
 
@@ -1489,19 +1492,19 @@ object Test { field1[alias]: Test }
 object Test { field2[alias]: Test[] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2'],`
@@ -1514,19 +1517,19 @@ object Test { field: Test }
 object Test { field: Test[] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []'],`
@@ -1540,19 +1543,19 @@ object Test { field: Test1 }
 object Test1 { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1'],`
@@ -1564,15 +1567,15 @@ object Test1 { }
 object Test { field: Test[$a] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'a' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'a' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'a' not defined.`
 
@@ -1582,15 +1585,15 @@ object Test { field: Test[$a] }
 object Test { field: Test[Random] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'Random' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'Random' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'Random' not defined.`
 
@@ -1600,15 +1603,15 @@ object Test { field: Test[Random] }
 object Test { field: Test[Test] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Modifier. 'Test' invalid type.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Modifier. 'Test' invalid type.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Modifier. 'Test' invalid type.`
 
@@ -1618,15 +1621,15 @@ object Test { field: Test[Test] }
 object Test { field: String<0> }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. Args invalid on String, given 1.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. Args invalid on String, given 1.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. Args invalid on String, given 1.`
 
@@ -1636,15 +1639,15 @@ object Test { field: String<0> }
 object Test { | $type }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Alternate. '$type' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Alternate. '$type' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Alternate. '$type' not defined.`
 
@@ -1655,15 +1658,15 @@ object Test { field: Ref }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. Args mismatch, expected 1 given 0.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. Args mismatch, expected 1 given 0.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. Args mismatch, expected 1 given 0.`
 
@@ -1674,15 +1677,15 @@ object Test<$type> { field: Ref<$type> }
 object Ref { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. Args mismatch, expected 0 given 1.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. Args mismatch, expected 0 given 1.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. Args mismatch, expected 0 given 1.`
 
@@ -1693,15 +1696,15 @@ object Test { field: Ref<$type> }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. '$type' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. '$type' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. '$type' not defined.`
 
@@ -1711,15 +1714,15 @@ object Ref<$ref> { | $ref }
 object Test { field: $type }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. '$type' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. '$type' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. '$type' not defined.`
 
@@ -1730,15 +1733,15 @@ object Test { field: Ref<Test1> }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Field. 'Test1' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Field. 'Test1' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Field. 'Test1' not defined.`
 
@@ -1749,15 +1752,15 @@ object Test { :Ref }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Parent. Args mismatch, expected 1 given 0.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Parent. Args mismatch, expected 1 given 0.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Parent. Args mismatch, expected 1 given 0.`
 
@@ -1768,15 +1771,15 @@ object Test { :Ref<Number> }
 object Ref { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Parent. Args mismatch, expected 0 given 1.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Parent. Args mismatch, expected 0 given 1.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Parent. Args mismatch, expected 0 given 1.`
 
@@ -1786,15 +1789,15 @@ object Ref { }
 object Test { :$type }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Parent. '$type' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Parent. '$type' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Parent. '$type' not defined.`
 
@@ -1804,15 +1807,15 @@ object Test { :$type }
 object Test<$type> { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. '$type' not used.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. '$type' not used.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. '$type' not used.`
 
@@ -1823,7 +1826,7 @@ input Test { | Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Input Alternate. Type kind mismatch for Bad. Found Output.`
 
@@ -1833,7 +1836,7 @@ output Bad { }
 input Test { field: Test = null }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Input Field Default. 'null' default requires Optional type, not 'Test'.`
 
@@ -1844,7 +1847,7 @@ input Test { field: Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Input Field. Type kind mismatch for Bad. Found Output.`
 
@@ -1855,7 +1858,7 @@ input Test { :Bad }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Input Parent. 'Bad' invalid type. Found 'Output'.`
 
@@ -1866,7 +1869,7 @@ output Test { | Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Alternate. Type kind mismatch for Bad. Found Input.`
 
@@ -1876,7 +1879,7 @@ input Bad { }
 output Test { field = unknown }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Field Enum. Enum Value 'unknown' not defined.,`
 - `Invalid Output Field. '' not defined.`
@@ -1888,7 +1891,7 @@ output Test { field = true }
 output Test { field = false }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Boolean.false', 'Boolean.true'],`
@@ -1900,7 +1903,7 @@ output Test { field = false }
 output Test { field = Boolean.unknown }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Field Enum Value. 'unknown' not a Value of 'Boolean'.`
 
@@ -1911,7 +1914,7 @@ output Test { field = Wrong.unknown }
 input Wrong { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Field Enum. 'Wrong' is not an Enum type.,`
 - `Invalid Output Field. Type kind mismatch for Wrong. Found Input.`
@@ -1923,7 +1926,7 @@ output Test { field: Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Field. Type kind mismatch for Bad. Found Input.`
 
@@ -1934,7 +1937,7 @@ output Test { | Ref<Boolean.unknown> }
 output Ref<$type> { field: $type }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'.`
 
@@ -1946,7 +1949,7 @@ output Ref<$type> { field: $type }
 output Wrong { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Arg Enum. 'Wrong' is not an Enum type.`
 
@@ -1958,7 +1961,7 @@ output Test { field(Param?): Test }
 input Param { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of InputParam for 'Param' is not singular Modifiers['', '?'],`
@@ -1971,7 +1974,7 @@ output Test { field(Param[$a]): Test }
 input Param { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Modifier. 'a' not defined.`
 
@@ -1982,7 +1985,7 @@ output Test { field(Param[Domain]): Test }
 input Param { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Modifier. 'Domain' not defined.`
 
@@ -1993,7 +1996,7 @@ output Test { field(Param[Test]): Test }
 input Param { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Modifier. 'Test' invalid type.`
 
@@ -2003,7 +2006,7 @@ input Param { }
 output Test { field(Param): Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Input Param. 'Param' not defined.`
 
@@ -2014,7 +2017,7 @@ output Test { :Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Output Parent. 'Bad' invalid type. Found 'Input'.`
 
@@ -2027,19 +2030,19 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
@@ -2055,17 +2058,17 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
@@ -2079,17 +2082,17 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
@@ -2103,21 +2106,21 @@ object More { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
@@ -2132,19 +2135,19 @@ object Alt { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
@@ -2157,17 +2160,17 @@ object Test { :Alt }
 object Alt { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.`
@@ -2181,17 +2184,17 @@ object More { :Parent }
 object Parent { field2[alias]: Parent }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
@@ -2204,17 +2207,17 @@ object Recurse { :Parent }
 object Parent { field2[alias]: Parent }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
@@ -2227,19 +2230,19 @@ object Test { field1[alias]: Test }
 object Parent { field2[alias]: Parent }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
@@ -2254,17 +2257,17 @@ object More { :Parent }
 object Parent { field: Test[] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
@@ -2277,17 +2280,17 @@ object Recurse { :Parent }
 object Parent { field: Test[] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
@@ -2300,19 +2303,19 @@ object Test { field: Test }
 object Parent { field: Test[] }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
 - `Multiple Types with name 'Test' can't be merged.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
@@ -2326,19 +2329,19 @@ object Recurse { :More }
 object More { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be a child of itself, even recursively via More.,`
 - `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be a child of itself, even recursively via Recurse.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be a child of itself, even recursively via More.,`
 - `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be a child of itself, even recursively via Recurse.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via More.,`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test.,`
@@ -2351,17 +2354,17 @@ object Test { :Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test.`
@@ -2375,21 +2378,21 @@ object More { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
@@ -2404,19 +2407,19 @@ object Alt { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
@@ -2429,17 +2432,17 @@ object Test { | Alt }
 object Alt { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.`
@@ -2450,15 +2453,15 @@ object Alt { :Test }
 object Test { :Test }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual. 'Test' cannot be a child of itself.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input. 'Test' cannot be a child of itself.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output. 'Test' cannot be a child of itself.`
 
@@ -2468,15 +2471,15 @@ object Test { :Test }
 object Test { :String }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Parent. 'String' invalid type. Found 'Domain'.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Parent. 'String' invalid type. Found 'Domain'.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Parent. 'String' invalid type. Found 'Domain'.`
 
@@ -2486,15 +2489,15 @@ object Test { :String }
 object Test { :Parent }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Invalid Dual Parent. 'Parent' not defined.`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Invalid Input Parent. 'Parent' not defined.`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Invalid Output Parent. 'Parent' not defined.`
 
@@ -2505,17 +2508,17 @@ object Test [a] { }
 object Dup [a] { }
 ```
 
-##### Expected errors dual
+##### Expected Verify errors Ddual
 
 - `Multiple Duals with alias 'a' found. Names 'Test' 'Dup',`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-##### Expected errors input
+##### Expected Verify errors Iinput
 
 - `Multiple Inputs with alias 'a' found. Names 'Test' 'Dup',`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-##### Expected errors output
+##### Expected Verify errors Ooutput
 
 - `Multiple Outputs with alias 'a' found. Names 'Test' 'Dup',`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
@@ -2529,7 +2532,7 @@ domain Test { string }
 domain Test { number }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged.,`
 - `Group of Domain for 'Test' is not singular Domain['Number', 'String'],`
@@ -2542,7 +2545,7 @@ domain Test [a] { Boolean }
 domain Dup [a] { Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Domains with alias 'a' found. Names 'Test' 'Dup',`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
@@ -2553,7 +2556,7 @@ domain Dup [a] { Boolean }
 domain Test { Enum }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain. Expected enum Members.`
 
@@ -2566,7 +2569,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
@@ -2577,7 +2580,7 @@ enum Dup { value }
 domain Test { enum Undef.* }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'Undef' not an Enum type.`
 
@@ -2588,7 +2591,7 @@ domain Test { enum Enum.undef }
 enum Enum { value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'.`
 
@@ -2598,7 +2601,7 @@ enum Enum { value }
 domain Test { enum Undef.value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'Undef' not an Enum type.`
 
@@ -2608,7 +2611,7 @@ domain Test { enum Undef.value }
 domain Test { enum undef }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum Member. Enum Value 'undef' not defined.`
 
@@ -2620,7 +2623,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
 
@@ -2632,7 +2635,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
 
@@ -2644,7 +2647,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
 
@@ -2655,7 +2658,7 @@ domain Test { enum Bad.value }
 output Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Enum. 'Bad' not an Enum type.`
 
@@ -2666,7 +2669,7 @@ domain Test { :Parent number 1> }
 domain Parent { number !1> }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
@@ -2680,7 +2683,7 @@ domain Recurse { :More Boolean }
 domain More { :Test Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More.,`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
@@ -2694,7 +2697,7 @@ domain Test { :Parent Boolean }
 domain Parent { :Test Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent.,`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.`
@@ -2707,7 +2710,7 @@ domain Parent { :Recurse Boolean }
 domain Recurse { :Test Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
@@ -2719,7 +2722,7 @@ domain Recurse { :Test Boolean }
 domain Test { :Test Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain. 'Test' cannot be a child of itself.`
 
@@ -2729,7 +2732,7 @@ domain Test { :Test Boolean }
 domain Test { :Parent Boolean }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Parent. 'Parent' not defined.`
 
@@ -2740,7 +2743,7 @@ domain Test { :Parent Boolean }
 domain Parent { String }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'.`
 
@@ -2751,7 +2754,7 @@ domain Test { :Parent Boolean }
 output Parent { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'.`
 
@@ -2762,7 +2765,7 @@ domain Test { string /a+/}
 domain Test { string !/a+/ }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged.,`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True'],`
@@ -2775,7 +2778,7 @@ domain Test { :Parent string /a+/}
 domain Parent { string !/a+/ }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
@@ -2787,7 +2790,7 @@ enum Test [a] { test }
 enum Dup [a] { dup }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Enums with alias 'a' found. Names 'Test' 'Dup',`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
@@ -2799,7 +2802,7 @@ enum Test { :Parent test[alias] }
 enum Parent { parent[alias] }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Enum Child. Can't merge Test into Parent Parent.,`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
@@ -2812,7 +2815,7 @@ enum Test { test }
 enum Parent { parent }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Enums with name 'Test' can't be merged.,`
 - `Group of Enum for 'Test' is not singular Parent['', 'Parent'],`
@@ -2824,7 +2827,7 @@ enum Parent { parent }
 enum Test { :Parent test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Enum Parent. 'Parent' not defined.`
 
@@ -2835,7 +2838,7 @@ enum Test { :Parent test }
 output Parent { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
 
@@ -2849,7 +2852,7 @@ union More { :Bad }
 union Bad { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. Expected at least one member.,`
 - `Invalid Union. Expected at least one member.`
@@ -2862,7 +2865,7 @@ union Bad { More }
 union More { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
@@ -2877,7 +2880,7 @@ union More { :Bad }
 union Bad { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. Expected at least one member.,`
 - `Invalid Union. Expected at least one member.`
@@ -2890,7 +2893,7 @@ union Parent { Bad }
 union Bad { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. Expected at least one member.`
 
@@ -2901,7 +2904,7 @@ union Test { :Parent }
 union Parent { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. Expected at least one member.`
 
@@ -2913,7 +2916,7 @@ union Bad { :Parent }
 union Parent { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. Expected at least one member.`
 
@@ -2924,7 +2927,7 @@ union Test { Bad }
 union Bad { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.`
@@ -2935,7 +2938,7 @@ union Bad { Test }
 union Test { Test }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union Member. 'Test' cannot refer to self.`
 
@@ -2945,7 +2948,7 @@ union Test { Test }
 union Test { Bad }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Union. 'Bad' not defined.`
 
@@ -2956,7 +2959,7 @@ union Test { Bad }
 input Bad { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid union. Type kind mismatch for Bad. Found Input.`
 
@@ -2967,7 +2970,7 @@ enum Test [a] { Value }
 output Dup [a] { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
@@ -2978,7 +2981,7 @@ enum Test { Value }
 output Test { }
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Multiple Types with name 'Test' can't be merged.,`
 - `Group of Type for 'Test' is not singular Type['Enum', 'Output']`

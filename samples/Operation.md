@@ -8,7 +8,7 @@
 {}
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Operation. Expected at least one field or selection.`
 - `Invalid Operation. Expected Object or Type.`
@@ -27,7 +27,7 @@
 
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Operation. Expected text.`
 
@@ -37,7 +37,7 @@
 {...named}
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Spread usage. Spread not defined.`
 
@@ -47,7 +47,7 @@
 &named:Named{name}{name}
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Spread definition. Spread not used.`
 
@@ -57,7 +57,7 @@
 ($var:Id[]={a:b}):Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. List Type cannot have Object default.`
 
@@ -67,7 +67,7 @@
 ($var:Id[]?={a:b}):Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. Optional List Type cannot have Object default.`
 
@@ -77,7 +77,7 @@
 ($var:Id[*]=[a]):Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. Dictionary Type must have Object default.`
 
@@ -87,7 +87,7 @@
 ($var:Id[*]?=[a]):Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. Optional Dictionary Type must have Object default.`
 
@@ -97,7 +97,7 @@
 ($var:Id=null):Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. Default of 'null' must be on Optional Type.`
 
@@ -107,7 +107,7 @@
 :Boolean($var)
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable usage. Variable not defined.`
 
@@ -117,7 +117,7 @@
 ($var):Boolean
 ```
 
-##### Expected errors
+##### Expected Verify errors
 
 - `Invalid Variable definition. Variable not used.`
 

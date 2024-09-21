@@ -66,6 +66,16 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 
 $prefixes = @("", "dual-", "input-", "output-")
 
+function Add-Errors($base, $type, $label = "") {
+  $suffix = $type.ToLower()  
+  $expected = "samples/$name/$base.$suffix-errors"
+  if (Test-Path $expected) {
+    "##### Expected $type errors $label`n" | Add-Content $file
+    Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
+    "" | Add-Content $file
+  }
+}
+
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $name = $_
   $file = "samples/$name.md"
@@ -75,7 +85,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   "## Root`n" | Add-Content $file
 
   $dir = ""
-
+    
   Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
     if ($_ -notmatch ".*\.g.*") {
       return
@@ -98,21 +108,13 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     if ($_ -match 'Invalid') {
       foreach ($prefix in $prefixes) {
         $prefixed = $base -replace '\\',"/$prefix"
-        $expected = "samples/$name/$prefixed.errors"
-        if (Test-Path $expected) {
-          $label = $prefix -replace '-',''
-          "##### Expected errors $label`n" | Add-Content $file
-          Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-          "" | Add-Content $file
-        }
+        $label = $prefix.ToUpperInvariant()[0] + $prefix -replace '-', ''
+        Add-Errors $prefixed "Parse" $label
+        Add-Errors $prefixed "Verify" $label
       }
     } else {
-      $expected = "samples/$name/$base.errors"
-      if (Test-Path $expected) {
-        "##### Expected errors`n" | Add-Content $file
-        Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-        "" | Add-Content $file
-      }
+      Add-Errors $base "Parse"
+      Add-Errors $base "Verify"
     }
   }
 }
