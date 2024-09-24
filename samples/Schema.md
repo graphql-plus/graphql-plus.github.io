@@ -98,11 +98,11 @@ output _Modifier<$kind> {
 
 ##### Expected Verify errors
 
+- `Invalid Output Alternate. '_DomainKind' not defined.`
 - `Invalid Output Alternate. '_DomainValue' not defined.`
 - `Invalid Output Alternate. '_EnumValue' not defined.`
-- `Invalid Output Field. '_TypeSimple' not defined.`
-- `Invalid Output Alternate. '_DomainKind' not defined.`
 - `Invalid Output Arg Enum. '_DomainKind' is not an Enum type.`
+- `Invalid Output Field. '_TypeSimple' not defined.`
 
 ### Intro_Category.graphql+
 
@@ -127,12 +127,12 @@ enum _Resolution { Parallel Sequential Single }
 ##### Expected Verify errors
 
 - `Invalid Output Alternate. '_Type' not defined.`
-- `Invalid Output Parent. '_Aliased' not defined.`
-- `Invalid Output Field. '_Type' not defined.`
-- `Invalid Output Field. '_TypeRef' not defined.`
-- `Invalid Output Field. '_Modifiers' not defined.`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Modifiers' not defined.`
+- `Invalid Output Field. '_Type' not defined.`
 - `Invalid Output Field. '_TypeKind' not defined.`
+- `Invalid Output Field. '_TypeRef' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
 
 ### Intro_Common.graphql+
 
@@ -183,14 +183,14 @@ output _TypeSimple {
 
 ##### Expected Verify errors
 
+- `Invalid Output Alternate. '_TypeDomain' not defined.`
 - `Invalid Output Alternate. '_TypeDual' not defined.`
 - `Invalid Output Alternate. '_TypeEnum' not defined.`
 - `Invalid Output Alternate. '_TypeInput' not defined.`
 - `Invalid Output Alternate. '_TypeOutput' not defined.`
-- `Invalid Output Alternate. '_TypeDomain' not defined.`
 - `Invalid Output Alternate. '_TypeUnion' not defined.`
-- `Invalid Output Parent. '_Aliased' not defined.`
 - `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
 - `Invalid Output Parent. '_Identifier' not defined.`
 
 ### Intro_Complete.graphql+
@@ -264,7 +264,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameters: _FieldParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -446,9 +446,9 @@ dual _UnionMember {
     : _Named
         union: _Identifier
     }
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -461,10 +461,13 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -478,6 +481,13 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjParam<$base> {
+    typeParam: _TypeParam
+    description: String
+    constraint: _ObjConstraint<$base>
+}
+
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -495,7 +505,7 @@ output _Field<$base> {
       modifiers: _Modifiers[]
     }
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -507,6 +517,10 @@ output _DualParent {
     : _ObjDescribed<_DualBase>
     }
 
+output _DualParam {
+    : _ObjParam<_DualBase>
+    }
+
 output _DualField {
     : _Field<_DualBase>
     }
@@ -515,7 +529,7 @@ output _DualAlternate {
     : _Alternate<_DualBase>
     }
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -528,6 +542,10 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
+output _InputParam {
+    : _ObjParam<_InputBase>
+    }
+
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
@@ -537,13 +555,13 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParam {
+output _FieldParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -556,9 +574,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
+output _OutputParam {
+    : _ObjParam<_OutputBase>
+    }
+
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameter: _FieldParam[]
     | _OutputEnum
     }
 
@@ -617,13 +639,13 @@ input _TypeFilter {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_Named' not defined.`
-- `Invalid Input Field. '_TypeKind' not defined.`
 - `Invalid Input Field. '_Resolution' not defined.`
+- `Invalid Input Field. '_TypeKind' not defined.`
+- `Invalid Output Field. '_Categories' not defined.`
+- `Invalid Output Field. '_Directives' not defined.`
 - `Invalid Output Field. '_Setting' not defined.`
 - `Invalid Output Field. '_Type' not defined.`
-- `Invalid Output Field. '_Directives' not defined.`
-- `Invalid Output Field. '_Categories' not defined.`
+- `Invalid Output Parent. '_Named' not defined.`
 
 ### Intro_Directive.graphql+
 
@@ -637,7 +659,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameters: _FieldParam[]
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -649,9 +671,9 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 ##### Expected Verify errors
 
 - `Invalid Output Alternate. '_Type' not defined.`
-- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Field. '_FieldParam' not defined.`
 - `Invalid Output Field. '_Type' not defined.`
-- `Invalid Output Field. '_InputParam' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
 
 ### Intro_Domain.graphql+
 
@@ -725,18 +747,18 @@ output _DomainItemRegex {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_TypeRef' not defined.`
-- `Invalid Output Parent. '_ParentType' not defined.`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
-- `Invalid Output Parent. '_TypeKind' not defined.`
 - `Invalid Output Field. '_EnumValue' not defined.`
 - `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
 
 ### Intro_Dual.graphql+
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -746,6 +768,10 @@ output _DualBase {
 
 output _DualParent {
     : _ObjDescribed<_DualBase>
+    }
+
+output _DualParam {
+    : _ObjParam<_DualBase>
     }
 
 output _DualField {
@@ -759,14 +785,15 @@ output _DualAlternate {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
 - `Invalid Output Parent. '_ObjBase' not defined.`
 - `Invalid Output Parent. '_ObjDescribed' not defined.`
-- `Invalid Output Parent. '_Field' not defined.`
-- `Invalid Output Parent. '_Alternate' not defined.`
-- `Invalid Output Field. '_Identifier' not defined.`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_ObjParam' not defined.`
 - `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Parent. '_TypeObject' not defined.`
 
 ### Intro_Enum.graphql+
 
@@ -788,20 +815,20 @@ output _EnumValue {
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. '_Aliased' not defined.`
-- `Invalid Output Parent. '_ParentType' not defined.`
-- `Invalid Output Parent. '_TypeRef' not defined.`
 - `Invalid Dual Field. '_Identifier' not defined.`
+- `Invalid Dual Parent. '_Aliased' not defined.`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
-- `Invalid Output Parent. '_TypeKind' not defined.`
 - `Invalid Output Field. '_Identifier' not defined.`
 - `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
 
 ### Intro_Input.graphql+
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -814,6 +841,10 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
+output _InputParam {
+    : _ObjParam<_InputBase>
+    }
+
 output _InputField {
     : _Field<_InputBase>
         default: _Constant?
@@ -823,7 +854,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _InputParam {
+output _FieldParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -833,16 +864,17 @@ output _InputParam {
 ##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DualBase' not defined.`
-- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Constant' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Field. '_Modifiers' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
 - `Invalid Output Parent. '_ObjBase' not defined.`
 - `Invalid Output Parent. '_ObjDescribed' not defined.`
-- `Invalid Output Parent. '_Field' not defined.`
-- `Invalid Output Parent. '_Alternate' not defined.`
-- `Invalid Output Field. '_Identifier' not defined.`
-- `Invalid Output Field. '_Constant' not defined.`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Parent. '_ObjParam' not defined.`
 - `Invalid Output Parent. '_TypeKind' not defined.`
-- `Invalid Output Field. '_Modifiers' not defined.`
+- `Invalid Output Parent. '_TypeObject' not defined.`
 
 ### Intro_Names.graphql+
 
@@ -869,9 +901,9 @@ dual _Named {
 ### Intro_Object.graphql+
 
 ```gqlp
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -884,10 +916,13 @@ dual _ObjDescribed<$base> {
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -901,6 +936,13 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjParam<$base> {
+    typeParam: _TypeParam
+    description: String
+    constraint: _ObjConstraint<$base>
+}
+
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -921,19 +963,18 @@ output _Field<$base> {
 
 ##### Expected Verify errors
 
-- `Invalid Output Alternate. '_BaseType' not defined.`
-- `Invalid Output Alternate. '_TypeSimple' not defined.`
-- `Invalid Output Parent. '_ChildType' not defined.`
-- `Invalid Output Parent. '_TypeRef' not defined.`
 - `Invalid Domain Parent. '_Identifier' not defined.`
-- `Invalid Output Parent. '_Aliased' not defined.`
-- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Alternate. '_BaseType' not defined.`
 - `Invalid Output Alternate. '_TypeKind' not defined.`
+- `Invalid Output Alternate. '_TypeSimple' not defined.`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_Collections' not defined.`
 - `Invalid Output Field. '_Identifier' not defined.`
 - `Invalid Output Field. '_Modifiers' not defined.`
-- `Invalid Output Field. '_Collections' not defined.`
-- `Invalid Output Field. '_Described' not defined.`
+- `Invalid Output Parent. '_Aliased' not defined.`
+- `Invalid Output Parent. '_ChildType' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
 
 ### Intro_Option.graphql+
 
@@ -946,14 +987,14 @@ output _Setting {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_Described' not defined.`
 - `Invalid Output Field. '_Constant' not defined.`
+- `Invalid Output Parent. '_Described' not defined.`
 
 ### Intro_Output.graphql+
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -966,9 +1007,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
+output _OutputParam {
+    : _ObjParam<_OutputBase>
+    }
+
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameter: _FieldParam[]
     | _OutputEnum
     }
 
@@ -993,16 +1038,17 @@ output _OutputEnum {
 
 - `Invalid Output Alternate. '_DualBase' not defined.`
 - `Invalid Output Alternate. '_TypeParam' not defined.`
-- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
+- `Invalid Output Field. '_FieldParam' not defined.`
+- `Invalid Output Field. '_Identifier' not defined.`
+- `Invalid Output Parent. '_Alternate' not defined.`
+- `Invalid Output Parent. '_Field' not defined.`
 - `Invalid Output Parent. '_ObjBase' not defined.`
 - `Invalid Output Parent. '_ObjDescribed' not defined.`
-- `Invalid Output Parent. '_Field' not defined.`
-- `Invalid Output Parent. '_Alternate' not defined.`
-- `Invalid Output Parent. '_TypeRef' not defined.`
+- `Invalid Output Parent. '_ObjParam' not defined.`
 - `Invalid Output Parent. '_TypeKind' not defined.`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
-- `Invalid Output Field. '_Identifier' not defined.`
-- `Invalid Output Field. '_InputParam' not defined.`
+- `Invalid Output Parent. '_TypeObject' not defined.`
+- `Invalid Output Parent. '_TypeRef' not defined.`
 
 ### Intro_Union.graphql+
 
@@ -1019,12 +1065,12 @@ dual _UnionMember {
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. '_Named' not defined.`
-- `Invalid Output Parent. '_ParentType' not defined.`
 - `Invalid Dual Field. '_Identifier' not defined.`
+- `Invalid Dual Parent. '_Named' not defined.`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type.`
-- `Invalid Output Parent. '_TypeKind' not defined.`
 - `Invalid Output Parent. '_Named' not defined.`
+- `Invalid Output Parent. '_ParentType' not defined.`
+- `Invalid Output Parent. '_TypeKind' not defined.`
 
 ## InvalidGlobals
 
@@ -1048,8 +1094,8 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Categories with name 'test' can't be merged.,`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~System.Linq.Enumerable+WhereSelectArrayIterator`2[GqlPlus.Abstractions.IGqlpModifier,System.String]~Parallel', 'Test~System.String[]~Parallel']`
+- `Multiple Categories with name 'test' can't be merged.,`
 
 ### InvalidGlobals\category-dup-alias.graphql+
 
@@ -1075,8 +1121,8 @@ output Output { }
 
 ##### Expected Verify errors
 
-- `Multiple Categories with name 'test' can't be merged.,`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
+- `Multiple Categories with name 'test' can't be merged.,`
 
 ### InvalidGlobals\category-output-generic.graphql+
 
@@ -1130,8 +1176,8 @@ directive @Test { ( repeatable ) all }
 
 ##### Expected Verify errors
 
-- `Multiple Directives with name 'Test' can't be merged.,`
 - `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
+- `Multiple Directives with name 'Test' can't be merged.,`
 
 ### InvalidGlobals\directive-diff-param.graphql+
 
@@ -1143,8 +1189,8 @@ input Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Directives with name 'Test' can't be merged.,`
 - `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
+- `Multiple Directives with name 'Test' can't be merged.,`
 
 ### InvalidGlobals\directive-no-param.graphql+
 
@@ -1190,20 +1236,20 @@ object Test1 { }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\alt-mod-undef-param.graphql+
@@ -1273,21 +1319,21 @@ object More { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More.,`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse.`
+- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via More.,`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Recurse.`
+- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via More.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via More.,`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Recurse.`
+- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via More.,`
 
 ### InvalidObjects\alt-recurse.graphql+
 
@@ -1298,18 +1344,18 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\alt-self.graphql+
 
@@ -1494,20 +1540,20 @@ object Test { field2[alias]: Test[] }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\field-diff-mod.graphql+
@@ -1519,20 +1565,20 @@ object Test { field: Test[] }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\field-diff-type.graphql+
@@ -1545,20 +1591,20 @@ object Test1 { }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\field-mod-undef-param.graphql+
@@ -1893,8 +1939,8 @@ output Test { field = false }
 
 ##### Expected Verify errors
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Boolean.false', 'Boolean.true'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\output-enumValue-bad.graphql+
@@ -1963,8 +2009,8 @@ input Param { }
 
 ##### Expected Verify errors
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of InputParam for 'Param' is not singular Modifiers['', '?'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\output-param-mod-undef-param.graphql+
@@ -2032,20 +2078,20 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\parent-alt-more.graphql+
@@ -2060,18 +2106,18 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ### InvalidObjects\parent-alt-recurse.graphql+
 
@@ -2084,18 +2130,18 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates.,`
 
 ### InvalidObjects\parent-alt-self-more.graphql+
 
@@ -2108,24 +2154,24 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\parent-alt-self-recurse.graphql+
 
@@ -2137,21 +2183,21 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\parent-alt-self.graphql+
 
@@ -2162,18 +2208,18 @@ object Alt { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ### InvalidObjects\parent-field-alias-more.graphql+
 
@@ -2186,18 +2232,18 @@ object Parent { field2[alias]: Parent }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 
 ### InvalidObjects\parent-field-alias-recurse.graphql+
 
@@ -2209,18 +2255,18 @@ object Parent { field2[alias]: Parent }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 
 ### InvalidObjects\parent-field-alias.graphql+
 
@@ -2232,20 +2278,20 @@ object Parent { field2[alias]: Parent }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\parent-field-mod-more.graphql+
@@ -2259,18 +2305,18 @@ object Parent { field: Test[] }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 
 ### InvalidObjects\parent-field-mod-recurse.graphql+
 
@@ -2282,18 +2328,18 @@ object Parent { field: Test[] }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Dual Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Input Child. Can't merge Test into Parent Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Invalid Output Child. Can't merge Test into Parent Recurse.,`
 
 ### InvalidObjects\parent-field-mod.graphql+
 
@@ -2305,20 +2351,20 @@ object Parent { field: Test[] }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Duals with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Iinput
 
-- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Inputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ##### Expected Verify errors Ooutput
 
-- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Outputs with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidObjects\parent-more.graphql+
@@ -2331,21 +2377,21 @@ object More { :Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via More.,`
-- `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test.,`
+- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via More.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be a child of itself, even recursively via More.,`
-- `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test.,`
+- `Invalid Input. 'Test' cannot be a child of itself, even recursively via More.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be a child of itself, even recursively via More.,`
-- `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Output. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test.,`
+- `Invalid Output. 'Test' cannot be a child of itself, even recursively via More.,`
 
 ### InvalidObjects\parent-recurse.graphql+
 
@@ -2356,18 +2402,18 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test.`
+- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test.`
+- `Invalid Input. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test.`
+- `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\parent-self-alt-more.graphql+
 
@@ -2380,24 +2426,24 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\parent-self-alt-recurse.graphql+
 
@@ -2409,21 +2455,21 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.,`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse.,`
 
 ### InvalidObjects\parent-self-alt.graphql+
 
@@ -2434,18 +2480,18 @@ object Alt { :Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ##### Expected Verify errors Iinput
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ##### Expected Verify errors Ooutput
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test.`
+- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt.,`
 
 ### InvalidObjects\parent-self.graphql+
 
@@ -2534,8 +2580,8 @@ domain Test { number }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
 - `Group of Domain for 'Test' is not singular Domain['Number', 'String'],`
+- `Multiple Domains with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidSimple\domain-dup-alias.graphql+
@@ -2571,8 +2617,8 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 
 ### InvalidSimple\domain-enum-undef-all.graphql+
 
@@ -2671,8 +2717,8 @@ domain Parent { number !1> }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 
 ### InvalidSimple\domain-parent-self-more.graphql+
 
@@ -2685,10 +2731,10 @@ domain More { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More.,`
+- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse.`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.,`
-- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More.,`
 
 ### InvalidSimple\domain-parent-self-parent.graphql+
 
@@ -2699,8 +2745,8 @@ domain Parent { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent.,`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent.,`
 
 ### InvalidSimple\domain-parent-self-recurse.graphql+
 
@@ -2712,9 +2758,9 @@ domain Recurse { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse.,`
 
 ### InvalidSimple\domain-parent-self.graphql+
 
@@ -2767,8 +2813,8 @@ domain Test { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True'],`
+- `Multiple Domains with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidSimple\domain-string-parent.graphql+
@@ -2780,8 +2826,8 @@ domain Parent { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
 
 ### InvalidSimple\enum-dup-alias.graphql+
 
@@ -2804,8 +2850,8 @@ enum Parent { parent[alias] }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Child. Can't merge Test into Parent Parent.,`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
+- `Invalid Enum Child. Can't merge Test into Parent Parent.,`
 
 ### InvalidSimple\enum-parent-diff.graphql+
 
@@ -2817,8 +2863,8 @@ enum Parent { parent }
 
 ##### Expected Verify errors
 
-- `Multiple Enums with name 'Test' can't be merged.,`
 - `Group of Enum for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Enums with name 'Test' can't be merged.,`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidSimple\enum-parent-undef.graphql+
@@ -2854,8 +2900,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
 - `Invalid Union. Expected at least one member.`
+- `Invalid Union. Expected at least one member.,`
 
 ### InvalidSimple\union-more.graphql+
 
@@ -2867,9 +2913,9 @@ union More { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 
 ### InvalidSimple\union-parent-more.graphql+
 
@@ -2882,8 +2928,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
 - `Invalid Union. Expected at least one member.`
+- `Invalid Union. Expected at least one member.,`
 
 ### InvalidSimple\union-parent-recurse.graphql+
 
@@ -2929,8 +2975,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
 
 ### InvalidSimple\union-self.graphql+
 
@@ -2983,8 +3029,8 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged.,`
 - `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
+- `Multiple Types with name 'Test' can't be merged.,`
 
 ## ValidGlobals
 
