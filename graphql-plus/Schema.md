@@ -92,7 +92,7 @@ Categories can be merged if their Options and Modified Output Types match.
 ### Directive declaration
 
 ```PEG
-Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive ValueParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 ```
@@ -303,7 +303,7 @@ Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
 Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
@@ -314,12 +314,15 @@ Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
 Obj_BaseArg = STRING? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( STRING? '$'typeParam )+ '>'
+Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
 ```
 
 An Object type may have Type parameters.
 Each Type parameter can be preceded by a documentation string.
+Each Type parameter may have a Constraint specifying the Type any argument must be or extend.
+
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
@@ -333,9 +336,11 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another object Type.
+An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
 If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or the same object Type as the reference.
+Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+Type arguments must be or extend the Constraint of their corresponding Type parameter, if specified.
+If a Type argument is an object Type it may NOT have Type Arguments.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -430,12 +435,15 @@ after replacing "object" with "input" and "Obj" with "In".
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = STRING? In_Type Modifiers? Default?
 
-InputParams = '(' In_TypeDefault+ ')'
+ValueParams = '(' In_TypeDefault+ ')'
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
+
+An Input type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another Input Type.
+Type Arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or another Input Type.
 
 An Input Field redefines an object Field as follows:
 
@@ -461,7 +469,7 @@ after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParams? fieldAlias* ':' STRING? Out_Type Modifiers?
+Out_TypeField = ValueParams? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
@@ -471,8 +479,10 @@ Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
-An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Values.
-If there is a conflict between a bare Enum Value and a Type, the Type will have precedence.
+An Output type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another Output Type.
+Type Arguments may be an Internal Type, Simple Type, Type parameter, Dual Type, another Output Type or and Enum Value.
+If there is a conflict between a bare Enum Value and a Type, the Type will have precedence
+unless the corresponding Type parameter has an Enum Constraint.
 
 An Output Field redefines an object Field as follows:
 
@@ -503,7 +513,7 @@ Aliases = '[' alias+ ']'
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
-Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive ValueParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
@@ -537,7 +547,7 @@ Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
 UnionDefinition = Simple+
 
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
 Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
@@ -548,16 +558,17 @@ Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
 Obj_BaseArg = STRING? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( STRING? '$'typeParam )+ '>'
+Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
 
 In_Field = STRING? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = STRING? In_Type Modifiers? Default?
 
-InputParams = '(' In_TypeDefault+ ')'
+ValueParams = '(' In_TypeDefault+ ')'
 
 Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParams? fieldAlias* ':' STRING? Out_Type Modifiers?
+Out_TypeField = ValueParams? fieldAlias* ':' STRING? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' STRING? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue

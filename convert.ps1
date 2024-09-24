@@ -70,9 +70,11 @@ function Add-Errors($base, $type, $label = "") {
   $suffix = $type.ToLower()  
   $expected = "samples/$name/$base.$suffix-errors"
   if (Test-Path $expected) {
+    $content = Get-Content $expected | Sort-Object
     "##### Expected $type errors $label`n" | Add-Content $file
-    Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
+    $content | Foreach-Object { "- ``$_``" } | Add-Content $file
     "" | Add-Content $file
+    $content | Set-Content $expected
   }
 }
 
