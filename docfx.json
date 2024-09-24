@@ -2,7 +2,7 @@
   "build": {
     "content": [
       {
-        "files": ["articles/**.md", "articles/**/toc.yml", "graphql-plus/**.md", "graphql-plus/**/toc.yml", "toc.yml", "*.md"]
+        "files": ["**/toc.yml", "*.md", "articles/*.md", "graphql-plus/*.md", "samples/*.md"]
       }
     ],
     "resource": [
