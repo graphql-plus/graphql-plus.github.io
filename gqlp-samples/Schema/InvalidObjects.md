@@ -757,6 +757,8 @@ output Test { | Ref<Boolean.unknown> }
 output Ref<$type> { field: $type }
 ```
 
+##### Expected Verify errors
+
 - `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'.`
 
 ### output-generic-enum-wrong.graphql+

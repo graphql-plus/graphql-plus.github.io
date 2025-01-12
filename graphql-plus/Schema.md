@@ -125,6 +125,8 @@ Note the `category` is required, the name is specified outside definition and
 most of the GraphQl compatibility options are dropped.
 Specifically trailing Fragment definitions and the alternate `on` keyword for Type Conditions.
 
+Operations can only be merged if their Categories match.
+
 ### Option declaration
 
 ```PEG
