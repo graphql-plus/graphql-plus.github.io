@@ -11,6 +11,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -99,6 +100,23 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+```
+
+### Operation declaration
+
+```gqlp
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        operation: string
+}
 ```
 
 ### Option declaration
@@ -490,6 +508,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -564,6 +583,19 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        operation: string
+}
 
 output _Setting {
     : _Described

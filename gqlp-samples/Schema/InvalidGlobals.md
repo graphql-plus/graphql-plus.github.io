@@ -50,6 +50,16 @@ output Output { }
 - `Multiple Categories with name 'test' can't be merged.,`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
 
+### category-no-type.graphql+
+
+```gqlp
+category { }
+```
+
+##### Expected Parse errors
+
+- `Parse Error: Invalid Category. Expected text.`
+
 ### category-output-generic.graphql+
 
 ```gqlp
@@ -142,7 +152,19 @@ input TestIn { }
 ### operation-no-category.graphql+
 
 ```gqlp
-operation SchemaCategories { { categories { name } } }
+operation Test { { test } }
+```
+
+##### Expected Parse errors
+
+- `Invalid Operation. Expected identifier.`
+
+### operation-no-result.graphql+
+
+```gqlp
+operation Test { test }
+category { Test }
+output Test { }
 ```
 
 ### option-diff-name.graphql+

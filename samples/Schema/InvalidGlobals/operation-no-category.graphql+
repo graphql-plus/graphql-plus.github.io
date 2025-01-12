@@ -1,1 +1,1 @@
-operation SchemaCategories { { categories { name } } }
+operation Test { { test } }
