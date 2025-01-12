@@ -99,6 +99,13 @@ directive @DirParamOpt(DirParamIn?) { all }
 input DirParamIn { }
 ```
 
+### operation.graphql+
+
+```gqlp
+operation SchemaCategories { _schema { categories { name } } }
+category { _Schema }
+```
+
 ### option-setting.graphql+
 
 ```gqlp

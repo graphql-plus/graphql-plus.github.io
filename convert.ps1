@@ -17,7 +17,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($_ -match "^### ([-a-zA-Z]+)") {
       $section = $Matches[1]
     }
-    
+
     if ($type) {
       if ($_ -eq "``````") {
         $all[$type] += $current + @("")
@@ -35,7 +35,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
       if ($_ -match "^## Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
-          
+
           $all["PEG"] -replace ' \| ', ' / ' | Set-Content ".peg/$name.pegjs"
           Get-Content ".peg/$name.def" | Add-Content ".peg/$name.pegjs"
           if ($name -ne "Defin") {
@@ -46,7 +46,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
           $end = $true
-        }        
+        }
       }
 
       if ($_ -match "``````(\w+)") {
@@ -67,7 +67,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 $prefixes = @("", "dual-", "input-", "output-")
 
 function Add-Errors($base, $type, $label = "") {
-  $suffix = $type.ToLower()  
+  $suffix = $type.ToLower()
   $expected = "samples/$name/$base.$suffix-errors"
   if (Test-Path $expected) {
     "##### Expected $type errors $label`n" | Add-Content $file
@@ -90,7 +90,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $toc[$name] = @()
 
   $section = ""
-    
+
   Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
     if ($_ -notmatch ".*\.g.*") {
       return

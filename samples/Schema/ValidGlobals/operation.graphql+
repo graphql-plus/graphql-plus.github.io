@@ -1,0 +1,2 @@
+operation SchemaCategories { _schema { categories { name } } }
+category { _Schema }

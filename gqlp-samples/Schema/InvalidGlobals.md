@@ -139,6 +139,12 @@ input TestIn { }
 
 - `Invalid Modifier. 'a' not defined.`
 
+### operation-no-category.graphql+
+
+```gqlp
+operation SchemaCategories { { categories { name } } }
+```
+
 ### option-diff-name.graphql+
 
 ```gqlp

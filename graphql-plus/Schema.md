@@ -121,7 +121,8 @@ but the Term's names are prefixed with `Oper_` and the following are redefined.
 Oper_TypeCondition = ':' type
 ```
 
-Note most of the GraphQl compatibility options are dropped from the Schema Operation.
+Note the `category` is required, the name is specified outside definition and
+most of the GraphQl compatibility options are dropped.
 Specifically trailing Fragment definitions and the alternate `on` keyword for Type Conditions.
 
 ### Option declaration
