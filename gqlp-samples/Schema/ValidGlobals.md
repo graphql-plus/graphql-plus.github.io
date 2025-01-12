@@ -102,9 +102,9 @@ input DirParamIn { }
 ### operation-category.graphql+
 
 ```gqlp
-operation Op { op :String }
-category { Op }
-output Op { }
+operation Op { cat :String }
+category { Cat }
+output Cat { }
 ```
 
 ### option-setting.graphql+
