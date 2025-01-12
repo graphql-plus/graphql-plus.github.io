@@ -17,7 +17,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($_ -match "^### ([-a-zA-Z]+)") {
       $section = $Matches[1]
     }
-    
+
     if ($type) {
       if ($_ -eq "``````") {
         $all[$type] += $current + @("")
@@ -35,7 +35,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
       if ($_ -match "^## Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
-          
+
           $all["PEG"] -replace ' \| ', ' / ' | Set-Content ".peg/$name.pegjs"
           Get-Content ".peg/$name.def" | Add-Content ".peg/$name.pegjs"
           if ($name -ne "Defin") {
@@ -46,7 +46,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
           $end = $true
-        }        
+        }
       }
 
       if ($_ -match "``````(\w+)") {
@@ -67,27 +67,30 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 $prefixes = @("", "dual-", "input-", "output-")
 
 function Add-Errors($base, $type, $label = "") {
-  $suffix = $type.ToLower()  
+  $suffix = $type.ToLower()
   $expected = "samples/$name/$base.$suffix-errors"
   if (Test-Path $expected) {
-    $content = Get-Content $expected | Sort-Object
     "##### Expected $type errors $label`n" | Add-Content $file
-    $content | Foreach-Object { "- ``$_``" } | Add-Content $file
+    Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
     "" | Add-Content $file
-    $content | Set-Content $expected
   }
 }
 
+$toc = @{}
+
+Remove-Item gqlp-samples/* -Recurse -Force -ErrorAction Ignore
+
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $name = $_
-  $file = "samples/$name.md"
+  $file = "gqlp-samples/$name.md"
 
   "# $name Samples`n" | Set-Content $file
-
   "## Root`n" | Add-Content $file
 
-  $dir = ""
-    
+  $toc[$name] = @()
+
+  $section = ""
+
   Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
     if ($_ -notmatch ".*\.g.*") {
       return
@@ -95,13 +98,20 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
 
     $path = $_ -split '\\'
     if ($path.Count -gt 1) {
-      if ($path[0] -ne $dir) {
-        $dir = $path[0]        
-        "## $dir`n" | Add-Content $file
+      if ($path[0] -ne $section) {
+        $section = $path[0]
+        $dir = "gqlp-samples/$name"
+        New-Item $dir -ItemType Directory -ErrorAction Ignore | Out-Null
+        $file = "$dir/$section.md"
+        "# $section $name Samples`n" | Set-Content $file
+        $toc[$name] += $section
       }
+      $sample = $path[1]
+    } else {
+      $sample = $_
     }
 
-    "### $_`n" | Add-Content $file
+    "### $sample`n" | Add-Content $file
     "``````gqlp" | Add-Content $file
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
@@ -118,6 +128,14 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
       Add-Errors $base "Parse"
       Add-Errors $base "Verify"
     }
+  }
+}
+
+$file = "gqlp-samples/toc.yml"
+foreach ($name in $toc.Keys | Sort-Object) {
+  "- name: $name`n  href: $name.md`n  items:" | Add-Content $file
+  foreach ($section in $toc[$name]) {
+    "    - name: $section`n      href: $name/$section.md" | Add-Content $file
   }
 }
 
