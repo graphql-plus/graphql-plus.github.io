@@ -1488,8 +1488,8 @@ output Bad { }
 ### InvalidObjects\field-alias.graphql+
 
 ```gqlp
-object Test { field1[alias]: Test }
-object Test { field2[alias]: Test[] }
+object Test { field1 [alias]: Test }
+object Test { field2 [alias]: Test[] }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2178,10 +2178,10 @@ object Alt { | Test }
 ### InvalidObjects\parent-field-alias-more.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :More }
 object More { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2202,9 +2202,9 @@ object Parent { field2[alias]: Parent }
 ### InvalidObjects\parent-field-alias-recurse.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2226,8 +2226,8 @@ object Parent { field2[alias]: Parent }
 
 ```gqlp
 object Test { :Parent }
-object Test { field1[alias]: Test }
-object Parent { field2[alias]: Parent }
+object Test { field1 [alias]: Test }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2842,6 +2842,18 @@ output Parent { }
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
 
+### InvalidSimple\union-dup-alias.graphql+
+
+```gqlp
+union Test [a] { Bad }
+union Dup [a] { Test }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
+
 ### InvalidSimple\union-more-parent.graphql+
 
 ```gqlp
@@ -3357,6 +3369,13 @@ output FieldParam { field(FieldParam2): FieldParamFld }
 input FieldParam1 { }
 input FieldParam2 { }
 output FieldParamFld { }
+```
+
+### ValidMerges\union-alias.graphql+
+
+```gqlp
+union UnDiff [UnA1] { Boolean }
+union UnDiff [UnA2] { Number }
 ```
 
 ### ValidMerges\union-diff.graphql+
