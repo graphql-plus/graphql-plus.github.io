@@ -1488,8 +1488,8 @@ output Bad { }
 ### InvalidObjects\field-alias.graphql+
 
 ```gqlp
-object Test { field1[alias]: Test }
-object Test { field2[alias]: Test[] }
+object Test { field1 [alias]: Test }
+object Test { field2 [alias]: Test[] }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2178,10 +2178,10 @@ object Alt { | Test }
 ### InvalidObjects\parent-field-alias-more.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :More }
 object More { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2202,9 +2202,9 @@ object Parent { field2[alias]: Parent }
 ### InvalidObjects\parent-field-alias-recurse.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2226,8 +2226,8 @@ object Parent { field2[alias]: Parent }
 
 ```gqlp
 object Test { :Parent }
-object Test { field1[alias]: Test }
-object Parent { field2[alias]: Parent }
+object Test { field1 [alias]: Test }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -2842,6 +2842,18 @@ output Parent { }
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
 
+### InvalidSimple\union-dup-alias.graphql+
+
+```gqlp
+union Test [a] { Bad }
+union Dup [a] { Test }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
+
 ### InvalidSimple\union-more-parent.graphql+
 
 ```gqlp
@@ -2871,12 +2883,26 @@ union More { Test }
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively.`
 
+### InvalidSimple\union-parent-diff.graphql+
+
+```gqlp
+union Test { :Parent Number }
+union Test { Number }
+union Parent { String }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with name 'Test' can't be merged.,`
+- `Group of Union for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Types with name 'Test' can't be merged.`
+
 ### InvalidSimple\union-parent-more.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { More }
-union More { :Bad }
+union More { :Bad String }
 union Bad { Test }
 ```
 
@@ -2888,7 +2914,7 @@ union Bad { Test }
 ### InvalidSimple\union-parent-recurse.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Bad }
 union Bad { Test }
 ```
@@ -2897,10 +2923,31 @@ union Bad { Test }
 
 - `Invalid Union. Expected at least one member.`
 
+### InvalidSimple\union-parent-undef.graphql+
+
+```gqlp
+union Test { :Parent Number }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' not defined.`
+
+### InvalidSimple\union-parent-wrong.graphql+
+
+```gqlp
+union Test { :Parent Number }
+output Parent { }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'.`
+
 ### InvalidSimple\union-parent.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Test }
 ```
 
@@ -2912,7 +2959,7 @@ union Parent { Test }
 
 ```gqlp
 union Test { Bad }
-union Bad { :Parent }
+union Bad { :Parent String }
 union Parent { Test }
 ```
 
@@ -3359,11 +3406,26 @@ input FieldParam2 { }
 output FieldParamFld { }
 ```
 
+### ValidMerges\union-alias.graphql+
+
+```gqlp
+union UnDiff [UnA1] { Boolean }
+union UnDiff [UnA2] { Number }
+```
+
 ### ValidMerges\union-diff.graphql+
 
 ```gqlp
 union UnDiff { Boolean }
 union UnDiff { Number }
+```
+
+### ValidMerges\union-same-parent.graphql+
+
+```gqlp
+union UnSameParent { :UnParent Boolean }
+union UnSameParent { :UnParent Boolean }
+union UnParent { String }
 ```
 
 ### ValidMerges\union-same.graphql+
@@ -3825,6 +3887,13 @@ enum EnDupPrnt { val_dup[val_prnt_dup] }
 ```gqlp
 enum EnTestPrnt { :EnPrntTest val_prnt }
 enum EnPrntTest { val_test }
+```
+
+### ValidSimple\union-parent-dup.graphql+
+
+```gqlp
+union UnionPrnt { :PrntUnion Number }
+union PrntUnion { Number }
 ```
 
 ### ValidSimple\union-parent.graphql+
