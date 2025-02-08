@@ -308,8 +308,8 @@ output Bad { }
 ### field-alias.graphql+
 
 ```gqlp
-object Test { field1[alias]: Test }
-object Test { field2[alias]: Test[] }
+object Test { field1 [alias]: Test }
+object Test { field2 [alias]: Test[] }
 ```
 
 ##### Expected Verify errors Ddual
@@ -998,10 +998,10 @@ object Alt { | Test }
 ### parent-field-alias-more.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :More }
 object More { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -1022,9 +1022,9 @@ object Parent { field2[alias]: Parent }
 ### parent-field-alias-recurse.graphql+
 
 ```gqlp
-object Test { :Recurse field1[alias]: Test }
+object Test { :Recurse field1 [alias]: Test }
 object Recurse { :Parent }
-object Parent { field2[alias]: Parent }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual
@@ -1046,8 +1046,8 @@ object Parent { field2[alias]: Parent }
 
 ```gqlp
 object Test { :Parent }
-object Test { field1[alias]: Test }
-object Parent { field2[alias]: Parent }
+object Test { field1 [alias]: Test }
+object Parent { field2 [alias]: Parent }
 ```
 
 ##### Expected Verify errors Ddual

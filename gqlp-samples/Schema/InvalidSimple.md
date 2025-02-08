@@ -317,6 +317,18 @@ output Parent { }
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
 
+### union-dup-alias.graphql+
+
+```gqlp
+union Test [a] { Bad }
+union Dup [a] { Test }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
+
 ### union-more-parent.graphql+
 
 ```gqlp
@@ -346,12 +358,26 @@ union More { Test }
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively.`
 
+### union-parent-diff.graphql+
+
+```gqlp
+union Test { :Parent Number }
+union Test { Number }
+union Parent { String }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with name 'Test' can't be merged.,`
+- `Group of Union for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Types with name 'Test' can't be merged.`
+
 ### union-parent-more.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { More }
-union More { :Bad }
+union More { :Bad String }
 union Bad { Test }
 ```
 
@@ -363,7 +389,7 @@ union Bad { Test }
 ### union-parent-recurse.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Bad }
 union Bad { Test }
 ```
@@ -372,10 +398,31 @@ union Bad { Test }
 
 - `Invalid Union. Expected at least one member.`
 
+### union-parent-undef.graphql+
+
+```gqlp
+union Test { :Parent Number }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' not defined.`
+
+### union-parent-wrong.graphql+
+
+```gqlp
+union Test { :Parent Number }
+output Parent { }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'.`
+
 ### union-parent.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Test }
 ```
 
@@ -387,7 +434,7 @@ union Parent { Test }
 
 ```gqlp
 union Test { Bad }
-union Bad { :Parent }
+union Bad { :Parent String }
 union Parent { Test }
 ```
 

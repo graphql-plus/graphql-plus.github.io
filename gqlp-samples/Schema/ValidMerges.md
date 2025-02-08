@@ -282,11 +282,26 @@ input FieldParam2 { }
 output FieldParamFld { }
 ```
 
+### union-alias.graphql+
+
+```gqlp
+union UnDiff [UnA1] { Boolean }
+union UnDiff [UnA2] { Number }
+```
+
 ### union-diff.graphql+
 
 ```gqlp
 union UnDiff { Boolean }
 union UnDiff { Number }
+```
+
+### union-same-parent.graphql+
+
+```gqlp
+union UnSameParent { :UnParent Boolean }
+union UnSameParent { :UnParent Boolean }
+union UnParent { String }
 ```
 
 ### union-same.graphql+
