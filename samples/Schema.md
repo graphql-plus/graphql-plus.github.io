@@ -2883,12 +2883,26 @@ union More { Test }
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively.`
 
+### InvalidSimple\union-parent-diff.graphql+
+
+```gqlp
+union Test { :Parent Number }
+union Test { Number }
+union Parent { String }
+```
+
+##### Expected Verify errors
+
+- `Multiple Unions with name 'Test' can't be merged.,`
+- `Group of Union for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Types with name 'Test' can't be merged.`
+
 ### InvalidSimple\union-parent-more.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { More }
-union More { :Bad }
+union More { :Bad String }
 union Bad { Test }
 ```
 
@@ -2900,7 +2914,7 @@ union Bad { Test }
 ### InvalidSimple\union-parent-recurse.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Bad }
 union Bad { Test }
 ```
@@ -2909,10 +2923,31 @@ union Bad { Test }
 
 - `Invalid Union. Expected at least one member.`
 
+### InvalidSimple\union-parent-undef.graphql+
+
+```gqlp
+union Test { :Parent Number }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' not defined.`
+
+### InvalidSimple\union-parent-wrong.graphql+
+
+```gqlp
+union Test { :Parent Number }
+output Parent { }
+```
+
+##### Expected Verify errors
+
+- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'.`
+
 ### InvalidSimple\union-parent.graphql+
 
 ```gqlp
-union Test { :Parent }
+union Test { :Parent String }
 union Parent { Test }
 ```
 
@@ -2924,7 +2959,7 @@ union Parent { Test }
 
 ```gqlp
 union Test { Bad }
-union Bad { :Parent }
+union Bad { :Parent String }
 union Parent { Test }
 ```
 
@@ -3383,6 +3418,14 @@ union UnDiff [UnA2] { Number }
 ```gqlp
 union UnDiff { Boolean }
 union UnDiff { Number }
+```
+
+### ValidMerges\union-same-parent.graphql+
+
+```gqlp
+union UnSameParent { :UnParent Boolean }
+union UnSameParent { :UnParent Boolean }
+union UnParent { String }
 ```
 
 ### ValidMerges\union-same.graphql+
@@ -3844,6 +3887,13 @@ enum EnDupPrnt { val_dup[val_prnt_dup] }
 ```gqlp
 enum EnTestPrnt { :EnPrntTest val_prnt }
 enum EnPrntTest { val_test }
+```
+
+### ValidSimple\union-parent-dup.graphql+
+
+```gqlp
+union UnionPrnt { :PrntUnion Number }
+union PrntUnion { Number }
 ```
 
 ### ValidSimple\union-parent.graphql+
