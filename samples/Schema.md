@@ -1048,8 +1048,8 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Categories with name 'test' can't be merged.,`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~System.Linq.Enumerable+WhereSelectArrayIterator`2[GqlPlus.Abstractions.IGqlpModifier,System.String]~Parallel', 'Test~System.String[]~Parallel']`
+- `Multiple Categories with name 'test' can't be merged`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
 
 ### InvalidGlobals\category-dup-alias.graphql+
 
@@ -1076,7 +1076,8 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Categories with alias 'a' found. Names 'test' 'output'`
+- `Multiple Categories with name 'test' can't be merged`
+- `Different values merging item => item.Description: First category != Second category`
 
 ### InvalidGlobals\category-duplicate.graphql+
 
@@ -1089,8 +1090,8 @@ output Output { }
 
 ##### Expected Verify errors
 
-- `Multiple Categories with name 'test' can't be merged.,`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
+- `Multiple Categories with name 'test' can't be merged`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
 ### InvalidGlobals\category-output-generic.graphql+
 
@@ -1101,7 +1102,7 @@ output Test<$a> { | $a }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' is a generic Output type.`
+- `Invalid Category Output. 'Test' is a generic Output type`
 
 ### InvalidGlobals\category-output-mod-param.graphql+
 
@@ -1112,7 +1113,7 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined.`
+- `Invalid Modifier. 'a' not defined`
 
 ### InvalidGlobals\category-output-undef.graphql+
 
@@ -1122,7 +1123,7 @@ category { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type.`
+- `Invalid Category Output. 'Test' not defined or not an Output type`
 
 ### InvalidGlobals\category-output-wrong.graphql+
 
@@ -1133,7 +1134,7 @@ input Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type.`
+- `Invalid Category Output. 'Test' not defined or not an Output type`
 
 ### InvalidGlobals\directive-diff-option.graphql+
 
@@ -1144,7 +1145,7 @@ directive @Test { ( repeatable ) all }
 
 ##### Expected Verify errors
 
-- `Multiple Directives with name 'Test' can't be merged.,`
+- `Multiple Directives with name 'Test' can't be merged`
 - `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
 
 ### InvalidGlobals\directive-diff-param.graphql+
@@ -1157,7 +1158,7 @@ input Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Directives with name 'Test' can't be merged.,`
+- `Multiple Directives with name 'Test' can't be merged`
 - `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
 
 ### InvalidGlobals\directive-no-param.graphql+
@@ -1168,7 +1169,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. '( I@017/0001 Test )' not defined.`
+- `Invalid Directive Param. '( I@017/0001 Test )' not defined`
 
 ### InvalidGlobals\directive-param-mod-param.graphql+
 
@@ -1179,7 +1180,7 @@ input TestIn { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined.`
+- `Invalid Modifier. 'a' not defined`
 
 ### InvalidGlobals\option-diff-name.graphql+
 
@@ -1190,7 +1191,7 @@ option Schema { }
 
 ##### Expected Verify errors
 
-- `Multiple Schema names (Options) found.`
+- `Multiple Schema names (Options) found`
 
 ## InvalidObjects
 
@@ -1204,9 +1205,9 @@ object Test1 { }
 
 ##### Expected Verify errors Ddual
 
-- `Multiple Duals with name 'Test' can't be merged.,`
-- `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Duals with name 'Test' can't be merged`
+- `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Iinput
 
@@ -1229,7 +1230,7 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Modifier. 'a' not defined.`
+- `Invalid Modifier. 'a' not defined`
 
 ##### Expected Verify errors Iinput
 
@@ -1248,7 +1249,7 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Modifier. 'Domain' not defined.`
+- `Invalid Modifier. 'Domain' not defined`
 
 ##### Expected Verify errors Iinput
 
@@ -1267,7 +1268,7 @@ object Alt { }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Modifier. 'Test' invalid type.`
+- `Invalid Modifier. 'Test' invalid type`
 
 ##### Expected Verify errors Iinput
 
@@ -1287,9 +1288,9 @@ object More { | Test }
 
 ##### Expected Verify errors Ddual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More.,`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test.,`
-- `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse.`
+- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More`
+- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse`
 
 ##### Expected Verify errors Iinput
 
@@ -1370,7 +1371,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input.`
+- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
 
 ### InvalidObjects\dual-alt-output.graphql+
 
@@ -2548,9 +2549,9 @@ domain Test { number }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
-- `Group of Domain for 'Test' is not singular Domain['Number', 'String'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Domains with name 'Test' can't be merged`
+- `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### InvalidSimple\domain-dup-alias.graphql+
 
@@ -2561,7 +2562,7 @@ domain Dup [a] { Boolean }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Domains with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### InvalidSimple\domain-enum-none.graphql+
@@ -2572,7 +2573,7 @@ domain Test { Enum }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. Expected enum Members.`
+- `Invalid Domain. Expected enum Members`
 
 ### InvalidSimple\domain-enum-parent-unique.graphql+
 
@@ -2585,7 +2586,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### InvalidSimple\domain-enum-undef-all.graphql+
@@ -2596,7 +2597,7 @@ domain Test { enum Undef.* }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Undef' not an Enum type.`
+- `Invalid Domain Enum. 'Undef' not an Enum type`
 
 ### InvalidSimple\domain-enum-undef-member.graphql+
 
@@ -2607,7 +2608,7 @@ enum Enum { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'.`
+- `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'`
 
 ### InvalidSimple\domain-enum-undef-value.graphql+
 
@@ -2617,7 +2618,7 @@ domain Test { enum Undef.value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Undef' not an Enum type.`
+- `Invalid Domain Enum. 'Undef' not an Enum type`
 
 ### InvalidSimple\domain-enum-undef.graphql+
 
@@ -2627,7 +2628,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Member. Enum Value 'undef' not defined.`
+- `Invalid Domain Enum Member. Enum Value 'undef' not defined`
 
 ### InvalidSimple\domain-enum-unique-all.graphql+
 
@@ -2639,7 +2640,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### InvalidSimple\domain-enum-unique-member.graphql+
 
@@ -2651,7 +2652,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### InvalidSimple\domain-enum-unique.graphql+
 
@@ -2663,7 +2664,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### InvalidSimple\domain-enum-wrong.graphql+
 
@@ -2674,7 +2675,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Bad' not an Enum type.`
+- `Invalid Domain Enum. 'Bad' not an Enum type`
 
 ### InvalidSimple\domain-number-parent.graphql+
 
@@ -2685,7 +2686,7 @@ domain Parent { number !1> }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
 
 ### InvalidSimple\domain-parent-self-more.graphql+
@@ -2699,10 +2700,10 @@ domain More { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
-- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.,`
-- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
+- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
+- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse`
 
 ### InvalidSimple\domain-parent-self-parent.graphql+
 
@@ -2713,8 +2714,8 @@ domain Parent { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 
 ### InvalidSimple\domain-parent-self-recurse.graphql+
 
@@ -2726,9 +2727,9 @@ domain Recurse { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
-- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
+- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 
 ### InvalidSimple\domain-parent-self.graphql+
 
@@ -2738,7 +2739,7 @@ domain Test { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself.`
+- `Invalid Domain. 'Test' cannot be a child of itself`
 
 ### InvalidSimple\domain-parent-undef.graphql+
 
@@ -2748,7 +2749,7 @@ domain Test { :Parent Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' not defined.`
+- `Invalid Domain Parent. 'Parent' not defined`
 
 ### InvalidSimple\domain-parent-wrong-kind.graphql+
 
@@ -2759,7 +2760,7 @@ domain Parent { String }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'.`
+- `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'`
 
 ### InvalidSimple\domain-parent-wrong-type.graphql+
 
@@ -2770,7 +2771,7 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'`
 
 ### InvalidSimple\domain-string-diff.graphql+
 
@@ -2781,9 +2782,9 @@ domain Test { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Domains with name 'Test' can't be merged`
+- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### InvalidSimple\domain-string-parent.graphql+
 
@@ -2794,7 +2795,7 @@ domain Parent { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 
 ### InvalidSimple\enum-dup-alias.graphql+
@@ -2806,7 +2807,7 @@ enum Dup [a] { dup }
 
 ##### Expected Verify errors
 
-- `Multiple Enums with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Enums with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### InvalidSimple\enum-parent-alias-dup.graphql+
@@ -2818,7 +2819,7 @@ enum Parent { parent[alias] }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Child. Can't merge Test into Parent Parent.,`
+- `Invalid Enum Child. Can't merge Test into Parent Parent`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
 
 ### InvalidSimple\enum-parent-diff.graphql+
@@ -2831,9 +2832,9 @@ enum Parent { parent }
 
 ##### Expected Verify errors
 
-- `Multiple Enums with name 'Test' can't be merged.,`
-- `Group of Enum for 'Test' is not singular Parent['', 'Parent'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Enums with name 'Test' can't be merged`
+- `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### InvalidSimple\enum-parent-undef.graphql+
 
@@ -2843,7 +2844,7 @@ enum Test { :Parent test }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Parent. 'Parent' not defined.`
+- `Invalid Enum Parent. 'Parent' not defined`
 
 ### InvalidSimple\enum-parent-wrong.graphql+
 
@@ -2854,18 +2855,18 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'`
 
 ### InvalidSimple\union-dup-alias.graphql+
 
 ```gqlp
-union Test [a] { Bad }
-union Dup [a] { Test }
+union Test [a] { String }
+union Dup [a] { Number }
 ```
 
 ##### Expected Verify errors
 
-- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### InvalidSimple\union-more-parent.graphql+
@@ -2880,8 +2881,7 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union. Expected at least one member`
 
 ### InvalidSimple\union-more.graphql+
 
@@ -2893,9 +2893,9 @@ union More { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'More' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
+- `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-parent-diff.graphql+
 
@@ -2907,8 +2907,8 @@ union Parent { String }
 
 ##### Expected Verify errors
 
-- `Multiple Unions with name 'Test' can't be merged.,`
-- `Group of Union for 'Test' is not singular Parent['', 'Parent'],`
+- `Multiple Unions with name 'Test' can't be merged`
+- `Group of Union for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged.`
 
 ### InvalidSimple\union-parent-more.graphql+
@@ -2922,8 +2922,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-parent-recurse.graphql+
 
@@ -2935,7 +2935,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-parent-undef.graphql+
 
@@ -2945,7 +2946,7 @@ union Test { :Parent Number }
 
 ##### Expected Verify errors
 
-- `Invalid Union Parent. 'Parent' not defined.`
+- `Invalid Union Parent. 'Parent' not defined`
 
 ### InvalidSimple\union-parent-wrong.graphql+
 
@@ -2956,7 +2957,7 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'`
 
 ### InvalidSimple\union-parent.graphql+
 
@@ -2967,7 +2968,7 @@ union Parent { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-recurse-parent.graphql+
 
@@ -2979,7 +2980,8 @@ union Parent { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-recurse.graphql+
 
@@ -2990,8 +2992,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'Bad' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### InvalidSimple\union-self.graphql+
 
@@ -3001,7 +3003,7 @@ union Test { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self.`
+- `Invalid Union Member. 'Test' cannot refer to self`
 
 ### InvalidSimple\union-undef.graphql+
 
@@ -3011,7 +3013,7 @@ union Test { Bad }
 
 ##### Expected Verify errors
 
-- `Invalid Union. 'Bad' not defined.`
+- `Invalid Union. 'Bad' not defined`
 
 ### InvalidSimple\union-wrong.graphql+
 
@@ -3022,7 +3024,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid union. Type kind mismatch for Bad. Found Input.`
+- `Invalid union. Type kind mismatch for Bad. Found Input`
 
 ### InvalidSimple\unique-type-alias.graphql+
 
@@ -3044,7 +3046,7 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged.,`
+- `Multiple Types with name 'Test' can't be merged`
 - `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
 
 ## ValidGlobals
