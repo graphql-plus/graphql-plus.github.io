@@ -1064,6 +1064,20 @@ output Output { }
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
 
+### InvalidGlobals\category-dup-description.graphql+
+
+```gqlp
+"First category"
+category { Test }
+"Second category"
+category { Test }
+output Test { }
+```
+
+##### Expected Verify errors
+
+- `Multiple Categories with alias 'a' found. Names 'test' 'output'`
+
 ### InvalidGlobals\category-duplicate.graphql+
 
 ```gqlp
@@ -3035,6 +3049,14 @@ output Test { }
 
 ## ValidGlobals
 
+### ValidGlobals\category-description.graphql+
+
+```gqlp
+"A Category described"
+category { CatDescr }
+output CatDescr { }
+```
+
 ### ValidGlobals\category-output-dict.graphql+
 
 ```gqlp
@@ -3104,6 +3126,19 @@ output DescrSingle { }
 ```gqlp
 "A simple description"
 output Descr { }
+```
+
+### ValidGlobals\directive-description.graphql+
+
+```gqlp
+"A directive described"
+directive @DirDescr { all }
+```
+
+### ValidGlobals\directive-no-param.graphql+
+
+```gqlp
+directive @DirNoParam { all }
 ```
 
 ### ValidGlobals\directive-param-dict.graphql+
