@@ -673,7 +673,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 - `Invalid Output Alternate. '_Type' not defined`
 - `Invalid Output Parent. '_Aliased' not defined`
 - `Invalid Output Field. '_Type' not defined`
-- `Invalid Output Field. '_InputParam' not defined`
+- `Invalid Output Field. '_FieldParam' not defined`
 
 ### Intro_Domain.graphql+
 
@@ -785,14 +785,15 @@ output _DualAlternate {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_ObjParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_TypeObject' not defined`
 
 ### Intro_Enum.graphql+
 
@@ -863,16 +864,17 @@ output _FieldParam {
 ##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DualBase' not defined`
-- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Constant' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Field. '_Constant' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_ObjParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Parent. '_TypeObject' not defined`
 
 ### Intro_Names.graphql+
 
@@ -973,7 +975,6 @@ output _Field<$base> {
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Field. '_Modifiers' not defined`
 - `Invalid Output Field. '_Collections' not defined`
-- `Invalid Output Field. '_Described' not defined`
 
 ### Intro_Option.graphql+
 
@@ -1037,16 +1038,17 @@ output _OutputEnum {
 
 - `Invalid Output Alternate. '_DualBase' not defined`
 - `Invalid Output Alternate. '_TypeParam' not defined`
-- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_FieldParam' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Output Parent. '_ObjParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Field. '_InputParam' not defined`
+- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
 
 ### Intro_Union.graphql+
 
