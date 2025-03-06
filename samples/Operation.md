@@ -10,8 +10,8 @@
 
 ##### Expected Verify errors
 
-- `Invalid Operation. Expected at least one field or selection.`
-- `Invalid Operation. Expected Object or Type.`
+- `Invalid Operation. Expected at least one field or selection`
+- `Invalid Operation. Expected Object or Type`
 
 ### simple.gql+
 
@@ -29,7 +29,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Operation. Expected text.`
+- `Invalid Operation. Expected text`
 
 ### Invalid\frag-undef.gql+
 
@@ -39,7 +39,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Spread usage. Spread not defined.`
+- `Invalid Spread usage. Spread not defined`
 
 ### Invalid\frag-unused.gql+
 
@@ -49,7 +49,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Spread definition. Spread not used.`
+- `Invalid Spread definition. Spread not used`
 
 ### Invalid\list-map-def.gql+
 
@@ -59,7 +59,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. List Type cannot have Object default.`
+- `Invalid Variable definition. List Type cannot have Object default`
 
 ### Invalid\list-null-map-def.gql+
 
@@ -69,7 +69,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Optional List Type cannot have Object default.`
+- `Invalid Variable definition. Optional List Type cannot have Object default`
 
 ### Invalid\map-list-def.gql+
 
@@ -79,7 +79,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Dictionary Type must have Object default.`
+- `Invalid Variable definition. Dictionary Type must have Object default`
 
 ### Invalid\map-null-list-def.gql+
 
@@ -89,7 +89,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Optional Dictionary Type must have Object default.`
+- `Invalid Variable definition. Optional Dictionary Type must have Object default`
 
 ### Invalid\null-def-invalid.gql+
 
@@ -99,7 +99,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Default of 'null' must be on Optional Type.`
+- `Invalid Variable definition. Default of 'null' must be on Optional Type`
 
 ### Invalid\var-undef.gql+
 
@@ -109,7 +109,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable usage. Variable not defined.`
+- `Invalid Variable usage. Variable not defined`
 
 ### Invalid\var-unused.gql+
 
@@ -119,7 +119,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Variable not used.`
+- `Invalid Variable definition. Variable not used`
 
 ## Valid
 

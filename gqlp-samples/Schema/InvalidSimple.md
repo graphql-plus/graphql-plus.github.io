@@ -9,9 +9,9 @@ domain Test { number }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
-- `Group of Domain for 'Test' is not singular Domain['Number', 'String'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Domains with name 'Test' can't be merged`
+- `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### domain-dup-alias.graphql+
 
@@ -22,7 +22,7 @@ domain Dup [a] { Boolean }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Domains with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### domain-enum-none.graphql+
@@ -33,7 +33,7 @@ domain Test { Enum }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. Expected enum Members.`
+- `Invalid Domain. Expected enum Members`
 
 ### domain-enum-parent-unique.graphql+
 
@@ -46,7 +46,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### domain-enum-undef-all.graphql+
@@ -57,7 +57,7 @@ domain Test { enum Undef.* }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Undef' not an Enum type.`
+- `Invalid Domain Enum. 'Undef' not an Enum type`
 
 ### domain-enum-undef-member.graphql+
 
@@ -68,7 +68,7 @@ enum Enum { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'.`
+- `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'`
 
 ### domain-enum-undef-value.graphql+
 
@@ -78,7 +78,7 @@ domain Test { enum Undef.value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Undef' not an Enum type.`
+- `Invalid Domain Enum. 'Undef' not an Enum type`
 
 ### domain-enum-undef.graphql+
 
@@ -88,7 +88,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Member. Enum Value 'undef' not defined.`
+- `Invalid Domain Enum Member. Enum Value 'undef' not defined`
 
 ### domain-enum-unique-all.graphql+
 
@@ -100,7 +100,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### domain-enum-unique-member.graphql+
 
@@ -112,7 +112,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### domain-enum-unique.graphql+
 
@@ -124,7 +124,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup.`
+- `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
 ### domain-enum-wrong.graphql+
 
@@ -135,7 +135,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum. 'Bad' not an Enum type.`
+- `Invalid Domain Enum. 'Bad' not an Enum type`
 
 ### domain-number-parent.graphql+
 
@@ -146,7 +146,7 @@ domain Parent { number !1> }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
 
 ### domain-parent-self-more.graphql+
@@ -160,10 +160,10 @@ domain More { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
-- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.,`
-- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via More`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
+- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
+- `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse`
 
 ### domain-parent-self-parent.graphql+
 
@@ -174,8 +174,8 @@ domain Parent { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 
 ### domain-parent-self-recurse.graphql+
 
@@ -187,9 +187,9 @@ domain Recurse { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse.,`
-- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test.,`
-- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent.`
+- `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Recurse`
+- `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
+- `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 
 ### domain-parent-self.graphql+
 
@@ -199,7 +199,7 @@ domain Test { :Test Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. 'Test' cannot be a child of itself.`
+- `Invalid Domain. 'Test' cannot be a child of itself`
 
 ### domain-parent-undef.graphql+
 
@@ -209,7 +209,7 @@ domain Test { :Parent Boolean }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' not defined.`
+- `Invalid Domain Parent. 'Parent' not defined`
 
 ### domain-parent-wrong-kind.graphql+
 
@@ -220,7 +220,7 @@ domain Parent { String }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'.`
+- `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'`
 
 ### domain-parent-wrong-type.graphql+
 
@@ -231,7 +231,7 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'`
 
 ### domain-string-diff.graphql+
 
@@ -242,9 +242,9 @@ domain Test { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Multiple Domains with name 'Test' can't be merged.,`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Domains with name 'Test' can't be merged`
+- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### domain-string-parent.graphql+
 
@@ -255,7 +255,7 @@ domain Parent { string !/a+/ }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Child. Can't merge Test items into Parent Parent items.,`
+- `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 
 ### enum-dup-alias.graphql+
@@ -267,7 +267,7 @@ enum Dup [a] { dup }
 
 ##### Expected Verify errors
 
-- `Multiple Enums with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Enums with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### enum-parent-alias-dup.graphql+
@@ -279,7 +279,7 @@ enum Parent { parent[alias] }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Child. Can't merge Test into Parent Parent.,`
+- `Invalid Enum Child. Can't merge Test into Parent Parent`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
 
 ### enum-parent-diff.graphql+
@@ -292,9 +292,9 @@ enum Parent { parent }
 
 ##### Expected Verify errors
 
-- `Multiple Enums with name 'Test' can't be merged.,`
-- `Group of Enum for 'Test' is not singular Parent['', 'Parent'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Enums with name 'Test' can't be merged`
+- `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### enum-parent-undef.graphql+
 
@@ -304,7 +304,7 @@ enum Test { :Parent test }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Parent. 'Parent' not defined.`
+- `Invalid Enum Parent. 'Parent' not defined`
 
 ### enum-parent-wrong.graphql+
 
@@ -315,18 +315,18 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'`
 
 ### union-dup-alias.graphql+
 
 ```gqlp
-union Test [a] { Bad }
-union Dup [a] { Test }
+union Test [a] { String }
+union Dup [a] { Number }
 ```
 
 ##### Expected Verify errors
 
-- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup',`
+- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### union-more-parent.graphql+
@@ -341,8 +341,7 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union. Expected at least one member`
 
 ### union-more.graphql+
 
@@ -354,9 +353,9 @@ union More { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'Bad' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'More' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
+- `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
 ### union-parent-diff.graphql+
 
@@ -368,9 +367,9 @@ union Parent { String }
 
 ##### Expected Verify errors
 
-- `Multiple Unions with name 'Test' can't be merged.,`
-- `Group of Union for 'Test' is not singular Parent['', 'Parent'],`
-- `Multiple Types with name 'Test' can't be merged.`
+- `Multiple Unions with name 'Test' can't be merged`
+- `Group of Union for 'Test' is not singular Parent['', 'Parent']`
+- `Multiple Types with name 'Test' can't be merged`
 
 ### union-parent-more.graphql+
 
@@ -383,8 +382,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.,`
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
 ### union-parent-recurse.graphql+
 
@@ -396,7 +395,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### union-parent-undef.graphql+
 
@@ -406,7 +406,7 @@ union Test { :Parent Number }
 
 ##### Expected Verify errors
 
-- `Invalid Union Parent. 'Parent' not defined.`
+- `Invalid Union Parent. 'Parent' not defined`
 
 ### union-parent-wrong.graphql+
 
@@ -417,7 +417,7 @@ output Parent { }
 
 ##### Expected Verify errors
 
-- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'.`
+- `Invalid Union Parent. 'Parent' invalid type. Found 'Output'`
 
 ### union-parent.graphql+
 
@@ -428,7 +428,7 @@ union Parent { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 
 ### union-recurse-parent.graphql+
 
@@ -440,7 +440,8 @@ union Parent { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union. Expected at least one member.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### union-recurse.graphql+
 
@@ -451,8 +452,8 @@ union Bad { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self, even recursively.,`
-- `Invalid Union Member. 'Bad' cannot refer to self, even recursively.`
+- `Invalid Union Member. 'Test' cannot refer to self, even recursively`
+- `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
 ### union-self.graphql+
 
@@ -462,7 +463,7 @@ union Test { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Union Member. 'Test' cannot refer to self.`
+- `Invalid Union Member. 'Test' cannot refer to self`
 
 ### union-undef.graphql+
 
@@ -472,7 +473,7 @@ union Test { Bad }
 
 ##### Expected Verify errors
 
-- `Invalid Union. 'Bad' not defined.`
+- `Invalid Union. 'Bad' not defined`
 
 ### union-wrong.graphql+
 
@@ -483,7 +484,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid union. Type kind mismatch for Bad. Found Input.`
+- `Invalid union. Type kind mismatch for Bad. Found Input`
 
 ### unique-type-alias.graphql+
 
@@ -505,5 +506,5 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged.,`
+- `Multiple Types with name 'Test' can't be merged`
 - `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
