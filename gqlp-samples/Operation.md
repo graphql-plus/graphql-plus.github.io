@@ -10,8 +10,8 @@
 
 ##### Expected Verify errors
 
-- `Invalid Operation. Expected at least one field or selection.`
-- `Invalid Operation. Expected Object or Type.`
+- `Invalid Operation. Expected at least one field or selection`
+- `Invalid Operation. Expected Object or Type`
 
 ### simple.gql+
 

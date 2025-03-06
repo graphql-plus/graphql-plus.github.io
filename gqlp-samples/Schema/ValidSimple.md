@@ -104,6 +104,13 @@ enum EnTestPrnt { :EnPrntTest val_prnt }
 enum EnPrntTest { val_test }
 ```
 
+### union-parent-dup.graphql+
+
+```gqlp
+union UnionPrnt { :PrntUnion Number }
+union PrntUnion { Number }
+```
+
 ### union-parent.graphql+
 
 ```gqlp

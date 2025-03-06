@@ -1,5 +1,13 @@
 # ValidGlobals Schema Samples
 
+### category-description.graphql+
+
+```gqlp
+"A Category described"
+category { CatDescr }
+output CatDescr { }
+```
+
 ### category-output-dict.graphql+
 
 ```gqlp
@@ -69,6 +77,19 @@ output DescrSingle { }
 ```gqlp
 "A simple description"
 output Descr { }
+```
+
+### directive-description.graphql+
+
+```gqlp
+"A directive described"
+directive @DirDescr { all }
+```
+
+### directive-no-param.graphql+
+
+```gqlp
+directive @DirNoParam { all }
 ```
 
 ### directive-param-dict.graphql+

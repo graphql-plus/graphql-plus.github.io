@@ -8,7 +8,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Operation. Expected text.`
+- `Invalid Operation. Expected text`
 
 ### frag-undef.gql+
 
@@ -18,7 +18,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Spread usage. Spread not defined.`
+- `Invalid Spread usage. Spread not defined`
 
 ### frag-unused.gql+
 
@@ -28,7 +28,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Spread definition. Spread not used.`
+- `Invalid Spread definition. Spread not used`
 
 ### list-map-def.gql+
 
@@ -38,7 +38,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. List Type cannot have Object default.`
+- `Invalid Variable definition. List Type cannot have Object default`
 
 ### list-null-map-def.gql+
 
@@ -48,7 +48,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Optional List Type cannot have Object default.`
+- `Invalid Variable definition. Optional List Type cannot have Object default`
 
 ### map-list-def.gql+
 
@@ -58,7 +58,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Dictionary Type must have Object default.`
+- `Invalid Variable definition. Dictionary Type must have Object default`
 
 ### map-null-list-def.gql+
 
@@ -68,7 +68,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Optional Dictionary Type must have Object default.`
+- `Invalid Variable definition. Optional Dictionary Type must have Object default`
 
 ### null-def-invalid.gql+
 
@@ -78,7 +78,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Default of 'null' must be on Optional Type.`
+- `Invalid Variable definition. Default of 'null' must be on Optional Type`
 
 ### var-undef.gql+
 
@@ -88,7 +88,7 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable usage. Variable not defined.`
+- `Invalid Variable usage. Variable not defined`
 
 ### var-unused.gql+
 
@@ -98,4 +98,4 @@
 
 ##### Expected Verify errors
 
-- `Invalid Variable definition. Variable not used.`
+- `Invalid Variable definition. Variable not used`

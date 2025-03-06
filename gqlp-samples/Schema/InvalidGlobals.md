@@ -20,8 +20,8 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~System.Linq.Enumerable+WhereSelectArrayIterator`2[GqlPlus.Abstractions.IGqlpModifier,System.String]~Parallel', 'Test~System.String[]~Parallel']`
-- `Multiple Categories with name 'test' can't be merged.,`
+- `Multiple Categories with name 'test' can't be merged`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
 
 ### category-dup-alias.graphql+
 
@@ -36,6 +36,21 @@ output Output { }
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
 
+### category-dup-description.graphql+
+
+```gqlp
+"First category"
+category { Test }
+"Second category"
+category { Test }
+output Test { }
+```
+
+##### Expected Verify errors
+
+- `Multiple Categories with name 'test' can't be merged`
+- `Different values merging item => item.Description: First category != Second category`
+
 ### category-duplicate.graphql+
 
 ```gqlp
@@ -47,8 +62,8 @@ output Output { }
 
 ##### Expected Verify errors
 
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~System.String[]~Parallel', 'Test~System.String[]~Parallel']`
-- `Multiple Categories with name 'test' can't be merged.,`
+- `Multiple Categories with name 'test' can't be merged`
+- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
 ### category-output-generic.graphql+
 
@@ -59,7 +74,7 @@ output Test<$a> { | $a }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' is a generic Output type.`
+- `Invalid Category Output. 'Test' is a generic Output type`
 
 ### category-output-mod-param.graphql+
 
@@ -70,7 +85,7 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined.`
+- `Invalid Modifier. 'a' not defined`
 
 ### category-output-undef.graphql+
 
@@ -80,7 +95,7 @@ category { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type.`
+- `Invalid Category Output. 'Test' not defined or not an Output type`
 
 ### category-output-wrong.graphql+
 
@@ -91,7 +106,7 @@ input Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type.`
+- `Invalid Category Output. 'Test' not defined or not an Output type`
 
 ### directive-diff-option.graphql+
 
@@ -102,8 +117,8 @@ directive @Test { ( repeatable ) all }
 
 ##### Expected Verify errors
 
+- `Multiple Directives with name 'Test' can't be merged`
 - `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
-- `Multiple Directives with name 'Test' can't be merged.,`
 
 ### directive-diff-param.graphql+
 
@@ -115,8 +130,8 @@ input Test { }
 
 ##### Expected Verify errors
 
+- `Multiple Directives with name 'Test' can't be merged`
 - `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
-- `Multiple Directives with name 'Test' can't be merged.,`
 
 ### directive-no-param.graphql+
 
@@ -126,7 +141,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. '( I@017/0001 Test )' not defined.`
+- `Invalid Directive Param. '( I@017/0001 Test )' not defined`
 
 ### directive-param-mod-param.graphql+
 
@@ -137,7 +152,7 @@ input TestIn { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined.`
+- `Invalid Modifier. 'a' not defined`
 
 ### option-diff-name.graphql+
 
@@ -148,4 +163,4 @@ option Schema { }
 
 ##### Expected Verify errors
 
-- `Multiple Schema names (Options) found.`
+- `Multiple Schema names (Options) found`
