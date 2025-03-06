@@ -686,13 +686,14 @@ input _TypeFilter {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_Named' not defined`
-- `Invalid Input Field. '_TypeKind' not defined`
 - `Invalid Input Field. '_Resolution' not defined`
+- `Invalid Input Field. '_TypeKind' not defined`
+- `Invalid Output Field. '_Categories' not defined`
+- `Invalid Output Field. '_Directives' not defined`
+- `Invalid Output Field. '_Operations' not defined`
 - `Invalid Output Field. '_Setting' not defined`
 - `Invalid Output Field. '_Type' not defined`
-- `Invalid Output Field. '_Directives' not defined`
-- `Invalid Output Field. '_Categories' not defined`
+- `Invalid Output Parent. '_Named' not defined`
 
 ### Intro_Directive.graphql+
 

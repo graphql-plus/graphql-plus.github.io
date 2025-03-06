@@ -71,9 +71,11 @@ output Output { }
 category { }
 ```
 
-##### Expected Parse errors
+##### Expected Verify errors
 
-- `Parse Error: Invalid Category. Expected text.`
+- `Invalid Category. Expected output type`
+- `Invalid Category Output. '' not defined or not an Output type`
+- `Invalid Schema. Expected no more text`
 
 ### category-output-generic.graphql+
 
@@ -170,9 +172,10 @@ input TestIn { }
 operation Test { { test } }
 ```
 
-##### Expected Parse errors
+##### Expected Verify errors
 
-- `Invalid Operation. Expected identifier.`
+- `Invalid Operation. Expected category`
+- `Invalid Schema. Expected no more text`
 
 ### operation-no-result.graphql+
 
