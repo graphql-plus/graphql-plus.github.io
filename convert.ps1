@@ -1,5 +1,6 @@
-$graphQlPlusDir = "samples\Schema"
-New-Item $graphQlPlusDir -ItemType Directory -ErrorAction Ignore | Out-Null
+
+$specificationDir = "samples\Schema\Specification"
+New-Item $specificationDir -ItemType Directory -ErrorAction Ignore | Out-Null
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
@@ -59,16 +60,21 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 
   if ($name -eq "Intro") {
     foreach ($section in $sections.Keys) {
-      $sections[$section] | Set-Content "$graphQlPlusDir\Intro_$section.graphql+"
+      $sections[$section] | Set-Content "$specificationDir\Intro_$section.graphql+"
     }
   }
 }
 
-$prefixes = @("", "dual-", "input-", "output-")
+$suffixes = @("", "dual", "input", "output")
 
-function Add-Errors($base, $type, $label = "") {
-  $suffix = $type.ToLower()  
-  $expected = "samples/$name/$base.$suffix-errors"
+function Add-Errors($base, $suffix, $type, $label = "") {
+  $extn = $type.ToLower()
+  $expected = "samples/$name/$base.$extn-errors"
+  $label = ""
+  if ($suffix) {
+    $expected = "samples/$name/$base+$suffix.$extn-errors"
+    $label = $suffix.ToUpperInvariant()[0] + $suffix.Substring(1)
+  }
   if (Test-Path $expected) {
     "##### Expected $type errors $label`n" | Add-Content $file
     Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
@@ -106,15 +112,13 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
 
     $base = ($_ -split '\.g')[0]
     if ($_ -match 'Invalid') {
-      foreach ($prefix in $prefixes) {
-        $prefixed = $base -replace '\\',"/$prefix"
-        $label = $prefix.ToUpperInvariant()[0] + $prefix -replace '-', ''
-        Add-Errors $prefixed "Parse" $label
-        Add-Errors $prefixed "Verify" $label
+      foreach ($suffix in $suffixes) {
+        Add-Errors $base $suffix "Parse"
+        Add-Errors $base $suffix "Verify"
       }
     } else {
-      Add-Errors $base "Parse"
-      Add-Errors $base "Verify"
+      Add-Errors $base "" "Parse"
+      Add-Errors $base "" "Verify"
     }
   }
 }
