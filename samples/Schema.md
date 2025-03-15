@@ -48,984 +48,6 @@ domain Other { Enum }
 
 - `Invalid Category Output. '' not defined or not an Output type`
 
-### Intro_Built-In.graphql+
-
-```gqlp
-output _Constant {
-    | _Simple
-    | _ConstantList
-    | _ConstantMap
-    }
-
-output _Simple {
-    | Boolean
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    | _EnumValue
-}
-
-output _ConstantList {
-    | _Constant[]
-    }
-
-output _ConstantMap {
-    | _Constant[Simple]
-    }
-
-output _Collections {
-    | _Modifier<_ModifierKind.List>
-    | _ModifierKeyed<_ModifierKind.Dictionary>
-    | _ModifierKeyed<_ModifierKind.TypeParam>
-    }
-
-output _ModifierKeyed<$kind> {
-    : _Modifier<$kind>
-        by: _TypeSimple
-        optional: Boolean
-    }
-
-output _Modifiers {
-    | _Modifier<_ModifierKind.Optional>
-    | _Collections
-    }
-
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
-
-output _Modifier<$kind> {
-        modifierKind: $kind
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_DomainValue' not defined`
-- `Invalid Output Alternate. '_EnumValue' not defined`
-- `Invalid Output Field. '_TypeSimple' not defined`
-- `Invalid Output Alternate. '_DomainKind' not defined`
-- `Invalid Output Arg Enum. '_DomainKind' is not an Enum type`
-
-### Intro_Category.graphql+
-
-```gqlp
-output _Categories {
-        category: _Category
-        type: _Type
-    | _Category
-    | _Type
-}
-
-output _Category {
-    : _Aliased
-        resolution: _Resolution
-        output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers[]
-    }
-
-enum _Resolution { Parallel Sequential Single }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_Type' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Field. '_Type' not defined`
-- `Invalid Output Field. '_TypeRef' not defined`
-- `Invalid Output Field. '_Modifiers' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Field. '_TypeKind' not defined`
-
-### Intro_Common.graphql+
-
-```gqlp
-output _Type {
-    | _BaseType<_TypeKind.Basic>
-    | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
-    }
-
-output _BaseType<$kind> {
-    : _Aliased
-        typeKind: $kind
-    }
-
-output _ChildType<$kind $parent> {
-    : _BaseType<$kind>
-        parent: $parent
-    }
-
-output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
-        items: $item[]
-        allItems: $allItem[]
-    }
-
-enum _SimpleKind { Basic Enum Internal Domain Union }
-
-enum _TypeKind { :_SimpleKind Dual Input Output }
-
-output _TypeRef<$kind> {
-        typeKind: $kind
-        name: _Identifier
-}
-
-output _TypeSimple {
-    | _TypeRef<_TypeKind.Basic>
-    | _TypeRef<_TypeKind.Enum>
-    | _TypeRef<_TypeKind.Domain>
-    | _TypeRef<_TypeKind.Union>
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_TypeDual' not defined`
-- `Invalid Output Alternate. '_TypeEnum' not defined`
-- `Invalid Output Alternate. '_TypeInput' not defined`
-- `Invalid Output Alternate. '_TypeOutput' not defined`
-- `Invalid Output Alternate. '_TypeDomain' not defined`
-- `Invalid Output Alternate. '_TypeUnion' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Parent. '_Identifier' not defined`
-
-### Intro_Complete.graphql+
-
-```gqlp
-output _Schema {
-    : _Named
-        categories(_CategoryFilter?): _Categories[_Identifier]
-        directives(_Filter?): _Directives[_Identifier]
-        types(_TypeFilter?): _Type[_Identifier]
-        settings(_Filter?): _Setting[_Identifier]
-    }
-
-domain _Identifier { String /[A-Za-z_]+/ }
-
-input _Filter  {
-        names: _NameFilter[]
-        matchAliases: Boolean? = true
-        aliases: _NameFilter[]
-        returnByAlias: Boolean? = false
-        returnReferencedTypes: Boolean? = false
-    | _NameFilter[]
-    }
-
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
-
-input _CategoryFilter {
-    : _Filter
-        resolutions: _Resolution[]
-    }
-
-input _TypeFilter {
-    : _Filter
-        kinds: _TypeKind[]
-    }
-dual _Aliased {
-    : _Described
-        aliases: _Identifier[]
-    }
-
-dual _Described {
-    : _Named
-        description: String
-    }
-
-dual _Named {
-        name: _Identifier
-    }
-output _Categories {
-        category: _Category
-        type: _Type
-    | _Category
-    | _Type
-}
-
-output _Category {
-    : _Aliased
-        resolution: _Resolution
-        output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers[]
-    }
-
-enum _Resolution { Parallel Sequential Single }
-output _Directives {
-        directive: _Directive
-        type: _Type
-    | _Directive
-    | _Type
-}
-
-output _Directive {
-    : _Aliased
-        parameters: _InputParam[]
-        repeatable: Boolean
-        locations: _[_Location]
-    }
-
-enum _Location { Operation Variable Field Inline Spread Fragment }
-
-output _Setting {
-    : _Described
-        value: _Constant
-}
-output _Type {
-    | _BaseType<_TypeKind.Basic>
-    | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
-    }
-
-output _BaseType<$kind> {
-    : _Aliased
-        typeKind: $kind
-    }
-
-output _ChildType<$kind $parent> {
-    : _BaseType<$kind>
-        parent: $parent
-    }
-
-output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
-        items: $item[]
-        allItems: $allItem[]
-    }
-
-enum _SimpleKind { Basic Enum Internal Domain Union }
-
-enum _TypeKind { :_SimpleKind Dual Input Output }
-
-output _TypeRef<$kind> {
-        typeKind: $kind
-        name: _Identifier
-}
-
-output _TypeSimple {
-    | _TypeRef<_TypeKind.Basic>
-    | _TypeRef<_TypeKind.Enum>
-    | _TypeRef<_TypeKind.Domain>
-    | _TypeRef<_TypeKind.Union>
-    }
-output _Constant {
-    | _Simple
-    | _ConstantList
-    | _ConstantMap
-    }
-
-output _Simple {
-    | Boolean
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    | _EnumValue
-}
-
-output _ConstantList {
-    | _Constant[]
-    }
-
-output _ConstantMap {
-    | _Constant[Simple]
-    }
-
-output _Collections {
-    | _Modifier<_ModifierKind.List>
-    | _ModifierKeyed<_ModifierKind.Dictionary>
-    | _ModifierKeyed<_ModifierKind.TypeParam>
-    }
-
-output _ModifierKeyed<$kind> {
-    : _Modifier<$kind>
-        by: _TypeSimple
-        optional: Boolean
-    }
-
-output _Modifiers {
-    | _Modifier<_ModifierKind.Optional>
-    | _Collections
-    }
-
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
-
-output _Modifier<$kind> {
-        modifierKind: $kind
-    }
-enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
-
-output _DomainRef<$kind> {
-    : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
-    }
-
-output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
-    }
-
-dual _BaseDomainItem {
-        exclude: Boolean
-    }
-
-output _DomainItem<$item> {
-    : $item
-        domain: _Identifier
-    }
-
-output _DomainValue<$kind $value> {
-    : _DomainRef<$kind>
-        value: $value
-    }
-dual _DomainTrueFalse {
-    : _BaseDomainItem
-        value: Boolean
-    }
-
-output _DomainItemTrueFalse {
-    : _DomainItem<_DomainTrueFalse>
-    }
-output _DomainMember {
-    : _BaseDomainItem
-        value: _EnumValue
-    }
-
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
-    }
-dual _DomainRange {
-    : _BaseDomainItem
-        lower: Number?
-        upper: Number?
-    }
-
-output _DomainItemRange {
-    : _DomainItem<_DomainRange>
-    }
-dual _DomainRegex {
-    : _BaseDomainItem
-        pattern: String
-    }
-
-output _DomainItemRegex {
-    : _DomainItem<_DomainRegex>
-    }
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    }
-
-dual _EnumMember {
-    : _Aliased
-        enum: _Identifier
-    }
-
-output _EnumValue {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    }
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Named _UnionMember>
-    }
-
-dual _UnionMember {
-    : _Named
-        union: _Identifier
-    }
-output _TypeObject<$kind $parent $field $alternate> {
-    : _ChildType<$kind $parent>
-        typeParams: _Described[]
-        fields: $field[]
-        alternates: $alternate[]
-        allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<$alternate>[]
-    }
-
-dual _ObjDescribed<$base> {
-        base: $base
-        description: String
-    | $base
-    }
-
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
-    | _TypeSimple
-    | $base
-    }
-
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
-    | _TypeParam
-    }
-
-output _ObjArg {
-    : _TypeRef<_TypeKind>
-    | _TypeParam
-}
-
-domain _TypeParam { :_Identifier String }
-
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
-      collections: _Collections[]
-    }
-
-output _ObjectFor<$for> {
-    : $for
-        object: _Identifier
-    }
-
-output _Field<$base> {
-    : _Aliased
-      type: _ObjDescribed<$base>
-      modifiers: _Modifiers[]
-    }
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
-    }
-
-output _DualBase {
-    : _ObjBase
-        dual: _Identifier
-    }
-
-output _DualParent {
-    : _ObjDescribed<_DualBase>
-    }
-
-output _DualField {
-    : _Field<_DualBase>
-    }
-
-output _DualAlternate {
-    : _Alternate<_DualBase>
-    }
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
-    }
-
-output _InputBase {
-    : _ObjBase
-        input: _Identifier
-    | _DualBase
-    }
-
-output _InputParent {
-    : _ObjDescribed<_InputBase>
-    }
-
-output _InputField {
-    : _Field<_InputBase>
-        default: _Constant?
-    }
-
-output _InputAlternate {
-    : _Alternate<_InputBase>
-    }
-
-output _InputParam {
-    : _ObjDescribed<_InputBase>
-        modifiers: _Modifiers[]
-        default: _Constant?
-    }
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
-    }
-
-output _OutputBase {
-    : _ObjBase
-        output: _Identifier
-    | _DualBase
-    }
-
-output _OutputParent {
-    : _ObjDescribed<_OutputBase>
-    }
-
-output _OutputField {
-    : _Field<_OutputBase>
-        parameter: _InputParam[]
-    | _OutputEnum
-    }
-
-output _OutputAlternate {
-    : _Alternate<_OutputBase>
-    }
-
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
-    }
-
-output _OutputEnum {
-    : _TypeRef<_TypeKind.Enum>
-        field: _Identifier
-        member: _Identifier
-    }
-```
-
-### Intro_Declarations.graphql+
-
-```gqlp
-output _Schema {
-    : _Named
-        categories(_CategoryFilter?): _Categories[_Identifier]
-        directives(_Filter?): _Directives[_Identifier]
-        types(_TypeFilter?): _Type[_Identifier]
-        settings(_Filter?): _Setting[_Identifier]
-    }
-
-domain _Identifier { String /[A-Za-z_]+/ }
-
-input _Filter  {
-        names: _NameFilter[]
-        matchAliases: Boolean? = true
-        aliases: _NameFilter[]
-        returnByAlias: Boolean? = false
-        returnReferencedTypes: Boolean? = false
-    | _NameFilter[]
-    }
-
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
-
-input _CategoryFilter {
-    : _Filter
-        resolutions: _Resolution[]
-    }
-
-input _TypeFilter {
-    : _Filter
-        kinds: _TypeKind[]
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Parent. '_Named' not defined`
-- `Invalid Input Field. '_TypeKind' not defined`
-- `Invalid Input Field. '_Resolution' not defined`
-- `Invalid Output Field. '_Setting' not defined`
-- `Invalid Output Field. '_Type' not defined`
-- `Invalid Output Field. '_Directives' not defined`
-- `Invalid Output Field. '_Categories' not defined`
-
-### Intro_Directive.graphql+
-
-```gqlp
-output _Directives {
-        directive: _Directive
-        type: _Type
-    | _Directive
-    | _Type
-}
-
-output _Directive {
-    : _Aliased
-        parameters: _InputParam[]
-        repeatable: Boolean
-        locations: _[_Location]
-    }
-
-enum _Location { Operation Variable Field Inline Spread Fragment }
-
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_Type' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Field. '_Type' not defined`
-- `Invalid Output Field. '_InputParam' not defined`
-
-### Intro_Domain.graphql+
-
-```gqlp
-enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
-
-output _DomainRef<$kind> {
-    : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
-    }
-
-output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
-    }
-
-dual _BaseDomainItem {
-        exclude: Boolean
-    }
-
-output _DomainItem<$item> {
-    : $item
-        domain: _Identifier
-    }
-
-output _DomainValue<$kind $value> {
-    : _DomainRef<$kind>
-        value: $value
-    }
-dual _DomainTrueFalse {
-    : _BaseDomainItem
-        value: Boolean
-    }
-
-output _DomainItemTrueFalse {
-    : _DomainItem<_DomainTrueFalse>
-    }
-output _DomainMember {
-    : _BaseDomainItem
-        value: _EnumValue
-    }
-
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
-    }
-dual _DomainRange {
-    : _BaseDomainItem
-        lower: Number?
-        upper: Number?
-    }
-
-output _DomainItemRange {
-    : _DomainItem<_DomainRange>
-    }
-dual _DomainRegex {
-    : _BaseDomainItem
-        pattern: String
-    }
-
-output _DomainItemRegex {
-    : _DomainItem<_DomainRegex>
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Field. '_EnumValue' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-
-### Intro_Dual.graphql+
-
-```gqlp
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
-    }
-
-output _DualBase {
-    : _ObjBase
-        dual: _Identifier
-    }
-
-output _DualParent {
-    : _ObjDescribed<_DualBase>
-    }
-
-output _DualField {
-    : _Field<_DualBase>
-    }
-
-output _DualAlternate {
-    : _Alternate<_DualBase>
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Parent. '_TypeObject' not defined`
-- `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
-
-### Intro_Enum.graphql+
-
-```gqlp
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
-    }
-
-dual _EnumMember {
-    : _Aliased
-        enum: _Identifier
-    }
-
-output _EnumValue {
-    : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Dual Parent. '_Aliased' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Dual Field. '_Identifier' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-
-### Intro_Input.graphql+
-
-```gqlp
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
-    }
-
-output _InputBase {
-    : _ObjBase
-        input: _Identifier
-    | _DualBase
-    }
-
-output _InputParent {
-    : _ObjDescribed<_InputBase>
-    }
-
-output _InputField {
-    : _Field<_InputBase>
-        default: _Constant?
-    }
-
-output _InputAlternate {
-    : _Alternate<_InputBase>
-    }
-
-output _InputParam {
-    : _ObjDescribed<_InputBase>
-        modifiers: _Modifiers[]
-        default: _Constant?
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_DualBase' not defined`
-- `Invalid Output Parent. '_TypeObject' not defined`
-- `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Field. '_Constant' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Field. '_Modifiers' not defined`
-
-### Intro_Names.graphql+
-
-```gqlp
-dual _Aliased {
-    : _Described
-        aliases: _Identifier[]
-    }
-
-dual _Described {
-    : _Named
-        description: String
-    }
-
-dual _Named {
-        name: _Identifier
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Dual Field. '_Identifier' not defined`
-
-### Intro_Object.graphql+
-
-```gqlp
-output _TypeObject<$kind $parent $field $alternate> {
-    : _ChildType<$kind $parent>
-        typeParams: _Described[]
-        fields: $field[]
-        alternates: $alternate[]
-        allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<$alternate>[]
-    }
-
-dual _ObjDescribed<$base> {
-        base: $base
-        description: String
-    | $base
-    }
-
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
-    | _TypeSimple
-    | $base
-    }
-
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
-    | _TypeParam
-    }
-
-output _ObjArg {
-    : _TypeRef<_TypeKind>
-    | _TypeParam
-}
-
-domain _TypeParam { :_Identifier String }
-
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
-      collections: _Collections[]
-    }
-
-output _ObjectFor<$for> {
-    : $for
-        object: _Identifier
-    }
-
-output _Field<$base> {
-    : _Aliased
-      type: _ObjDescribed<$base>
-      modifiers: _Modifiers[]
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_BaseType' not defined`
-- `Invalid Output Alternate. '_TypeSimple' not defined`
-- `Invalid Output Parent. '_ChildType' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Domain Parent. '_Identifier' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Alternate. '_TypeKind' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Field. '_Modifiers' not defined`
-- `Invalid Output Field. '_Collections' not defined`
-- `Invalid Output Field. '_Described' not defined`
-
-### Intro_Option.graphql+
-
-```gqlp
-output _Setting {
-    : _Described
-        value: _Constant
-}
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Parent. '_Described' not defined`
-- `Invalid Output Field. '_Constant' not defined`
-
-### Intro_Output.graphql+
-
-```gqlp
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
-    }
-
-output _OutputBase {
-    : _ObjBase
-        output: _Identifier
-    | _DualBase
-    }
-
-output _OutputParent {
-    : _ObjDescribed<_OutputBase>
-    }
-
-output _OutputField {
-    : _Field<_OutputBase>
-        parameter: _InputParam[]
-    | _OutputEnum
-    }
-
-output _OutputAlternate {
-    : _Alternate<_OutputBase>
-    }
-
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
-    }
-
-output _OutputEnum {
-    : _TypeRef<_TypeKind.Enum>
-        field: _Identifier
-        member: _Identifier
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Output Alternate. '_DualBase' not defined`
-- `Invalid Output Alternate. '_TypeParam' not defined`
-- `Invalid Output Parent. '_TypeObject' not defined`
-- `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
-- `Invalid Output Parent. '_Field' not defined`
-- `Invalid Output Parent. '_Alternate' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Field. '_InputParam' not defined`
-
-### Intro_Union.graphql+
-
-```gqlp
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Named _UnionMember>
-    }
-
-dual _UnionMember {
-    : _Named
-        union: _Identifier
-    }
-```
-
-##### Expected Verify errors
-
-- `Invalid Dual Parent. '_Named' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
-- `Invalid Dual Field. '_Identifier' not defined`
-- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Parent. '_Named' not defined`
-
 ## InvalidGlobals
 
 ### InvalidGlobals\bad-parse.graphql+
@@ -1203,19 +225,19 @@ object Test { | Test1[] }
 object Test1 { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
@@ -1228,15 +250,15 @@ object Test { | Alt[$a] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'a' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'a' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'a' not defined`
 
@@ -1247,15 +269,15 @@ object Test { | Alt[Domain] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'Domain' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'Domain' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'Domain' not defined`
 
@@ -1266,15 +288,15 @@ object Test { | Alt[Test] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'Test' invalid type`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'Test' invalid type`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'Test' invalid type`
 
@@ -1286,19 +308,19 @@ object Recurse { | More }
 object More { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via More`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Recurse`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via More`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -1311,17 +333,17 @@ object Test { | Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -1332,15 +354,15 @@ object Recurse { | Test }
 object Test { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself`
 
@@ -1350,15 +372,15 @@ object Test { | Test }
 object Test { | Number<String> }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Alternate. Args invalid on Number, given 1`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Alternate. Args invalid on Number, given 1`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Alternate. Args invalid on Number, given 1`
 
@@ -1507,19 +529,19 @@ object Test { field1 [alias]: Test }
 object Test { field2 [alias]: Test[] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
@@ -1532,19 +554,19 @@ object Test { field: Test }
 object Test { field: Test[] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
@@ -1558,19 +580,19 @@ object Test { field: Test1 }
 object Test1 { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
@@ -1582,15 +604,15 @@ object Test1 { }
 object Test { field: Test[$a] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'a' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'a' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'a' not defined`
 
@@ -1600,15 +622,15 @@ object Test { field: Test[$a] }
 object Test { field: Test[Random] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'Random' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'Random' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'Random' not defined`
 
@@ -1618,15 +640,15 @@ object Test { field: Test[Random] }
 object Test { field: Test[Test] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Modifier. 'Test' invalid type`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Modifier. 'Test' invalid type`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Modifier. 'Test' invalid type`
 
@@ -1636,15 +658,15 @@ object Test { field: Test[Test] }
 object Test { field: String<0> }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. Args invalid on String, given 1`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. Args invalid on String, given 1`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. Args invalid on String, given 1`
 
@@ -1654,15 +676,15 @@ object Test { field: String<0> }
 object Test { | $type }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Alternate. '$type' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Alternate. '$type' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Alternate. '$type' not defined`
 
@@ -1673,15 +695,15 @@ object Test { field: Ref }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. Args mismatch, expected 1 given 0`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. Args mismatch, expected 1 given 0`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. Args mismatch, expected 1 given 0`
 
@@ -1692,15 +714,15 @@ object Test<$type> { field: Ref<$type> }
 object Ref { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. Args mismatch, expected 0 given 1`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. Args mismatch, expected 0 given 1`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. Args mismatch, expected 0 given 1`
 
@@ -1711,15 +733,15 @@ object Test { field: Ref<$type> }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. '$type' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. '$type' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. '$type' not defined`
 
@@ -1729,15 +751,15 @@ object Ref<$ref> { | $ref }
 object Test { field: $type }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. '$type' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. '$type' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. '$type' not defined`
 
@@ -1748,15 +770,15 @@ object Test { field: Ref<Test1> }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Field. 'Test1' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Field. 'Test1' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Field. 'Test1' not defined`
 
@@ -1767,15 +789,15 @@ object Test { :Ref }
 object Ref<$ref> { | $ref }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Parent. Args mismatch, expected 1 given 0`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Parent. Args mismatch, expected 1 given 0`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Parent. Args mismatch, expected 1 given 0`
 
@@ -1786,15 +808,15 @@ object Test { :Ref<Number> }
 object Ref { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Parent. Args mismatch, expected 0 given 1`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Parent. Args mismatch, expected 0 given 1`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Parent. Args mismatch, expected 0 given 1`
 
@@ -1804,15 +826,15 @@ object Ref { }
 object Test { :$type }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Parent. '$type' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Parent. '$type' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Parent. '$type' not defined`
 
@@ -1822,15 +844,15 @@ object Test { :$type }
 object Test<$type> { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. '$type' not used`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. '$type' not used`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. '$type' not used`
 
@@ -2059,19 +1081,19 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
@@ -2087,17 +1109,17 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
@@ -2111,17 +1133,17 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
@@ -2135,21 +1157,21 @@ object More { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2164,19 +1186,19 @@ object Alt { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2189,17 +1211,17 @@ object Test { :Alt }
 object Alt { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2213,17 +1235,17 @@ object More { :Parent }
 object Parent { field2 [alias]: Parent }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
@@ -2236,17 +1258,17 @@ object Recurse { :Parent }
 object Parent { field2 [alias]: Parent }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
@@ -2259,19 +1281,19 @@ object Test { field1 [alias]: Test }
 object Parent { field2 [alias]: Parent }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
@@ -2286,17 +1308,17 @@ object More { :Parent }
 object Parent { field: Test[] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
@@ -2309,17 +1331,17 @@ object Recurse { :Parent }
 object Parent { field: Test[] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Child. Can't merge Test into Parent Recurse`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Child. Can't merge Test into Parent Recurse`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
@@ -2332,19 +1354,19 @@ object Test { field: Test }
 object Parent { field: Test[] }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
@@ -2358,19 +1380,19 @@ object Recurse { :More }
 object More { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be a child of itself, even recursively via More`
 - `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test`
 - `Invalid Dual. 'More' cannot be a child of itself, even recursively via Recurse`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be a child of itself, even recursively via More`
 - `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test`
 - `Invalid Input. 'More' cannot be a child of itself, even recursively via Recurse`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via More`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
@@ -2383,17 +1405,17 @@ object Test { :Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be a child of itself, even recursively via Recurse`
 - `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be a child of itself, even recursively via Recurse`
 - `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
@@ -2407,21 +1429,21 @@ object More { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2436,19 +1458,19 @@ object Alt { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2461,17 +1483,17 @@ object Test { | Alt }
 object Alt { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -2482,15 +1504,15 @@ object Alt { :Test }
 object Test { :Test }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual. 'Test' cannot be a child of itself`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input. 'Test' cannot be a child of itself`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output. 'Test' cannot be a child of itself`
 
@@ -2500,15 +1522,15 @@ object Test { :Test }
 object Test { :String }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Parent. 'String' invalid type. Found 'Domain'`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Parent. 'String' invalid type. Found 'Domain'`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Parent. 'String' invalid type. Found 'Domain'`
 
@@ -2518,15 +1540,15 @@ object Test { :String }
 object Test { :Parent }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Invalid Dual Parent. 'Parent' not defined`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Invalid Input Parent. 'Parent' not defined`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Invalid Output Parent. 'Parent' not defined`
 
@@ -2537,17 +1559,17 @@ object Test [a] { }
 object Dup [a] { }
 ```
 
-##### Expected Verify errors Ddual
+##### Expected Verify errors Dual
 
 - `Multiple Duals with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-##### Expected Verify errors Iinput
+##### Expected Verify errors Input
 
 - `Multiple Inputs with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-##### Expected Verify errors Ooutput
+##### Expected Verify errors Output
 
 - `Multiple Outputs with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
@@ -3063,6 +2085,986 @@ output Test { }
 - `Multiple Types with name 'Test' can't be merged`
 - `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
 
+## Specification
+
+### Specification\Intro_Built-In.graphql+
+
+```gqlp
+output _Constant {
+    | _Simple
+    | _ConstantList
+    | _ConstantMap
+    }
+
+output _Simple {
+    | Boolean
+    | _DomainValue<_DomainKind.Number Number>
+    | _DomainValue<_DomainKind.String String>
+    | _EnumValue
+}
+
+output _ConstantList {
+    | _Constant[]
+    }
+
+output _ConstantMap {
+    | _Constant[Simple]
+    }
+
+output _Collections {
+    | _Modifier<_ModifierKind.List>
+    | _ModifierKeyed<_ModifierKind.Dictionary>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
+    }
+
+output _ModifierKeyed<$kind> {
+    : _Modifier<$kind>
+        by: _TypeSimple
+        optional: Boolean
+    }
+
+output _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+output _Modifier<$kind> {
+        modifierKind: $kind
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_DomainValue' not defined`
+- `Invalid Output Alternate. '_EnumValue' not defined`
+- `Invalid Output Field. '_TypeSimple' not defined`
+- `Invalid Output Alternate. '_DomainKind' not defined`
+- `Invalid Output Arg Enum. '_DomainKind' is not an Enum type`
+
+### Specification\Intro_Category.graphql+
+
+```gqlp
+output _Categories {
+        category: _Category
+        type: _Type
+    | _Category
+    | _Type
+}
+
+output _Category {
+    : _Aliased
+        resolution: _Resolution
+        output: _TypeRef<_TypeKind.Output>
+        modifiers: _Modifiers[]
+    }
+
+enum _Resolution { Parallel Sequential Single }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_Type' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Field. '_Type' not defined`
+- `Invalid Output Field. '_TypeRef' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_TypeKind' not defined`
+
+### Specification\Intro_Common.graphql+
+
+```gqlp
+output _Type {
+    | _BaseType<_TypeKind.Basic>
+    | _BaseType<_TypeKind.Internal>
+    | _TypeDual
+    | _TypeEnum
+    | _TypeInput
+    | _TypeOutput
+    | _TypeDomain
+    | _TypeUnion
+    }
+
+output _BaseType<$kind> {
+    : _Aliased
+        typeKind: $kind
+    }
+
+output _ChildType<$kind $parent> {
+    : _BaseType<$kind>
+        parent: $parent
+    }
+
+output _ParentType<$kind $item $allItem> {
+    : _ChildType<$kind _Identifier>
+        items: $item[]
+        allItems: $allItem[]
+    }
+
+enum _SimpleKind { Basic Enum Internal Domain Union }
+
+enum _TypeKind { :_SimpleKind Dual Input Output }
+
+output _TypeRef<$kind> {
+        typeKind: $kind
+        name: _Identifier
+}
+
+output _TypeSimple {
+    | _TypeRef<_TypeKind.Basic>
+    | _TypeRef<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Domain>
+    | _TypeRef<_TypeKind.Union>
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_TypeDual' not defined`
+- `Invalid Output Alternate. '_TypeEnum' not defined`
+- `Invalid Output Alternate. '_TypeInput' not defined`
+- `Invalid Output Alternate. '_TypeOutput' not defined`
+- `Invalid Output Alternate. '_TypeDomain' not defined`
+- `Invalid Output Alternate. '_TypeUnion' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_Identifier' not defined`
+
+### Specification\Intro_Complete.graphql+
+
+```gqlp
+output _Schema {
+    : _Named
+        categories(_CategoryFilter?): _Categories[_Identifier]
+        directives(_Filter?): _Directives[_Identifier]
+        types(_TypeFilter?): _Type[_Identifier]
+        settings(_Filter?): _Setting[_Identifier]
+    }
+
+domain _Identifier { String /[A-Za-z_]+/ }
+
+input _Filter  {
+        names: _NameFilter[]
+        matchAliases: Boolean? = true
+        aliases: _NameFilter[]
+        returnByAlias: Boolean? = false
+        returnReferencedTypes: Boolean? = false
+    | _NameFilter[]
+    }
+
+"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+domain _NameFilter { String /[A-Za-z_.*]+/ }
+
+input _CategoryFilter {
+    : _Filter
+        resolutions: _Resolution[]
+    }
+
+input _TypeFilter {
+    : _Filter
+        kinds: _TypeKind[]
+    }
+dual _Aliased {
+    : _Described
+        aliases: _Identifier[]
+    }
+
+dual _Described {
+    : _Named
+        description: String
+    }
+
+dual _Named {
+        name: _Identifier
+    }
+output _Categories {
+        category: _Category
+        type: _Type
+    | _Category
+    | _Type
+}
+
+output _Category {
+    : _Aliased
+        resolution: _Resolution
+        output: _TypeRef<_TypeKind.Output>
+        modifiers: _Modifiers[]
+    }
+
+enum _Resolution { Parallel Sequential Single }
+output _Directives {
+        directive: _Directive
+        type: _Type
+    | _Directive
+    | _Type
+}
+
+output _Directive {
+    : _Aliased
+        parameters: _InputParam[]
+        repeatable: Boolean
+        locations: _[_Location]
+    }
+
+enum _Location { Operation Variable Field Inline Spread Fragment }
+
+output _Setting {
+    : _Described
+        value: _Constant
+}
+output _Type {
+    | _BaseType<_TypeKind.Basic>
+    | _BaseType<_TypeKind.Internal>
+    | _TypeDual
+    | _TypeEnum
+    | _TypeInput
+    | _TypeOutput
+    | _TypeDomain
+    | _TypeUnion
+    }
+
+output _BaseType<$kind> {
+    : _Aliased
+        typeKind: $kind
+    }
+
+output _ChildType<$kind $parent> {
+    : _BaseType<$kind>
+        parent: $parent
+    }
+
+output _ParentType<$kind $item $allItem> {
+    : _ChildType<$kind _Identifier>
+        items: $item[]
+        allItems: $allItem[]
+    }
+
+enum _SimpleKind { Basic Enum Internal Domain Union }
+
+enum _TypeKind { :_SimpleKind Dual Input Output }
+
+output _TypeRef<$kind> {
+        typeKind: $kind
+        name: _Identifier
+}
+
+output _TypeSimple {
+    | _TypeRef<_TypeKind.Basic>
+    | _TypeRef<_TypeKind.Enum>
+    | _TypeRef<_TypeKind.Domain>
+    | _TypeRef<_TypeKind.Union>
+    }
+output _Constant {
+    | _Simple
+    | _ConstantList
+    | _ConstantMap
+    }
+
+output _Simple {
+    | Boolean
+    | _DomainValue<_DomainKind.Number Number>
+    | _DomainValue<_DomainKind.String String>
+    | _EnumValue
+}
+
+output _ConstantList {
+    | _Constant[]
+    }
+
+output _ConstantMap {
+    | _Constant[Simple]
+    }
+
+output _Collections {
+    | _Modifier<_ModifierKind.List>
+    | _ModifierKeyed<_ModifierKind.Dictionary>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
+    }
+
+output _ModifierKeyed<$kind> {
+    : _Modifier<$kind>
+        by: _TypeSimple
+        optional: Boolean
+    }
+
+output _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+output _Modifier<$kind> {
+        modifierKind: $kind
+    }
+enum _DomainKind { Boolean Enum Number String }
+
+output _TypeDomain {
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    }
+
+output _DomainRef<$kind> {
+    : _TypeRef<_TypeKind.Domain>
+        domainKind: $kind
+    }
+
+output _BaseDomain<$domain $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item  $domainItem>
+        domain: $domain
+    }
+
+dual _BaseDomainItem {
+        exclude: Boolean
+    }
+
+output _DomainItem<$item> {
+    : $item
+        domain: _Identifier
+    }
+
+output _DomainValue<$kind $value> {
+    : _DomainRef<$kind>
+        value: $value
+    }
+dual _DomainTrueFalse {
+    : _BaseDomainItem
+        value: Boolean
+    }
+
+output _DomainItemTrueFalse {
+    : _DomainItem<_DomainTrueFalse>
+    }
+output _DomainMember {
+    : _BaseDomainItem
+        value: _EnumValue
+    }
+
+output _DomainItemMember {
+    : _DomainItem<_DomainMember>
+    }
+dual _DomainRange {
+    : _BaseDomainItem
+        lower: Number?
+        upper: Number?
+    }
+
+output _DomainItemRange {
+    : _DomainItem<_DomainRange>
+    }
+dual _DomainRegex {
+    : _BaseDomainItem
+        pattern: String
+    }
+
+output _DomainItemRegex {
+    : _DomainItem<_DomainRegex>
+    }
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    }
+
+dual _EnumMember {
+    : _Aliased
+        enum: _Identifier
+    }
+
+output _EnumValue {
+    : _TypeRef<_TypeKind.Enum>
+        member: _Identifier
+    }
+output _TypeUnion {
+    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    }
+
+dual _UnionMember {
+    : _Named
+        union: _Identifier
+    }
+output _TypeObject<$kind $parent $field $alternate> {
+    : _ChildType<$kind $parent>
+        typeParams: _Described[]
+        fields: $field[]
+        alternates: $alternate[]
+        allFields: _ObjectFor<$field>[]
+        allAlternates: _ObjectFor<$alternate>[]
+    }
+
+dual _ObjDescribed<$base> {
+        base: $base
+        description: String
+    | $base
+    }
+
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _TypeSimple
+    | $base
+    }
+
+output _ObjBase {
+        typeArgs: _ObjDescribed<_ObjArg>[]
+    | _TypeParam
+    }
+
+output _ObjArg {
+    : _TypeRef<_TypeKind>
+    | _TypeParam
+}
+
+domain _TypeParam { :_Identifier String }
+
+output _Alternate<$base> {
+      type: _ObjDescribed<$base>
+      collections: _Collections[]
+    }
+
+output _ObjectFor<$for> {
+    : $for
+        object: _Identifier
+    }
+
+output _Field<$base> {
+    : _Aliased
+      type: _ObjDescribed<$base>
+      modifiers: _Modifiers[]
+    }
+output _TypeDual {
+    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    }
+
+output _DualBase {
+    : _ObjBase
+        dual: _Identifier
+    }
+
+output _DualParent {
+    : _ObjDescribed<_DualBase>
+    }
+
+output _DualField {
+    : _Field<_DualBase>
+    }
+
+output _DualAlternate {
+    : _Alternate<_DualBase>
+    }
+output _TypeInput {
+    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    }
+
+output _InputBase {
+    : _ObjBase
+        input: _Identifier
+    | _DualBase
+    }
+
+output _InputParent {
+    : _ObjDescribed<_InputBase>
+    }
+
+output _InputField {
+    : _Field<_InputBase>
+        default: _Constant?
+    }
+
+output _InputAlternate {
+    : _Alternate<_InputBase>
+    }
+
+output _InputParam {
+    : _ObjDescribed<_InputBase>
+        modifiers: _Modifiers[]
+        default: _Constant?
+    }
+output _TypeOutput {
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    }
+
+output _OutputBase {
+    : _ObjBase
+        output: _Identifier
+    | _DualBase
+    }
+
+output _OutputParent {
+    : _ObjDescribed<_OutputBase>
+    }
+
+output _OutputField {
+    : _Field<_OutputBase>
+        parameter: _InputParam[]
+    | _OutputEnum
+    }
+
+output _OutputAlternate {
+    : _Alternate<_OutputBase>
+    }
+
+output _OutputArg {
+    : _TypeRef<_TypeKind>
+        member: _Identifier?
+    | _TypeParam
+    }
+
+output _OutputEnum {
+    : _TypeRef<_TypeKind.Enum>
+        field: _Identifier
+        member: _Identifier
+    }
+```
+
+### Specification\Intro_Declarations.graphql+
+
+```gqlp
+output _Schema {
+    : _Named
+        categories(_CategoryFilter?): _Categories[_Identifier]
+        directives(_Filter?): _Directives[_Identifier]
+        types(_TypeFilter?): _Type[_Identifier]
+        settings(_Filter?): _Setting[_Identifier]
+    }
+
+domain _Identifier { String /[A-Za-z_]+/ }
+
+input _Filter  {
+        names: _NameFilter[]
+        matchAliases: Boolean? = true
+        aliases: _NameFilter[]
+        returnByAlias: Boolean? = false
+        returnReferencedTypes: Boolean? = false
+    | _NameFilter[]
+    }
+
+"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+domain _NameFilter { String /[A-Za-z_.*]+/ }
+
+input _CategoryFilter {
+    : _Filter
+        resolutions: _Resolution[]
+    }
+
+input _TypeFilter {
+    : _Filter
+        kinds: _TypeKind[]
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Parent. '_Named' not defined`
+- `Invalid Input Field. '_TypeKind' not defined`
+- `Invalid Input Field. '_Resolution' not defined`
+- `Invalid Output Field. '_Setting' not defined`
+- `Invalid Output Field. '_Type' not defined`
+- `Invalid Output Field. '_Directives' not defined`
+- `Invalid Output Field. '_Categories' not defined`
+
+### Specification\Intro_Directive.graphql+
+
+```gqlp
+output _Directives {
+        directive: _Directive
+        type: _Type
+    | _Directive
+    | _Type
+}
+
+output _Directive {
+    : _Aliased
+        parameters: _InputParam[]
+        repeatable: Boolean
+        locations: _[_Location]
+    }
+
+enum _Location { Operation Variable Field Inline Spread Fragment }
+
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_Type' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Field. '_Type' not defined`
+- `Invalid Output Field. '_InputParam' not defined`
+
+### Specification\Intro_Domain.graphql+
+
+```gqlp
+enum _DomainKind { Boolean Enum Number String }
+
+output _TypeDomain {
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    }
+
+output _DomainRef<$kind> {
+    : _TypeRef<_TypeKind.Domain>
+        domainKind: $kind
+    }
+
+output _BaseDomain<$domain $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item  $domainItem>
+        domain: $domain
+    }
+
+dual _BaseDomainItem {
+        exclude: Boolean
+    }
+
+output _DomainItem<$item> {
+    : $item
+        domain: _Identifier
+    }
+
+output _DomainValue<$kind $value> {
+    : _DomainRef<$kind>
+        value: $value
+    }
+dual _DomainTrueFalse {
+    : _BaseDomainItem
+        value: Boolean
+    }
+
+output _DomainItemTrueFalse {
+    : _DomainItem<_DomainTrueFalse>
+    }
+output _DomainMember {
+    : _BaseDomainItem
+        value: _EnumValue
+    }
+
+output _DomainItemMember {
+    : _DomainItem<_DomainMember>
+    }
+dual _DomainRange {
+    : _BaseDomainItem
+        lower: Number?
+        upper: Number?
+    }
+
+output _DomainItemRange {
+    : _DomainItem<_DomainRange>
+    }
+dual _DomainRegex {
+    : _BaseDomainItem
+        pattern: String
+    }
+
+output _DomainItemRegex {
+    : _DomainItem<_DomainRegex>
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Field. '_EnumValue' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+
+### Specification\Intro_Dual.graphql+
+
+```gqlp
+output _TypeDual {
+    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    }
+
+output _DualBase {
+    : _ObjBase
+        dual: _Identifier
+    }
+
+output _DualParent {
+    : _ObjDescribed<_DualBase>
+    }
+
+output _DualField {
+    : _Field<_DualBase>
+    }
+
+output _DualAlternate {
+    : _Alternate<_DualBase>
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Parent. '_ObjBase' not defined`
+- `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_Field' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_TypeKind' not defined`
+
+### Specification\Intro_Enum.graphql+
+
+```gqlp
+output _TypeEnum {
+    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    }
+
+dual _EnumMember {
+    : _Aliased
+        enum: _Identifier
+    }
+
+output _EnumValue {
+    : _TypeRef<_TypeKind.Enum>
+        member: _Identifier
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Dual Parent. '_Aliased' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Dual Field. '_Identifier' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+
+### Specification\Intro_Input.graphql+
+
+```gqlp
+output _TypeInput {
+    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    }
+
+output _InputBase {
+    : _ObjBase
+        input: _Identifier
+    | _DualBase
+    }
+
+output _InputParent {
+    : _ObjDescribed<_InputBase>
+    }
+
+output _InputField {
+    : _Field<_InputBase>
+        default: _Constant?
+    }
+
+output _InputAlternate {
+    : _Alternate<_InputBase>
+    }
+
+output _InputParam {
+    : _ObjDescribed<_InputBase>
+        modifiers: _Modifiers[]
+        default: _Constant?
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_DualBase' not defined`
+- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Parent. '_ObjBase' not defined`
+- `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_Field' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_Constant' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+
+### Specification\Intro_Names.graphql+
+
+```gqlp
+dual _Aliased {
+    : _Described
+        aliases: _Identifier[]
+    }
+
+dual _Described {
+    : _Named
+        description: String
+    }
+
+dual _Named {
+        name: _Identifier
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Dual Field. '_Identifier' not defined`
+
+### Specification\Intro_Object.graphql+
+
+```gqlp
+output _TypeObject<$kind $parent $field $alternate> {
+    : _ChildType<$kind $parent>
+        typeParams: _Described[]
+        fields: $field[]
+        alternates: $alternate[]
+        allFields: _ObjectFor<$field>[]
+        allAlternates: _ObjectFor<$alternate>[]
+    }
+
+dual _ObjDescribed<$base> {
+        base: $base
+        description: String
+    | $base
+    }
+
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _TypeSimple
+    | $base
+    }
+
+output _ObjBase {
+        typeArgs: _ObjDescribed<_ObjArg>[]
+    | _TypeParam
+    }
+
+output _ObjArg {
+    : _TypeRef<_TypeKind>
+    | _TypeParam
+}
+
+domain _TypeParam { :_Identifier String }
+
+output _Alternate<$base> {
+      type: _ObjDescribed<$base>
+      collections: _Collections[]
+    }
+
+output _ObjectFor<$for> {
+    : $for
+        object: _Identifier
+    }
+
+output _Field<$base> {
+    : _Aliased
+      type: _ObjDescribed<$base>
+      modifiers: _Modifiers[]
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_BaseType' not defined`
+- `Invalid Output Alternate. '_TypeSimple' not defined`
+- `Invalid Output Parent. '_ChildType' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Domain Parent. '_Identifier' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Alternate. '_TypeKind' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Field. '_Collections' not defined`
+- `Invalid Output Field. '_Described' not defined`
+
+### Specification\Intro_Option.graphql+
+
+```gqlp
+output _Setting {
+    : _Described
+        value: _Constant
+}
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Field. '_Constant' not defined`
+
+### Specification\Intro_Output.graphql+
+
+```gqlp
+output _TypeOutput {
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    }
+
+output _OutputBase {
+    : _ObjBase
+        output: _Identifier
+    | _DualBase
+    }
+
+output _OutputParent {
+    : _ObjDescribed<_OutputBase>
+    }
+
+output _OutputField {
+    : _Field<_OutputBase>
+        parameter: _InputParam[]
+    | _OutputEnum
+    }
+
+output _OutputAlternate {
+    : _Alternate<_OutputBase>
+    }
+
+output _OutputArg {
+    : _TypeRef<_TypeKind>
+        member: _Identifier?
+    | _TypeParam
+    }
+
+output _OutputEnum {
+    : _TypeRef<_TypeKind.Enum>
+        field: _Identifier
+        member: _Identifier
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Output Alternate. '_DualBase' not defined`
+- `Invalid Output Alternate. '_TypeParam' not defined`
+- `Invalid Output Parent. '_TypeObject' not defined`
+- `Invalid Output Parent. '_ObjBase' not defined`
+- `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_Field' not defined`
+- `Invalid Output Parent. '_Alternate' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_InputParam' not defined`
+
+### Specification\Intro_Union.graphql+
+
+```gqlp
+output _TypeUnion {
+    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    }
+
+dual _UnionMember {
+    : _Named
+        union: _Identifier
+    }
+```
+
+##### Expected Verify errors
+
+- `Invalid Dual Parent. '_Named' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Dual Field. '_Identifier' not defined`
+- `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_Named' not defined`
+
 ## ValidGlobals
 
 ### ValidGlobals\category-description.graphql+
@@ -3188,7 +3190,7 @@ input DirParamIn { }
 ### ValidGlobals\option-setting.graphql+
 
 ```gqlp
-option Schema { setting = true }
+option Schema { global=true }
 ```
 
 ## ValidMerges
@@ -3422,8 +3424,8 @@ option Schema [Opt2] { }
 ### ValidMerges\option-value.graphql+
 
 ```gqlp
-option Schema { setting=true }
-option Schema { setting=[0] }
+option Schema { merged=true }
+option Schema { merged=[0] }
 ```
 
 ### ValidMerges\option.graphql+
