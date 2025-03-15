@@ -3190,7 +3190,7 @@ input DirParamIn { }
 ### ValidGlobals\option-setting.graphql+
 
 ```gqlp
-option Schema { setting = true }
+option Schema { global=true }
 ```
 
 ## ValidMerges
@@ -3424,8 +3424,8 @@ option Schema [Opt2] { }
 ### ValidMerges\option-value.graphql+
 
 ```gqlp
-option Schema { setting=true }
-option Schema { setting=[0] }
+option Schema { merged=true }
+option Schema { merged=[0] }
 ```
 
 ### ValidMerges\option.graphql+
