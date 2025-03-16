@@ -48,9 +48,137 @@ domain Other { Enum }
 
 - `Invalid Category Output. '' not defined or not an Output type`
 
-## InvalidGlobals
+## Globals
 
-### InvalidGlobals\bad-parse.graphql+
+### Globals\category-description.graphql+
+
+```gqlp
+"A Category described"
+category { CatDescr }
+output CatDescr { }
+```
+
+### Globals\category-output-dict.graphql+
+
+```gqlp
+category { CatDict[*] }
+output CatDict { }
+```
+
+### Globals\category-output-list.graphql+
+
+```gqlp
+category { CatList[] }
+output CatList { }
+```
+
+### Globals\category-output-optional.graphql+
+
+```gqlp
+category { CatOpt? }
+output CatOpt { }
+```
+
+### Globals\category-output.graphql+
+
+```gqlp
+category { Cat }
+output Cat { }
+```
+
+### Globals\description-backslash.graphql+
+
+```gqlp
+'A backslash ("\\") description'
+output DescrBackslash { }
+```
+
+### Globals\description-between.graphql+
+
+```gqlp
+category { DescrBetween }
+"A description between"
+output DescrBetween { }
+```
+
+### Globals\description-complex.graphql+
+
+```gqlp
+"A \"more\" 'Complicated' \\ description"
+output DescrComplex { }
+```
+
+### Globals\description-double.graphql+
+
+```gqlp
+"A 'double-quoted' description"
+output DescrDouble { }
+```
+
+### Globals\description-single.graphql+
+
+```gqlp
+'A "single-quoted" description'
+output DescrSingle { }
+```
+
+### Globals\description.graphql+
+
+```gqlp
+"A simple description"
+output Descr { }
+```
+
+### Globals\directive-description.graphql+
+
+```gqlp
+"A directive described"
+directive @DirDescr { all }
+```
+
+### Globals\directive-no-param.graphql+
+
+```gqlp
+directive @DirNoParam { all }
+```
+
+### Globals\directive-param-dict.graphql+
+
+```gqlp
+directive @DirParamDict(DirParamIn[String]) { all }
+input DirParamIn { }
+```
+
+### Globals\directive-param-in.graphql+
+
+```gqlp
+directive @DirParam(DirParamIn) { all }
+input DirParamIn { }
+```
+
+### Globals\directive-param-list.graphql+
+
+```gqlp
+directive @DirParamList(DirParamIn[]) { all }
+input DirParamIn { }
+```
+
+### Globals\directive-param-opt.graphql+
+
+```gqlp
+directive @DirParamOpt(DirParamIn?) { all }
+input DirParamIn { }
+```
+
+### Globals\option-setting.graphql+
+
+```gqlp
+option Schema { global=true }
+```
+
+## Globals (Invalid)
+
+### Globals\Invalid\bad-parse.graphql+
 
 ```gqlp
 
@@ -60,7 +188,7 @@ domain Other { Enum }
 
 - `Parse Error: Invalid Schema. Expected text.`
 
-### InvalidGlobals\category-diff-mod.graphql+
+### Globals\Invalid\category-diff-mod.graphql+
 
 ```gqlp
 category { Test }
@@ -73,7 +201,7 @@ output Test { }
 - `Multiple Categories with name 'test' can't be merged`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
 
-### InvalidGlobals\category-dup-alias.graphql+
+### Globals\Invalid\category-dup-alias.graphql+
 
 ```gqlp
 category [a] { Test }
@@ -86,7 +214,7 @@ output Output { }
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
 
-### InvalidGlobals\category-dup-description.graphql+
+### Globals\Invalid\category-dup-description.graphql+
 
 ```gqlp
 "First category"
@@ -101,7 +229,7 @@ output Test { }
 - `Multiple Categories with name 'test' can't be merged`
 - `Different values merging item => item.Description: First category != Second category`
 
-### InvalidGlobals\category-duplicate.graphql+
+### Globals\Invalid\category-duplicate.graphql+
 
 ```gqlp
 category { Test }
@@ -115,7 +243,7 @@ output Output { }
 - `Multiple Categories with name 'test' can't be merged`
 - `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
-### InvalidGlobals\category-output-generic.graphql+
+### Globals\Invalid\category-output-generic.graphql+
 
 ```gqlp
 category { Test }
@@ -126,7 +254,7 @@ output Test<$a> { | $a }
 
 - `Invalid Category Output. 'Test' is a generic Output type`
 
-### InvalidGlobals\category-output-mod-param.graphql+
+### Globals\Invalid\category-output-mod-param.graphql+
 
 ```gqlp
 category { Test[$a] }
@@ -137,7 +265,7 @@ output Test { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### InvalidGlobals\category-output-undef.graphql+
+### Globals\Invalid\category-output-undef.graphql+
 
 ```gqlp
 category { Test }
@@ -147,7 +275,7 @@ category { Test }
 
 - `Invalid Category Output. 'Test' not defined or not an Output type`
 
-### InvalidGlobals\category-output-wrong.graphql+
+### Globals\Invalid\category-output-wrong.graphql+
 
 ```gqlp
 category { Test }
@@ -158,7 +286,7 @@ input Test { }
 
 - `Invalid Category Output. 'Test' not defined or not an Output type`
 
-### InvalidGlobals\directive-diff-option.graphql+
+### Globals\Invalid\directive-diff-option.graphql+
 
 ```gqlp
 directive @Test { all }
@@ -170,7 +298,7 @@ directive @Test { ( repeatable ) all }
 - `Multiple Directives with name 'Test' can't be merged`
 - `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
 
-### InvalidGlobals\directive-diff-param.graphql+
+### Globals\Invalid\directive-diff-param.graphql+
 
 ```gqlp
 directive @Test(Test) { all }
@@ -183,7 +311,7 @@ input Test { }
 - `Multiple Directives with name 'Test' can't be merged`
 - `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
 
-### InvalidGlobals\directive-no-param.graphql+
+### Globals\Invalid\directive-no-param.graphql+
 
 ```gqlp
 directive @Test(Test) { all }
@@ -193,7 +321,7 @@ directive @Test(Test) { all }
 
 - `Invalid Directive Param. '( I@017/0001 Test )' not defined`
 
-### InvalidGlobals\directive-param-mod-param.graphql+
+### Globals\Invalid\directive-param-mod-param.graphql+
 
 ```gqlp
 directive @Test(TestIn[$a]) { all }
@@ -204,7 +332,7 @@ input TestIn { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### InvalidGlobals\option-diff-name.graphql+
+### Globals\Invalid\option-diff-name.graphql+
 
 ```gqlp
 option Test { }
@@ -215,9 +343,652 @@ option Schema { }
 
 - `Multiple Schema names (Options) found`
 
-## InvalidObjects
+## Merges
 
-### InvalidObjects\alt-diff-mod.graphql+
+### Merges\category-alias.graphql+
+
+```gqlp
+category [CatA1] { CatAlias }
+category [CatA2] { CatAlias }
+output CatAlias { }
+```
+
+### Merges\category-mod.graphql+
+
+```gqlp
+category [CatM1] { CatMods? }
+category [CatM2] { CatMods? }
+output CatMods { }
+```
+
+### Merges\category.graphql+
+
+```gqlp
+category { Category }
+category category { Category }
+output Category { }
+```
+
+### Merges\directive-alias.graphql+
+
+```gqlp
+directive @DirAlias [DirA1] { variable }
+directive @DirAlias [DirA2] { field }
+```
+
+### Merges\directive-param.graphql+
+
+```gqlp
+directive @DirParam(DirParamIn) { operation }
+directive @DirParam { fragment }
+input DirParamIn { }
+```
+
+### Merges\directive.graphql+
+
+```gqlp
+directive @Dir { inline }
+directive @Dir { spread }
+```
+
+### Merges\domain-alias.graphql+
+
+```gqlp
+domain NumAlias [Num1] { number }
+domain NumAlias [Num2] { number }
+```
+
+### Merges\domain-boolean-diff.graphql+
+
+```gqlp
+domain BoolDiff { boolean true }
+domain BoolDiff { boolean false }
+```
+
+### Merges\domain-boolean-same.graphql+
+
+```gqlp
+domain BoolSame { boolean true }
+domain BoolSame { boolean true }
+```
+
+### Merges\domain-boolean.graphql+
+
+```gqlp
+domain Bool { boolean }
+domain Bool { boolean }
+```
+
+### Merges\domain-enum-diff.graphql+
+
+```gqlp
+domain EnumDiff { enum true }
+domain EnumDiff { enum false }
+```
+
+### Merges\domain-enum-same.graphql+
+
+```gqlp
+domain EnumSame { enum true }
+domain EnumSame { enum true }
+```
+
+### Merges\domain-number-diff.graphql+
+
+```gqlp
+domain NumDiff { number 1~9 }
+domain NumDiff { number }
+```
+
+### Merges\domain-number-same.graphql+
+
+```gqlp
+domain NumSame { number 1~9 }
+domain NumSame { number 1~9 }
+```
+
+### Merges\domain-number.graphql+
+
+```gqlp
+domain Num { number }
+domain Num { number }
+```
+
+### Merges\domain-string-diff.graphql+
+
+```gqlp
+domain StrDiff { string /a+/ }
+domain StrDiff { string }
+```
+
+### Merges\domain-string-same.graphql+
+
+```gqlp
+domain StrSame { string /a+/ }
+domain StrSame { string /a+/ }
+```
+
+### Merges\domain-string.graphql+
+
+```gqlp
+domain Str { string }
+domain Str { string }
+```
+
+### Merges\enum-alias.graphql+
+
+```gqlp
+enum EnAlias [En1] { alias }
+enum EnAlias [En2] { alias }
+```
+
+### Merges\enum-diff.graphql+
+
+```gqlp
+enum EnDiff { one }
+enum EnDiff { two }
+```
+
+### Merges\enum-same-parent.graphql+
+
+```gqlp
+enum EnSameParent { :EnParent sameP }
+enum EnSameParent { :EnParent sameP }
+enum EnParent { parent }
+```
+
+### Merges\enum-same.graphql+
+
+```gqlp
+enum EnSame { same }
+enum EnSame { same }
+```
+
+### Merges\enum-value-alias.graphql+
+
+```gqlp
+enum EnValAlias { value [val1] }
+enum EnValAlias { value [val2] }
+```
+
+### Merges\object-alias.graphql+
+
+```gqlp
+object ObjName [Obj1] { }
+object ObjName [Obj2] { }
+```
+
+### Merges\object-alt.graphql+
+
+```gqlp
+object ObjName { | ObjNameType }
+object ObjName { | ObjNameType }
+object ObjNameType { }
+```
+
+### Merges\object-field-alias.graphql+
+
+```gqlp
+object ObjName { field [field1]: ObjNameFld }
+object ObjName { field [field2]: ObjNameFld }
+object ObjNameFld { }
+```
+
+### Merges\object-field.graphql+
+
+```gqlp
+object ObjName { field: ObjNameFld }
+object ObjName { field: ObjNameFld }
+object ObjNameFld { }
+```
+
+### Merges\object-param.graphql+
+
+```gqlp
+object ObjName<$test> { test: $test }
+object ObjName<$type> { type: $type }
+```
+
+### Merges\object-parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef }
+object ObjName { :ObjNameRef }
+object ObjNameRef { }
+```
+
+### Merges\object.graphql+
+
+```gqlp
+object ObjName { }
+object ObjName { }
+```
+
+### Merges\option-alias.graphql+
+
+```gqlp
+option Schema [Opt1] { }
+option Schema [Opt2] { }
+```
+
+### Merges\option-value.graphql+
+
+```gqlp
+option Schema { merged=true }
+option Schema { merged=[0] }
+```
+
+### Merges\option.graphql+
+
+```gqlp
+option Schema { }
+option Schema { }
+```
+
+### Merges\output-field-enum-alias.graphql+
+
+```gqlp
+output FieldEnumAlias { field [field1] = Boolean.true }
+output FieldEnumAlias { field [field2] = true }
+```
+
+### Merges\output-field-enum-value.graphql+
+
+```gqlp
+output FieldEnums { field = Boolean.true }
+output FieldEnums { field = true }
+```
+
+### Merges\output-field-param.graphql+
+
+```gqlp
+output FieldParam { field(FieldParam1): FieldParamFld }
+output FieldParam { field(FieldParam2): FieldParamFld }
+input FieldParam1 { }
+input FieldParam2 { }
+output FieldParamFld { }
+```
+
+### Merges\union-alias.graphql+
+
+```gqlp
+union UnDiff [UnA1] { Boolean }
+union UnDiff [UnA2] { Number }
+```
+
+### Merges\union-diff.graphql+
+
+```gqlp
+union UnDiff { Boolean }
+union UnDiff { Number }
+```
+
+### Merges\union-same-parent.graphql+
+
+```gqlp
+union UnSameParent { :UnParent Boolean }
+union UnSameParent { :UnParent Boolean }
+union UnParent { String }
+```
+
+### Merges\union-same.graphql+
+
+```gqlp
+union UnSame { Boolean }
+union UnSame { Boolean }
+```
+
+## Objects
+
+### Objects\alt-dual.graphql+
+
+```gqlp
+object ObjName { | ObjDualName }
+dual ObjDualName { alt: Number | String }
+```
+
+### Objects\alt-mod-Boolean.graphql+
+
+```gqlp
+object ObjName { | ObjNameAlt[^] }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\alt-mod-param.graphql+
+
+```gqlp
+object ObjName<$mod> { | ObjNameAlt[$mod] }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\alt-simple.graphql+
+
+```gqlp
+object ObjName { | String }
+```
+
+### Objects\alt.graphql+
+
+```gqlp
+object ObjName { | ObjNameAlt }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\field-dual.graphql+
+
+```gqlp
+object ObjName { field: ObjNameFld }
+dual ObjNameFld { field: Number | String }
+```
+
+### Objects\field-mod-Enum.graphql+
+
+```gqlp
+object ObjName { field: *[ObjEnumName] }
+enum ObjEnumName { value }
+```
+
+### Objects\field-mod-param.graphql+
+
+```gqlp
+object ObjName<$mod> { field: ObjNameFld[$mod] }
+object ObjNameFld { field: Number | String }
+```
+
+### Objects\field-object.graphql+
+
+```gqlp
+object ObjName { field: ObjNameFld }
+object ObjNameFld { field: Number | String }
+```
+
+### Objects\field-simple.graphql+
+
+```gqlp
+object ObjName { field: Number }
+```
+
+### Objects\field.graphql+
+
+```gqlp
+object ObjName { field: * }
+```
+
+### Objects\generic-alt-arg.graphql+
+
+```gqlp
+object ObjName<$type> { | ObjNameRef<$type> }
+object ObjNameRef<$ref> { | $ref }
+```
+
+### Objects\generic-alt-dual.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+dual ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-alt-param.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-alt-simple.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<String> }
+object ObjNameRef<$ref> { | $ref }
+```
+
+### Objects\generic-alt.graphql+
+
+```gqlp
+object ObjName<$type> { | $type }
+```
+
+### Objects\generic-dual.graphql+
+
+```gqlp
+object ObjName { field: ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+dual ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-field-arg.graphql+
+
+```gqlp
+object ObjName<$type> { field: ObjNameRef<$type> }
+object ObjNameRef<$ref> { | $ref }
+```
+
+### Objects\generic-field-dual.graphql+
+
+```gqlp
+object ObjName { field: ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+dual ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-field-param.graphql+
+
+```gqlp
+object ObjName { field: ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-field.graphql+
+
+```gqlp
+object ObjName<$type> { field: $type }
+```
+
+### Objects\generic-param.graphql+
+
+```gqlp
+object ObjName { field: ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-parent-arg.graphql+
+
+```gqlp
+object ObjName<$type> { :ObjNameRef<$type> }
+object ObjNameRef<$ref> { | $ref }
+```
+
+### Objects\generic-parent-dual-parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { :$ref }
+dual ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-parent-dual.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+dual ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-parent-param-parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { :$ref }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-parent-param.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref> { | $ref }
+object ObjNameAlt { alt: Number | String }
+```
+
+### Objects\generic-parent.graphql+
+
+```gqlp
+object ObjName<$type> { :$type }
+```
+
+### Objects\input-field-Enum.graphql+
+
+```gqlp
+input InFieldEnum { field: InEnumField = value }
+enum InEnumField { value }
+```
+
+### Objects\input-field-null.graphql+
+
+```gqlp
+input InFieldNull { field: InFieldNull? = null }
+```
+
+### Objects\input-field-Number.graphql+
+
+```gqlp
+input InFieldNum { field: Number = 0 }
+```
+
+### Objects\input-field-String.graphql+
+
+```gqlp
+input InFieldStr { field: String = '' }
+```
+
+### Objects\output-field-enum-parent.graphql+
+
+```gqlp
+output OutFieldParent { field = OutEnumParented.outEnumParent }
+enum OutEnumParented { :OutEnumParent outParent ed }
+enum OutEnumParent { outEnumParent }
+```
+
+### Objects\output-field-enum.graphql+
+
+```gqlp
+output OutFieldEnum { field = OutEnumField.outEnumField }
+enum OutEnumField { outEnumField }
+```
+
+### Objects\output-field-value.graphql+
+
+```gqlp
+output OutFieldValue { field = outEnumValue }
+enum OutEnumValue { outEnumValue }
+```
+
+### Objects\output-generic-enum.graphql+
+
+```gqlp
+output OutGenEnum { | OutGenEnumRef<OutEnumGen.outEnumGen> }
+output OutGenEnumRef<$type> { field: $type }
+enum OutEnumGen { outEnumGen }
+```
+
+### Objects\output-generic-value.graphql+
+
+```gqlp
+output OutGenValue { | OutGenValueRef<outValueGen> }
+output OutGenValueRef<$type> { field: $type }
+enum OutValueGen { outValueGen }
+```
+
+### Objects\output-param-mod-Domain.graphql+
+
+```gqlp
+output OutParamDomain { field(OutParamDomainIn[OutDomainParam]): OutDomainParam }
+input OutParamDomainIn { param: Number | String }
+domain OutDomainParam { number 1 ~ 10 }
+```
+
+### Objects\output-param-mod-param.graphql+
+
+```gqlp
+output OutParamDomainParam<$mod> { field(OutParamDomainParamIn[$mod]): OutDomainsParam }
+input OutParamDomainParamIn { param: Number | String }
+domain OutDomainsParam { number 1 ~ 10 }
+```
+
+### Objects\output-param.graphql+
+
+```gqlp
+output OutParam { field(OutParamIn): OutParam }
+input OutParamIn { param: Number | String }
+```
+
+### Objects\output-parent-generic.graphql+
+
+```gqlp
+output OutGenParent { | OutGenParentRef<OutParentGen.outGenParent> }
+output OutGenParentRef<$type> { field: $type }
+enum OutParentGen { :OutPrntendedGen outGenPrntended }
+enum OutPrntendedGen { outGenParent }
+```
+
+### Objects\output-parent-param.graphql+
+
+```gqlp
+output OutPrntParam { :OutParamParent field(OutPrntParamIn): OutPrntParam }
+output OutParamParent { field(OutParamParentIn): OutPrntParam }
+input OutPrntParamIn { param: Number | String }
+input OutParamParentIn { parent: Number | String }
+```
+
+### Objects\parent-alt.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef | Number }
+object ObjNameRef {  parent: Number | String }
+```
+
+### Objects\parent-dual.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef }
+dual ObjNameRef { parent: Number | String }
+```
+
+### Objects\parent-field.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef field: Number }
+object ObjNameRef { parent: Number | String }
+```
+
+### Objects\parent-param-diff.graphql+
+
+```gqlp
+object ObjName<$a> { :ObjNameRef<$a> field: $a }
+object ObjNameRef<$b> { | $b }
+```
+
+### Objects\parent-param-same.graphql+
+
+```gqlp
+object ObjName<$a> { :ObjNameRef<$a> field: $a }
+object ObjNameRef<$a> { | $a }
+```
+
+### Objects\parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef }
+object ObjNameRef { parent: Number | String }
+```
+
+## Objects (Invalid)
+
+### Objects\Invalid\alt-diff-mod.graphql+
 
 ```gqlp
 object Test { | Test1 }
@@ -243,7 +1014,7 @@ object Test1 { }
 - `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\alt-mod-undef-param.graphql+
+### Objects\Invalid\alt-mod-undef-param.graphql+
 
 ```gqlp
 object Test { | Alt[$a] }
@@ -262,7 +1033,7 @@ object Alt { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### InvalidObjects\alt-mod-undef.graphql+
+### Objects\Invalid\alt-mod-undef.graphql+
 
 ```gqlp
 object Test { | Alt[Domain] }
@@ -281,7 +1052,7 @@ object Alt { }
 
 - `Invalid Modifier. 'Domain' not defined`
 
-### InvalidObjects\alt-mod-wrong.graphql+
+### Objects\Invalid\alt-mod-wrong.graphql+
 
 ```gqlp
 object Test { | Alt[Test] }
@@ -300,7 +1071,7 @@ object Alt { }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### InvalidObjects\alt-more.graphql+
+### Objects\Invalid\alt-more.graphql+
 
 ```gqlp
 object Test { | Recurse }
@@ -326,7 +1097,7 @@ object More { | Test }
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Recurse`
 
-### InvalidObjects\alt-recurse.graphql+
+### Objects\Invalid\alt-recurse.graphql+
 
 ```gqlp
 object Test { | Recurse }
@@ -348,7 +1119,7 @@ object Recurse { | Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 
-### InvalidObjects\alt-self.graphql+
+### Objects\Invalid\alt-self.graphql+
 
 ```gqlp
 object Test { | Test }
@@ -366,7 +1137,7 @@ object Test { | Test }
 
 - `Invalid Output. 'Test' cannot be an alternate of itself`
 
-### InvalidObjects\alt-simple-param.graphql+
+### Objects\Invalid\alt-simple-param.graphql+
 
 ```gqlp
 object Test { | Number<String> }
@@ -384,7 +1155,7 @@ object Test { | Number<String> }
 
 - `Invalid Output Alternate. Args invalid on Number, given 1`
 
-### InvalidObjects\dual-alt-input.graphql+
+### Objects\Invalid\dual-alt-input.graphql+
 
 ```gqlp
 dual Test { | Bad }
@@ -395,7 +1166,7 @@ input Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\dual-alt-output.graphql+
+### Objects\Invalid\dual-alt-output.graphql+
 
 ```gqlp
 dual Test { | Bad }
@@ -406,7 +1177,7 @@ output Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\dual-alt-param-input.graphql+
+### Objects\Invalid\dual-alt-param-input.graphql+
 
 ```gqlp
 dual Test { | Param<Bad> }
@@ -418,7 +1189,7 @@ input Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\dual-alt-param-output.graphql+
+### Objects\Invalid\dual-alt-param-output.graphql+
 
 ```gqlp
 dual Test { | Param<Bad> }
@@ -430,7 +1201,7 @@ output Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\dual-field-input.graphql+
+### Objects\Invalid\dual-field-input.graphql+
 
 ```gqlp
 dual Test { field: Bad }
@@ -441,7 +1212,7 @@ input Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\dual-field-output.graphql+
+### Objects\Invalid\dual-field-output.graphql+
 
 ```gqlp
 dual Test { field: Bad }
@@ -452,7 +1223,7 @@ output Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\dual-field-param-input.graphql+
+### Objects\Invalid\dual-field-param-input.graphql+
 
 ```gqlp
 dual Test { field: Param<Bad> }
@@ -464,7 +1235,7 @@ input Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\dual-field-param-output.graphql+
+### Objects\Invalid\dual-field-param-output.graphql+
 
 ```gqlp
 dual Test { field: Param<Bad> }
@@ -476,7 +1247,7 @@ output Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\dual-parent-input.graphql+
+### Objects\Invalid\dual-parent-input.graphql+
 
 ```gqlp
 dual Test { :Bad }
@@ -487,7 +1258,7 @@ input Bad { }
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Input'`
 
-### InvalidObjects\dual-parent-output.graphql+
+### Objects\Invalid\dual-parent-output.graphql+
 
 ```gqlp
 dual Test { :Bad }
@@ -498,7 +1269,7 @@ output Bad { }
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Output'`
 
-### InvalidObjects\dual-parent-param-input.graphql+
+### Objects\Invalid\dual-parent-param-input.graphql+
 
 ```gqlp
 dual Test { :Param<Bad> }
@@ -510,7 +1281,7 @@ input Bad { }
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\dual-parent-param-output.graphql+
+### Objects\Invalid\dual-parent-param-output.graphql+
 
 ```gqlp
 dual Test { :Param<Bad> }
@@ -522,7 +1293,7 @@ output Bad { }
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\field-alias.graphql+
+### Objects\Invalid\field-alias.graphql+
 
 ```gqlp
 object Test { field1 [alias]: Test }
@@ -547,7 +1318,7 @@ object Test { field2 [alias]: Test[] }
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\field-diff-mod.graphql+
+### Objects\Invalid\field-diff-mod.graphql+
 
 ```gqlp
 object Test { field: Test }
@@ -572,7 +1343,7 @@ object Test { field: Test[] }
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\field-diff-type.graphql+
+### Objects\Invalid\field-diff-type.graphql+
 
 ```gqlp
 object Test { field: Test }
@@ -598,7 +1369,7 @@ object Test1 { }
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\field-mod-undef-param.graphql+
+### Objects\Invalid\field-mod-undef-param.graphql+
 
 ```gqlp
 object Test { field: Test[$a] }
@@ -616,7 +1387,7 @@ object Test { field: Test[$a] }
 
 - `Invalid Modifier. 'a' not defined`
 
-### InvalidObjects\field-mod-undef.graphql+
+### Objects\Invalid\field-mod-undef.graphql+
 
 ```gqlp
 object Test { field: Test[Random] }
@@ -634,7 +1405,7 @@ object Test { field: Test[Random] }
 
 - `Invalid Modifier. 'Random' not defined`
 
-### InvalidObjects\field-mod-wrong.graphql+
+### Objects\Invalid\field-mod-wrong.graphql+
 
 ```gqlp
 object Test { field: Test[Test] }
@@ -652,7 +1423,7 @@ object Test { field: Test[Test] }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### InvalidObjects\field-simple-param.graphql+
+### Objects\Invalid\field-simple-param.graphql+
 
 ```gqlp
 object Test { field: String<0> }
@@ -670,7 +1441,7 @@ object Test { field: String<0> }
 
 - `Invalid Output Field. Args invalid on String, given 1`
 
-### InvalidObjects\generic-alt-undef.graphql+
+### Objects\Invalid\generic-alt-undef.graphql+
 
 ```gqlp
 object Test { | $type }
@@ -688,7 +1459,7 @@ object Test { | $type }
 
 - `Invalid Output Alternate. '$type' not defined`
 
-### InvalidObjects\generic-arg-less.graphql+
+### Objects\Invalid\generic-arg-less.graphql+
 
 ```gqlp
 object Test { field: Ref }
@@ -707,7 +1478,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. Args mismatch, expected 1 given 0`
 
-### InvalidObjects\generic-arg-more.graphql+
+### Objects\Invalid\generic-arg-more.graphql+
 
 ```gqlp
 object Test<$type> { field: Ref<$type> }
@@ -726,7 +1497,7 @@ object Ref { }
 
 - `Invalid Output Field. Args mismatch, expected 0 given 1`
 
-### InvalidObjects\generic-arg-undef.graphql+
+### Objects\Invalid\generic-arg-undef.graphql+
 
 ```gqlp
 object Test { field: Ref<$type> }
@@ -745,7 +1516,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. '$type' not defined`
 
-### InvalidObjects\generic-field-undef.graphql+
+### Objects\Invalid\generic-field-undef.graphql+
 
 ```gqlp
 object Test { field: $type }
@@ -763,7 +1534,7 @@ object Test { field: $type }
 
 - `Invalid Output Field. '$type' not defined`
 
-### InvalidObjects\generic-param-undef.graphql+
+### Objects\Invalid\generic-param-undef.graphql+
 
 ```gqlp
 object Test { field: Ref<Test1> }
@@ -782,7 +1553,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. 'Test1' not defined`
 
-### InvalidObjects\generic-parent-less.graphql+
+### Objects\Invalid\generic-parent-less.graphql+
 
 ```gqlp
 object Test { :Ref }
@@ -801,7 +1572,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Parent. Args mismatch, expected 1 given 0`
 
-### InvalidObjects\generic-parent-more.graphql+
+### Objects\Invalid\generic-parent-more.graphql+
 
 ```gqlp
 object Test { :Ref<Number> }
@@ -820,7 +1591,7 @@ object Ref { }
 
 - `Invalid Output Parent. Args mismatch, expected 0 given 1`
 
-### InvalidObjects\generic-parent-undef.graphql+
+### Objects\Invalid\generic-parent-undef.graphql+
 
 ```gqlp
 object Test { :$type }
@@ -838,7 +1609,7 @@ object Test { :$type }
 
 - `Invalid Output Parent. '$type' not defined`
 
-### InvalidObjects\generic-unused.graphql+
+### Objects\Invalid\generic-unused.graphql+
 
 ```gqlp
 object Test<$type> { }
@@ -856,7 +1627,7 @@ object Test<$type> { }
 
 - `Invalid Output. '$type' not used`
 
-### InvalidObjects\input-alt-output.graphql+
+### Objects\Invalid\input-alt-output.graphql+
 
 ```gqlp
 input Test { | Bad }
@@ -867,7 +1638,7 @@ output Bad { }
 
 - `Invalid Input Alternate. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\input-field-null.graphql+
+### Objects\Invalid\input-field-null.graphql+
 
 ```gqlp
 input Test { field: Test = null }
@@ -877,7 +1648,7 @@ input Test { field: Test = null }
 
 - `Invalid Input Field Default. 'null' default requires Optional type, not 'Test'`
 
-### InvalidObjects\input-field-output.graphql+
+### Objects\Invalid\input-field-output.graphql+
 
 ```gqlp
 input Test { field: Bad }
@@ -888,7 +1659,7 @@ output Bad { }
 
 - `Invalid Input Field. Type kind mismatch for Bad. Found Output`
 
-### InvalidObjects\input-parent-output.graphql+
+### Objects\Invalid\input-parent-output.graphql+
 
 ```gqlp
 input Test { :Bad }
@@ -899,7 +1670,7 @@ output Bad { }
 
 - `Invalid Input Parent. 'Bad' invalid type. Found 'Output'`
 
-### InvalidObjects\output-alt-input.graphql+
+### Objects\Invalid\output-alt-input.graphql+
 
 ```gqlp
 output Test { | Bad }
@@ -910,7 +1681,7 @@ input Bad { }
 
 - `Invalid Output Alternate. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\output-enum-bad.graphql+
+### Objects\Invalid\output-enum-bad.graphql+
 
 ```gqlp
 output Test { field = unknown }
@@ -921,7 +1692,7 @@ output Test { field = unknown }
 - `Invalid Output Field Enum. Enum Value 'unknown' not defined`
 - `Invalid Output Field. '' not defined`
 
-### InvalidObjects\output-enum-diff.graphql+
+### Objects\Invalid\output-enum-diff.graphql+
 
 ```gqlp
 output Test { field = true }
@@ -934,7 +1705,7 @@ output Test { field = false }
 - `Group of OutputField for 'field' is not singular ModifiedType['Boolean.false', 'Boolean.true']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\output-enumValue-bad.graphql+
+### Objects\Invalid\output-enumValue-bad.graphql+
 
 ```gqlp
 output Test { field = Boolean.unknown }
@@ -944,7 +1715,7 @@ output Test { field = Boolean.unknown }
 
 - `Invalid Output Field Enum Value. 'unknown' not a Value of 'Boolean'`
 
-### InvalidObjects\output-enumValue-wrong.graphql+
+### Objects\Invalid\output-enumValue-wrong.graphql+
 
 ```gqlp
 output Test { field = Wrong.unknown }
@@ -956,7 +1727,7 @@ input Wrong { }
 - `Invalid Output Field Enum. 'Wrong' is not an Enum type`
 - `Invalid Output Field. Type kind mismatch for Wrong. Found Input`
 
-### InvalidObjects\output-field-input.graphql+
+### Objects\Invalid\output-field-input.graphql+
 
 ```gqlp
 output Test { field: Bad }
@@ -967,7 +1738,7 @@ input Bad { }
 
 - `Invalid Output Field. Type kind mismatch for Bad. Found Input`
 
-### InvalidObjects\output-generic-arg-enum-wrong.graphql+
+### Objects\Invalid\output-generic-arg-enum-wrong.graphql+
 
 ```gqlp
 output Test<$arg> { | Ref<$arg.unknown> }
@@ -981,7 +1752,7 @@ output Ref<$type> { field: $type }
 - `Invalid Schema. Expected declaration selector. 'unknown' unknown`
 - `Invalid Schema. Expected no more text`
 
-### InvalidObjects\output-generic-enum-bad.graphql+
+### Objects\Invalid\output-generic-enum-bad.graphql+
 
 ```gqlp
 output Test { | Ref<Boolean.unknown> }
@@ -992,7 +1763,7 @@ output Ref<$type> { field: $type }
 
 - `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'`
 
-### InvalidObjects\output-generic-enum-wrong.graphql+
+### Objects\Invalid\output-generic-enum-wrong.graphql+
 
 ```gqlp
 output Test { | Ref<Wrong.unknown> }
@@ -1004,7 +1775,7 @@ output Wrong { }
 
 - `Invalid Output Arg Enum. 'Wrong' is not an Enum type`
 
-### InvalidObjects\output-param-diff.graphql+
+### Objects\Invalid\output-param-diff.graphql+
 
 ```gqlp
 output Test { field(Param): Test }
@@ -1018,7 +1789,7 @@ input Param { }
 - `Group of InputParam for 'Param' is not singular Modifiers['', '?']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\output-param-mod-undef-param.graphql+
+### Objects\Invalid\output-param-mod-undef-param.graphql+
 
 ```gqlp
 output Test { field(Param[$a]): Test }
@@ -1029,7 +1800,7 @@ input Param { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### InvalidObjects\output-param-mod-undef.graphql+
+### Objects\Invalid\output-param-mod-undef.graphql+
 
 ```gqlp
 output Test { field(Param[Domain]): Test }
@@ -1040,7 +1811,7 @@ input Param { }
 
 - `Invalid Modifier. 'Domain' not defined`
 
-### InvalidObjects\output-param-mod-wrong.graphql+
+### Objects\Invalid\output-param-mod-wrong.graphql+
 
 ```gqlp
 output Test { field(Param[Test]): Test }
@@ -1051,7 +1822,7 @@ input Param { }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### InvalidObjects\output-param-undef.graphql+
+### Objects\Invalid\output-param-undef.graphql+
 
 ```gqlp
 output Test { field(Param): Test }
@@ -1061,7 +1832,7 @@ output Test { field(Param): Test }
 
 - `Invalid Input Param. 'Param' not defined`
 
-### InvalidObjects\output-parent-input.graphql+
+### Objects\Invalid\output-parent-input.graphql+
 
 ```gqlp
 output Test { :Bad }
@@ -1072,7 +1843,7 @@ input Bad { }
 
 - `Invalid Output Parent. 'Bad' invalid type. Found 'Input'`
 
-### InvalidObjects\parent-alt-mod.graphql+
+### Objects\Invalid\parent-alt-mod.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1099,7 +1870,7 @@ object Alt { }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\parent-alt-more.graphql+
+### Objects\Invalid\parent-alt-more.graphql+
 
 ```gqlp
 object Test { :Recurse | Alt }
@@ -1124,7 +1895,7 @@ object Alt { }
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-### InvalidObjects\parent-alt-recurse.graphql+
+### Objects\Invalid\parent-alt-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse | Alt }
@@ -1148,7 +1919,7 @@ object Alt { }
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-### InvalidObjects\parent-alt-self-more.graphql+
+### Objects\Invalid\parent-alt-self-more.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -1178,7 +1949,7 @@ object Recurse { | Test }
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-### InvalidObjects\parent-alt-self-recurse.graphql+
+### Objects\Invalid\parent-alt-self-recurse.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -1204,7 +1975,7 @@ object Recurse { :Test }
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-### InvalidObjects\parent-alt-self.graphql+
+### Objects\Invalid\parent-alt-self.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -1226,7 +1997,7 @@ object Alt { | Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-### InvalidObjects\parent-field-alias-more.graphql+
+### Objects\Invalid\parent-field-alias-more.graphql+
 
 ```gqlp
 object Test { :Recurse field1 [alias]: Test }
@@ -1250,7 +2021,7 @@ object Parent { field2 [alias]: Parent }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-### InvalidObjects\parent-field-alias-recurse.graphql+
+### Objects\Invalid\parent-field-alias-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse field1 [alias]: Test }
@@ -1273,7 +2044,7 @@ object Parent { field2 [alias]: Parent }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-### InvalidObjects\parent-field-alias.graphql+
+### Objects\Invalid\parent-field-alias.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1299,7 +2070,7 @@ object Parent { field2 [alias]: Parent }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\parent-field-mod-more.graphql+
+### Objects\Invalid\parent-field-mod-more.graphql+
 
 ```gqlp
 object Test { :Recurse field: Test }
@@ -1323,7 +2094,7 @@ object Parent { field: Test[] }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-### InvalidObjects\parent-field-mod-recurse.graphql+
+### Objects\Invalid\parent-field-mod-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse field: Test }
@@ -1346,7 +2117,7 @@ object Parent { field: Test[] }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-### InvalidObjects\parent-field-mod.graphql+
+### Objects\Invalid\parent-field-mod.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1372,7 +2143,7 @@ object Parent { field: Test[] }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidObjects\parent-more.graphql+
+### Objects\Invalid\parent-more.graphql+
 
 ```gqlp
 object Test { :Recurse }
@@ -1398,7 +2169,7 @@ object More { :Test }
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
 - `Invalid Output. 'More' cannot be a child of itself, even recursively via Recurse`
 
-### InvalidObjects\parent-recurse.graphql+
+### Objects\Invalid\parent-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse }
@@ -1420,7 +2191,7 @@ object Recurse { :Test }
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
 
-### InvalidObjects\parent-self-alt-more.graphql+
+### Objects\Invalid\parent-self-alt-more.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1450,7 +2221,7 @@ object Recurse { :Test }
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-### InvalidObjects\parent-self-alt-recurse.graphql+
+### Objects\Invalid\parent-self-alt-recurse.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1476,7 +2247,7 @@ object Recurse { | Test }
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-### InvalidObjects\parent-self-alt.graphql+
+### Objects\Invalid\parent-self-alt.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1498,7 +2269,7 @@ object Alt { :Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-### InvalidObjects\parent-self.graphql+
+### Objects\Invalid\parent-self.graphql+
 
 ```gqlp
 object Test { :Test }
@@ -1516,7 +2287,7 @@ object Test { :Test }
 
 - `Invalid Output. 'Test' cannot be a child of itself`
 
-### InvalidObjects\parent-simple.graphql+
+### Objects\Invalid\parent-simple.graphql+
 
 ```gqlp
 object Test { :String }
@@ -1534,7 +2305,7 @@ object Test { :String }
 
 - `Invalid Output Parent. 'String' invalid type. Found 'Domain'`
 
-### InvalidObjects\parent-undef.graphql+
+### Objects\Invalid\parent-undef.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1552,7 +2323,7 @@ object Test { :Parent }
 
 - `Invalid Output Parent. 'Parent' not defined`
 
-### InvalidObjects\unique-alias.graphql+
+### Objects\Invalid\unique-alias.graphql+
 
 ```gqlp
 object Test [a] { }
@@ -1574,9 +2345,129 @@ object Dup [a] { }
 - `Multiple Outputs with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-## InvalidSimple
+## Simple
 
-### InvalidSimple\domain-diff-kind.graphql+
+### Simple\domain-enum-all-parent.graphql+
+
+```gqlp
+domain DomEnumAllParent { enum EnumDomAllParent.* }
+enum EnumDomAllParent { :EnumDomParentAll dom_all_parent }
+enum EnumDomParentAll { dom_enum_all_parent }
+```
+
+### Simple\domain-enum-all.graphql+
+
+```gqlp
+domain DomEnumAll { enum EnumDomAll.* }
+enum EnumDomAll { dom_all dom_enum_all }
+```
+
+### Simple\domain-enum-member.graphql+
+
+```gqlp
+domain DomMember { enum dom_member }
+enum MemberDom { dom_member }
+```
+
+### Simple\domain-enum-parent.graphql+
+
+```gqlp
+domain DomEnumPrnt { :DomPrntEnum Enum both_enum }
+domain DomPrntEnum { Enum both_parent }
+enum EnumDomBoth { both_enum both_parent }
+```
+
+### Simple\domain-enum-unique-parent.graphql+
+
+```gqlp
+enum EnumDomUniqueParent { :EnumDomParentUnique value }
+enum EnumDomParentUnique { enum_dom_parent_dup }
+enum EnumDomDupParent { enum_dom_parent_dup }
+# domain DomEnumUniqueParent { enum EnumDomUniqueParent.* !EnumDomUniqueParent.enum_dom_parent_dup EnumDomDupParent.enum_dom_parent_dup }
+```
+
+### Simple\domain-enum-unique.graphql+
+
+```gqlp
+enum EnumDomUnique { eum_dom_value eum_dom_dup }
+enum EnumDomDup { eum_dom_dup }
+# domain DomEnumUnique { enum EnumDomUnique.* !EnumDomUnique.eum_dom_dup EnumDomDup.eum_dom_dup }
+```
+
+### Simple\domain-enum-value-parent.graphql+
+
+```gqlp
+domain DomEnumParent { Enum EnumDomParent.dom_enum_parent }
+enum EnumDomParent { :EnumParentDom dom_parent_enum }
+enum EnumParentDom { dom_enum_parent }
+```
+
+### Simple\domain-enum-value.graphql+
+
+```gqlp
+domain DomEnum { Enum EnumDom.dom_enum }
+enum EnumDom { dom_enum }
+```
+
+### Simple\domain-number-parent.graphql+
+
+```gqlp
+domain DomNumPrnt { :DomPrntNum Number 2>}
+domain DomPrntNum { Number <2 }
+```
+
+### Simple\domain-parent.graphql+
+
+```gqlp
+domain DomPrntTest { :DomTestPrnt Boolean false }
+domain DomTestPrnt { Boolean true }
+```
+
+### Simple\domain-string-parent.graphql+
+
+```gqlp
+domain DomStrPrnt { :DomPrntStr String /a+/ }
+domain DomPrntStr { String /b+/ }
+```
+
+### Simple\enum-parent-alias.graphql+
+
+```gqlp
+enum EnPrntAlias { :EnAliasPrnt val_prnt_alias val_alias[alias_val] }
+enum EnAliasPrnt { val_alias }
+```
+
+### Simple\enum-parent-dup.graphql+
+
+```gqlp
+enum EnPrntDup { :EnDupPrnt val_prnt_dup  }
+enum EnDupPrnt { val_dup[val_prnt_dup] }
+```
+
+### Simple\enum-parent.graphql+
+
+```gqlp
+enum EnTestPrnt { :EnPrntTest val_prnt }
+enum EnPrntTest { val_test }
+```
+
+### Simple\union-parent-dup.graphql+
+
+```gqlp
+union UnionPrnt { :PrntUnion Number }
+union PrntUnion { Number }
+```
+
+### Simple\union-parent.graphql+
+
+```gqlp
+union UnionPrnt { :PrntUnion String }
+union PrntUnion { Number }
+```
+
+## Simple (Invalid)
+
+### Simple\Invalid\domain-diff-kind.graphql+
 
 ```gqlp
 domain Test { string }
@@ -1589,7 +2480,7 @@ domain Test { number }
 - `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidSimple\domain-dup-alias.graphql+
+### Simple\Invalid\domain-dup-alias.graphql+
 
 ```gqlp
 domain Test [a] { Boolean }
@@ -1601,7 +2492,7 @@ domain Dup [a] { Boolean }
 - `Multiple Domains with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### InvalidSimple\domain-enum-none.graphql+
+### Simple\Invalid\domain-enum-none.graphql+
 
 ```gqlp
 domain Test { Enum }
@@ -1611,7 +2502,7 @@ domain Test { Enum }
 
 - `Invalid Domain. Expected enum Members`
 
-### InvalidSimple\domain-enum-parent-unique.graphql+
+### Simple\Invalid\domain-enum-parent-unique.graphql+
 
 ```gqlp
 domain Test { :Parent Enum Enum.value }
@@ -1625,7 +2516,7 @@ enum Dup { value }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
-### InvalidSimple\domain-enum-undef-all.graphql+
+### Simple\Invalid\domain-enum-undef-all.graphql+
 
 ```gqlp
 domain Test { enum Undef.* }
@@ -1635,7 +2526,7 @@ domain Test { enum Undef.* }
 
 - `Invalid Domain Enum. 'Undef' not an Enum type`
 
-### InvalidSimple\domain-enum-undef-member.graphql+
+### Simple\Invalid\domain-enum-undef-member.graphql+
 
 ```gqlp
 domain Test { enum Enum.undef }
@@ -1646,7 +2537,7 @@ enum Enum { value }
 
 - `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'`
 
-### InvalidSimple\domain-enum-undef-value.graphql+
+### Simple\Invalid\domain-enum-undef-value.graphql+
 
 ```gqlp
 domain Test { enum Undef.value }
@@ -1656,7 +2547,7 @@ domain Test { enum Undef.value }
 
 - `Invalid Domain Enum. 'Undef' not an Enum type`
 
-### InvalidSimple\domain-enum-undef.graphql+
+### Simple\Invalid\domain-enum-undef.graphql+
 
 ```gqlp
 domain Test { enum undef }
@@ -1666,7 +2557,7 @@ domain Test { enum undef }
 
 - `Invalid Domain Enum Member. Enum Value 'undef' not defined`
 
-### InvalidSimple\domain-enum-unique-all.graphql+
+### Simple\Invalid\domain-enum-unique-all.graphql+
 
 ```gqlp
 domain Test { enum Enum.* Dup.* }
@@ -1678,7 +2569,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### InvalidSimple\domain-enum-unique-member.graphql+
+### Simple\Invalid\domain-enum-unique-member.graphql+
 
 ```gqlp
 domain Test { enum Enum.value Dup.* }
@@ -1690,7 +2581,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### InvalidSimple\domain-enum-unique.graphql+
+### Simple\Invalid\domain-enum-unique.graphql+
 
 ```gqlp
 domain Test { enum Enum.value Dup.value }
@@ -1702,7 +2593,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### InvalidSimple\domain-enum-wrong.graphql+
+### Simple\Invalid\domain-enum-wrong.graphql+
 
 ```gqlp
 domain Test { enum Bad.value }
@@ -1713,7 +2604,7 @@ output Bad { }
 
 - `Invalid Domain Enum. 'Bad' not an Enum type`
 
-### InvalidSimple\domain-number-parent.graphql+
+### Simple\Invalid\domain-number-parent.graphql+
 
 ```gqlp
 domain Test { :Parent number 1> }
@@ -1725,7 +2616,7 @@ domain Parent { number !1> }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
 
-### InvalidSimple\domain-parent-self-more.graphql+
+### Simple\Invalid\domain-parent-self-more.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1741,7 +2632,7 @@ domain More { :Test Boolean }
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 - `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse`
 
-### InvalidSimple\domain-parent-self-parent.graphql+
+### Simple\Invalid\domain-parent-self-parent.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1753,7 +2644,7 @@ domain Parent { :Test Boolean }
 - `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 
-### InvalidSimple\domain-parent-self-recurse.graphql+
+### Simple\Invalid\domain-parent-self-recurse.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1767,7 +2658,7 @@ domain Recurse { :Test Boolean }
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 
-### InvalidSimple\domain-parent-self.graphql+
+### Simple\Invalid\domain-parent-self.graphql+
 
 ```gqlp
 domain Test { :Test Boolean }
@@ -1777,7 +2668,7 @@ domain Test { :Test Boolean }
 
 - `Invalid Domain. 'Test' cannot be a child of itself`
 
-### InvalidSimple\domain-parent-undef.graphql+
+### Simple\Invalid\domain-parent-undef.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1787,7 +2678,7 @@ domain Test { :Parent Boolean }
 
 - `Invalid Domain Parent. 'Parent' not defined`
 
-### InvalidSimple\domain-parent-wrong-kind.graphql+
+### Simple\Invalid\domain-parent-wrong-kind.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1798,7 +2689,7 @@ domain Parent { String }
 
 - `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'`
 
-### InvalidSimple\domain-parent-wrong-type.graphql+
+### Simple\Invalid\domain-parent-wrong-type.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -1809,7 +2700,7 @@ output Parent { }
 
 - `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'`
 
-### InvalidSimple\domain-string-diff.graphql+
+### Simple\Invalid\domain-string-diff.graphql+
 
 ```gqlp
 domain Test { string /a+/}
@@ -1822,7 +2713,7 @@ domain Test { string !/a+/ }
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidSimple\domain-string-parent.graphql+
+### Simple\Invalid\domain-string-parent.graphql+
 
 ```gqlp
 domain Test { :Parent string /a+/}
@@ -1834,7 +2725,7 @@ domain Parent { string !/a+/ }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 
-### InvalidSimple\enum-dup-alias.graphql+
+### Simple\Invalid\enum-dup-alias.graphql+
 
 ```gqlp
 enum Test [a] { test }
@@ -1846,7 +2737,7 @@ enum Dup [a] { dup }
 - `Multiple Enums with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### InvalidSimple\enum-parent-alias-dup.graphql+
+### Simple\Invalid\enum-parent-alias-dup.graphql+
 
 ```gqlp
 enum Test { :Parent test[alias] }
@@ -1858,7 +2749,7 @@ enum Parent { parent[alias] }
 - `Invalid Enum Child. Can't merge Test into Parent Parent`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
 
-### InvalidSimple\enum-parent-diff.graphql+
+### Simple\Invalid\enum-parent-diff.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -1872,7 +2763,7 @@ enum Parent { parent }
 - `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidSimple\enum-parent-undef.graphql+
+### Simple\Invalid\enum-parent-undef.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -1882,7 +2773,7 @@ enum Test { :Parent test }
 
 - `Invalid Enum Parent. 'Parent' not defined`
 
-### InvalidSimple\enum-parent-wrong.graphql+
+### Simple\Invalid\enum-parent-wrong.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -1893,7 +2784,7 @@ output Parent { }
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'`
 
-### InvalidSimple\union-dup-alias.graphql+
+### Simple\Invalid\union-dup-alias.graphql+
 
 ```gqlp
 union Test [a] { String }
@@ -1905,7 +2796,7 @@ union Dup [a] { Number }
 - `Multiple Unions with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### InvalidSimple\union-more-parent.graphql+
+### Simple\Invalid\union-more-parent.graphql+
 
 ```gqlp
 union Test { Recurse }
@@ -1919,7 +2810,7 @@ union Bad { Test }
 
 - `Invalid Union. Expected at least one member`
 
-### InvalidSimple\union-more.graphql+
+### Simple\Invalid\union-more.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -1933,7 +2824,7 @@ union More { Test }
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
-### InvalidSimple\union-parent-diff.graphql+
+### Simple\Invalid\union-parent-diff.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -1947,7 +2838,7 @@ union Parent { String }
 - `Group of Union for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### InvalidSimple\union-parent-more.graphql+
+### Simple\Invalid\union-parent-more.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -1961,7 +2852,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
-### InvalidSimple\union-parent-recurse.graphql+
+### Simple\Invalid\union-parent-recurse.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -1974,7 +2865,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### InvalidSimple\union-parent-undef.graphql+
+### Simple\Invalid\union-parent-undef.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -1984,7 +2875,7 @@ union Test { :Parent Number }
 
 - `Invalid Union Parent. 'Parent' not defined`
 
-### InvalidSimple\union-parent-wrong.graphql+
+### Simple\Invalid\union-parent-wrong.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -1995,7 +2886,7 @@ output Parent { }
 
 - `Invalid Union Parent. 'Parent' invalid type. Found 'Output'`
 
-### InvalidSimple\union-parent.graphql+
+### Simple\Invalid\union-parent.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -2006,7 +2897,7 @@ union Parent { Test }
 
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 
-### InvalidSimple\union-recurse-parent.graphql+
+### Simple\Invalid\union-recurse-parent.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -2019,7 +2910,7 @@ union Parent { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### InvalidSimple\union-recurse.graphql+
+### Simple\Invalid\union-recurse.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -2031,7 +2922,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### InvalidSimple\union-self.graphql+
+### Simple\Invalid\union-self.graphql+
 
 ```gqlp
 union Test { Test }
@@ -2041,7 +2932,7 @@ union Test { Test }
 
 - `Invalid Union Member. 'Test' cannot refer to self`
 
-### InvalidSimple\union-undef.graphql+
+### Simple\Invalid\union-undef.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -2051,7 +2942,7 @@ union Test { Bad }
 
 - `Invalid Union. 'Bad' not defined`
 
-### InvalidSimple\union-wrong.graphql+
+### Simple\Invalid\union-wrong.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -2062,7 +2953,7 @@ input Bad { }
 
 - `Invalid union. Type kind mismatch for Bad. Found Input`
 
-### InvalidSimple\unique-type-alias.graphql+
+### Simple\Invalid\unique-type-alias.graphql+
 
 ```gqlp
 enum Test [a] { Value }
@@ -2073,7 +2964,7 @@ output Dup [a] { }
 
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### InvalidSimple\unique-types.graphql+
+### Simple\Invalid\unique-types.graphql+
 
 ```gqlp
 enum Test { Value }
@@ -3064,894 +3955,3 @@ dual _UnionMember {
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_Named' not defined`
-
-## ValidGlobals
-
-### ValidGlobals\category-description.graphql+
-
-```gqlp
-"A Category described"
-category { CatDescr }
-output CatDescr { }
-```
-
-### ValidGlobals\category-output-dict.graphql+
-
-```gqlp
-category { CatDict[*] }
-output CatDict { }
-```
-
-### ValidGlobals\category-output-list.graphql+
-
-```gqlp
-category { CatList[] }
-output CatList { }
-```
-
-### ValidGlobals\category-output-optional.graphql+
-
-```gqlp
-category { CatOpt? }
-output CatOpt { }
-```
-
-### ValidGlobals\category-output.graphql+
-
-```gqlp
-category { Cat }
-output Cat { }
-```
-
-### ValidGlobals\description-backslash.graphql+
-
-```gqlp
-'A backslash ("\\") description'
-output DescrBackslash { }
-```
-
-### ValidGlobals\description-between.graphql+
-
-```gqlp
-category { DescrBetween }
-"A description between"
-output DescrBetween { }
-```
-
-### ValidGlobals\description-complex.graphql+
-
-```gqlp
-"A \"more\" 'Complicated' \\ description"
-output DescrComplex { }
-```
-
-### ValidGlobals\description-double.graphql+
-
-```gqlp
-"A 'double-quoted' description"
-output DescrDouble { }
-```
-
-### ValidGlobals\description-single.graphql+
-
-```gqlp
-'A "single-quoted" description'
-output DescrSingle { }
-```
-
-### ValidGlobals\description.graphql+
-
-```gqlp
-"A simple description"
-output Descr { }
-```
-
-### ValidGlobals\directive-description.graphql+
-
-```gqlp
-"A directive described"
-directive @DirDescr { all }
-```
-
-### ValidGlobals\directive-no-param.graphql+
-
-```gqlp
-directive @DirNoParam { all }
-```
-
-### ValidGlobals\directive-param-dict.graphql+
-
-```gqlp
-directive @DirParamDict(DirParamIn[String]) { all }
-input DirParamIn { }
-```
-
-### ValidGlobals\directive-param-in.graphql+
-
-```gqlp
-directive @DirParam(DirParamIn) { all }
-input DirParamIn { }
-```
-
-### ValidGlobals\directive-param-list.graphql+
-
-```gqlp
-directive @DirParamList(DirParamIn[]) { all }
-input DirParamIn { }
-```
-
-### ValidGlobals\directive-param-opt.graphql+
-
-```gqlp
-directive @DirParamOpt(DirParamIn?) { all }
-input DirParamIn { }
-```
-
-### ValidGlobals\option-setting.graphql+
-
-```gqlp
-option Schema { global=true }
-```
-
-## ValidMerges
-
-### ValidMerges\category-alias.graphql+
-
-```gqlp
-category [CatA1] { CatAlias }
-category [CatA2] { CatAlias }
-output CatAlias { }
-```
-
-### ValidMerges\category-mod.graphql+
-
-```gqlp
-category [CatM1] { CatMods? }
-category [CatM2] { CatMods? }
-output CatMods { }
-```
-
-### ValidMerges\category.graphql+
-
-```gqlp
-category { Category }
-category category { Category }
-output Category { }
-```
-
-### ValidMerges\directive-alias.graphql+
-
-```gqlp
-directive @DirAlias [DirA1] { variable }
-directive @DirAlias [DirA2] { field }
-```
-
-### ValidMerges\directive-param.graphql+
-
-```gqlp
-directive @DirParam(DirParamIn) { operation }
-directive @DirParam { fragment }
-input DirParamIn { }
-```
-
-### ValidMerges\directive.graphql+
-
-```gqlp
-directive @Dir { inline }
-directive @Dir { spread }
-```
-
-### ValidMerges\domain-alias.graphql+
-
-```gqlp
-domain NumAlias [Num1] { number }
-domain NumAlias [Num2] { number }
-```
-
-### ValidMerges\domain-boolean-diff.graphql+
-
-```gqlp
-domain BoolDiff { boolean true }
-domain BoolDiff { boolean false }
-```
-
-### ValidMerges\domain-boolean-same.graphql+
-
-```gqlp
-domain BoolSame { boolean true }
-domain BoolSame { boolean true }
-```
-
-### ValidMerges\domain-boolean.graphql+
-
-```gqlp
-domain Bool { boolean }
-domain Bool { boolean }
-```
-
-### ValidMerges\domain-enum-diff.graphql+
-
-```gqlp
-domain EnumDiff { enum true }
-domain EnumDiff { enum false }
-```
-
-### ValidMerges\domain-enum-same.graphql+
-
-```gqlp
-domain EnumSame { enum true }
-domain EnumSame { enum true }
-```
-
-### ValidMerges\domain-number-diff.graphql+
-
-```gqlp
-domain NumDiff { number 1~9 }
-domain NumDiff { number }
-```
-
-### ValidMerges\domain-number-same.graphql+
-
-```gqlp
-domain NumSame { number 1~9 }
-domain NumSame { number 1~9 }
-```
-
-### ValidMerges\domain-number.graphql+
-
-```gqlp
-domain Num { number }
-domain Num { number }
-```
-
-### ValidMerges\domain-string-diff.graphql+
-
-```gqlp
-domain StrDiff { string /a+/ }
-domain StrDiff { string }
-```
-
-### ValidMerges\domain-string-same.graphql+
-
-```gqlp
-domain StrSame { string /a+/ }
-domain StrSame { string /a+/ }
-```
-
-### ValidMerges\domain-string.graphql+
-
-```gqlp
-domain Str { string }
-domain Str { string }
-```
-
-### ValidMerges\enum-alias.graphql+
-
-```gqlp
-enum EnAlias [En1] { alias }
-enum EnAlias [En2] { alias }
-```
-
-### ValidMerges\enum-diff.graphql+
-
-```gqlp
-enum EnDiff { one }
-enum EnDiff { two }
-```
-
-### ValidMerges\enum-same-parent.graphql+
-
-```gqlp
-enum EnSameParent { :EnParent sameP }
-enum EnSameParent { :EnParent sameP }
-enum EnParent { parent }
-```
-
-### ValidMerges\enum-same.graphql+
-
-```gqlp
-enum EnSame { same }
-enum EnSame { same }
-```
-
-### ValidMerges\enum-value-alias.graphql+
-
-```gqlp
-enum EnValAlias { value [val1] }
-enum EnValAlias { value [val2] }
-```
-
-### ValidMerges\object-alias.graphql+
-
-```gqlp
-object ObjName [Obj1] { }
-object ObjName [Obj2] { }
-```
-
-### ValidMerges\object-alt.graphql+
-
-```gqlp
-object ObjName { | ObjNameType }
-object ObjName { | ObjNameType }
-object ObjNameType { }
-```
-
-### ValidMerges\object-field-alias.graphql+
-
-```gqlp
-object ObjName { field [field1]: ObjNameFld }
-object ObjName { field [field2]: ObjNameFld }
-object ObjNameFld { }
-```
-
-### ValidMerges\object-field.graphql+
-
-```gqlp
-object ObjName { field: ObjNameFld }
-object ObjName { field: ObjNameFld }
-object ObjNameFld { }
-```
-
-### ValidMerges\object-param.graphql+
-
-```gqlp
-object ObjName<$test> { test: $test }
-object ObjName<$type> { type: $type }
-```
-
-### ValidMerges\object-parent.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef }
-object ObjName { :ObjNameRef }
-object ObjNameRef { }
-```
-
-### ValidMerges\object.graphql+
-
-```gqlp
-object ObjName { }
-object ObjName { }
-```
-
-### ValidMerges\option-alias.graphql+
-
-```gqlp
-option Schema [Opt1] { }
-option Schema [Opt2] { }
-```
-
-### ValidMerges\option-value.graphql+
-
-```gqlp
-option Schema { merged=true }
-option Schema { merged=[0] }
-```
-
-### ValidMerges\option.graphql+
-
-```gqlp
-option Schema { }
-option Schema { }
-```
-
-### ValidMerges\output-field-enum-alias.graphql+
-
-```gqlp
-output FieldEnumAlias { field [field1] = Boolean.true }
-output FieldEnumAlias { field [field2] = true }
-```
-
-### ValidMerges\output-field-enum-value.graphql+
-
-```gqlp
-output FieldEnums { field = Boolean.true }
-output FieldEnums { field = true }
-```
-
-### ValidMerges\output-field-param.graphql+
-
-```gqlp
-output FieldParam { field(FieldParam1): FieldParamFld }
-output FieldParam { field(FieldParam2): FieldParamFld }
-input FieldParam1 { }
-input FieldParam2 { }
-output FieldParamFld { }
-```
-
-### ValidMerges\union-alias.graphql+
-
-```gqlp
-union UnDiff [UnA1] { Boolean }
-union UnDiff [UnA2] { Number }
-```
-
-### ValidMerges\union-diff.graphql+
-
-```gqlp
-union UnDiff { Boolean }
-union UnDiff { Number }
-```
-
-### ValidMerges\union-same-parent.graphql+
-
-```gqlp
-union UnSameParent { :UnParent Boolean }
-union UnSameParent { :UnParent Boolean }
-union UnParent { String }
-```
-
-### ValidMerges\union-same.graphql+
-
-```gqlp
-union UnSame { Boolean }
-union UnSame { Boolean }
-```
-
-## ValidObjects
-
-### ValidObjects\alt-dual.graphql+
-
-```gqlp
-object ObjName { | ObjDualName }
-dual ObjDualName { alt: Number | String }
-```
-
-### ValidObjects\alt-mod-Boolean.graphql+
-
-```gqlp
-object ObjName { | ObjNameAlt[^] }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\alt-mod-param.graphql+
-
-```gqlp
-object ObjName<$mod> { | ObjNameAlt[$mod] }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\alt-simple.graphql+
-
-```gqlp
-object ObjName { | String }
-```
-
-### ValidObjects\alt.graphql+
-
-```gqlp
-object ObjName { | ObjNameAlt }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\field-dual.graphql+
-
-```gqlp
-object ObjName { field: ObjNameFld }
-dual ObjNameFld { field: Number | String }
-```
-
-### ValidObjects\field-mod-Enum.graphql+
-
-```gqlp
-object ObjName { field: *[ObjEnumName] }
-enum ObjEnumName { value }
-```
-
-### ValidObjects\field-mod-param.graphql+
-
-```gqlp
-object ObjName<$mod> { field: ObjNameFld[$mod] }
-object ObjNameFld { field: Number | String }
-```
-
-### ValidObjects\field-object.graphql+
-
-```gqlp
-object ObjName { field: ObjNameFld }
-object ObjNameFld { field: Number | String }
-```
-
-### ValidObjects\field-simple.graphql+
-
-```gqlp
-object ObjName { field: Number }
-```
-
-### ValidObjects\field.graphql+
-
-```gqlp
-object ObjName { field: * }
-```
-
-### ValidObjects\generic-alt-arg.graphql+
-
-```gqlp
-object ObjName<$type> { | ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
-```
-
-### ValidObjects\generic-alt-dual.graphql+
-
-```gqlp
-object ObjName { | ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-alt-param.graphql+
-
-```gqlp
-object ObjName { | ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-alt-simple.graphql+
-
-```gqlp
-object ObjName { | ObjNameRef<String> }
-object ObjNameRef<$ref> { | $ref }
-```
-
-### ValidObjects\generic-alt.graphql+
-
-```gqlp
-object ObjName<$type> { | $type }
-```
-
-### ValidObjects\generic-dual.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-field-arg.graphql+
-
-```gqlp
-object ObjName<$type> { field: ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
-```
-
-### ValidObjects\generic-field-dual.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-field-param.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-field.graphql+
-
-```gqlp
-object ObjName<$type> { field: $type }
-```
-
-### ValidObjects\generic-param.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-parent-arg.graphql+
-
-```gqlp
-object ObjName<$type> { :ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
-```
-
-### ValidObjects\generic-parent-dual-parent.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { :$ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-parent-dual.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-parent-param-parent.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { :$ref }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-parent-param.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
-```
-
-### ValidObjects\generic-parent.graphql+
-
-```gqlp
-object ObjName<$type> { :$type }
-```
-
-### ValidObjects\input-field-Enum.graphql+
-
-```gqlp
-input InFieldEnum { field: InEnumField = value }
-enum InEnumField { value }
-```
-
-### ValidObjects\input-field-null.graphql+
-
-```gqlp
-input InFieldNull { field: InFieldNull? = null }
-```
-
-### ValidObjects\input-field-Number.graphql+
-
-```gqlp
-input InFieldNum { field: Number = 0 }
-```
-
-### ValidObjects\input-field-String.graphql+
-
-```gqlp
-input InFieldStr { field: String = '' }
-```
-
-### ValidObjects\output-field-enum-parent.graphql+
-
-```gqlp
-output OutFieldParent { field = OutEnumParented.outEnumParent }
-enum OutEnumParented { :OutEnumParent outParent ed }
-enum OutEnumParent { outEnumParent }
-```
-
-### ValidObjects\output-field-enum.graphql+
-
-```gqlp
-output OutFieldEnum { field = OutEnumField.outEnumField }
-enum OutEnumField { outEnumField }
-```
-
-### ValidObjects\output-field-value.graphql+
-
-```gqlp
-output OutFieldValue { field = outEnumValue }
-enum OutEnumValue { outEnumValue }
-```
-
-### ValidObjects\output-generic-enum.graphql+
-
-```gqlp
-output OutGenEnum { | OutGenEnumRef<OutEnumGen.outEnumGen> }
-output OutGenEnumRef<$type> { field: $type }
-enum OutEnumGen { outEnumGen }
-```
-
-### ValidObjects\output-generic-value.graphql+
-
-```gqlp
-output OutGenValue { | OutGenValueRef<outValueGen> }
-output OutGenValueRef<$type> { field: $type }
-enum OutValueGen { outValueGen }
-```
-
-### ValidObjects\output-param-mod-Domain.graphql+
-
-```gqlp
-output OutParamDomain { field(OutParamDomainIn[OutDomainParam]): OutDomainParam }
-input OutParamDomainIn { param: Number | String }
-domain OutDomainParam { number 1 ~ 10 }
-```
-
-### ValidObjects\output-param-mod-param.graphql+
-
-```gqlp
-output OutParamDomainParam<$mod> { field(OutParamDomainParamIn[$mod]): OutDomainsParam }
-input OutParamDomainParamIn { param: Number | String }
-domain OutDomainsParam { number 1 ~ 10 }
-```
-
-### ValidObjects\output-param.graphql+
-
-```gqlp
-output OutParam { field(OutParamIn): OutParam }
-input OutParamIn { param: Number | String }
-```
-
-### ValidObjects\output-parent-generic.graphql+
-
-```gqlp
-output OutGenParent { | OutGenParentRef<OutParentGen.outGenParent> }
-output OutGenParentRef<$type> { field: $type }
-enum OutParentGen { :OutPrntendedGen outGenPrntended }
-enum OutPrntendedGen { outGenParent }
-```
-
-### ValidObjects\output-parent-param.graphql+
-
-```gqlp
-output OutPrntParam { :OutParamParent field(OutPrntParamIn): OutPrntParam }
-output OutParamParent { field(OutParamParentIn): OutPrntParam }
-input OutPrntParamIn { param: Number | String }
-input OutParamParentIn { parent: Number | String }
-```
-
-### ValidObjects\parent-alt.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef | Number }
-object ObjNameRef {  parent: Number | String }
-```
-
-### ValidObjects\parent-dual.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef }
-dual ObjNameRef { parent: Number | String }
-```
-
-### ValidObjects\parent-field.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef field: Number }
-object ObjNameRef { parent: Number | String }
-```
-
-### ValidObjects\parent-param-diff.graphql+
-
-```gqlp
-object ObjName<$a> { :ObjNameRef<$a> field: $a }
-object ObjNameRef<$b> { | $b }
-```
-
-### ValidObjects\parent-param-same.graphql+
-
-```gqlp
-object ObjName<$a> { :ObjNameRef<$a> field: $a }
-object ObjNameRef<$a> { | $a }
-```
-
-### ValidObjects\parent.graphql+
-
-```gqlp
-object ObjName { :ObjNameRef }
-object ObjNameRef { parent: Number | String }
-```
-
-## ValidSimple
-
-### ValidSimple\domain-enum-all-parent.graphql+
-
-```gqlp
-domain DomEnumAllParent { enum EnumDomAllParent.* }
-enum EnumDomAllParent { :EnumDomParentAll dom_all_parent }
-enum EnumDomParentAll { dom_enum_all_parent }
-```
-
-### ValidSimple\domain-enum-all.graphql+
-
-```gqlp
-domain DomEnumAll { enum EnumDomAll.* }
-enum EnumDomAll { dom_all dom_enum_all }
-```
-
-### ValidSimple\domain-enum-member.graphql+
-
-```gqlp
-domain DomMember { enum dom_member }
-enum MemberDom { dom_member }
-```
-
-### ValidSimple\domain-enum-parent.graphql+
-
-```gqlp
-domain DomEnumPrnt { :DomPrntEnum Enum both_enum }
-domain DomPrntEnum { Enum both_parent }
-enum EnumDomBoth { both_enum both_parent }
-```
-
-### ValidSimple\domain-enum-unique-parent.graphql+
-
-```gqlp
-enum EnumDomUniqueParent { :EnumDomParentUnique value }
-enum EnumDomParentUnique { enum_dom_parent_dup }
-enum EnumDomDupParent { enum_dom_parent_dup }
-# domain DomEnumUniqueParent { enum EnumDomUniqueParent.* !EnumDomUniqueParent.enum_dom_parent_dup EnumDomDupParent.enum_dom_parent_dup }
-```
-
-### ValidSimple\domain-enum-unique.graphql+
-
-```gqlp
-enum EnumDomUnique { eum_dom_value eum_dom_dup }
-enum EnumDomDup { eum_dom_dup }
-# domain DomEnumUnique { enum EnumDomUnique.* !EnumDomUnique.eum_dom_dup EnumDomDup.eum_dom_dup }
-```
-
-### ValidSimple\domain-enum-value-parent.graphql+
-
-```gqlp
-domain DomEnumParent { Enum EnumDomParent.dom_enum_parent }
-enum EnumDomParent { :EnumParentDom dom_parent_enum }
-enum EnumParentDom { dom_enum_parent }
-```
-
-### ValidSimple\domain-enum-value.graphql+
-
-```gqlp
-domain DomEnum { Enum EnumDom.dom_enum }
-enum EnumDom { dom_enum }
-```
-
-### ValidSimple\domain-number-parent.graphql+
-
-```gqlp
-domain DomNumPrnt { :DomPrntNum Number 2>}
-domain DomPrntNum { Number <2 }
-```
-
-### ValidSimple\domain-parent.graphql+
-
-```gqlp
-domain DomPrntTest { :DomTestPrnt Boolean false }
-domain DomTestPrnt { Boolean true }
-```
-
-### ValidSimple\domain-string-parent.graphql+
-
-```gqlp
-domain DomStrPrnt { :DomPrntStr String /a+/ }
-domain DomPrntStr { String /b+/ }
-```
-
-### ValidSimple\enum-parent-alias.graphql+
-
-```gqlp
-enum EnPrntAlias { :EnAliasPrnt val_prnt_alias val_alias[alias_val] }
-enum EnAliasPrnt { val_alias }
-```
-
-### ValidSimple\enum-parent-dup.graphql+
-
-```gqlp
-enum EnPrntDup { :EnDupPrnt val_prnt_dup  }
-enum EnDupPrnt { val_dup[val_prnt_dup] }
-```
-
-### ValidSimple\enum-parent.graphql+
-
-```gqlp
-enum EnTestPrnt { :EnPrntTest val_prnt }
-enum EnPrntTest { val_test }
-```
-
-### ValidSimple\union-parent-dup.graphql+
-
-```gqlp
-union UnionPrnt { :PrntUnion Number }
-union PrntUnion { Number }
-```
-
-### ValidSimple\union-parent.graphql+
-
-```gqlp
-union UnionPrnt { :PrntUnion String }
-union PrntUnion { Number }
-```

@@ -99,8 +99,12 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
 
     $path = $_ -split '\\'
     if ($path.Count -gt 1) {
-      if ($path[0] -ne $dir) {
-        $dir = $path[0]        
+      $head = $path[0]
+      if ($_ -match 'Invalid') {
+        $head += " (Invalid)"
+      }
+      if ($head -ne $dir) {
+        $dir = $head
         "## $dir`n" | Add-Content $file
       }
     }
