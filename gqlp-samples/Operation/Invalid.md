@@ -1,6 +1,40 @@
-# Invalid Operation Samples
+# Operation Samples
 
-### empty.gql+
+## Root
+
+### frag-end.gql+
+
+```gqlp
+{...named}fragment named on Named{name}
+```
+
+### frag-first.gql+
+
+```gqlp
+&named:Named{name}{|named}
+```
+
+### simple.gql+
+
+```gqlp
+{simple}
+```
+
+### var-null.gql+
+
+```gqlp
+($var:Id?=null):Boolean($var)
+```
+
+### var.gql+
+
+```gqlp
+($var):Boolean($var)
+```
+
+## Invalid (Invalid)
+
+### Invalid\empty.gql+
 
 ```gqlp
 
@@ -10,7 +44,18 @@
 
 - `Invalid Operation. Expected text`
 
-### frag-undef.gql+
+### Invalid\error.gql+
+
+```gqlp
+{}
+```
+
+##### Expected Verify errors
+
+- `Invalid Operation. Expected at least one field or selection`
+- `Invalid Operation. Expected Object or Type`
+
+### Invalid\frag-undef.gql+
 
 ```gqlp
 {...named}
@@ -20,7 +65,7 @@
 
 - `Invalid Spread usage. Spread not defined`
 
-### frag-unused.gql+
+### Invalid\frag-unused.gql+
 
 ```gqlp
 &named:Named{name}{name}
@@ -30,7 +75,7 @@
 
 - `Invalid Spread definition. Spread not used`
 
-### list-map-def.gql+
+### Invalid\list-map-def.gql+
 
 ```gqlp
 ($var:Id[]={a:b}):Boolean($var)
@@ -40,7 +85,7 @@
 
 - `Invalid Variable definition. List Type cannot have Object default`
 
-### list-null-map-def.gql+
+### Invalid\list-null-map-def.gql+
 
 ```gqlp
 ($var:Id[]?={a:b}):Boolean($var)
@@ -50,7 +95,7 @@
 
 - `Invalid Variable definition. Optional List Type cannot have Object default`
 
-### map-list-def.gql+
+### Invalid\map-list-def.gql+
 
 ```gqlp
 ($var:Id[*]=[a]):Boolean($var)
@@ -60,7 +105,7 @@
 
 - `Invalid Variable definition. Dictionary Type must have Object default`
 
-### map-null-list-def.gql+
+### Invalid\map-null-list-def.gql+
 
 ```gqlp
 ($var:Id[*]?=[a]):Boolean($var)
@@ -70,7 +115,7 @@
 
 - `Invalid Variable definition. Optional Dictionary Type must have Object default`
 
-### null-def-invalid.gql+
+### Invalid\null-def-invalid.gql+
 
 ```gqlp
 ($var:Id=null):Boolean($var)
@@ -80,7 +125,7 @@
 
 - `Invalid Variable definition. Default of 'null' must be on Optional Type`
 
-### var-undef.gql+
+### Invalid\var-undef.gql+
 
 ```gqlp
 :Boolean($var)
@@ -90,7 +135,7 @@
 
 - `Invalid Variable usage. Variable not defined`
 
-### var-unused.gql+
+### Invalid\var-unused.gql+
 
 ```gqlp
 ($var):Boolean

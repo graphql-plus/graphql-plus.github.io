@@ -1,6 +1,7 @@
 # Schema language definition
 
-> See [Definition](Definition.md) on how to read the definitions below.
+> See [Definition](Definition.md) on how to read the definitions below
+> and the definition of a number of Terms used these definitions.
 >
 > Including PEG definitions for Common and Constant terms.
 
@@ -9,13 +10,14 @@
 ```PEG
 Schema = Declaration+
 
-Declaration = STRING? ( Category | Directive | Option | Type )
+Declaration = Documentation? ( Category | Directive | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
+Documentation = STRING+
 
 Aliases = '[' alias+ ']'
 ```
 
-A Schema is one (or more) Declarations. Each declaration can be preceded by a documentation string.
+A Schema is one (or more) Declarations. Each declaration may be preceded by documentation strings.
 
 ### Declarations
 
@@ -66,6 +68,8 @@ It is an error if merging of duplicate items is not possible.
 
 ## Global declarations
 
+Global declarations define specific capabilities that cover the entirety of the Schema.
+
 ### Category declaration
 
 ```PEG
@@ -92,7 +96,7 @@ Categories can be merged if their Options and Modified Output Types match.
 ### Directive declaration
 
 ```PEG
-Directive = 'directive' '@'directive ValueParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 ```
@@ -110,11 +114,13 @@ Locations will be merged by value.
 
 ```PEG
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = STRING? setting Default
+Opt_Setting = Documentation? setting Default
 ```
 
 An Option defines valid options for the Schema as a whole, including the Schema name and Aliases.
 A Schema must have only one name.
+
+An Option Setting comprises of a name and a constant value. A Setting may be preceded by documentation strings.
 
 Option Settings are merged by name and values are merged in the same way as Constant Object values.
 
@@ -273,12 +279,12 @@ Regular expressions can only be merged if their inclusion/exclusion matches.
 
 ```PEG
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
-En_Member = STRING? member Aliases?
+En_Member = Documentation? member Aliases?
 ```
 
 An Enum is a Type defined with one or more Members.
 
-Each Member can be preceded by a documentation string and may have one or more Aliases.
+Each Member may be preceded by documentation strings and may have one or more Aliases.
 
 Enums can be merged if their Parents, including lack thereof, match.
 
@@ -303,26 +309,23 @@ Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
-Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
+Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
+Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
 
-Obj_Alternate = '|' STRING? Obj_Type Collections?
+Obj_Alternate = '|' Documentation? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = STRING? Obj_Argument
+Obj_BaseArg = Documentation? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
-Obj_Constraint = Simple | object
+TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
 
 ```
 
 An Object type may have Type parameters.
-Each Type parameter can be preceded by a documentation string.
-Each Type parameter may have a Constraint specifying the Type any argument must be or extend.
-
+Each Type parameter may be preceded by documentation strings.
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
@@ -336,24 +339,29 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+An object Type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another object Type.
 If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
-Type arguments must be or extend the Constraint of their corresponding Type parameter, if specified.
-If a Type argument is an object Type it may NOT have Type Arguments.
+Type arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or the same object Type as the reference.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
-A Field is defined with at least:
+A Field is defined as:
 
-- an optional documentation string,
+- optional field documentation strings,
 - a Field name
 - zero or more Field Aliases
+- optional type documentation strings
 - a type parameter or object type reference, the Field's Type
 - zero or more Modifiers
 
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
+
+An Alternate is defined as:
+
+- optional documentation strings
+- a type parameter or object type reference, the Alternate's Type
+- zero or more Collections
 
 Object types can be merged if their parent Types match.
 
@@ -432,18 +440,15 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = STRING? In_Type Modifiers? Default?
+In_Field = Documentation? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = Documentation? In_Type Modifiers? Default?
 
-ValueParams = '(' In_TypeDefault+ ')'
+InputParams = '(' In_TypeDefault+ ')'
 ```
 
 Input types define the type of Arguments, used on Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
-
-An Input type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another Input Type.
-Type Arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or another Input Type.
 
 An Input Field redefines an object Field as follows:
 
@@ -468,9 +473,9 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = ValueParams? fieldAlias* ':' STRING? Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' STRING? EnumValue
+Out_Field = Documentation? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParams? fieldAlias* ':' Documentation? Out_Type Modifiers?
+Out_EnumField = fieldAlias* '=' Documentation? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 ```
@@ -479,25 +484,25 @@ Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
-An Output type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another Output Type.
-Type Arguments may be an Internal Type, Simple Type, Type parameter, Dual Type, another Output Type or and Enum Value.
-If there is a conflict between a bare Enum Value and a Type, the Type will have precedence
-unless the corresponding Type parameter has an Enum Constraint.
+An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Values.
+If there is a conflict between a bare Enum Value and a Type, the Type will have precedence.
 
 An Output Field redefines an object Field as follows:
 
-- an optional documentation string,
+- optional field documentation strings,
 - a Field name
 - optional Input Parameters
 - zero or more Field Aliases
+- optional type documentation strings
 - a type parameter or an Output type reference
 - zero or more type Modifiers
 
 or:
 
-- an optional documentation string,
+- optional field documentation strings,
 - a Field name
 - zero or more Field Aliases
+- optional type documentation strings,
 - an Enum Value (which will imply the field Type)
 
 ## Complete Grammar
@@ -505,20 +510,21 @@ or:
 ```PEG
 Schema = Declaration+
 
-Declaration = STRING? ( Category | Directive | Option | Type )
+Declaration = Documentation? ( Category | Directive | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
+Documentation = STRING+
 
 Aliases = '[' alias+ ']'
 
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
-Directive = 'directive' '@'directive ValueParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = STRING? setting Default
+Opt_Setting = Documentation? setting Default
 
 Parent = ':' parent
 
@@ -541,35 +547,34 @@ Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
 Scal_Regex = '!'? REGEX
 
 Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
-En_Member = STRING? member Aliases?
+En_Member = Documentation? member Aliases?
 
 Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
 UnionDefinition = Simple+
 
 // base definition
-Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' STRING? Obj_Base )? Obj_Field+
-Obj_Field = STRING? field Aliases? ':' STRING? Obj_Type Modifiers?
+Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
+Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
 
-Obj_Alternate = '|' STRING? Obj_Type Collections?
+Obj_Alternate = '|' Documentation? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = STRING? Obj_Argument
+Obj_BaseArg = Documentation? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
-Obj_Constraint = Simple | object
+TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
 
 
-In_Field = STRING? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = STRING? In_Type Modifiers? Default?
+In_Field = Documentation? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = Documentation? In_Type Modifiers? Default?
 
-ValueParams = '(' In_TypeDefault+ ')'
+InputParams = '(' In_TypeDefault+ ')'
 
-Out_Field = STRING? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = ValueParams? fieldAlias* ':' STRING? Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' STRING? EnumValue
+Out_Field = Documentation? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParams? fieldAlias* ':' Documentation? Out_Type Modifiers?
+Out_EnumField = fieldAlias* '=' Documentation? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 
