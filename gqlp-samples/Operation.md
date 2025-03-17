@@ -2,19 +2,32 @@
 
 ## Root
 
-### error.gql+
+### frag-end.gql+
 
 ```gqlp
-{}
+{...named}fragment named on Named{name}
 ```
 
-##### Expected Verify errors
+### frag-first.gql+
 
-- `Invalid Operation. Expected at least one field or selection`
-- `Invalid Operation. Expected Object or Type`
+```gqlp
+&named:Named{name}{|named}
+```
 
 ### simple.gql+
 
 ```gqlp
 {simple}
+```
+
+### var-null.gql+
+
+```gqlp
+($var:Id?=null):Boolean($var)
+```
+
+### var.gql+
+
+```gqlp
+($var):Boolean($var)
 ```

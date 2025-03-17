@@ -1,6 +1,6 @@
-# ValidGlobals Schema Samples
+# Globals Schema Samples
 
-### category-description.graphql+
+### Globals\category-description.graphql+
 
 ```gqlp
 "A Category described"
@@ -8,42 +8,42 @@ category { CatDescr }
 output CatDescr { }
 ```
 
-### category-output-dict.graphql+
+### Globals\category-output-dict.graphql+
 
 ```gqlp
 category { CatDict[*] }
 output CatDict { }
 ```
 
-### category-output-list.graphql+
+### Globals\category-output-list.graphql+
 
 ```gqlp
 category { CatList[] }
 output CatList { }
 ```
 
-### category-output-optional.graphql+
+### Globals\category-output-optional.graphql+
 
 ```gqlp
 category { CatOpt? }
 output CatOpt { }
 ```
 
-### category-output.graphql+
+### Globals\category-output.graphql+
 
 ```gqlp
 category { Cat }
 output Cat { }
 ```
 
-### description-backslash.graphql+
+### Globals\description-backslash.graphql+
 
 ```gqlp
 'A backslash ("\\") description'
 output DescrBackslash { }
 ```
 
-### description-between.graphql+
+### Globals\description-between.graphql+
 
 ```gqlp
 category { DescrBetween }
@@ -51,77 +51,77 @@ category { DescrBetween }
 output DescrBetween { }
 ```
 
-### description-complex.graphql+
+### Globals\description-complex.graphql+
 
 ```gqlp
 "A \"more\" 'Complicated' \\ description"
 output DescrComplex { }
 ```
 
-### description-double.graphql+
+### Globals\description-double.graphql+
 
 ```gqlp
 "A 'double-quoted' description"
 output DescrDouble { }
 ```
 
-### description-single.graphql+
+### Globals\description-single.graphql+
 
 ```gqlp
 'A "single-quoted" description'
 output DescrSingle { }
 ```
 
-### description.graphql+
+### Globals\description.graphql+
 
 ```gqlp
 "A simple description"
 output Descr { }
 ```
 
-### directive-description.graphql+
+### Globals\directive-description.graphql+
 
 ```gqlp
 "A directive described"
 directive @DirDescr { all }
 ```
 
-### directive-no-param.graphql+
+### Globals\directive-no-param.graphql+
 
 ```gqlp
 directive @DirNoParam { all }
 ```
 
-### directive-param-dict.graphql+
+### Globals\directive-param-dict.graphql+
 
 ```gqlp
 directive @DirParamDict(DirParamIn[String]) { all }
 input DirParamIn { }
 ```
 
-### directive-param-in.graphql+
+### Globals\directive-param-in.graphql+
 
 ```gqlp
 directive @DirParam(DirParamIn) { all }
 input DirParamIn { }
 ```
 
-### directive-param-list.graphql+
+### Globals\directive-param-list.graphql+
 
 ```gqlp
 directive @DirParamList(DirParamIn[]) { all }
 input DirParamIn { }
 ```
 
-### directive-param-opt.graphql+
+### Globals\directive-param-opt.graphql+
 
 ```gqlp
 directive @DirParamOpt(DirParamIn?) { all }
 input DirParamIn { }
 ```
 
-### option-setting.graphql+
+### Globals\option-setting.graphql+
 
 ```gqlp
-option Schema { setting = true }
+option Schema { global=true }
 ```

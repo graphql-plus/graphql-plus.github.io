@@ -1,6 +1,6 @@
-# ValidMerges Schema Samples
+# Merges Schema Samples
 
-### category-alias.graphql+
+### Merges\category-alias.graphql+
 
 ```gqlp
 category [CatA1] { CatAlias }
@@ -8,7 +8,7 @@ category [CatA2] { CatAlias }
 output CatAlias { }
 ```
 
-### category-mod.graphql+
+### Merges\category-mod.graphql+
 
 ```gqlp
 category [CatM1] { CatMods? }
@@ -16,7 +16,7 @@ category [CatM2] { CatMods? }
 output CatMods { }
 ```
 
-### category.graphql+
+### Merges\category.graphql+
 
 ```gqlp
 category { Category }
@@ -24,14 +24,14 @@ category category { Category }
 output Category { }
 ```
 
-### directive-alias.graphql+
+### Merges\directive-alias.graphql+
 
 ```gqlp
 directive @DirAlias [DirA1] { variable }
 directive @DirAlias [DirA2] { field }
 ```
 
-### directive-param.graphql+
+### Merges\directive-param.graphql+
 
 ```gqlp
 directive @DirParam(DirParamIn) { operation }
@@ -39,112 +39,112 @@ directive @DirParam { fragment }
 input DirParamIn { }
 ```
 
-### directive.graphql+
+### Merges\directive.graphql+
 
 ```gqlp
 directive @Dir { inline }
 directive @Dir { spread }
 ```
 
-### domain-alias.graphql+
+### Merges\domain-alias.graphql+
 
 ```gqlp
 domain NumAlias [Num1] { number }
 domain NumAlias [Num2] { number }
 ```
 
-### domain-boolean-diff.graphql+
+### Merges\domain-boolean-diff.graphql+
 
 ```gqlp
 domain BoolDiff { boolean true }
 domain BoolDiff { boolean false }
 ```
 
-### domain-boolean-same.graphql+
+### Merges\domain-boolean-same.graphql+
 
 ```gqlp
 domain BoolSame { boolean true }
 domain BoolSame { boolean true }
 ```
 
-### domain-boolean.graphql+
+### Merges\domain-boolean.graphql+
 
 ```gqlp
 domain Bool { boolean }
 domain Bool { boolean }
 ```
 
-### domain-enum-diff.graphql+
+### Merges\domain-enum-diff.graphql+
 
 ```gqlp
 domain EnumDiff { enum true }
 domain EnumDiff { enum false }
 ```
 
-### domain-enum-same.graphql+
+### Merges\domain-enum-same.graphql+
 
 ```gqlp
 domain EnumSame { enum true }
 domain EnumSame { enum true }
 ```
 
-### domain-number-diff.graphql+
+### Merges\domain-number-diff.graphql+
 
 ```gqlp
 domain NumDiff { number 1~9 }
 domain NumDiff { number }
 ```
 
-### domain-number-same.graphql+
+### Merges\domain-number-same.graphql+
 
 ```gqlp
 domain NumSame { number 1~9 }
 domain NumSame { number 1~9 }
 ```
 
-### domain-number.graphql+
+### Merges\domain-number.graphql+
 
 ```gqlp
 domain Num { number }
 domain Num { number }
 ```
 
-### domain-string-diff.graphql+
+### Merges\domain-string-diff.graphql+
 
 ```gqlp
 domain StrDiff { string /a+/ }
 domain StrDiff { string }
 ```
 
-### domain-string-same.graphql+
+### Merges\domain-string-same.graphql+
 
 ```gqlp
 domain StrSame { string /a+/ }
 domain StrSame { string /a+/ }
 ```
 
-### domain-string.graphql+
+### Merges\domain-string.graphql+
 
 ```gqlp
 domain Str { string }
 domain Str { string }
 ```
 
-### enum-alias.graphql+
+### Merges\enum-alias.graphql+
 
 ```gqlp
 enum EnAlias [En1] { alias }
 enum EnAlias [En2] { alias }
 ```
 
-### enum-diff.graphql+
+### Merges\enum-diff.graphql+
 
 ```gqlp
 enum EnDiff { one }
 enum EnDiff { two }
 ```
 
-### enum-same-parent.graphql+
+### Merges\enum-same-parent.graphql+
 
 ```gqlp
 enum EnSameParent { :EnParent sameP }
@@ -152,28 +152,28 @@ enum EnSameParent { :EnParent sameP }
 enum EnParent { parent }
 ```
 
-### enum-same.graphql+
+### Merges\enum-same.graphql+
 
 ```gqlp
 enum EnSame { same }
 enum EnSame { same }
 ```
 
-### enum-value-alias.graphql+
+### Merges\enum-value-alias.graphql+
 
 ```gqlp
 enum EnValAlias { value [val1] }
 enum EnValAlias { value [val2] }
 ```
 
-### object-alias.graphql+
+### Merges\object-alias.graphql+
 
 ```gqlp
 object ObjName [Obj1] { }
 object ObjName [Obj2] { }
 ```
 
-### object-alt.graphql+
+### Merges\object-alt.graphql+
 
 ```gqlp
 object ObjName { | ObjNameType }
@@ -181,7 +181,7 @@ object ObjName { | ObjNameType }
 object ObjNameType { }
 ```
 
-### object-field-alias.graphql+
+### Merges\object-field-alias.graphql+
 
 ```gqlp
 object ObjName { field [field1]: ObjNameFld }
@@ -189,7 +189,7 @@ object ObjName { field [field2]: ObjNameFld }
 object ObjNameFld { }
 ```
 
-### object-field.graphql+
+### Merges\object-field.graphql+
 
 ```gqlp
 object ObjName { field: ObjNameFld }
@@ -197,14 +197,14 @@ object ObjName { field: ObjNameFld }
 object ObjNameFld { }
 ```
 
-### object-param.graphql+
+### Merges\object-param.graphql+
 
 ```gqlp
 object ObjName<$test> { test: $test }
 object ObjName<$type> { type: $type }
 ```
 
-### object-parent.graphql+
+### Merges\object-parent.graphql+
 
 ```gqlp
 object ObjName { :ObjNameRef }
@@ -212,49 +212,49 @@ object ObjName { :ObjNameRef }
 object ObjNameRef { }
 ```
 
-### object.graphql+
+### Merges\object.graphql+
 
 ```gqlp
 object ObjName { }
 object ObjName { }
 ```
 
-### option-alias.graphql+
+### Merges\option-alias.graphql+
 
 ```gqlp
 option Schema [Opt1] { }
 option Schema [Opt2] { }
 ```
 
-### option-value.graphql+
+### Merges\option-value.graphql+
 
 ```gqlp
-option Schema { setting=true }
-option Schema { setting=[0] }
+option Schema { merged=true }
+option Schema { merged=[0] }
 ```
 
-### option.graphql+
+### Merges\option.graphql+
 
 ```gqlp
 option Schema { }
 option Schema { }
 ```
 
-### output-field-enum-alias.graphql+
+### Merges\output-field-enum-alias.graphql+
 
 ```gqlp
 output FieldEnumAlias { field [field1] = Boolean.true }
 output FieldEnumAlias { field [field2] = true }
 ```
 
-### output-field-enum-value.graphql+
+### Merges\output-field-enum-value.graphql+
 
 ```gqlp
 output FieldEnums { field = Boolean.true }
 output FieldEnums { field = true }
 ```
 
-### output-field-param.graphql+
+### Merges\output-field-param.graphql+
 
 ```gqlp
 output FieldParam { field(FieldParam1): FieldParamFld }
@@ -264,21 +264,21 @@ input FieldParam2 { }
 output FieldParamFld { }
 ```
 
-### union-alias.graphql+
+### Merges\union-alias.graphql+
 
 ```gqlp
 union UnDiff [UnA1] { Boolean }
 union UnDiff [UnA2] { Number }
 ```
 
-### union-diff.graphql+
+### Merges\union-diff.graphql+
 
 ```gqlp
 union UnDiff { Boolean }
 union UnDiff { Number }
 ```
 
-### union-same-parent.graphql+
+### Merges\union-same-parent.graphql+
 
 ```gqlp
 union UnSameParent { :UnParent Boolean }
@@ -286,7 +286,7 @@ union UnSameParent { :UnParent Boolean }
 union UnParent { String }
 ```
 
-### union-same.graphql+
+### Merges\union-same.graphql+
 
 ```gqlp
 union UnSame { Boolean }

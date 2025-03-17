@@ -1,6 +1,6 @@
-# InvalidSimple Schema Samples
+# Simple (Invalid) Schema Samples
 
-### domain-diff-kind.graphql+
+### Simple\Invalid\domain-diff-kind.graphql+
 
 ```gqlp
 domain Test { string }
@@ -13,7 +13,7 @@ domain Test { number }
 - `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### domain-dup-alias.graphql+
+### Simple\Invalid\domain-dup-alias.graphql+
 
 ```gqlp
 domain Test [a] { Boolean }
@@ -25,7 +25,7 @@ domain Dup [a] { Boolean }
 - `Multiple Domains with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### domain-enum-none.graphql+
+### Simple\Invalid\domain-enum-none.graphql+
 
 ```gqlp
 domain Test { Enum }
@@ -35,7 +35,7 @@ domain Test { Enum }
 
 - `Invalid Domain. Expected enum Members`
 
-### domain-enum-parent-unique.graphql+
+### Simple\Invalid\domain-enum-parent-unique.graphql+
 
 ```gqlp
 domain Test { :Parent Enum Enum.value }
@@ -49,7 +49,7 @@ enum Dup { value }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
-### domain-enum-undef-all.graphql+
+### Simple\Invalid\domain-enum-undef-all.graphql+
 
 ```gqlp
 domain Test { enum Undef.* }
@@ -59,7 +59,7 @@ domain Test { enum Undef.* }
 
 - `Invalid Domain Enum. 'Undef' not an Enum type`
 
-### domain-enum-undef-member.graphql+
+### Simple\Invalid\domain-enum-undef-member.graphql+
 
 ```gqlp
 domain Test { enum Enum.undef }
@@ -70,7 +70,7 @@ enum Enum { value }
 
 - `Invalid Domain Enum Value. 'undef' not a Value of 'Enum'`
 
-### domain-enum-undef-value.graphql+
+### Simple\Invalid\domain-enum-undef-value.graphql+
 
 ```gqlp
 domain Test { enum Undef.value }
@@ -80,7 +80,7 @@ domain Test { enum Undef.value }
 
 - `Invalid Domain Enum. 'Undef' not an Enum type`
 
-### domain-enum-undef.graphql+
+### Simple\Invalid\domain-enum-undef.graphql+
 
 ```gqlp
 domain Test { enum undef }
@@ -90,7 +90,7 @@ domain Test { enum undef }
 
 - `Invalid Domain Enum Member. Enum Value 'undef' not defined`
 
-### domain-enum-unique-all.graphql+
+### Simple\Invalid\domain-enum-unique-all.graphql+
 
 ```gqlp
 domain Test { enum Enum.* Dup.* }
@@ -102,7 +102,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### domain-enum-unique-member.graphql+
+### Simple\Invalid\domain-enum-unique-member.graphql+
 
 ```gqlp
 domain Test { enum Enum.value Dup.* }
@@ -114,7 +114,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### domain-enum-unique.graphql+
+### Simple\Invalid\domain-enum-unique.graphql+
 
 ```gqlp
 domain Test { enum Enum.value Dup.value }
@@ -126,7 +126,7 @@ enum Dup { value }
 
 - `Invalid Domain Enum. 'value' duplicated from these Enums: Enum Dup`
 
-### domain-enum-wrong.graphql+
+### Simple\Invalid\domain-enum-wrong.graphql+
 
 ```gqlp
 domain Test { enum Bad.value }
@@ -137,7 +137,7 @@ output Bad { }
 
 - `Invalid Domain Enum. 'Bad' not an Enum type`
 
-### domain-number-parent.graphql+
+### Simple\Invalid\domain-number-parent.graphql+
 
 ```gqlp
 domain Test { :Parent number 1> }
@@ -149,7 +149,7 @@ domain Parent { number !1> }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
 
-### domain-parent-self-more.graphql+
+### Simple\Invalid\domain-parent-self-more.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -165,7 +165,7 @@ domain More { :Test Boolean }
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 - `Invalid Domain. 'More' cannot be a child of itself, even recursively via Recurse`
 
-### domain-parent-self-parent.graphql+
+### Simple\Invalid\domain-parent-self-parent.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -177,7 +177,7 @@ domain Parent { :Test Boolean }
 - `Invalid Domain. 'Test' cannot be a child of itself, even recursively via Parent`
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 
-### domain-parent-self-recurse.graphql+
+### Simple\Invalid\domain-parent-self-recurse.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -191,7 +191,7 @@ domain Recurse { :Test Boolean }
 - `Invalid Domain. 'Parent' cannot be a child of itself, even recursively via Test`
 - `Invalid Domain. 'Recurse' cannot be a child of itself, even recursively via Parent`
 
-### domain-parent-self.graphql+
+### Simple\Invalid\domain-parent-self.graphql+
 
 ```gqlp
 domain Test { :Test Boolean }
@@ -201,7 +201,7 @@ domain Test { :Test Boolean }
 
 - `Invalid Domain. 'Test' cannot be a child of itself`
 
-### domain-parent-undef.graphql+
+### Simple\Invalid\domain-parent-undef.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -211,7 +211,7 @@ domain Test { :Parent Boolean }
 
 - `Invalid Domain Parent. 'Parent' not defined`
 
-### domain-parent-wrong-kind.graphql+
+### Simple\Invalid\domain-parent-wrong-kind.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -222,7 +222,7 @@ domain Parent { String }
 
 - `Invalid Domain Parent. 'Parent' invalid domain. Found 'String'`
 
-### domain-parent-wrong-type.graphql+
+### Simple\Invalid\domain-parent-wrong-type.graphql+
 
 ```gqlp
 domain Test { :Parent Boolean }
@@ -233,7 +233,7 @@ output Parent { }
 
 - `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'`
 
-### domain-string-diff.graphql+
+### Simple\Invalid\domain-string-diff.graphql+
 
 ```gqlp
 domain Test { string /a+/}
@@ -246,7 +246,7 @@ domain Test { string !/a+/ }
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### domain-string-parent.graphql+
+### Simple\Invalid\domain-string-parent.graphql+
 
 ```gqlp
 domain Test { :Parent string /a+/}
@@ -258,7 +258,7 @@ domain Parent { string !/a+/ }
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
 - `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
 
-### enum-dup-alias.graphql+
+### Simple\Invalid\enum-dup-alias.graphql+
 
 ```gqlp
 enum Test [a] { test }
@@ -270,7 +270,7 @@ enum Dup [a] { dup }
 - `Multiple Enums with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### enum-parent-alias-dup.graphql+
+### Simple\Invalid\enum-parent-alias-dup.graphql+
 
 ```gqlp
 enum Test { :Parent test[alias] }
@@ -282,7 +282,7 @@ enum Parent { parent[alias] }
 - `Invalid Enum Child. Can't merge Test into Parent Parent`
 - `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
 
-### enum-parent-diff.graphql+
+### Simple\Invalid\enum-parent-diff.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -296,7 +296,7 @@ enum Parent { parent }
 - `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### enum-parent-undef.graphql+
+### Simple\Invalid\enum-parent-undef.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -306,7 +306,7 @@ enum Test { :Parent test }
 
 - `Invalid Enum Parent. 'Parent' not defined`
 
-### enum-parent-wrong.graphql+
+### Simple\Invalid\enum-parent-wrong.graphql+
 
 ```gqlp
 enum Test { :Parent test }
@@ -317,7 +317,7 @@ output Parent { }
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'`
 
-### union-dup-alias.graphql+
+### Simple\Invalid\union-dup-alias.graphql+
 
 ```gqlp
 union Test [a] { String }
@@ -329,7 +329,7 @@ union Dup [a] { Number }
 - `Multiple Unions with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### union-more-parent.graphql+
+### Simple\Invalid\union-more-parent.graphql+
 
 ```gqlp
 union Test { Recurse }
@@ -343,7 +343,7 @@ union Bad { Test }
 
 - `Invalid Union. Expected at least one member`
 
-### union-more.graphql+
+### Simple\Invalid\union-more.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -357,7 +357,7 @@ union More { Test }
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
-### union-parent-diff.graphql+
+### Simple\Invalid\union-parent-diff.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -371,7 +371,7 @@ union Parent { String }
 - `Group of Union for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### union-parent-more.graphql+
+### Simple\Invalid\union-parent-more.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -385,7 +385,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively`
 
-### union-parent-recurse.graphql+
+### Simple\Invalid\union-parent-recurse.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -398,7 +398,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### union-parent-undef.graphql+
+### Simple\Invalid\union-parent-undef.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -408,7 +408,7 @@ union Test { :Parent Number }
 
 - `Invalid Union Parent. 'Parent' not defined`
 
-### union-parent-wrong.graphql+
+### Simple\Invalid\union-parent-wrong.graphql+
 
 ```gqlp
 union Test { :Parent Number }
@@ -419,7 +419,7 @@ output Parent { }
 
 - `Invalid Union Parent. 'Parent' invalid type. Found 'Output'`
 
-### union-parent.graphql+
+### Simple\Invalid\union-parent.graphql+
 
 ```gqlp
 union Test { :Parent String }
@@ -430,7 +430,7 @@ union Parent { Test }
 
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 
-### union-recurse-parent.graphql+
+### Simple\Invalid\union-recurse-parent.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -443,7 +443,7 @@ union Parent { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### union-recurse.graphql+
+### Simple\Invalid\union-recurse.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -455,7 +455,7 @@ union Bad { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 
-### union-self.graphql+
+### Simple\Invalid\union-self.graphql+
 
 ```gqlp
 union Test { Test }
@@ -465,7 +465,7 @@ union Test { Test }
 
 - `Invalid Union Member. 'Test' cannot refer to self`
 
-### union-undef.graphql+
+### Simple\Invalid\union-undef.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -475,7 +475,7 @@ union Test { Bad }
 
 - `Invalid Union. 'Bad' not defined`
 
-### union-wrong.graphql+
+### Simple\Invalid\union-wrong.graphql+
 
 ```gqlp
 union Test { Bad }
@@ -486,7 +486,7 @@ input Bad { }
 
 - `Invalid union. Type kind mismatch for Bad. Found Input`
 
-### unique-type-alias.graphql+
+### Simple\Invalid\unique-type-alias.graphql+
 
 ```gqlp
 enum Test [a] { Value }
@@ -497,7 +497,7 @@ output Dup [a] { }
 
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
-### unique-types.graphql+
+### Simple\Invalid\unique-types.graphql+
 
 ```gqlp
 enum Test { Value }
