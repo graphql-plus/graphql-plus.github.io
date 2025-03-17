@@ -236,6 +236,8 @@ Domain types define specific sub-domains of the following Domains, each with dif
 
 > Boolean, Enum, Number, String
 
+A Domain type without a Parent is considered to extend it's base Domain.
+
 Item exclusions (where defined) take precedence over inclusions.
 
 Domain declarations can be merged if their Domains and Parents match.
@@ -309,7 +311,7 @@ Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
 Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
@@ -327,6 +329,8 @@ Obj_Constraint = Simple | object
 
 An Object type may have Type parameters.
 Each Type parameter may be preceded by documentation strings.
+Each Type parameter may have a Constraint specifying the Type any argument must be or extend.
+
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
@@ -340,9 +344,11 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another object Type.
+An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
 If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or the same object Type as the reference.
+Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+Type arguments must be or extend the Constraint of their corresponding Type parameter, if specified.
+If a Type argument is an object Type it may NOT have Type Arguments.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -554,7 +560,7 @@ Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
 UnionDefinition = Simple+
 
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
 Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
@@ -565,7 +571,8 @@ Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
 Obj_BaseArg = Documentation? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
+Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
 
 In_Field = Documentation? field fieldAlias* ':' In_TypeDefault

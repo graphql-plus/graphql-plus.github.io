@@ -34,6 +34,82 @@ object ObjName { | ObjNameAlt }
 object ObjNameAlt { alt: Number | String }
 ```
 
+### constraint-alt-domain.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<DomName> }
+object ObjNameRef<$ref:String> { | $ref }
+domain DomName { String /\w+/ }
+```
+
+### constraint-alt-dual.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { | $ref }
+dual ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
+### constraint-alt-obj.graphql+
+
+```gqlp
+object ObjName { | ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { | $ref }
+object ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
+### constraint-alt.graphql+
+
+```gqlp
+object ObjName<$type:Number> { | $type }
+```
+
+### constraint-field-domain.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<DomName> }
+object ObjNameRef<$ref:String> { field: $ref }
+domain DomName { String /\w+/ }
+```
+
+### constraint-field-dual.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { field: $ref }
+dual ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
+### constraint-field-obj.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { field: $ref }
+object ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
+### constraint-parent-dual-parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { :$ref }
+dual ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
+### constraint-parent-obj-parent.graphql+
+
+```gqlp
+object ObjName { :ObjNameRef<ObjNameAlt> }
+object ObjNameRef<$ref:ObjNameParent> { :$ref }
+object ObjNameParent { | String }
+object ObjNameAlt { :ObjNameParent alt: Number }
+```
+
 ### field-dual.graphql+
 
 ```gqlp
@@ -110,14 +186,6 @@ object ObjNameRef<$ref> { | $ref }
 object ObjName<$type> { | $type }
 ```
 
-### generic-dual.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
-```
-
 ### generic-field-arg.graphql+
 
 ```gqlp
@@ -145,14 +213,6 @@ object ObjNameAlt { alt: Number | String }
 
 ```gqlp
 object ObjName<$type> { field: $type }
-```
-
-### generic-param.graphql+
-
-```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
 ```
 
 ### generic-parent-arg.graphql+
@@ -223,6 +283,14 @@ input InFieldNum { field: Number = 0 }
 
 ```gqlp
 input InFieldStr { field: String = '' }
+```
+
+### output-constraint-enum.graphql+
+
+```gqlp
+output OutGenEnum { | OutGenEnumRef<outEnumGen> }
+output OutGenEnumRef<$type:OutEnumGen> { field: $type }
+enum OutEnumGen { outEnumGen }
 ```
 
 ### output-field-enum-parent.graphql+
