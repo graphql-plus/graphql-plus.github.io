@@ -48,78 +48,6 @@ domain Other { Enum }
 
 - `Invalid Category Output. '' not defined or not an Output type`
 
-### Intro_Operation.graphql+
-
-```gqlp
-output _Operations {
-        operation: _Operation
-        type: _Type
-    | _Operation
-    | _Type
-}
-
-output _Operation {
-    : _Aliased
-        category: _Identifier
-        variables: _OpVariable?
-        directives: _OpDirective[]
-        fragments: _OpFragment[]
-        result: _OpResult
-}
-
-output _OpVariable {
-        name: _Identifier
-        type: _ObjType<_InputBase>
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
-        directives: _OpDirective[]
-}
-
-dual _OpDirective {
-        name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
-
-output _OpFragment {
-        name: _Identifier
-        type: _ObjType<_OutputBase>
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-output _OpResult {
-        domain: _TypeRef<_SimpleKind>?
-        argument: String? # Todo: _OpArgument
-        body: _OpObject[]
-}
-
-output _OpObject {
-    |   _OpField
-    |   _OpSpread
-    |   _OpInline
-}
-
-output _OpField {
-        alias: String?
-        field: String
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-output _OpInline {
-        type: String?
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-output _OpSpread {
-        fragment: String
-        directives: _OpDirective[]
-}
-```
-
 ## Globals
 
 ### Globals\category-description.graphql+
@@ -442,6 +370,11 @@ operation Test { test }
 category { Test }
 output Test { }
 ```
+
+##### Expected Verify errors
+
+- `Invalid Operation. Expected Object or Type`
+- `Invalid Schema. Expected no more text`
 
 ### Globals\Invalid\option-diff-name.graphql+
 
@@ -4135,6 +4068,20 @@ output _OpSpread {
         directives: _OpDirective[]
 }
 ```
+
+##### Expected Verify errors
+
+- `Invalid Dual Field. '_Identifier' not defined`
+- `Invalid Output Alternate. '_Type' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_InputBase' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Field. '_ObjType' not defined`
+- `Invalid Output Field. '_OutputBase' not defined`
+- `Invalid Output Field. '_SimpleKind' not defined`
+- `Invalid Output Field. '_Type' not defined`
+- `Invalid Output Field. '_TypeRef' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
 
 ### Specification\Intro_Option.graphql+
 
