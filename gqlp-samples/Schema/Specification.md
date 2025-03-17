@@ -1,6 +1,6 @@
 # Specification Schema Samples
 
-### Specification\Intro_Built-In.graphql+
+### Intro_Built-In.graphql+
 
 ```gqlp
 output _Constant {
@@ -56,7 +56,7 @@ output _Modifier<$kind> {
 - `Invalid Output Alternate. '_DomainKind' not defined`
 - `Invalid Output Arg Enum. '_DomainKind' is not an Enum type`
 
-### Specification\Intro_Category.graphql+
+### Intro_Category.graphql+
 
 ```gqlp
 output _Categories {
@@ -86,7 +86,7 @@ enum _Resolution { Parallel Sequential Single }
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
 - `Invalid Output Field. '_TypeKind' not defined`
 
-### Specification\Intro_Common.graphql+
+### Intro_Common.graphql+
 
 ```gqlp
 output _Type {
@@ -145,7 +145,7 @@ output _TypeSimple {
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Parent. '_Identifier' not defined`
 
-### Specification\Intro_Complete.graphql+
+### Intro_Complete.graphql+
 
 ```gqlp
 output _Schema {
@@ -553,7 +553,7 @@ output _OutputEnum {
     }
 ```
 
-### Specification\Intro_Declarations.graphql+
+### Intro_Declarations.graphql+
 
 ```gqlp
 output _Schema {
@@ -599,7 +599,7 @@ input _TypeFilter {
 - `Invalid Output Field. '_Directives' not defined`
 - `Invalid Output Field. '_Categories' not defined`
 
-### Specification\Intro_Directive.graphql+
+### Intro_Directive.graphql+
 
 ```gqlp
 output _Directives {
@@ -627,7 +627,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 - `Invalid Output Field. '_Type' not defined`
 - `Invalid Output Field. '_FieldParam' not defined`
 
-### Specification\Intro_Domain.graphql+
+### Intro_Domain.graphql+
 
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
@@ -706,7 +706,7 @@ output _DomainItemRegex {
 - `Invalid Output Field. '_EnumValue' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
 
-### Specification\Intro_Dual.graphql+
+### Intro_Dual.graphql+
 
 ```gqlp
 output _TypeDual {
@@ -747,7 +747,7 @@ output _DualAlternate {
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
 
-### Specification\Intro_Enum.graphql+
+### Intro_Enum.graphql+
 
 ```gqlp
 output _TypeEnum {
@@ -776,7 +776,7 @@ output _EnumValue {
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Parent. '_Aliased' not defined`
 
-### Specification\Intro_Input.graphql+
+### Intro_Input.graphql+
 
 ```gqlp
 output _TypeInput {
@@ -828,7 +828,7 @@ output _FieldParam {
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
 
-### Specification\Intro_Names.graphql+
+### Intro_Names.graphql+
 
 ```gqlp
 dual _Aliased {
@@ -850,7 +850,7 @@ dual _Named {
 
 - `Invalid Dual Field. '_Identifier' not defined`
 
-### Specification\Intro_Object.graphql+
+### Intro_Object.graphql+
 
 ```gqlp
 output _TypeObject<$kind $parent $typeParam $field $alternate> {
@@ -928,7 +928,7 @@ output _Field<$base> {
 - `Invalid Output Field. '_Modifiers' not defined`
 - `Invalid Output Field. '_Collections' not defined`
 
-### Specification\Intro_Option.graphql+
+### Intro_Option.graphql+
 
 ```gqlp
 output _Setting {
@@ -942,7 +942,7 @@ output _Setting {
 - `Invalid Output Parent. '_Described' not defined`
 - `Invalid Output Field. '_Constant' not defined`
 
-### Specification\Intro_Output.graphql+
+### Intro_Output.graphql+
 
 ```gqlp
 output _TypeOutput {
@@ -1002,7 +1002,7 @@ output _OutputEnum {
 - `Invalid Output Parent. '_TypeObject' not defined`
 - `Invalid Output Parent. '_TypeRef' not defined`
 
-### Specification\Intro_Union.graphql+
+### Intro_Union.graphql+
 
 ```gqlp
 output _TypeUnion {

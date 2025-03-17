@@ -106,7 +106,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     if ($path.Count -gt 1) {
       $head = $path[0]
       if (($_ -match 'Invalid') -and ($head -ne 'Invalid')) {
-        $head += " (Invalid)"
+        $head += "-Invalid"
       }
       if ($head -ne $section) {
         $section = $head
@@ -118,7 +118,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
       }
     }
 
-    "### $_`n" | Add-Content $file
+    "### $($path[-1])`n" | Add-Content $file
     "``````gqlp" | Add-Content $file
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file

@@ -320,7 +320,8 @@ Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
 Obj_BaseArg = Documentation? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
+Obj_TypeParams = '<' ( STRING? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
 ```
 

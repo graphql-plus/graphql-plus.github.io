@@ -1,6 +1,6 @@
-# Objects (Invalid) Schema Samples
+# Objects-Invalid Schema Samples
 
-### Objects\Invalid\alt-diff-mod.graphql+
+### alt-diff-mod.graphql+
 
 ```gqlp
 object Test { | Test1 }
@@ -26,7 +26,7 @@ object Test1 { }
 - `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\alt-mod-undef-param.graphql+
+### alt-mod-undef-param.graphql+
 
 ```gqlp
 object Test { | Alt[$a] }
@@ -45,7 +45,7 @@ object Alt { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### Objects\Invalid\alt-mod-undef.graphql+
+### alt-mod-undef.graphql+
 
 ```gqlp
 object Test { | Alt[Domain] }
@@ -64,7 +64,7 @@ object Alt { }
 
 - `Invalid Modifier. 'Domain' not defined`
 
-### Objects\Invalid\alt-mod-wrong.graphql+
+### alt-mod-wrong.graphql+
 
 ```gqlp
 object Test { | Alt[Test] }
@@ -83,7 +83,7 @@ object Alt { }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### Objects\Invalid\alt-more.graphql+
+### alt-more.graphql+
 
 ```gqlp
 object Test { | Recurse }
@@ -109,7 +109,7 @@ object More { | Test }
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Recurse`
 
-### Objects\Invalid\alt-recurse.graphql+
+### alt-recurse.graphql+
 
 ```gqlp
 object Test { | Recurse }
@@ -131,7 +131,7 @@ object Recurse { | Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
 
-### Objects\Invalid\alt-self.graphql+
+### alt-self.graphql+
 
 ```gqlp
 object Test { | Test }
@@ -149,7 +149,7 @@ object Test { | Test }
 
 - `Invalid Output. 'Test' cannot be an alternate of itself`
 
-### Objects\Invalid\alt-simple-param.graphql+
+### alt-simple-param.graphql+
 
 ```gqlp
 object Test { | Number<String> }
@@ -167,7 +167,7 @@ object Test { | Number<String> }
 
 - `Invalid Output Alternate. Args invalid on Number, given 1`
 
-### Objects\Invalid\dual-alt-input.graphql+
+### dual-alt-input.graphql+
 
 ```gqlp
 dual Test { | Bad }
@@ -178,7 +178,7 @@ input Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\dual-alt-output.graphql+
+### dual-alt-output.graphql+
 
 ```gqlp
 dual Test { | Bad }
@@ -189,7 +189,7 @@ output Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\dual-alt-param-input.graphql+
+### dual-alt-param-input.graphql+
 
 ```gqlp
 dual Test { | Param<Bad> }
@@ -201,7 +201,7 @@ input Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\dual-alt-param-output.graphql+
+### dual-alt-param-output.graphql+
 
 ```gqlp
 dual Test { | Param<Bad> }
@@ -213,7 +213,7 @@ output Bad { }
 
 - `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\dual-field-input.graphql+
+### dual-field-input.graphql+
 
 ```gqlp
 dual Test { field: Bad }
@@ -224,7 +224,7 @@ input Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\dual-field-output.graphql+
+### dual-field-output.graphql+
 
 ```gqlp
 dual Test { field: Bad }
@@ -235,7 +235,7 @@ output Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\dual-field-param-input.graphql+
+### dual-field-param-input.graphql+
 
 ```gqlp
 dual Test { field: Param<Bad> }
@@ -247,7 +247,7 @@ input Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\dual-field-param-output.graphql+
+### dual-field-param-output.graphql+
 
 ```gqlp
 dual Test { field: Param<Bad> }
@@ -259,7 +259,7 @@ output Bad { }
 
 - `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\dual-parent-input.graphql+
+### dual-parent-input.graphql+
 
 ```gqlp
 dual Test { :Bad }
@@ -270,7 +270,7 @@ input Bad { }
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Input'`
 
-### Objects\Invalid\dual-parent-output.graphql+
+### dual-parent-output.graphql+
 
 ```gqlp
 dual Test { :Bad }
@@ -281,7 +281,7 @@ output Bad { }
 
 - `Invalid Dual Parent. 'Bad' invalid type. Found 'Output'`
 
-### Objects\Invalid\dual-parent-param-input.graphql+
+### dual-parent-param-input.graphql+
 
 ```gqlp
 dual Test { :Param<Bad> }
@@ -293,7 +293,7 @@ input Bad { }
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\dual-parent-param-output.graphql+
+### dual-parent-param-output.graphql+
 
 ```gqlp
 dual Test { :Param<Bad> }
@@ -305,7 +305,7 @@ output Bad { }
 
 - `Invalid Dual Parent. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\field-alias.graphql+
+### field-alias.graphql+
 
 ```gqlp
 object Test { field1 [alias]: Test }
@@ -330,7 +330,7 @@ object Test { field2 [alias]: Test[] }
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\field-diff-mod.graphql+
+### field-diff-mod.graphql+
 
 ```gqlp
 object Test { field: Test }
@@ -355,7 +355,7 @@ object Test { field: Test[] }
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\field-diff-type.graphql+
+### field-diff-type.graphql+
 
 ```gqlp
 object Test { field: Test }
@@ -381,7 +381,7 @@ object Test1 { }
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\field-mod-undef-param.graphql+
+### field-mod-undef-param.graphql+
 
 ```gqlp
 object Test { field: Test[$a] }
@@ -399,7 +399,7 @@ object Test { field: Test[$a] }
 
 - `Invalid Modifier. 'a' not defined`
 
-### Objects\Invalid\field-mod-undef.graphql+
+### field-mod-undef.graphql+
 
 ```gqlp
 object Test { field: Test[Random] }
@@ -417,7 +417,7 @@ object Test { field: Test[Random] }
 
 - `Invalid Modifier. 'Random' not defined`
 
-### Objects\Invalid\field-mod-wrong.graphql+
+### field-mod-wrong.graphql+
 
 ```gqlp
 object Test { field: Test[Test] }
@@ -435,7 +435,7 @@ object Test { field: Test[Test] }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### Objects\Invalid\field-simple-param.graphql+
+### field-simple-param.graphql+
 
 ```gqlp
 object Test { field: String<0> }
@@ -453,7 +453,7 @@ object Test { field: String<0> }
 
 - `Invalid Output Field. Args invalid on String, given 1`
 
-### Objects\Invalid\generic-alt-undef.graphql+
+### generic-alt-undef.graphql+
 
 ```gqlp
 object Test { | $type }
@@ -471,7 +471,7 @@ object Test { | $type }
 
 - `Invalid Output Alternate. '$type' not defined`
 
-### Objects\Invalid\generic-arg-less.graphql+
+### generic-arg-less.graphql+
 
 ```gqlp
 object Test { field: Ref }
@@ -490,7 +490,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. Args mismatch, expected 1 given 0`
 
-### Objects\Invalid\generic-arg-more.graphql+
+### generic-arg-more.graphql+
 
 ```gqlp
 object Test<$type> { field: Ref<$type> }
@@ -509,7 +509,7 @@ object Ref { }
 
 - `Invalid Output Field. Args mismatch, expected 0 given 1`
 
-### Objects\Invalid\generic-arg-undef.graphql+
+### generic-arg-undef.graphql+
 
 ```gqlp
 object Test { field: Ref<$type> }
@@ -528,7 +528,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. '$type' not defined`
 
-### Objects\Invalid\generic-field-undef.graphql+
+### generic-field-undef.graphql+
 
 ```gqlp
 object Test { field: $type }
@@ -546,7 +546,7 @@ object Test { field: $type }
 
 - `Invalid Output Field. '$type' not defined`
 
-### Objects\Invalid\generic-param-undef.graphql+
+### generic-param-undef.graphql+
 
 ```gqlp
 object Test { field: Ref<Test1> }
@@ -565,7 +565,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Field. 'Test1' not defined`
 
-### Objects\Invalid\generic-parent-less.graphql+
+### generic-parent-less.graphql+
 
 ```gqlp
 object Test { :Ref }
@@ -584,7 +584,7 @@ object Ref<$ref> { | $ref }
 
 - `Invalid Output Parent. Args mismatch, expected 1 given 0`
 
-### Objects\Invalid\generic-parent-more.graphql+
+### generic-parent-more.graphql+
 
 ```gqlp
 object Test { :Ref<Number> }
@@ -603,7 +603,7 @@ object Ref { }
 
 - `Invalid Output Parent. Args mismatch, expected 0 given 1`
 
-### Objects\Invalid\generic-parent-undef.graphql+
+### generic-parent-undef.graphql+
 
 ```gqlp
 object Test { :$type }
@@ -621,7 +621,7 @@ object Test { :$type }
 
 - `Invalid Output Parent. '$type' not defined`
 
-### Objects\Invalid\generic-unused.graphql+
+### generic-unused.graphql+
 
 ```gqlp
 object Test<$type> { }
@@ -639,7 +639,7 @@ object Test<$type> { }
 
 - `Invalid Output. '$type' not used`
 
-### Objects\Invalid\input-alt-output.graphql+
+### input-alt-output.graphql+
 
 ```gqlp
 input Test { | Bad }
@@ -650,7 +650,7 @@ output Bad { }
 
 - `Invalid Input Alternate. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\input-field-null.graphql+
+### input-field-null.graphql+
 
 ```gqlp
 input Test { field: Test = null }
@@ -660,7 +660,7 @@ input Test { field: Test = null }
 
 - `Invalid Input Field Default. 'null' default requires Optional type, not 'Test'`
 
-### Objects\Invalid\input-field-output.graphql+
+### input-field-output.graphql+
 
 ```gqlp
 input Test { field: Bad }
@@ -671,7 +671,7 @@ output Bad { }
 
 - `Invalid Input Field. Type kind mismatch for Bad. Found Output`
 
-### Objects\Invalid\input-parent-output.graphql+
+### input-parent-output.graphql+
 
 ```gqlp
 input Test { :Bad }
@@ -682,7 +682,7 @@ output Bad { }
 
 - `Invalid Input Parent. 'Bad' invalid type. Found 'Output'`
 
-### Objects\Invalid\output-alt-input.graphql+
+### output-alt-input.graphql+
 
 ```gqlp
 output Test { | Bad }
@@ -693,7 +693,7 @@ input Bad { }
 
 - `Invalid Output Alternate. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\output-enum-bad.graphql+
+### output-enum-bad.graphql+
 
 ```gqlp
 output Test { field = unknown }
@@ -704,7 +704,7 @@ output Test { field = unknown }
 - `Invalid Output Field Enum. Enum Value 'unknown' not defined`
 - `Invalid Output Field. '' not defined`
 
-### Objects\Invalid\output-enum-diff.graphql+
+### output-enum-diff.graphql+
 
 ```gqlp
 output Test { field = true }
@@ -717,7 +717,7 @@ output Test { field = false }
 - `Group of OutputField for 'field' is not singular ModifiedType['Boolean.false', 'Boolean.true']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\output-enumValue-bad.graphql+
+### output-enumValue-bad.graphql+
 
 ```gqlp
 output Test { field = Boolean.unknown }
@@ -727,7 +727,7 @@ output Test { field = Boolean.unknown }
 
 - `Invalid Output Field Enum Value. 'unknown' not a Value of 'Boolean'`
 
-### Objects\Invalid\output-enumValue-wrong.graphql+
+### output-enumValue-wrong.graphql+
 
 ```gqlp
 output Test { field = Wrong.unknown }
@@ -739,7 +739,7 @@ input Wrong { }
 - `Invalid Output Field Enum. 'Wrong' is not an Enum type`
 - `Invalid Output Field. Type kind mismatch for Wrong. Found Input`
 
-### Objects\Invalid\output-field-input.graphql+
+### output-field-input.graphql+
 
 ```gqlp
 output Test { field: Bad }
@@ -750,7 +750,7 @@ input Bad { }
 
 - `Invalid Output Field. Type kind mismatch for Bad. Found Input`
 
-### Objects\Invalid\output-generic-arg-enum-wrong.graphql+
+### output-generic-arg-enum-wrong.graphql+
 
 ```gqlp
 output Test<$arg> { | Ref<$arg.unknown> }
@@ -764,7 +764,7 @@ output Ref<$type> { field: $type }
 - `Invalid Schema. Expected declaration selector. 'unknown' unknown`
 - `Invalid Schema. Expected no more text`
 
-### Objects\Invalid\output-generic-enum-bad.graphql+
+### output-generic-enum-bad.graphql+
 
 ```gqlp
 output Test { | Ref<Boolean.unknown> }
@@ -775,7 +775,7 @@ output Ref<$type> { field: $type }
 
 - `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'`
 
-### Objects\Invalid\output-generic-enum-wrong.graphql+
+### output-generic-enum-wrong.graphql+
 
 ```gqlp
 output Test { | Ref<Wrong.unknown> }
@@ -787,7 +787,7 @@ output Wrong { }
 
 - `Invalid Output Arg Enum. 'Wrong' is not an Enum type`
 
-### Objects\Invalid\output-param-diff.graphql+
+### output-param-diff.graphql+
 
 ```gqlp
 output Test { field(Param): Test }
@@ -801,7 +801,7 @@ input Param { }
 - `Group of InputParam for 'Param' is not singular Modifiers['', '?']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\output-param-mod-undef-param.graphql+
+### output-param-mod-undef-param.graphql+
 
 ```gqlp
 output Test { field(Param[$a]): Test }
@@ -812,7 +812,7 @@ input Param { }
 
 - `Invalid Modifier. 'a' not defined`
 
-### Objects\Invalid\output-param-mod-undef.graphql+
+### output-param-mod-undef.graphql+
 
 ```gqlp
 output Test { field(Param[Domain]): Test }
@@ -823,7 +823,7 @@ input Param { }
 
 - `Invalid Modifier. 'Domain' not defined`
 
-### Objects\Invalid\output-param-mod-wrong.graphql+
+### output-param-mod-wrong.graphql+
 
 ```gqlp
 output Test { field(Param[Test]): Test }
@@ -834,7 +834,7 @@ input Param { }
 
 - `Invalid Modifier. 'Test' invalid type`
 
-### Objects\Invalid\output-param-undef.graphql+
+### output-param-undef.graphql+
 
 ```gqlp
 output Test { field(Param): Test }
@@ -844,7 +844,7 @@ output Test { field(Param): Test }
 
 - `Invalid Input Param. 'Param' not defined`
 
-### Objects\Invalid\output-parent-input.graphql+
+### output-parent-input.graphql+
 
 ```gqlp
 output Test { :Bad }
@@ -855,7 +855,7 @@ input Bad { }
 
 - `Invalid Output Parent. 'Bad' invalid type. Found 'Input'`
 
-### Objects\Invalid\parent-alt-mod.graphql+
+### parent-alt-mod.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -882,7 +882,7 @@ object Alt { }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\parent-alt-more.graphql+
+### parent-alt-more.graphql+
 
 ```gqlp
 object Test { :Recurse | Alt }
@@ -907,7 +907,7 @@ object Alt { }
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-### Objects\Invalid\parent-alt-recurse.graphql+
+### parent-alt-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse | Alt }
@@ -931,7 +931,7 @@ object Alt { }
 - `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
-### Objects\Invalid\parent-alt-self-more.graphql+
+### parent-alt-self-more.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -961,7 +961,7 @@ object Recurse { | Test }
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-### Objects\Invalid\parent-alt-self-recurse.graphql+
+### parent-alt-self-recurse.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -987,7 +987,7 @@ object Recurse { :Test }
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-### Objects\Invalid\parent-alt-self.graphql+
+### parent-alt-self.graphql+
 
 ```gqlp
 object Test { :Alt }
@@ -1009,7 +1009,7 @@ object Alt { | Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-### Objects\Invalid\parent-field-alias-more.graphql+
+### parent-field-alias-more.graphql+
 
 ```gqlp
 object Test { :Recurse field1 [alias]: Test }
@@ -1033,7 +1033,7 @@ object Parent { field2 [alias]: Parent }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-### Objects\Invalid\parent-field-alias-recurse.graphql+
+### parent-field-alias-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse field1 [alias]: Test }
@@ -1056,7 +1056,7 @@ object Parent { field2 [alias]: Parent }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
-### Objects\Invalid\parent-field-alias.graphql+
+### parent-field-alias.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1082,7 +1082,7 @@ object Parent { field2 [alias]: Parent }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\parent-field-mod-more.graphql+
+### parent-field-mod-more.graphql+
 
 ```gqlp
 object Test { :Recurse field: Test }
@@ -1106,7 +1106,7 @@ object Parent { field: Test[] }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-### Objects\Invalid\parent-field-mod-recurse.graphql+
+### parent-field-mod-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse field: Test }
@@ -1129,7 +1129,7 @@ object Parent { field: Test[] }
 - `Invalid Output Child. Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
-### Objects\Invalid\parent-field-mod.graphql+
+### parent-field-mod.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1155,7 +1155,7 @@ object Parent { field: Test[] }
 - `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
-### Objects\Invalid\parent-more.graphql+
+### parent-more.graphql+
 
 ```gqlp
 object Test { :Recurse }
@@ -1181,7 +1181,7 @@ object More { :Test }
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
 - `Invalid Output. 'More' cannot be a child of itself, even recursively via Recurse`
 
-### Objects\Invalid\parent-recurse.graphql+
+### parent-recurse.graphql+
 
 ```gqlp
 object Test { :Recurse }
@@ -1203,7 +1203,7 @@ object Recurse { :Test }
 - `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse`
 - `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
 
-### Objects\Invalid\parent-self-alt-more.graphql+
+### parent-self-alt-more.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1233,7 +1233,7 @@ object Recurse { :Test }
 - `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
 
-### Objects\Invalid\parent-self-alt-recurse.graphql+
+### parent-self-alt-recurse.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1259,7 +1259,7 @@ object Recurse { | Test }
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 - `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-### Objects\Invalid\parent-self-alt.graphql+
+### parent-self-alt.graphql+
 
 ```gqlp
 object Test { | Alt }
@@ -1281,7 +1281,7 @@ object Alt { :Test }
 - `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
 - `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
 
-### Objects\Invalid\parent-self.graphql+
+### parent-self.graphql+
 
 ```gqlp
 object Test { :Test }
@@ -1299,7 +1299,7 @@ object Test { :Test }
 
 - `Invalid Output. 'Test' cannot be a child of itself`
 
-### Objects\Invalid\parent-simple.graphql+
+### parent-simple.graphql+
 
 ```gqlp
 object Test { :String }
@@ -1317,7 +1317,7 @@ object Test { :String }
 
 - `Invalid Output Parent. 'String' invalid type. Found 'Domain'`
 
-### Objects\Invalid\parent-undef.graphql+
+### parent-undef.graphql+
 
 ```gqlp
 object Test { :Parent }
@@ -1335,7 +1335,7 @@ object Test { :Parent }
 
 - `Invalid Output Parent. 'Parent' not defined`
 
-### Objects\Invalid\unique-alias.graphql+
+### unique-alias.graphql+
 
 ```gqlp
 object Test [a] { }
