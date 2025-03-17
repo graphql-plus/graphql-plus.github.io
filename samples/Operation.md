@@ -52,7 +52,6 @@
 
 ##### Expected Verify errors
 
-- `Invalid Operation. Expected at least one field or selection`
 - `Invalid Operation. Expected Object or Type`
 
 ### Invalid\frag-undef.gql+
