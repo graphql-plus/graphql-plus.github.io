@@ -17,7 +17,7 @@ output _Schema {
 
 domain _Identifier { String /[A-Za-z_]+/ }
 
-input _Filter  {
+input _Filter {
         names: _NameFilter[]
         matchAliases: Boolean? = true
         aliases: _NameFilter[]
@@ -26,7 +26,7 @@ input _Filter  {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -44,13 +44,13 @@ input _TypeFilter {
 
 ```gqlp
 dual _Aliased {
-    : _Described
+    : _Documented
         aliases: _Identifier[]
     }
 
-dual _Described {
+dual _Documented {
     : _Named
-        description: String
+        documentation: String[]
     }
 
 dual _Named {
@@ -105,7 +105,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```gqlp
 output _Setting {
-    : _Described
+    : _Documented
         value: _Constant
 }
 ```
@@ -126,17 +126,17 @@ output _Type {
     | _TypeUnion
     }
 
-output _BaseType<$kind> {
+output _BaseType<$kind:_TypeKind> {
     : _Aliased
         typeKind: $kind
     }
 
-output _ChildType<$kind $parent> {
+output _ChildType<$kind:_TypeKind $parent> {
     : _BaseType<$kind>
         parent: $parent
     }
 
-output _ParentType<$kind $item $allItem> {
+output _ParentType<$kind:_TypeKind $item $allItem> {
     : _ChildType<$kind _Identifier>
         items: $item[]
         allItems: $allItem[]
@@ -146,7 +146,7 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+output _TypeRef<$kind:_TypeKind> {
         typeKind: $kind
         name: _Identifier
 }
@@ -189,7 +189,7 @@ output _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-output _ModifierKeyed<$kind> {
+output _ModifierKeyed<$kind:_ModifierKind> {
     : _Modifier<$kind>
         by: _TypeSimple
         optional: Boolean
@@ -202,7 +202,7 @@ output _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-output _Modifier<$kind> {
+output _Modifier<$kind:_ModifierKind> {
         modifierKind: $kind
     }
 ```
@@ -216,26 +216,27 @@ enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
     | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
     | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
 
-output _DomainRef<$kind> {
+output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
         domainKind: $kind
     }
 
-output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
+output _BaseDomain<$domain:_DomainKind $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item $domainItem>
+        domainKind: $domain
     }
 
 dual _BaseDomainItem {
+        documentation: String[]
         exclude: Boolean
     }
 
-output _DomainItem<$item> {
+output _DomainItem<$item:_BaseDomainItem> {
     : $item
         domain: _Identifier
     }
@@ -262,13 +263,13 @@ output _DomainItemTrueFalse {
 #### Enum domain
 
 ```gqlp
-output _DomainMember {
+output _DomainLabel {
     : _BaseDomainItem
-        value: _EnumValue
+        label: _EnumValue
     }
 
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
+output _DomainItemLabel {
+    : _DomainItem<_DomainLabel>
     }
 ```
 
@@ -335,7 +336,7 @@ dual _UnionMember {
 ### Object Commonalities
 
 ```gqlp
-output _TypeObject<$kind $parent $typeParam $field $alternate> {
+output _TypeObject<$kind:_TypeKind $parent $typeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
@@ -344,23 +345,23 @@ output _TypeObject<$kind $parent $typeParam $field $alternate> {
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-dual _ObjDescribed<$base> {
+dual _ObjDocumented<$base:_ObjBase> {
         base: $base
-        description: String
+        documentation: String[]
     | $base
     }
 
-output _ObjConstraint<$base> {
+output _ObjConstraint<$base:_ObjBase> {
     | _TypeSimple
     | $base
 }
-output _ObjType<$base> {
+output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
     }
 
 output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+        typeArgs: _ObjDocumented<_ObjArg>[]
     | _TypeParam
     }
 
@@ -371,27 +372,31 @@ output _ObjArg {
 
 domain _TypeParam { :_Identifier String }
 
-output _ObjParam<$base> {
+output _ObjParam<$base:_ObjBase> {
     typeParam: _TypeParam
-    description: String
+    documentation: String[]
     constraint: _ObjConstraint<$base>
 }
 
-
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
+output _Alternate<$base:_ObjBase> {
+      type: _ObjDocumented<$base>
       collections: _Collections[]
     }
 
-output _ObjectFor<$for> {
+output _ObjectFor<$for:_ForParam> {
     : $for
         object: _Identifier
     }
 
-output _Field<$base> {
+output _Field<$base:_ObjBase> {
     : _Aliased
-      type: _ObjDescribed<$base>
+      type: _ObjDocumented<$base>
       modifiers: _Modifiers[]
+    }
+
+output _ForParam<$base:_ObjBase> {
+    | _Alternate<$base>
+    | _Field<$base>
     }
 ```
 
@@ -408,7 +413,7 @@ output _DualBase {
     }
 
 output _DualParent {
-    : _ObjDescribed<_DualBase>
+    : _ObjDocumented<_DualBase>
     }
 
 output _DualParam {
@@ -438,7 +443,7 @@ output _InputBase {
     }
 
 output _InputParent {
-    : _ObjDescribed<_InputBase>
+    : _ObjDocumented<_InputBase>
     }
 
 output _InputParam {
@@ -455,7 +460,7 @@ output _InputAlternate {
     }
 
 output _FieldParam {
-    : _ObjDescribed<_InputBase>
+    : _ObjDocumented<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
@@ -475,7 +480,7 @@ output _OutputBase {
     }
 
 output _OutputParent {
-    : _ObjDescribed<_OutputBase>
+    : _ObjDocumented<_OutputBase>
     }
 
 output _OutputParam {
@@ -518,7 +523,7 @@ output _Schema {
 
 domain _Identifier { String /[A-Za-z_]+/ }
 
-input _Filter  {
+input _Filter {
         names: _NameFilter[]
         matchAliases: Boolean? = true
         aliases: _NameFilter[]
@@ -527,7 +532,7 @@ input _Filter  {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -541,13 +546,13 @@ input _TypeFilter {
     }
 
 dual _Aliased {
-    : _Described
+    : _Documented
         aliases: _Identifier[]
     }
 
-dual _Described {
+dual _Documented {
     : _Named
-        description: String
+        documentation: String[]
     }
 
 dual _Named {
@@ -588,7 +593,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
 output _Setting {
-    : _Described
+    : _Documented
         value: _Constant
 }
 
@@ -603,17 +608,17 @@ output _Type {
     | _TypeUnion
     }
 
-output _BaseType<$kind> {
+output _BaseType<$kind:_TypeKind> {
     : _Aliased
         typeKind: $kind
     }
 
-output _ChildType<$kind $parent> {
+output _ChildType<$kind:_TypeKind $parent> {
     : _BaseType<$kind>
         parent: $parent
     }
 
-output _ParentType<$kind $item $allItem> {
+output _ParentType<$kind:_TypeKind $item $allItem> {
     : _ChildType<$kind _Identifier>
         items: $item[]
         allItems: $allItem[]
@@ -623,7 +628,7 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+output _TypeRef<$kind:_TypeKind> {
         typeKind: $kind
         name: _Identifier
 }
@@ -662,7 +667,7 @@ output _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-output _ModifierKeyed<$kind> {
+output _ModifierKeyed<$kind:_ModifierKind> {
     : _Modifier<$kind>
         by: _TypeSimple
         optional: Boolean
@@ -675,7 +680,7 @@ output _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-output _Modifier<$kind> {
+output _Modifier<$kind:_ModifierKind> {
         modifierKind: $kind
     }
 
@@ -683,26 +688,27 @@ enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
     | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
     | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
 
-output _DomainRef<$kind> {
+output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
         domainKind: $kind
     }
 
-output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
+output _BaseDomain<$domain:_DomainKind $item $domainItem> {
+    : _ParentType<_TypeKind.Domain $item $domainItem>
+        domainKind: $domain
     }
 
 dual _BaseDomainItem {
+        documentation: String[]
         exclude: Boolean
     }
 
-output _DomainItem<$item> {
+output _DomainItem<$item:_BaseDomainItem> {
     : $item
         domain: _Identifier
     }
@@ -721,13 +727,13 @@ output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
 
-output _DomainMember {
+output _DomainLabel {
     : _BaseDomainItem
-        value: _EnumValue
+        label: _EnumValue
     }
 
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
+output _DomainItemLabel {
+    : _DomainItem<_DomainLabel>
     }
 
 dual _DomainRange {
@@ -772,7 +778,7 @@ dual _UnionMember {
         union: _Identifier
     }
 
-output _TypeObject<$kind $parent $typeParam $field $alternate> {
+output _TypeObject<$kind:_TypeKind $parent $typeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
@@ -781,23 +787,23 @@ output _TypeObject<$kind $parent $typeParam $field $alternate> {
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-dual _ObjDescribed<$base> {
+dual _ObjDocumented<$base:_ObjBase> {
         base: $base
-        description: String
+        documentation: String[]
     | $base
     }
 
-output _ObjConstraint<$base> {
+output _ObjConstraint<$base:_ObjBase> {
     | _TypeSimple
     | $base
 }
-output _ObjType<$base> {
+output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
     }
 
 output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+        typeArgs: _ObjDocumented<_ObjArg>[]
     | _TypeParam
     }
 
@@ -808,27 +814,31 @@ output _ObjArg {
 
 domain _TypeParam { :_Identifier String }
 
-output _ObjParam<$base> {
+output _ObjParam<$base:_ObjBase> {
     typeParam: _TypeParam
-    description: String
+    documentation: String[]
     constraint: _ObjConstraint<$base>
 }
 
-
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
+output _Alternate<$base:_ObjBase> {
+      type: _ObjDocumented<$base>
       collections: _Collections[]
     }
 
-output _ObjectFor<$for> {
+output _ObjectFor<$for:_ForParam> {
     : $for
         object: _Identifier
     }
 
-output _Field<$base> {
+output _Field<$base:_ObjBase> {
     : _Aliased
-      type: _ObjDescribed<$base>
+      type: _ObjDocumented<$base>
       modifiers: _Modifiers[]
+    }
+
+output _ForParam<$base:_ObjBase> {
+    | _Alternate<$base>
+    | _Field<$base>
     }
 
 output _TypeDual {
@@ -841,7 +851,7 @@ output _DualBase {
     }
 
 output _DualParent {
-    : _ObjDescribed<_DualBase>
+    : _ObjDocumented<_DualBase>
     }
 
 output _DualParam {
@@ -867,7 +877,7 @@ output _InputBase {
     }
 
 output _InputParent {
-    : _ObjDescribed<_InputBase>
+    : _ObjDocumented<_InputBase>
     }
 
 output _InputParam {
@@ -884,7 +894,7 @@ output _InputAlternate {
     }
 
 output _FieldParam {
-    : _ObjDescribed<_InputBase>
+    : _ObjDocumented<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
@@ -900,7 +910,7 @@ output _OutputBase {
     }
 
 output _OutputParent {
-    : _ObjDescribed<_OutputBase>
+    : _ObjDocumented<_OutputBase>
     }
 
 output _OutputParam {
