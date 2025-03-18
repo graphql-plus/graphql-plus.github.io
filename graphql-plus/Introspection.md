@@ -336,7 +336,7 @@ dual _UnionMember {
 ### Object Commonalities
 
 ```gqlp
-output _TypeObject<$kind $parent $typeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
@@ -773,7 +773,7 @@ dual _UnionMember {
         union: _Identifier
     }
 
-output _TypeObject<$kind $parent $typeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]

@@ -50,10 +50,11 @@ domain Other { Enum }
 
 ## Globals
 
-### Globals\category-description.graphql+
+### Globals\category-doc.graphql+
 
 ```gqlp
-"A Category described"
+"A Category"
+"described"
 category { CatDescr }
 output CatDescr { }
 ```
@@ -86,50 +87,7 @@ category { Cat }
 output Cat { }
 ```
 
-### Globals\description-backslash.graphql+
-
-```gqlp
-'A backslash ("\\") description'
-output DescrBackslash { }
-```
-
-### Globals\description-between.graphql+
-
-```gqlp
-category { DescrBetween }
-"A description between"
-output DescrBetween { }
-```
-
-### Globals\description-complex.graphql+
-
-```gqlp
-"A \"more\" 'Complicated' \\ description"
-output DescrComplex { }
-```
-
-### Globals\description-double.graphql+
-
-```gqlp
-"A 'double-quoted' description"
-output DescrDouble { }
-```
-
-### Globals\description-single.graphql+
-
-```gqlp
-'A "single-quoted" description'
-output DescrSingle { }
-```
-
-### Globals\description.graphql+
-
-```gqlp
-"A simple description"
-output Descr { }
-```
-
-### Globals\directive-description.graphql+
+### Globals\directive-doc.graphql+
 
 ```gqlp
 "A directive described"
@@ -168,6 +126,57 @@ input DirParamIn { }
 ```gqlp
 directive @DirParamOpt(DirParamIn?) { all }
 input DirParamIn { }
+```
+
+### Globals\doc-backslash.graphql+
+
+```gqlp
+'A backslash ("\\") doc'
+output DescrBackslash { }
+```
+
+### Globals\doc-between.graphql+
+
+```gqlp
+category { DescrBetween }
+"A doc between"
+output DescrBetween { }
+```
+
+### Globals\doc-complex.graphql+
+
+```gqlp
+"A \"more\" 'Complicated' \\ doc"
+output DescrComplex { }
+```
+
+### Globals\doc-double.graphql+
+
+```gqlp
+"A 'double-quoted' doc"
+output DescrDouble { }
+```
+
+### Globals\doc-single.graphql+
+
+```gqlp
+'A "single-quoted" doc'
+output DescrSingle { }
+```
+
+### Globals\doc.graphql+
+
+```gqlp
+"A simple doc"
+output Descr { }
+```
+
+### Globals\docs.graphql+
+
+```gqlp
+"A simple doc"
+"With extra"
+output Descr { }
 ```
 
 ### Globals\option-setting.graphql+
@@ -213,21 +222,6 @@ output Output { }
 ##### Expected Verify errors
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
-
-### Globals\Invalid\category-dup-description.graphql+
-
-```gqlp
-"First category"
-category { Test }
-"Second category"
-category { Test }
-output Test { }
-```
-
-##### Expected Verify errors
-
-- `Multiple Categories with name 'test' can't be merged`
-- `Different values merging item => item.Description: First category != Second category`
 
 ### Globals\Invalid\category-duplicate.graphql+
 
@@ -351,6 +345,16 @@ option Schema { }
 category [CatA1] { CatAlias }
 category [CatA2] { CatAlias }
 output CatAlias { }
+```
+
+### Merges\category-docs.graphql+
+
+```gqlp
+"First category"
+category { Test }
+"Second category"
+category { Test }
+output Test { }
 ```
 
 ### Merges\category-mod.graphql+
@@ -2347,6 +2351,19 @@ object Dup [a] { }
 
 ## Simple
 
+### Simple\domain-bool-doc.graphql+
+
+```gqlp
+domain DomBoolDoc { Boolean "Test" "Docs" true }
+```
+
+### Simple\domain-bool-parent.graphql+
+
+```gqlp
+domain DomBoolPrntTest { :DomBoolTestPrnt Boolean false }
+domain DomBoolTestPrnt { Boolean true }
+```
+
 ### Simple\domain-enum-all-parent.graphql+
 
 ```gqlp
@@ -2362,11 +2379,18 @@ domain DomEnumAll { enum EnumDomAll.* }
 enum EnumDomAll { dom_all dom_enum_all }
 ```
 
-### Simple\domain-enum-member.graphql+
+### Simple\domain-enum-doc.graphql+
 
 ```gqlp
-domain DomMember { enum dom_member }
-enum MemberDom { dom_member }
+domain DomEnumDoc { enum "Test" "Docs" dom_label }
+enum EnumDomDoc { dom_label }
+```
+
+### Simple\domain-enum-label.graphql+
+
+```gqlp
+domain DomLabel { enum dom_label }
+enum LabelDom { dom_label }
 ```
 
 ### Simple\domain-enum-parent.graphql+
@@ -2409,6 +2433,12 @@ domain DomEnum { Enum EnumDom.dom_enum }
 enum EnumDom { dom_enum }
 ```
 
+### Simple\domain-number-doc.graphql+
+
+```gqlp
+domain DomNumDoc { Number "Test" "Docs" <2 }
+```
+
 ### Simple\domain-number-parent.graphql+
 
 ```gqlp
@@ -2416,11 +2446,10 @@ domain DomNumPrnt { :DomPrntNum Number 2>}
 domain DomPrntNum { Number <2 }
 ```
 
-### Simple\domain-parent.graphql+
+### Simple\domain-string-doc.graphql+
 
 ```gqlp
-domain DomPrntTest { :DomTestPrnt Boolean false }
-domain DomTestPrnt { Boolean true }
+domain DomStrDoc { String "Test" "Docs" /a+/ }
 ```
 
 ### Simple\domain-string-parent.graphql+
@@ -2428,6 +2457,12 @@ domain DomTestPrnt { Boolean true }
 ```gqlp
 domain DomStrPrnt { :DomPrntStr String /a+/ }
 domain DomPrntStr { String /b+/ }
+```
+
+### Simple\enum-doc.graphql+
+
+```gqlp
+enum EnDoc { "Test" "Docs" val_test }
 ```
 
 ### Simple\enum-parent-alias.graphql+
@@ -2449,6 +2484,12 @@ enum EnDupPrnt { val_dup[val_prnt_dup] }
 ```gqlp
 enum EnTestPrnt { :EnPrntTest val_prnt }
 enum EnPrntTest { val_test }
+```
+
+### Simple\union-doc.graphql+
+
+```gqlp
+union UnionDoc { "Test" "Docs" Number }
 ```
 
 ### Simple\union-parent-dup.graphql+
@@ -3377,7 +3418,7 @@ dual _UnionMember {
     : _Documented
         union: _Identifier
     }
-output _TypeObject<$kind $parent $typeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
@@ -3830,7 +3871,7 @@ dual _Named {
 ### Specification\Intro_Object.graphql+
 
 ```gqlp
-output _TypeObject<$kind $parent $typeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
