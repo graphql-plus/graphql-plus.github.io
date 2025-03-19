@@ -3199,13 +3199,13 @@ input _TypeFilter {
         kinds: _TypeKind[]
     }
 dual _Aliased {
-    : _Documented
+    : _Described
         aliases: _Identifier[]
     }
 
-dual _Documented {
+dual _Described {
     : _Named
-        documentation: String[]
+        description: String[]
     }
 
 dual _Named {
@@ -3243,7 +3243,7 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
-    : _Documented
+    : _Described
         value: _Constant
 }
 output _Type {
@@ -3351,7 +3351,7 @@ output _BaseDomain<$domain $item $domainItem> {
     }
 
 dual _BaseDomainItem {
-        documentation: String[]
+        description: String[]
         exclude: Boolean
     }
 
@@ -3411,11 +3411,11 @@ output _EnumValue {
         member: _Identifier
     }
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Documented _UnionMember>
+    : _ParentType<_TypeKind.Union _Described _UnionMember>
     }
 
 dual _UnionMember {
-    : _Documented
+    : _Described
         union: _Identifier
     }
 output _TypeObject<$kind $parent $typeParam $field $alternate> {
@@ -3427,9 +3427,9 @@ output _TypeObject<$kind $parent $typeParam $field $alternate> {
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-dual _ObjDocumented<$base> {
+dual _ObjDescribed<$base> {
         base: $base
-        documentation: String[]
+        description: String[]
     | $base
     }
 
@@ -3443,7 +3443,7 @@ output _ObjType<$base> {
     }
 
 output _ObjBase {
-        typeArgs: _ObjDocumented<_ObjArg>[]
+        typeArgs: _ObjDescribed<_ObjArg>[]
     | _TypeParam
     }
 
@@ -3456,12 +3456,12 @@ domain _TypeParam { :_Identifier String }
 
 output _ObjParam<$base> {
     typeParam: _TypeParam
-    documentation: String[]
+    description: String[]
     constraint: _ObjConstraint<$base>
 }
 
 output _Alternate<$base> {
-      type: _ObjDocumented<$base>
+      type: _ObjDescribed<$base>
       collections: _Collections[]
     }
 
@@ -3472,7 +3472,7 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDocumented<$base>
+      type: _ObjDescribed<$base>
       modifiers: _Modifiers[]
     }
 output _TypeDual {
@@ -3485,7 +3485,7 @@ output _DualBase {
     }
 
 output _DualParent {
-    : _ObjDocumented<_DualBase>
+    : _ObjDescribed<_DualBase>
     }
 
 output _DualParam {
@@ -3510,7 +3510,7 @@ output _InputBase {
     }
 
 output _InputParent {
-    : _ObjDocumented<_InputBase>
+    : _ObjDescribed<_InputBase>
     }
 
 output _InputParam {
@@ -3527,7 +3527,7 @@ output _InputAlternate {
     }
 
 output _FieldParam {
-    : _ObjDocumented<_InputBase>
+    : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
@@ -3542,7 +3542,7 @@ output _OutputBase {
     }
 
 output _OutputParent {
-    : _ObjDocumented<_OutputBase>
+    : _ObjDescribed<_OutputBase>
     }
 
 output _OutputParam {
@@ -3669,7 +3669,7 @@ output _BaseDomain<$domain $item $domainItem> {
     }
 
 dual _BaseDomainItem {
-        documentation: String[]
+        description: String[]
         exclude: Boolean
     }
 
@@ -3739,7 +3739,7 @@ output _DualBase {
     }
 
 output _DualParent {
-    : _ObjDocumented<_DualBase>
+    : _ObjDescribed<_DualBase>
     }
 
 output _DualParam {
@@ -3809,7 +3809,7 @@ output _InputBase {
     }
 
 output _InputParent {
-    : _ObjDocumented<_InputBase>
+    : _ObjDescribed<_InputBase>
     }
 
 output _InputParam {
@@ -3826,7 +3826,7 @@ output _InputAlternate {
     }
 
 output _FieldParam {
-    : _ObjDocumented<_InputBase>
+    : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
     }
@@ -3850,13 +3850,13 @@ output _FieldParam {
 
 ```gqlp
 dual _Aliased {
-    : _Documented
+    : _Described
         aliases: _Identifier[]
     }
 
-dual _Documented {
+dual _Described {
     : _Named
-        documentation: String[]
+        description: String[]
     }
 
 dual _Named {
@@ -3880,9 +3880,9 @@ output _TypeObject<$kind $parent $typeParam $field $alternate> {
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-dual _ObjDocumented<$base> {
+dual _ObjDescribed<$base> {
         base: $base
-        documentation: String[]
+        description: String[]
     | $base
     }
 
@@ -3896,7 +3896,7 @@ output _ObjType<$base> {
     }
 
 output _ObjBase {
-        typeArgs: _ObjDocumented<_ObjArg>[]
+        typeArgs: _ObjDescribed<_ObjArg>[]
     | _TypeParam
     }
 
@@ -3909,12 +3909,12 @@ domain _TypeParam { :_Identifier String }
 
 output _ObjParam<$base> {
     typeParam: _TypeParam
-    documentation: String[]
+    description: String[]
     constraint: _ObjConstraint<$base>
 }
 
 output _Alternate<$base> {
-      type: _ObjDocumented<$base>
+      type: _ObjDescribed<$base>
       collections: _Collections[]
     }
 
@@ -3925,7 +3925,7 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDocumented<$base>
+      type: _ObjDescribed<$base>
       modifiers: _Modifiers[]
     }
 ```
@@ -3950,7 +3950,7 @@ output _Field<$base> {
 
 ```gqlp
 output _Setting {
-    : _Documented
+    : _Described
         value: _Constant
 }
 ```
@@ -3974,7 +3974,7 @@ output _OutputBase {
     }
 
 output _OutputParent {
-    : _ObjDocumented<_OutputBase>
+    : _ObjDescribed<_OutputBase>
     }
 
 output _OutputParam {
@@ -4023,11 +4023,11 @@ output _OutputEnum {
 
 ```gqlp
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Documented _UnionMember>
+    : _ParentType<_TypeKind.Union _Described _UnionMember>
     }
 
 dual _UnionMember {
-    : _Documented
+    : _Described
         union: _Identifier
     }
 ```
