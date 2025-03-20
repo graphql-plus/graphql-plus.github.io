@@ -1,7 +1,7 @@
-- name: GraphQL Plus
+- name: Specifications
   homepage: graphql-plus/index.md
   href: graphql-plus/
 - name: Articles
   href: articles/
 - name: Samples
-  href: samples/
+  href: gqlp-samples/
