@@ -18,7 +18,7 @@ output _Schema {
 
 domain _Identifier { String /[A-Za-z_]+/ }
 
-input _Filter  {
+input _Filter {
         names: _NameFilter[]
         matchAliases: Boolean? = true
         aliases: _NameFilter[]
@@ -27,7 +27,7 @@ input _Filter  {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -51,7 +51,7 @@ dual _Aliased {
 
 dual _Described {
     : _Named
-        description: String
+        description: String[]
     }
 
 dual _Named {
@@ -289,7 +289,7 @@ enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
     | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
     | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
@@ -300,11 +300,12 @@ output _DomainRef<$kind> {
     }
 
 output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
+    : _ParentType<_TypeKind.Domain $item $domainItem>
+        domainKind: $domain
     }
 
 dual _BaseDomainItem {
+        description: String[]
         exclude: Boolean
     }
 
@@ -335,13 +336,13 @@ output _DomainItemTrueFalse {
 #### Enum domain
 
 ```gqlp
-output _DomainMember {
+output _DomainLabel {
     : _BaseDomainItem
-        value: _EnumValue
+        label: _EnumValue
     }
 
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
+output _DomainItemLabel {
+    : _DomainItem<_DomainLabel>
     }
 ```
 
@@ -376,10 +377,10 @@ output _DomainItemRegex {
 
 ```gqlp
 output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
     }
 
-dual _EnumMember {
+dual _EnumLabel {
     : _Aliased
         enum: _Identifier
     }
@@ -394,11 +395,11 @@ output _EnumValue {
 
 ```gqlp
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    : _ParentType<_TypeKind.Union _Described _UnionMember>
     }
 
 dual _UnionMember {
-    : _Named
+    : _Described
         union: _Identifier
     }
 ```
@@ -408,9 +409,9 @@ dual _UnionMember {
 ### Object Commonalities
 
 ```gqlp
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -419,14 +420,17 @@ output _TypeObject<$kind $parent $field $alternate> {
 
 dual _ObjDescribed<$base> {
         base: $base
-        description: String
+        description: String[]
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -440,6 +444,12 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjTypeParam<$base> {
+    typeParam: _TypeParam
+    description: String[]
+    constraint: _ObjConstraint<$base>
+}
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -462,7 +472,7 @@ output _Field<$base> {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -472,6 +482,10 @@ output _DualBase {
 
 output _DualParent {
     : _ObjDescribed<_DualBase>
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_DualBase>
     }
 
 output _DualField {
@@ -487,7 +501,7 @@ output _DualAlternate {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -498,6 +512,10 @@ output _InputBase {
 
 output _InputParent {
     : _ObjDescribed<_InputBase>
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_InputBase>
     }
 
 output _InputField {
@@ -520,7 +538,7 @@ output _InputParam {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -531,6 +549,10 @@ output _OutputBase {
 
 output _OutputParent {
     : _ObjDescribed<_OutputBase>
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_OutputBase>
     }
 
 output _OutputField {
@@ -570,7 +592,7 @@ output _Schema {
 
 domain _Identifier { String /[A-Za-z_]+/ }
 
-input _Filter  {
+input _Filter {
         names: _NameFilter[]
         matchAliases: Boolean? = true
         aliases: _NameFilter[]
@@ -579,7 +601,7 @@ input _Filter  {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier  where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -599,7 +621,7 @@ dual _Aliased {
 
 dual _Described {
     : _Named
-        description: String
+        description: String[]
     }
 
 dual _Named {
@@ -803,7 +825,7 @@ enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
     | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainMember _DomainItemMember>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
     | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
     | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
     }
@@ -814,11 +836,12 @@ output _DomainRef<$kind> {
     }
 
 output _BaseDomain<$domain $item $domainItem> {
-    : _ParentType<_TypeKind.Domain $item  $domainItem>
-        domain: $domain
+    : _ParentType<_TypeKind.Domain $item $domainItem>
+        domainKind: $domain
     }
 
 dual _BaseDomainItem {
+        description: String[]
         exclude: Boolean
     }
 
@@ -841,13 +864,13 @@ output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
 
-output _DomainMember {
+output _DomainLabel {
     : _BaseDomainItem
-        value: _EnumValue
+        label: _EnumValue
     }
 
-output _DomainItemMember {
-    : _DomainItem<_DomainMember>
+output _DomainItemLabel {
+    : _DomainItem<_DomainLabel>
     }
 
 dual _DomainRange {
@@ -870,10 +893,10 @@ output _DomainItemRegex {
     }
 
 output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumMember>
+    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
     }
 
-dual _EnumMember {
+dual _EnumLabel {
     : _Aliased
         enum: _Identifier
     }
@@ -884,17 +907,17 @@ output _EnumValue {
     }
 
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Named _UnionMember>
+    : _ParentType<_TypeKind.Union _Described _UnionMember>
     }
 
 dual _UnionMember {
-    : _Named
+    : _Described
         union: _Identifier
     }
 
-output _TypeObject<$kind $parent $field $alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: _Described[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -903,14 +926,17 @@ output _TypeObject<$kind $parent $field $alternate> {
 
 dual _ObjDescribed<$base> {
         base: $base
-        description: String
+        description: String[]
     | $base
     }
 
-output _ObjType<$base> {
-    | _BaseType<_TypeKind.Internal>
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
+}
+output _ObjType<$base> {
+    | _BaseType<_TypeKind.Internal>
+    | _ObjConstraint<$base>
     }
 
 output _ObjBase {
@@ -924,6 +950,12 @@ output _ObjArg {
 }
 
 domain _TypeParam { :_Identifier String }
+
+output _ObjTypeParam<$base> {
+    typeParam: _TypeParam
+    description: String[]
+    constraint: _ObjConstraint<$base>
+}
 
 output _Alternate<$base> {
       type: _ObjDescribed<$base>
@@ -942,7 +974,7 @@ output _Field<$base> {
     }
 
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualParent _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -954,6 +986,10 @@ output _DualParent {
     : _ObjDescribed<_DualBase>
     }
 
+output _DualTypeParam {
+    : _ObjTypeParam<_DualBase>
+    }
+
 output _DualField {
     : _Field<_DualBase>
     }
@@ -963,7 +999,7 @@ output _DualAlternate {
     }
 
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputParent _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -974,6 +1010,10 @@ output _InputBase {
 
 output _InputParent {
     : _ObjDescribed<_InputBase>
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_InputBase>
     }
 
 output _InputField {
@@ -992,7 +1032,7 @@ output _InputParam {
     }
 
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputParent _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -1003,6 +1043,10 @@ output _OutputBase {
 
 output _OutputParent {
     : _ObjDescribed<_OutputBase>
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_OutputBase>
     }
 
 output _OutputField {

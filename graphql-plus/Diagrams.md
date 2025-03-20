@@ -57,7 +57,7 @@ classDiagram
 classDiagram
     direction LR
 
-    Simple  : *~Item~[] Members
+    Simple : *~Item~[] Members
 
     Simple <|-- Domain
     Simple <|-- Enum

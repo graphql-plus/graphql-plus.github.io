@@ -48,14 +48,14 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? member
+EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 
 Boolean = 'true' | 'false'
 
 Simple = Basic | enum
-Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
+Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' | '_'
 
 Internal = 'Void' | 'Null' | 'null'
 ```
@@ -149,14 +149,14 @@ If a Constant Object FieldKey appears more than once, all the values will be mer
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? member
+EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 
 Boolean = 'true' | 'false'
 
 Simple = Basic | enum
-Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' |  '_'
+Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' | '_'
 
 Internal = 'Void' | 'Null' | 'null'
 
