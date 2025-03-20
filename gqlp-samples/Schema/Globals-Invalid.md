@@ -36,21 +36,6 @@ output Output { }
 
 - `Multiple Categories with alias 'a' found. Names 'test' 'output'`
 
-### category-dup-description.graphql+
-
-```gqlp
-"First category"
-category { Test }
-"Second category"
-category { Test }
-output Test { }
-```
-
-##### Expected Verify errors
-
-- `Multiple Categories with name 'test' can't be merged`
-- `Different values merging item => item.Description: First category != Second category`
-
 ### category-duplicate.graphql+
 
 ```gqlp

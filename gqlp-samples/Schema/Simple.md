@@ -1,5 +1,25 @@
 # Simple Schema Samples
 
+### domain-bool-descr.graphql+
+
+```gqlp
+domain DomBoolDescr { Boolean "DomBool" "Descr" true }
+```
+
+### domain-bool-parent.graphql+
+
+```gqlp
+domain DomBoolPrntTest { :DomBoolTestPrnt Boolean false }
+domain DomBoolTestPrnt { Boolean true }
+```
+
+### domain-enum-all-descr.graphql+
+
+```gqlp
+domain DomEnumAll { enum "DomAll" "Descr" EnumDomAll.* }
+enum EnumDomAll { dom_all dom_enum_all }
+```
+
 ### domain-enum-all-parent.graphql+
 
 ```gqlp
@@ -15,11 +35,18 @@ domain DomEnumAll { enum EnumDomAll.* }
 enum EnumDomAll { dom_all dom_enum_all }
 ```
 
-### domain-enum-member.graphql+
+### domain-enum-descr.graphql+
 
 ```gqlp
-domain DomMember { enum dom_member }
-enum MemberDom { dom_member }
+domain DomEnumDescr { enum "DomEnum" "Descr" dom_label_desc }
+enum EnumDomDescr { dom_label_desc }
+```
+
+### domain-enum-label.graphql+
+
+```gqlp
+domain DomLabel { enum dom_label }
+enum LabelDom { dom_label }
 ```
 
 ### domain-enum-parent.graphql+
@@ -62,6 +89,12 @@ domain DomEnum { Enum EnumDom.dom_enum }
 enum EnumDom { dom_enum }
 ```
 
+### domain-number-descr.graphql+
+
+```gqlp
+domain DomNumDescr { Number "DomNumber" "Descr" <2 }
+```
+
 ### domain-number-parent.graphql+
 
 ```gqlp
@@ -69,11 +102,10 @@ domain DomNumPrnt { :DomPrntNum Number 2>}
 domain DomPrntNum { Number <2 }
 ```
 
-### domain-parent.graphql+
+### domain-string-descr.graphql+
 
 ```gqlp
-domain DomPrntTest { :DomTestPrnt Boolean false }
-domain DomTestPrnt { Boolean true }
+domain DomStrDescr { String "DomString" "Descr" /a+/ }
 ```
 
 ### domain-string-parent.graphql+
@@ -81,6 +113,12 @@ domain DomTestPrnt { Boolean true }
 ```gqlp
 domain DomStrPrnt { :DomPrntStr String /a+/ }
 domain DomPrntStr { String /b+/ }
+```
+
+### enum-descr.graphql+
+
+```gqlp
+enum EnDescr { "Enum" "Descr" val_test }
 ```
 
 ### enum-parent-alias.graphql+
@@ -102,6 +140,12 @@ enum EnDupPrnt { val_dup[val_prnt_dup] }
 ```gqlp
 enum EnTestPrnt { :EnPrntTest val_prnt }
 enum EnPrntTest { val_test }
+```
+
+### union-descr.graphql+
+
+```gqlp
+union UnionDescr { "Union" "Descr" Number }
 ```
 
 ### union-parent-dup.graphql+

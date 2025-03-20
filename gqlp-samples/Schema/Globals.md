@@ -1,9 +1,10 @@
 # Globals Schema Samples
 
-### category-description.graphql+
+### category-descrs.graphql+
 
 ```gqlp
-"A Category described"
+"A Category"
+"described"
 category { CatDescr }
 output CatDescr { }
 ```
@@ -36,14 +37,14 @@ category { Cat }
 output Cat { }
 ```
 
-### description-backslash.graphql+
+### descr-backslash.graphql+
 
 ```gqlp
 'A backslash ("\\") description'
 output DescrBackslash { }
 ```
 
-### description-between.graphql+
+### descr-between.graphql+
 
 ```gqlp
 category { DescrBetween }
@@ -51,35 +52,43 @@ category { DescrBetween }
 output DescrBetween { }
 ```
 
-### description-complex.graphql+
+### descr-complex.graphql+
 
 ```gqlp
 "A \"more\" 'Complicated' \\ description"
 output DescrComplex { }
 ```
 
-### description-double.graphql+
+### descr-double.graphql+
 
 ```gqlp
 "A 'double-quoted' description"
 output DescrDouble { }
 ```
 
-### description-single.graphql+
+### descr-single.graphql+
 
 ```gqlp
 'A "single-quoted" description'
 output DescrSingle { }
 ```
 
-### description.graphql+
+### descr.graphql+
 
 ```gqlp
 "A simple description"
 output Descr { }
 ```
 
-### directive-description.graphql+
+### descrs.graphql+
+
+```gqlp
+"A simple description"
+"With extra"
+output Descr { }
+```
+
+### directive-descr.graphql+
 
 ```gqlp
 "A directive described"
@@ -118,6 +127,18 @@ input DirParamIn { }
 ```gqlp
 directive @DirParamOpt(DirParamIn?) { all }
 input DirParamIn { }
+```
+
+### option-schema-alias.graphql+
+
+```gqlp
+option Schema [Alias] { }
+```
+
+### option-setting-descr.graphql+
+
+```gqlp
+option Schema { "Option" "Descr" descr=true }
 ```
 
 ### option-setting.graphql+

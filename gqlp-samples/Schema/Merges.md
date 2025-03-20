@@ -8,6 +8,16 @@ category [CatA2] { CatAlias }
 output CatAlias { }
 ```
 
+### category-descr.graphql+
+
+```gqlp
+"First category"
+category { Test }
+"Second category"
+category { Test }
+output Test { }
+```
+
 ### category-mod.graphql+
 
 ```gqlp

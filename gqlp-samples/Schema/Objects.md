@@ -1,5 +1,11 @@
 # Objects Schema Samples
 
+### alt-descr.graphql+
+
+```gqlp
+object ObjName { | "Test" "Descr" String }
+```
+
 ### alt-dual.graphql+
 
 ```gqlp
@@ -110,6 +116,12 @@ object ObjNameParent { | String }
 object ObjNameAlt { :ObjNameParent alt: Number }
 ```
 
+### field-descr.graphql+
+
+```gqlp
+object ObjName { "Test" "Descr" field: * }
+```
+
 ### field-dual.graphql+
 
 ```gqlp
@@ -144,10 +156,23 @@ object ObjNameFld { field: Number | String }
 object ObjName { field: Number }
 ```
 
+### field-type-descr.graphql+
+
+```gqlp
+object ObjName { field: "Test" "Descr" Number }
+```
+
 ### field.graphql+
 
 ```gqlp
 object ObjName { field: * }
+```
+
+### generic-alt-arg-descr.graphql+
+
+```gqlp
+object ObjName<$type> { | ObjNameRef<"Test" "Descr"$type> }
+object ObjNameRef<$ref> { | $ref }
 ```
 
 ### generic-alt-arg.graphql+
@@ -184,6 +209,12 @@ object ObjNameRef<$ref> { | $ref }
 
 ```gqlp
 object ObjName<$type> { | $type }
+```
+
+### generic-descr.graphql+
+
+```gqlp
+object ObjName<"Test" "Descr" $type> { field: $type }
 ```
 
 ### generic-field-arg.graphql+
@@ -260,6 +291,12 @@ object ObjNameAlt { alt: Number | String }
 object ObjName<$type> { :$type }
 ```
 
+### input-field-descr-Number.graphql+
+
+```gqlp
+input InFieldNum { "Test" "Descr" field: Number = 0 }
+```
+
 ### input-field-Enum.graphql+
 
 ```gqlp
@@ -271,6 +308,12 @@ enum InEnumField { value }
 
 ```gqlp
 input InFieldNull { field: InFieldNull? = null }
+```
+
+### input-field-Number-descr.graphql+
+
+```gqlp
+input InFieldNum { field: "Test" "Descr" Number = 0 }
 ```
 
 ### input-field-Number.graphql+
@@ -293,6 +336,13 @@ output OutGenEnumRef<$type:OutEnumGen> { field: $type }
 enum OutEnumGen { outEnumGen }
 ```
 
+### output-descr-param.graphql+
+
+```gqlp
+output OutParam { "Test" "Descr" field(OutParamIn): OutParam }
+input OutParamIn { param: Number | String }
+```
+
 ### output-field-enum-parent.graphql+
 
 ```gqlp
@@ -306,6 +356,13 @@ enum OutEnumParent { outEnumParent }
 ```gqlp
 output OutFieldEnum { field = OutEnumField.outEnumField }
 enum OutEnumField { outEnumField }
+```
+
+### output-field-value-descr.graphql+
+
+```gqlp
+output OutFieldValueDescr { field = "Test" "Descr" outEnumValueDescr }
+enum OutEnumValueDescr { outEnumValueDescr }
 ```
 
 ### output-field-value.graphql+
@@ -331,6 +388,13 @@ output OutGenValueRef<$type> { field: $type }
 enum OutValueGen { outValueGen }
 ```
 
+### output-param-descr.graphql+
+
+```gqlp
+output OutParam { field("Test" "Descr" OutParamIn): OutParam }
+input OutParamIn { param: Number | String }
+```
+
 ### output-param-mod-Domain.graphql+
 
 ```gqlp
@@ -345,6 +409,13 @@ domain OutDomainParam { number 1 ~ 10 }
 output OutParamDomainParam<$mod> { field(OutParamDomainParamIn[$mod]): OutDomainsParam }
 input OutParamDomainParamIn { param: Number | String }
 domain OutDomainsParam { number 1 ~ 10 }
+```
+
+### output-param-type-descr.graphql+
+
+```gqlp
+output OutParam { field(OutParamIn): "Test" "Descr" OutParam }
+input OutParamIn { param: Number | String }
 ```
 
 ### output-param.graphql+
@@ -377,6 +448,13 @@ input OutParamParentIn { parent: Number | String }
 ```gqlp
 object ObjName { :ObjNameRef | Number }
 object ObjNameRef {  parent: Number | String }
+```
+
+### parent-descr.graphql+
+
+```gqlp
+object ObjName { : "Test" "Descr" ObjNameRef }
+object ObjNameRef { parent: Number | String }
 ```
 
 ### parent-dual.graphql+

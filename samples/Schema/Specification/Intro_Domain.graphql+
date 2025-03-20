@@ -12,13 +12,13 @@ output _DomainRef<$kind:_DomainKind> {
         domainKind: $kind
     }
 
-output _BaseDomain<$domain:_DomainKind $item $domainItem> {
+output _BaseDomain<$domain $item $domainItem> {
     : _ParentType<_TypeKind.Domain $item $domainItem>
         domainKind: $domain
     }
 
 dual _BaseDomainItem {
-        documentation: String[]
+        description: String[]
         exclude: Boolean
     }
 

@@ -48,7 +48,7 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? member
+EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 
@@ -149,7 +149,7 @@ If a Constant Object FieldKey appears more than once, all the values will be mer
 ```PEG
 Default = '=' Constant
 
-EnumValue = ( enum '.' )? member
+EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 

@@ -1,4 +1,4 @@
-output _TypeObject<$kind:_TypeKind $parent $typeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind $parent $typeParam $field $alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
         fields: $field[]
@@ -7,23 +7,23 @@ output _TypeObject<$kind:_TypeKind $parent $typeParam $field:_Field $alternate:_
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-dual _ObjDocumented<$base:_ObjBase> {
+dual _ObjDescribed<$base:_ObjBase> {
         base: $base
-        documentation: String[]
+        description: String[]
     | $base
     }
 
-output _ObjConstraint<$base:_ObjBase> {
+output _ObjConstraint<$base> {
     | _TypeSimple
     | $base
 }
-output _ObjType<$base:_ObjBase> {
+output _ObjType<$base> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
     }
 
 output _ObjBase {
-        typeArgs: _ObjDocumented<_ObjArg>[]
+        typeArgs: _ObjDescribed<_ObjArg>[]
     | _TypeParam
     }
 
@@ -34,14 +34,14 @@ output _ObjArg {
 
 domain _TypeParam { :_Identifier String }
 
-output _ObjParam<$base:_ObjBase> {
+output _ObjTypeParam<$base> {
     typeParam: _TypeParam
-    documentation: String[]
+    description: String[]
     constraint: _ObjConstraint<$base>
 }
 
-output _Alternate<$base:_ObjBase> {
-      type: _ObjDocumented<$base>
+output _Alternate<$base> {
+      type: _ObjDescribed<$base>
       collections: _Collections[]
     }
 
@@ -52,7 +52,7 @@ output _ObjectFor<$for:_ForParam> {
 
 output _Field<$base:_ObjBase> {
     : _Aliased
-      type: _ObjDocumented<$base>
+      type: _ObjDescribed<$base>
       modifiers: _Modifiers[]
     }
 
