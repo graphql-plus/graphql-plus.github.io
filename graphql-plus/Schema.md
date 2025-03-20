@@ -10,14 +10,14 @@
 ```PEG
 Schema = Declaration+
 
-Declaration = Documentation? ( Category | Directive | Option | Type )
+Declaration = Description? ( Category | Directive | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
-Documentation = STRING+
+Description = STRING+
 
 Aliases = '[' alias+ ']'
 ```
 
-A Schema is one (or more) Declarations. Each declaration may be preceded by documentation strings.
+A Schema is one (or more) Declarations. Each declaration may be preceded by description strings.
 
 ### Declarations
 
@@ -114,13 +114,13 @@ Locations will be merged by value.
 
 ```PEG
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = Documentation? setting Default
+Opt_Setting = Description? setting Default
 ```
 
 An Option defines valid options for the Schema as a whole, including the Schema name and Aliases.
 A Schema must have only one name.
 
-An Option Setting comprises of a name and a constant value. A Setting may be preceded by documentation strings.
+An Option Setting comprises of a name and a constant value. A Setting may be preceded by description strings.
 
 Option Settings are merged by name and values are merged in the same way as Constant Object values.
 
@@ -188,7 +188,7 @@ dual _Most<$T> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictiona
 dual _MostList<$T> { _Most<$T>[] } // recursive! not in _Dual, _Input or _Output
 dual _MostDictionary<$T> { _Most<$T>[Simple?] } // recursive! not in _Dual, _Input or _Output
 
-dual _Any [Any] { :_Most<_dual> } // not in _Dual
+dual _Any [Any] { :_Most<_Dual> } // not in _Dual
 input _Any [Any] { :_Most<_Input> } // not in _Input
 output _Any [Any] { :_Most<_Output> } // not in _Output
 union _Any [Any] { Basic Internal _Enum _Domain _Union } // not in _Union
@@ -221,20 +221,24 @@ Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
 DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
-Scal_Enum = 'Enum' Scal_Member+
+Scal_Enum = 'Enum' Scal_Label+
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 
-Scal_TrueFalse = '!'? Boolean
-Scal_Member = '!'? EnumValue | enum '.' '*'
-Scal_Num = '!'? Scal_NumRange
+Scal_TrueFalse = Description? '!'? Boolean
+Scal_Label = Description? '!'? EnumValue | Description? enum '.' '*'
+Scal_Num = Description? '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
-Scal_Regex = '!'? REGEX
+Scal_Regex = Description? '!'? REGEX
 ```
 
 Domain types define specific sub-domains of the following Domains, each with different Item definitions:
 
 > Boolean, Enum, Number, String
+
+A Domain type without a Parent is considered to extend it's base Domain.
+
+Each Item may be preceded by description strings.
 
 Item exclusions (where defined) take precedence over inclusions.
 
@@ -249,15 +253,15 @@ Boolean values can only be merged if their inclusion/exclusion matches.
 
 #### Enum domain
 
-Comprises only those enum Values explicitly included (or excluded).
+Comprises only those Labels explicitly included (or excluded).
 An Enum domain must specify at least one inclusion (or exclusion).
 
-All enum Members of an Enum type can also be included (or excluded).
+All Labels of an Enum type can also be included (or excluded).
 
-If only exclusion Members are specified for an Enum type then an "All Members" inclusion is implied.
+If only exclusion Items are specified for an Enum type then an "All Labels" inclusion is implied.
 
-Enum Values can be merged if their Type and inclusion/exclusion matches.
-Enum domains must contain only unique Members after merging, irrelevant of the enum Type the Member is defined for.
+Labels can be merged if their Type and inclusion/exclusion matches.
+Enum domains must contain only unique Labels after merging, irrelevant of the enum Type the Labels is defined for.
 
 #### Number domain
 
@@ -278,26 +282,28 @@ Regular expressions can only be merged if their inclusion/exclusion matches.
 ### Enum type
 
 ```PEG
-Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
-En_Member = Documentation? member Aliases?
+Enum = 'enum' enum Aliases? '{' Parent? En_Label+ '}'
+En_Label = Description? label Aliases?
 ```
 
-An Enum is a Type defined with one or more Members.
+An Enum is a Type defined with one or more Labels.
 
-Each Member may be preceded by documentation strings and may have one or more Aliases.
+Each Label may be preceded by description strings and may have one or more Aliases.
 
 Enums can be merged if their Parents, including lack thereof, match.
 
 ### Union type
 
 ```PEG
-Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
-UnionDefinition = Simple+
+Union = 'union' union Aliases? '{' Parent? Un_Member+ '}'
+Un_Member = Description? Simple
 ```
 
-Union types define specific combinations of one or more Simple types.
+A Union type is defined as a specific combination of one or more Member Simple types.
 
-A Union type must not include itself, even recursively.
+Each Member may be preceded by description strings.
+
+A Union type must not include itself, as either Parent or Member, even recursively.
 
 Union declarations can be merged if their Parents match.
 
@@ -309,23 +315,23 @@ Dual, Input and Output types are all Object types.
 
 ```PEG
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
-Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
+Obj_Object = ( ':' Description? Obj_Base )? Obj_Field+
+Obj_Field = Description? field Aliases? ':' Description? Obj_Type Modifiers?
 
-Obj_Alternate = '|' Documentation? Obj_Type Collections?
+Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = Documentation? Obj_Argument
+Obj_BaseArg = Description? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
-
+Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 ```
 
 An Object type may have Type parameters.
-Each Type parameter may be preceded by documentation strings.
+Each Type parameter may be preceded by description strings.
+
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
@@ -339,18 +345,19 @@ The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
 An Alternate must not reference itself, even recursively.
 
-An object Type reference may be an Internal Type, Simple Type, Type parameter, Dual Type or another object Type.
+An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
 If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter, Dual Type or the same object Type as the reference.
+Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+If a Type argument is an object Type it may NOT have Type Arguments.
 
 A object is defined with an optional Parent Type and one or more Fields.
 
 A Field is defined as:
 
-- optional field documentation strings,
+- optional field description strings,
 - a Field name
 - zero or more Field Aliases
-- optional type documentation strings
+- optional type description strings
 - a type parameter or object type reference, the Field's Type
 - zero or more Modifiers
 
@@ -359,7 +366,7 @@ Explicit Field names will override the same name being used as a Field Alias.
 
 An Alternate is defined as:
 
-- optional documentation strings
+- optional description strings
 - a type parameter or object type reference, the Alternate's Type
 - zero or more Collections
 
@@ -440,8 +447,8 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_Field = Documentation? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = Documentation? In_Type Modifiers? Default?
+In_Field = Description? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = Description? In_Type Modifiers? Default?
 
 InputParams = '(' In_TypeDefault+ ')'
 ```
@@ -452,7 +459,7 @@ An Input type is defined as an object type with the following alterations.
 
 An Input Field redefines an object Field as follows:
 
-- an optional documentation string,
+- an optional description string,
 - a Field name
 - zero or more Field Aliases
 - a type parameter or Input type references
@@ -461,7 +468,7 @@ An Input Field redefines an object Field as follows:
 
 A Default of `null` is only allowed on Optional fields. The Default must be compatible with the Modified Type of the field.
 
-Input Parameters define one or more Alternate Input or Simple types, possibly with a documentation string, Modifiers and/or a Default.
+Input Parameters define one or more Alternate Input or Simple types, possibly with a description string, Modifiers and/or a Default.
 
 The order of Alternates is significant.
 Alternates are merged by their type and can be merged if their Modifiers match.
@@ -473,9 +480,9 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_Field = Documentation? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParams? fieldAlias* ':' Documentation? Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' Documentation? EnumValue
+Out_Field = Description? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParams? fieldAlias* ':' Description? Out_Type Modifiers?
+Out_EnumField = fieldAlias* '=' Description? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 ```
@@ -484,35 +491,35 @@ Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
-An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Values.
-If there is a conflict between a bare Enum Value and a Type, the Type will have precedence.
+An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Labels.
+If there is a conflict between a bare Enum Label and a Type, the Type will have precedence.
 
 An Output Field redefines an object Field as follows:
 
-- optional field documentation strings,
+- optional field description strings,
 - a Field name
 - optional Input Parameters
 - zero or more Field Aliases
-- optional type documentation strings
+- optional type description strings
 - a type parameter or an Output type reference
 - zero or more type Modifiers
 
 or:
 
-- optional field documentation strings,
+- optional field description strings,
 - a Field name
 - zero or more Field Aliases
-- optional type documentation strings,
-- an Enum Value (which will imply the field Type)
+- optional type description strings,
+- an Enum Label (which will imply the field Type)
 
 ## Complete Grammar
 
 ```PEG
 Schema = Declaration+
 
-Declaration = Documentation? ( Category | Directive | Option | Type )
+Declaration = Description? ( Category | Directive | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
-Documentation = STRING+
+Description = STRING+
 
 Aliases = '[' alias+ ']'
 
@@ -524,7 +531,7 @@ Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
-Opt_Setting = Documentation? setting Default
+Opt_Setting = Description? setting Default
 
 Parent = ':' parent
 
@@ -536,45 +543,44 @@ Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
 DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
 
 Scal_Boolean = 'Boolean' Scal_TrueFalse*
-Scal_Enum = 'Enum' Scal_Member+
+Scal_Enum = 'Enum' Scal_Label+
 Scal_Number = 'Number' Scal_Num*
 Scal_String = 'String' Scal_Regex*
 
-Scal_TrueFalse = '!'? Boolean
-Scal_Member = '!'? EnumValue | enum '.' '*'
-Scal_Num = '!'? Scal_NumRange
+Scal_TrueFalse = Description? '!'? Boolean
+Scal_Label = Description? '!'? EnumValue | Description? enum '.' '*'
+Scal_Num = Description? '!'? Scal_NumRange
 Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
-Scal_Regex = '!'? REGEX
+Scal_Regex = Description? '!'? REGEX
 
-Enum = 'enum' enum Aliases? '{' Parent? En_Member+ '}'
-En_Member = Documentation? member Aliases?
+Enum = 'enum' enum Aliases? '{' Parent? En_Label+ '}'
+En_Label = Description? label Aliases?
 
-Union = 'union' union Aliases? '{' Parent? UnionDefinition '}'
-UnionDefinition = Simple+
+Union = 'union' union Aliases? '{' Parent? Un_Member+ '}'
+Un_Member = Description? Simple
 
 // base definition
-Object = 'object' object TypeParams? Aliases? '{' Obj_Definition '}'
+Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Documentation? Obj_Base )? Obj_Field+
-Obj_Field = Documentation? field Aliases? ':' Documentation? Obj_Type Modifiers?
+Obj_Object = ( ':' Description? Obj_Base )? Obj_Field+
+Obj_Field = Description? field Aliases? ':' Description? Obj_Type Modifiers?
 
-Obj_Alternate = '|' Documentation? Obj_Type Collections?
+Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = Documentation? Obj_Argument
+Obj_BaseArg = Description? Obj_Argument
 Obj_Argument = Internal | Simple | '$'typeParam | object
 
-TypeParams = '<' ( Documentation? '$'typeParam )+ '>'
+Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 
-
-In_Field = Documentation? field fieldAlias* ':' In_TypeDefault
-In_TypeDefault = Documentation? In_Type Modifiers? Default?
+In_Field = Description? field fieldAlias* ':' In_TypeDefault
+In_TypeDefault = Description? In_Type Modifiers? Default?
 
 InputParams = '(' In_TypeDefault+ ')'
 
-Out_Field = Documentation? field ( Out_TypeField | Out_EnumField )
-Out_TypeField = InputParams? fieldAlias* ':' Documentation? Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' Documentation? EnumValue
+Out_Field = Description? field ( Out_TypeField | Out_EnumField )
+Out_TypeField = InputParams? fieldAlias* ':' Description? Out_Type Modifiers?
+Out_EnumField = fieldAlias* '=' Description? EnumValue
 
 Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
 

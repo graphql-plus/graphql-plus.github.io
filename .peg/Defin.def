@@ -1,5 +1,5 @@
 enum = ID
-member = ID
+label = ID
 typeParam = ID
 
 NUMBER = [-+]? [0-9_]+ ( '.' [0-9_]+ )?
