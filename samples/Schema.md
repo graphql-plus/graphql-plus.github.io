@@ -2638,7 +2638,7 @@ domain Test { Enum }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. Expected enum Members`
+- `Invalid Domain. Expected enum Labels`
 
 ### Simple\Invalid\domain-enum-parent-unique.graphql+
 
@@ -2652,7 +2652,7 @@ enum Dup { value }
 ##### Expected Verify errors
 
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
-- `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `Group of DomainLabel for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### Simple\Invalid\domain-enum-undef-all.graphql+
 
@@ -2693,7 +2693,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Member. Enum Value 'undef' not defined`
+- `Invalid Domain Enum Item. Enum Value 'undef' not defined`
 
 ### Simple\Invalid\domain-enum-unique-all.graphql+
 
@@ -2885,7 +2885,7 @@ enum Parent { parent[alias] }
 ##### Expected Verify errors
 
 - `Invalid Enum Child. Can't merge Test into Parent Parent`
-- `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
+- `Aliases of EnumLabel for 'alias' is not singular Name['parent', 'test']`
 
 ### Simple\Invalid\enum-parent-diff.graphql+
 
@@ -3227,7 +3227,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
+    : _ChildType<$kind _Described>
         items: $item[]
         allItems: $allItem[]
     }
@@ -3259,7 +3259,7 @@ output _TypeSimple {
 - `Invalid Output Alternate. '_TypeUnion' not defined`
 - `Invalid Output Parent. '_Aliased' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Parent. '_Identifier' not defined`
+- `Invalid Output Parent. '_Described' not defined`
 
 ### Specification\Intro_Complete.graphql+
 
@@ -3365,7 +3365,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
+    : _ChildType<$kind _Described>
         items: $item[]
         allItems: $allItem[]
     }
@@ -3505,7 +3505,7 @@ dual _EnumLabel {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
+        label: _Identifier
     }
 output _TypeUnion {
     : _ParentType<_TypeKind.Union _Described _UnionMember>
@@ -3539,12 +3539,12 @@ output _ObjType<$base> {
     | _ObjConstraint<$base>
     }
 
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+output _ObjBase<$arg> {
+        typeArgs: _ObjDescribed<$arg>[]
     | _TypeParam
     }
 
-output _ObjArg {
+output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _TypeParam
 }
@@ -3577,7 +3577,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         dual: _Identifier
     }
 
@@ -3601,7 +3601,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -3633,7 +3633,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase
+    : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
     }
@@ -3656,16 +3656,15 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
+output _OutputTypeArg {
+    : _ObjTypeArg
+        label: _Identifier?
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        member: _Identifier
+        label: _Identifier
     }
 ```
 
@@ -3831,7 +3830,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         dual: _Identifier
     }
 
@@ -3860,6 +3859,7 @@ output _DualAlternate {
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_ObjTypeArg' not defined`
 - `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
@@ -3878,7 +3878,7 @@ dual _EnumLabel {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
+        label: _Identifier
     }
 ```
 
@@ -3901,7 +3901,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -3941,6 +3941,7 @@ output _InputParam {
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_ObjTypeArg' not defined`
 - `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
@@ -3994,12 +3995,12 @@ output _ObjType<$base> {
     | _ObjConstraint<$base>
     }
 
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+output _ObjBase<$arg> {
+        typeArgs: _ObjDescribed<$arg>[]
     | _TypeParam
     }
 
-output _ObjArg {
+output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _TypeParam
 }
@@ -4066,7 +4067,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase
+    : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
     }
@@ -4089,23 +4090,21 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
+output _OutputTypeArg {
+    : _ObjTypeArg
+        label: _Identifier?
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        member: _Identifier
+        label: _Identifier
     }
 ```
 
 ##### Expected Verify errors
 
 - `Invalid Output Alternate. '_DualBase' not defined`
-- `Invalid Output Alternate. '_TypeParam' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Field. '_InputParam' not defined`
@@ -4113,6 +4112,7 @@ output _OutputEnum {
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
 - `Invalid Output Parent. '_ObjDescribed' not defined`
+- `Invalid Output Parent. '_ObjTypeArg' not defined`
 - `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`

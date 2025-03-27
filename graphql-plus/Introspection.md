@@ -137,7 +137,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
+    : _ChildType<$kind _Described>
         items: $item[]
         allItems: $allItem[]
     }
@@ -314,7 +314,7 @@ dual _EnumLabel {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
+        label: _Identifier
     }
 ```
 
@@ -360,12 +360,12 @@ output _ObjType<$base> {
     | _ObjConstraint<$base>
     }
 
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+output _ObjBase<$arg> {
+        typeArgs: _ObjDescribed<$arg>[]
     | _TypeParam
     }
 
-output _ObjArg {
+output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _TypeParam
 }
@@ -403,7 +403,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         dual: _Identifier
     }
 
@@ -432,7 +432,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -469,7 +469,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase
+    : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
     }
@@ -492,16 +492,15 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
+output _OutputTypeArg {
+    : _ObjTypeArg
+        label: _Identifier?
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        member: _Identifier
+        label: _Identifier
     }
 ```
 
@@ -614,7 +613,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Identifier>
+    : _ChildType<$kind _Described>
         items: $item[]
         allItems: $allItem[]
     }
@@ -761,7 +760,7 @@ dual _EnumLabel {
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        member: _Identifier
+        label: _Identifier
     }
 
 output _TypeUnion {
@@ -797,12 +796,12 @@ output _ObjType<$base> {
     | _ObjConstraint<$base>
     }
 
-output _ObjBase {
-        typeArgs: _ObjDescribed<_ObjArg>[]
+output _ObjBase<$arg> {
+        typeArgs: _ObjDescribed<$arg>[]
     | _TypeParam
     }
 
-output _ObjArg {
+output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _TypeParam
 }
@@ -836,7 +835,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         dual: _Identifier
     }
 
@@ -861,7 +860,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase
+    : _ObjBase<_ObjTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -894,7 +893,7 @@ output _TypeOutput {
     }
 
 output _OutputBase {
-    : _ObjBase
+    : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
     }
@@ -917,16 +916,15 @@ output _OutputAlternate {
     : _Alternate<_OutputBase>
     }
 
-output _OutputArg {
-    : _TypeRef<_TypeKind>
-        member: _Identifier?
-    | _TypeParam
+output _OutputTypeArg {
+    : _ObjTypeArg
+        label: _Identifier?
     }
 
 output _OutputEnum {
     : _TypeRef<_TypeKind.Enum>
         field: _Identifier
-        member: _Identifier
+        label: _Identifier
     }
 
 ```

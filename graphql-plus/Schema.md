@@ -138,7 +138,7 @@ Child (Extending) Types merge in the definition of their Parent (Extended) Type.
 A Type cannot extend itself, even recursively.
 
 ```PEG
-Parent = ':' parent
+Parent = ':' Description? parent
 ```
 
 ### Built-In types
@@ -214,7 +214,7 @@ union _Union [Union] { } // All user defined Union types
 
 Domain type definitions are of the following general form:
 
-> `Kind Parent? Item*`
+> `Parent? Kind Item*`
 
 ```PEG
 Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
@@ -322,9 +322,8 @@ Obj_Field = Description? field Aliases? ':' Description? Obj_Type Modifiers?
 
 Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = Description? Obj_Argument
-Obj_Argument = Internal | Simple | '$'typeParam | object
+Obj_Base = '$'typeParam | object ( '<' (Description? Obj_TypeArg)+ '>' )?
+Obj_TypeArg = Internal | Simple | '$'typeParam | object
 
 Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 ```
@@ -484,7 +483,7 @@ Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Description? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
-Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
+Out_TypeArg = Internal | Simple | '$'typeParam | object | EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -533,7 +532,7 @@ Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragm
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = Description? setting Default
 
-Parent = ':' parent
+Parent = ':' Description? parent
 
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
@@ -567,9 +566,8 @@ Obj_Field = Description? field Aliases? ':' Description? Obj_Type Modifiers?
 
 Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
-Obj_Base = '$'typeParam | object ( '<' Obj_BaseArg+ '>' )?
-Obj_BaseArg = Description? Obj_Argument
-Obj_Argument = Internal | Simple | '$'typeParam | object
+Obj_Base = '$'typeParam | object ( '<' (Description? Obj_TypeArg)+ '>' )?
+Obj_TypeArg = Internal | Simple | '$'typeParam | object
 
 Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 
@@ -582,6 +580,6 @@ Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Description? Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
-Out_Argument = Internal | Simple | '$'typeParam | object | EnumValue
+Out_TypeArg = Internal | Simple | '$'typeParam | object | EnumValue
 
 ```
