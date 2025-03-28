@@ -324,12 +324,15 @@ Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' (Description? Obj_TypeArg)+ '>' )?
 Obj_TypeArg = Internal | Simple | '$'typeParam | object
+Obj_TypeParams = '<' ( Description? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
-Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 ```
 
 An Object type may have Type parameters.
 Each Type parameter may be preceded by description strings.
+Each Type parameter may have a Constraint specifying the Type any argument must be or include.
+Constraints do not have Type Arguments.
 
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
@@ -348,6 +351,14 @@ An object Type reference may be an Internal Type, Simple Type, Type parameter or
 If a reference is an object Type it may have Type Arguments.
 Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
 If a Type argument is an object Type it may NOT have Type Arguments.
+
+If the Type parameter corresponding to a Type argument has a Constraint,
+then the Type parameter must fulfill one of teh following conditions:
+
+- The Type parameter is the same type as the Constraint, excluding any Type arguments
+- The Type parameter descends from the Constraint
+- The Constraint is an Object type with Alternates and the Type parameter is or descends from one of these Alternates
+- The Constraint is a Union type and the Type parameter is or descends from one of the Members
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -568,8 +579,9 @@ Obj_Alternate = '|' Description? Obj_Type Collections?
 Obj_Type = Internal | Simple | Obj_Base
 Obj_Base = '$'typeParam | object ( '<' (Description? Obj_TypeArg)+ '>' )?
 Obj_TypeArg = Internal | Simple | '$'typeParam | object
+Obj_TypeParams = '<' ( Description? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_Constraint = Simple | object
 
-Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 
 In_Field = Description? field fieldAlias* ':' In_TypeDefault
 In_TypeDefault = Description? In_Type Modifiers? Default?
