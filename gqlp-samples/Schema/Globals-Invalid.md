@@ -8,7 +8,7 @@
 
 ##### Expected Parse errors
 
-- `Parse Error: Invalid Schema. Expected text.`
+- `Parse Error: Invalid Schema. Expected text`
 
 ### category-diff-mod.graphql+
 

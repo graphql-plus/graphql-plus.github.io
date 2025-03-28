@@ -418,10 +418,6 @@ output _DualParent {
     : _ObjDescribed<_DualBase>
     }
 
-output _DualParam {
-    : _ObjParam<_DualBase>
-    }
-
 output _DualTypeParam {
     : _ObjTypeParam<_DualBase>
     }
@@ -452,10 +448,6 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
-output _InputParam {
-    : _ObjParam<_InputBase>
-    }
-
 output _InputTypeParam {
     : _ObjTypeParam<_InputBase>
     }
@@ -469,7 +461,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _FieldParam {
+output _InputParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -493,17 +485,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
-output _OutputParam {
-    : _ObjParam<_OutputBase>
-    }
-
 output _OutputTypeParam {
     : _ObjTypeParam<_OutputBase>
     }
 
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _FieldParam[]
+        parameter: _InputParam[]
     | _OutputEnum
     }
 
@@ -869,10 +857,6 @@ output _DualParent {
     : _ObjDescribed<_DualBase>
     }
 
-output _DualParam {
-    : _ObjParam<_DualBase>
-    }
-
 output _DualTypeParam {
     : _ObjTypeParam<_DualBase>
     }
@@ -899,10 +883,6 @@ output _InputParent {
     : _ObjDescribed<_InputBase>
     }
 
-output _InputParam {
-    : _ObjParam<_InputBase>
-    }
-
 output _InputTypeParam {
     : _ObjTypeParam<_InputBase>
     }
@@ -916,7 +896,7 @@ output _InputAlternate {
     : _Alternate<_InputBase>
     }
 
-output _FieldParam {
+output _InputParam {
     : _ObjDescribed<_InputBase>
         modifiers: _Modifiers[]
         default: _Constant?
@@ -936,17 +916,13 @@ output _OutputParent {
     : _ObjDescribed<_OutputBase>
     }
 
-output _OutputParam {
-    : _ObjParam<_OutputBase>
-    }
-
 output _OutputTypeParam {
     : _ObjTypeParam<_OutputBase>
     }
 
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _FieldParam[]
+        parameter: _InputParam[]
     | _OutputEnum
     }
 

@@ -41,8 +41,8 @@ domain Other { Enum }
 
 ##### Expected Parse errors
 
-- `Invalid Category. Expected output type.`
-- `Invalid Schema. Expected no more text.`
+- `Invalid Category. Expected output type`
+- `Invalid Schema. Expected no more text`
 
 ##### Expected Verify errors
 
