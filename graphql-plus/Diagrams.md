@@ -54,7 +54,7 @@ classDiagram
 classDiagram
     direction LR
 
-    Simple : *~Item~[] Members
+    Simple : *~Item~[] Items
 
     Simple <|-- Domain
     Simple <|-- Enum
@@ -64,12 +64,12 @@ classDiagram
     Domain : Kind
 
     Domain *-- TrueFalse : Kind = Boolean
-    Domain *-- Member : Kind = Enum
+    Domain *-- Label : Kind = Enum
     Domain *-- Range : Kind = Number
     Domain *-- Regex : Kind = String
 
     TrueFalse --|> Item
-    Member --|> Item
+    Label --|> Item
     Range --|> Item
     Regex --|> Item
 
