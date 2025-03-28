@@ -143,7 +143,7 @@ output _TypeSimple {
 - `Invalid Output Alternate. '_TypeUnion' not defined`
 - `Invalid Output Parent. '_Aliased' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
-- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_Named' not defined`
 
 ### Intro_Complete.graphql+
 
@@ -974,7 +974,7 @@ output _Setting {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_Named' not defined`
 - `Invalid Output Field. '_Constant' not defined`
 
 ### Intro_Output.graphql+
@@ -1055,9 +1055,9 @@ dual _UnionMember {
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. '_Described' not defined`
+- `Invalid Dual Parent. '_Named' not defined`
 - `Invalid Output Parent. '_ParentType' not defined`
 - `Invalid Dual Field. '_Identifier' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
 - `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_Named' not defined`
