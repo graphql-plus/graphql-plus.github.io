@@ -33,7 +33,7 @@ domain Test { Enum }
 
 ##### Expected Verify errors
 
-- `Invalid Domain. Expected enum Members`
+- `Invalid Domain. Expected enum Labels`
 
 ### domain-enum-parent-unique.graphql+
 
@@ -47,7 +47,7 @@ enum Dup { value }
 ##### Expected Verify errors
 
 - `Invalid Domain Child. Can't merge Test items into Parent Parent items`
-- `Group of DomainMember for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `Group of DomainLabel for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### domain-enum-undef-all.graphql+
 
@@ -88,7 +88,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Invalid Domain Enum Member. Enum Value 'undef' not defined`
+- `Invalid Domain Enum Item. Enum Value 'undef' not defined`
 
 ### domain-enum-unique-all.graphql+
 
@@ -280,7 +280,7 @@ enum Parent { parent[alias] }
 ##### Expected Verify errors
 
 - `Invalid Enum Child. Can't merge Test into Parent Parent`
-- `Aliases of EnumItem for 'alias' is not singular Name['parent', 'test']`
+- `Aliases of EnumLabel for 'alias' is not singular Name['parent', 'test']`
 
 ### enum-parent-diff.graphql+
 

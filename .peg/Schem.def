@@ -15,10 +15,10 @@ fieldAlias = ID
 
 Dual = Object
 Dual_Base = Obj_Base
-Dual_BaseArg = Obj_BaseArg
+Dual_TypeArg = Obj_TypeArg
 Input = Object
 In_Type = Obj_Type
-In_BaseArg = Obj_Base
+In_TypeArg = Obj_TypeArg
 Output = Object
 Out_Type = Obj_Type
 
