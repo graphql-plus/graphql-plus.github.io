@@ -137,10 +137,6 @@ All Types may specify another Type of the same Kind that they extend.
 Child (Extending) Types merge in the definition of their Parent (Extended) Type.
 A Type cannot extend itself, even recursively.
 
-```PEG
-Parent = ':' Description? parent
-```
-
 ### Built-In types
 
 The Common and Built-In types from [Definition](Definition.md) are available to Schemas.
@@ -151,6 +147,8 @@ Though the following redefinitions apply.
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
 Simple_ReDef = Basic | domain | enum | union // Redefined Simple
+
+Collection_Key_ReDef = Simple | '$'typeParam // Redefined Collection_Key
 ```
 
 <details>
@@ -209,6 +207,15 @@ union _Union [Union] { } // All user defined Union types
 </details>
 
 ## Simple types
+
+Domain, Enum and Union are Simple types.
+Simple types have a parent of the same type and some items.
+
+Simple types specify their parent by just their name.
+
+```PEG
+Parent = ':' Description? parent
+```
 
 ### Domain type
 
@@ -532,11 +539,13 @@ Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragm
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = Description? setting Default
 
-Parent = ':' Description? parent
-
 Internal_ReDef = 'Null' | 'null' | 'Object' | '%' | 'Void' // Redefined Internal
 
 Simple_ReDef = Basic | domain | enum | union // Redefined Simple
+
+Collection_Key_ReDef = Simple | '$'typeParam // Redefined Collection_Key
+
+Parent = ':' Description? parent
 
 Domain = 'domain' domain Aliases? '{' Parent? DomainDefinition '}'
 DomainDefinition = Scal_Boolean | Scal_Enum | Scal_Number | Scal_String
