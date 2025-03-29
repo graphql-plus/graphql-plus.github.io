@@ -330,7 +330,7 @@ output _UnionRef {
     : _TypeRef<_SimpleKind>
 }
 
-dual _UnionMember {
+output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
@@ -747,7 +747,7 @@ output _UnionRef {
     : _TypeRef<_SimpleKind>
 }
 
-dual _UnionMember {
+output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
