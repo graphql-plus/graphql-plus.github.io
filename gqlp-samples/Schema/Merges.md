@@ -207,6 +207,20 @@ object ObjName { field: FldObjName }
 object FldObjName { }
 ```
 
+### object-param-constraint.graphql+
+
+```gqlp
+object ObjName<$test:*> { test: $test }
+object ObjName<$test:*> { type: $test }
+```
+
+### object-param-dup.graphql+
+
+```gqlp
+object ObjName<$test> { test: $test }
+object ObjName<$test> { type: $test }
+```
+
 ### object-param.graphql+
 
 ```gqlp

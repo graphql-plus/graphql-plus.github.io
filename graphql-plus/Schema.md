@@ -353,12 +353,12 @@ Type arguments may be an Internal Type, Simple Type, Type parameter or the same 
 If a Type argument is an object Type it may NOT have Type Arguments.
 
 If the Type parameter corresponding to a Type argument has a Constraint,
-then the Type parameter must fulfill one of teh following conditions:
+then the Type parameter must match the Constraint as follows:
 
 - The Type parameter is the same type as the Constraint, excluding any Type arguments
 - The Type parameter descends from the Constraint
-- The Constraint is an Object type with Alternates and the Type parameter is or descends from one of these Alternates
-- The Constraint is a Union type and the Type parameter is or descends from one of the Members
+- The Constraint is an Object type with Alternates and the Type parameter matches one of these Alternates
+- The Constraint is a Union type and the Type parameter matches one of the Members of the Union
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -381,6 +381,8 @@ An Alternate is defined as:
 - zero or more Collections
 
 Object types can be merged if their parent Types match.
+
+Type parameters can be merged if their Constraints match.
 
 Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
 

@@ -471,6 +471,20 @@ object Test { | $type }
 
 - `Invalid Output Alternate. '$type' not defined`
 
+### generic-arg-constraint.graphql+
+
+```gqlp
+object Test<$type> { field: $type }
+object Test<$type:*> { str: $type }
+```
+
+### generic-arg-diff.graphql+
+
+```gqlp
+object Test<$type:0> { num: $type }
+object Test<$type:*> { str: $type }
+```
+
 ### generic-arg-less.graphql+
 
 ```gqlp
