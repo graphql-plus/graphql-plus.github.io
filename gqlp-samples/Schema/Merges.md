@@ -3,177 +3,177 @@
 ### category-alias.graphql+
 
 ```gqlp
-category [CatA1] { CatAlias }
-category [CatA2] { CatAlias }
-output CatAlias { }
+category [CatA1] { Name }
+category [CatA2] { Name }
+output Name { }
 ```
 
 ### category-descr.graphql+
 
 ```gqlp
 "First category"
-category { Test }
+category { Name }
 "Second category"
-category { Test }
-output Test { }
+category { Name }
+output Name { }
 ```
 
 ### category-mod.graphql+
 
 ```gqlp
-category [CatM1] { CatMods? }
-category [CatM2] { CatMods? }
-output CatMods { }
+category [CatM1] { Name? }
+category [CatM2] { Name? }
+output Name { }
 ```
 
 ### category.graphql+
 
 ```gqlp
-category { Category }
-category category { Category }
-output Category { }
+category { Name }
+category name { Name }
+output Name { }
 ```
 
 ### directive-alias.graphql+
 
 ```gqlp
-directive @DirAlias [DirA1] { variable }
-directive @DirAlias [DirA2] { field }
+directive @Name [DirA1] { variable }
+directive @Name [DirA2] { field }
 ```
 
 ### directive-param.graphql+
 
 ```gqlp
-directive @DirParam(DirParamIn) { operation }
-directive @DirParam { fragment }
-input DirParamIn { }
+directive @Name(InName) { operation }
+directive @Name { fragment }
+input InName { }
 ```
 
 ### directive.graphql+
 
 ```gqlp
-directive @Dir { inline }
-directive @Dir { spread }
+directive @Name { inline }
+directive @Name { spread }
 ```
 
 ### domain-alias.graphql+
 
 ```gqlp
-domain NumAlias [Num1] { number }
-domain NumAlias [Num2] { number }
+domain Name [Num1] { number }
+domain Name [Num2] { number }
 ```
 
 ### domain-boolean-diff.graphql+
 
 ```gqlp
-domain BoolDiff { boolean true }
-domain BoolDiff { boolean false }
+domain Name { boolean true }
+domain Name { boolean false }
 ```
 
 ### domain-boolean-same.graphql+
 
 ```gqlp
-domain BoolSame { boolean true }
-domain BoolSame { boolean true }
+domain Name { boolean true }
+domain Name { boolean true }
 ```
 
 ### domain-boolean.graphql+
 
 ```gqlp
-domain Bool { boolean }
-domain Bool { boolean }
+domain Name { boolean }
+domain Name { boolean }
 ```
 
 ### domain-enum-diff.graphql+
 
 ```gqlp
-domain EnumDiff { enum true }
-domain EnumDiff { enum false }
+domain Name { enum true }
+domain Name { enum false }
 ```
 
 ### domain-enum-same.graphql+
 
 ```gqlp
-domain EnumSame { enum true }
-domain EnumSame { enum true }
+domain Name { enum true }
+domain Name { enum true }
 ```
 
 ### domain-number-diff.graphql+
 
 ```gqlp
-domain NumDiff { number 1~9 }
-domain NumDiff { number }
+domain Name { number 1~9 }
+domain Name { number }
 ```
 
 ### domain-number-same.graphql+
 
 ```gqlp
-domain NumSame { number 1~9 }
-domain NumSame { number 1~9 }
+domain Name { number 1~9 }
+domain Name { number 1~9 }
 ```
 
 ### domain-number.graphql+
 
 ```gqlp
-domain Num { number }
-domain Num { number }
+domain Name { number }
+domain Name { number }
 ```
 
 ### domain-string-diff.graphql+
 
 ```gqlp
-domain StrDiff { string /a+/ }
-domain StrDiff { string }
+domain Name { string /a+/ }
+domain Name { string }
 ```
 
 ### domain-string-same.graphql+
 
 ```gqlp
-domain StrSame { string /a+/ }
-domain StrSame { string /a+/ }
+domain Name { string /a+/ }
+domain Name { string /a+/ }
 ```
 
 ### domain-string.graphql+
 
 ```gqlp
-domain Str { string }
-domain Str { string }
+domain Name { string }
+domain Name { string }
 ```
 
 ### enum-alias.graphql+
 
 ```gqlp
-enum EnAlias [En1] { alias }
-enum EnAlias [En2] { alias }
+enum Name [En1] { name }
+enum Name [En2] { name }
 ```
 
 ### enum-diff.graphql+
 
 ```gqlp
-enum EnDiff { one }
-enum EnDiff { two }
+enum Name { one }
+enum Name { two }
 ```
 
 ### enum-same-parent.graphql+
 
 ```gqlp
-enum EnSameParent { :EnParent sameP }
-enum EnSameParent { :EnParent sameP }
-enum EnParent { parent }
+enum Name { :PrntName name }
+enum Name { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### enum-same.graphql+
 
 ```gqlp
-enum EnSame { same }
-enum EnSame { same }
+enum Name { name }
+enum Name { name }
 ```
 
 ### enum-value-alias.graphql+
 
 ```gqlp
-enum EnValAlias { value [val1] }
-enum EnValAlias { value [val2] }
+enum Name { name [val1] }
+enum Name { name [val2] }
 ```
 
 ### object-alias.graphql+
@@ -194,17 +194,17 @@ object ObjNameType { }
 ### object-field-alias.graphql+
 
 ```gqlp
-object ObjName { field [field1]: ObjNameFld }
-object ObjName { field [field2]: ObjNameFld }
-object ObjNameFld { }
+object ObjName { field [field1]: FldObjName }
+object ObjName { field [field2]: FldObjName }
+object FldObjName { }
 ```
 
 ### object-field.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameFld }
-object ObjName { field: ObjNameFld }
-object ObjNameFld { }
+object ObjName { field: FldObjName }
+object ObjName { field: FldObjName }
+object FldObjName { }
 ```
 
 ### object-param.graphql+
@@ -217,9 +217,9 @@ object ObjName<$type> { type: $type }
 ### object-parent.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef }
-object ObjName { :ObjNameRef }
-object ObjNameRef { }
+object ObjName { :RefObjName }
+object ObjName { :RefObjName }
+object RefObjName { }
 ```
 
 ### object.graphql+
@@ -253,52 +253,52 @@ option Schema { }
 ### output-field-enum-alias.graphql+
 
 ```gqlp
-output FieldEnumAlias { field [field1] = Boolean.true }
-output FieldEnumAlias { field [field2] = true }
+output Name { field [field1] = Boolean.true }
+output Name { field [field2] = true }
 ```
 
 ### output-field-enum-value.graphql+
 
 ```gqlp
-output FieldEnums { field = Boolean.true }
-output FieldEnums { field = true }
+output Name { field = Boolean.true }
+output Name { field = true }
 ```
 
 ### output-field-param.graphql+
 
 ```gqlp
-output FieldParam { field(FieldParam1): FieldParamFld }
-output FieldParam { field(FieldParam2): FieldParamFld }
-input FieldParam1 { }
-input FieldParam2 { }
-output FieldParamFld { }
+output Name { field(Name1): FldName }
+output Name { field(Name2): FldName }
+input Name1 { }
+input Name2 { }
+dual FldName { }
 ```
 
 ### union-alias.graphql+
 
 ```gqlp
-union UnDiff [UnA1] { Boolean }
-union UnDiff [UnA2] { Number }
+union Name [UnA1] { Boolean }
+union Name [UnA2] { Number }
 ```
 
 ### union-diff.graphql+
 
 ```gqlp
-union UnDiff { Boolean }
-union UnDiff { Number }
+union Name { Boolean }
+union Name { Number }
 ```
 
 ### union-same-parent.graphql+
 
 ```gqlp
-union UnSameParent { :UnParent Boolean }
-union UnSameParent { :UnParent Boolean }
-union UnParent { String }
+union Name { :PrntName Boolean }
+union Name { :PrntName Boolean }
+union PrntName { String }
 ```
 
 ### union-same.graphql+
 
 ```gqlp
-union UnSame { Boolean }
-union UnSame { Boolean }
+union Name { Boolean }
+union Name { Boolean }
 ```

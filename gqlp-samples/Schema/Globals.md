@@ -5,79 +5,79 @@
 ```gqlp
 "A Category"
 "described"
-category { CatDescr }
-output CatDescr { }
+category { Name }
+output Name { }
 ```
 
 ### category-output-dict.graphql+
 
 ```gqlp
-category { CatDict[*] }
-output CatDict { }
+category { Name[*] }
+output Name { }
 ```
 
 ### category-output-list.graphql+
 
 ```gqlp
-category { CatList[] }
-output CatList { }
+category { Name[] }
+output Name { }
 ```
 
 ### category-output-optional.graphql+
 
 ```gqlp
-category { CatOpt? }
-output CatOpt { }
+category { Name? }
+output Name { }
 ```
 
 ### category-output.graphql+
 
 ```gqlp
-category { Cat }
-output Cat { }
+category { Name }
+output Name { }
 ```
 
 ### descr-backslash.graphql+
 
 ```gqlp
 'A backslash ("\\") description'
-output DescrBackslash { }
+output Name { }
 ```
 
 ### descr-between.graphql+
 
 ```gqlp
-category { DescrBetween }
+category { Name }
 "A description between"
-output DescrBetween { }
+output Name { }
 ```
 
 ### descr-complex.graphql+
 
 ```gqlp
 "A \"more\" 'Complicated' \\ description"
-output DescrComplex { }
+output Name { }
 ```
 
 ### descr-double.graphql+
 
 ```gqlp
 "A 'double-quoted' description"
-output DescrDouble { }
+output Name { }
 ```
 
 ### descr-single.graphql+
 
 ```gqlp
 'A "single-quoted" description'
-output DescrSingle { }
+output Name { }
 ```
 
 ### descr.graphql+
 
 ```gqlp
 "A simple description"
-output Descr { }
+output Name { }
 ```
 
 ### descrs.graphql+
@@ -85,48 +85,48 @@ output Descr { }
 ```gqlp
 "A simple description"
 "With extra"
-output Descr { }
+output Name { }
 ```
 
 ### directive-descr.graphql+
 
 ```gqlp
 "A directive described"
-directive @DirDescr { all }
+directive @Name { all }
 ```
 
 ### directive-no-param.graphql+
 
 ```gqlp
-directive @DirNoParam { all }
+directive @Name { all }
 ```
 
 ### directive-param-dict.graphql+
 
 ```gqlp
-directive @DirParamDict(DirParamIn[String]) { all }
-input DirParamIn { }
+directive @Name(InName[String]) { all }
+input InName { }
 ```
 
 ### directive-param-in.graphql+
 
 ```gqlp
-directive @DirParam(DirParamIn) { all }
-input DirParamIn { }
+directive @Name(InName) { all }
+input InName { }
 ```
 
 ### directive-param-list.graphql+
 
 ```gqlp
-directive @DirParamList(DirParamIn[]) { all }
-input DirParamIn { }
+directive @Name(InName[]) { all }
+input InName { }
 ```
 
 ### directive-param-opt.graphql+
 
 ```gqlp
-directive @DirParamOpt(DirParamIn?) { all }
-input DirParamIn { }
+directive @Name(InName?) { all }
+input InName { }
 ```
 
 ### option-schema-alias.graphql+

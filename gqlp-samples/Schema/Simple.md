@@ -3,161 +3,161 @@
 ### domain-bool-descr.graphql+
 
 ```gqlp
-domain DomBoolDescr { Boolean "DomBool" "Descr" true }
+domain Name { Boolean "DomBool" "Descr" true }
 ```
 
 ### domain-bool-parent.graphql+
 
 ```gqlp
-domain DomBoolPrntTest { :DomBoolTestPrnt Boolean false }
-domain DomBoolTestPrnt { Boolean true }
+domain Name { :PrntName Boolean false }
+domain PrntName { Boolean true }
 ```
 
 ### domain-enum-all-descr.graphql+
 
 ```gqlp
-domain DomEnumAll { enum "DomAll" "Descr" EnumDomAll.* }
-enum EnumDomAll { dom_all dom_enum_all }
+domain Name { enum "DomAll" "Descr" EnumName.* }
+enum EnumName { name enum_name }
 ```
 
 ### domain-enum-all-parent.graphql+
 
 ```gqlp
-domain DomEnumAllParent { enum EnumDomAllParent.* }
-enum EnumDomAllParent { :EnumDomParentAll dom_all_parent }
-enum EnumDomParentAll { dom_enum_all_parent }
+domain Name { enum EnumName.* }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### domain-enum-all.graphql+
 
 ```gqlp
-domain DomEnumAll { enum EnumDomAll.* }
-enum EnumDomAll { dom_all dom_enum_all }
+domain Name { enum EnumName.* }
+enum EnumName { name enum_name }
 ```
 
 ### domain-enum-descr.graphql+
 
 ```gqlp
-domain DomEnumDescr { enum "DomEnum" "Descr" dom_label_desc }
-enum EnumDomDescr { dom_label_desc }
+domain Name { enum "DomEnum" "Descr" name }
+enum EnumName { name }
 ```
 
 ### domain-enum-label.graphql+
 
 ```gqlp
-domain DomLabel { enum dom_label }
-enum LabelDom { dom_label }
+domain Name { enum name }
+enum EnumName { name }
 ```
 
 ### domain-enum-parent.graphql+
 
 ```gqlp
-domain DomEnumPrnt { :DomPrntEnum Enum both_enum }
-domain DomPrntEnum { Enum both_parent }
-enum EnumDomBoth { both_enum both_parent }
+domain Name { :PrntName Enum enum_name }
+domain PrntName { Enum prnt_name }
+enum EnumName { enum_name prnt_name }
 ```
 
 ### domain-enum-unique-parent.graphql+
 
 ```gqlp
-enum EnumDomUniqueParent { :EnumDomParentUnique value }
-enum EnumDomParentUnique { enum_dom_parent_dup }
-enum EnumDomDupParent { enum_dom_parent_dup }
-# domain DomEnumUniqueParent { enum EnumDomUniqueParent.* !EnumDomUniqueParent.enum_dom_parent_dup EnumDomDupParent.enum_dom_parent_dup }
+# domain Name { enum EnumName.* !PrntName.name DupName.name }
+enum EnumName { :PrntName enum_name }
+enum PrntName { name prnt_name }
+enum DupName { name dup_name }
 ```
 
 ### domain-enum-unique.graphql+
 
 ```gqlp
-enum EnumDomUnique { eum_dom_value eum_dom_dup }
-enum EnumDomDup { eum_dom_dup }
-# domain DomEnumUnique { enum EnumDomUnique.* !EnumDomUnique.eum_dom_dup EnumDomDup.eum_dom_dup }
+# domain Name { enum EnumName.* !EnumName.name DupName.name }
+enum EnumName { enum_name name }
+enum EnumDomDup { name dup_name }
 ```
 
 ### domain-enum-value-parent.graphql+
 
 ```gqlp
-domain DomEnumParent { Enum EnumDomParent.dom_enum_parent }
-enum EnumDomParent { :EnumParentDom dom_parent_enum }
-enum EnumParentDom { dom_enum_parent }
+domain Name { Enum EnumName.prnt_name }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### domain-enum-value.graphql+
 
 ```gqlp
-domain DomEnum { Enum EnumDom.dom_enum }
-enum EnumDom { dom_enum }
+domain Name { Enum EnumName.name }
+enum EnumName { name }
 ```
 
 ### domain-number-descr.graphql+
 
 ```gqlp
-domain DomNumDescr { Number "DomNumber" "Descr" <2 }
+domain Name { Number "DomNumber" "Descr" <2 }
 ```
 
 ### domain-number-parent.graphql+
 
 ```gqlp
-domain DomNumPrnt { :DomPrntNum Number 2>}
-domain DomPrntNum { Number <2 }
+domain Name { :PrntName Number 2>}
+domain PrntName { Number <2 }
 ```
 
 ### domain-string-descr.graphql+
 
 ```gqlp
-domain DomStrDescr { String "DomString" "Descr" /a+/ }
+domain Name { String "DomString" "Descr" /a+/ }
 ```
 
 ### domain-string-parent.graphql+
 
 ```gqlp
-domain DomStrPrnt { :DomPrntStr String /a+/ }
-domain DomPrntStr { String /b+/ }
+domain Name { :PrntName String /a+/ }
+domain PrntName { String /b+/ }
 ```
 
 ### enum-descr.graphql+
 
 ```gqlp
-enum EnDescr { "Enum" "Descr" val_test }
+enum Name { "Enum" "Descr" name }
 ```
 
 ### enum-parent-alias.graphql+
 
 ```gqlp
-enum EnPrntAlias { :EnAliasPrnt val_prnt_alias val_alias[alias_val] }
-enum EnAliasPrnt { val_alias }
+enum Name { :PrntName val_name prnt_name[name] }
+enum PrntName { prnt_name }
 ```
 
 ### enum-parent-dup.graphql+
 
 ```gqlp
-enum EnPrntDup { :EnDupPrnt val_prnt_dup  }
-enum EnDupPrnt { val_dup[val_prnt_dup] }
+enum Name { :PrntName name  }
+enum PrntName { prnt_name[name] }
 ```
 
 ### enum-parent.graphql+
 
 ```gqlp
-enum EnTestPrnt { :EnPrntTest val_prnt }
-enum EnPrntTest { val_test }
+enum Name { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### union-descr.graphql+
 
 ```gqlp
-union UnionDescr { "Union" "Descr" Number }
+union Name { "Union" "Descr" Number }
 ```
 
 ### union-parent-dup.graphql+
 
 ```gqlp
-union UnionPrnt { :PrntUnion Number }
-union PrntUnion { Number }
+union Name { :PrntName Number }
+union PrntName { Number }
 ```
 
 ### union-parent.graphql+
 
 ```gqlp
-union UnionPrnt { :PrntUnion String }
-union PrntUnion { Number }
+union Name { :PrntName String }
+union PrntName { Number }
 ```

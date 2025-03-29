@@ -706,12 +706,13 @@ output _DomainItemRegex {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Dual Parent. '_Described' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Field. '_EnumValue' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
 
 ### Intro_Dual.graphql+
 
@@ -930,18 +931,21 @@ output _ForParam<$base:_ObjBase> {
 
 ##### Expected Verify errors
 
-- `Invalid Output Alternate. '_BaseType' not defined`
-- `Invalid Output Alternate. '_TypeSimple' not defined`
-- `Invalid Output Parent. '_ChildType' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
+- `Invalid Domain Enum. '_TypeKind' not an Enum type`
 - `Invalid Domain Parent. '_Identifier' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Dual Parent. '_Described' not defined`
+- `Invalid Output Alternate. '_BaseType' not defined`
 - `Invalid Output Alternate. '_TypeKind' not defined`
+- `Invalid Output Alternate. '_TypeSimple' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Collections' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Field. '_Modifiers' not defined`
-- `Invalid Output Field. '_Collections' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Parent. '_ChildType' not defined`
+- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
 
 ### Intro_Option.graphql+
 
