@@ -8,7 +8,7 @@ root = true
 indent_style = space
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
 spelling_exclusion_path = SpellingExclusions.dic
-max_line_length = 150
+max_line_length = 120
 
 # Code files
 [*.{cs,csx,vb,vbx}]
