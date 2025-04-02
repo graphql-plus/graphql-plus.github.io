@@ -347,7 +347,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. '( I@017/0001 Test )' not defined`
+- `Invalid Directive Param. 'Test' not defined`
 
 ### Globals\Invalid\directive-param-mod-param.graphql+
 
@@ -3586,8 +3586,8 @@ output _ObjTypeParam {
         typeParam: _TypeParam
 }
 
-output _Alternate<$base> {
-      type: $base
+output _Alternate<$arg> {
+    : _ObjBase<$arg>
       collections: _Collections[]
     }
 
@@ -3606,7 +3606,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_DualTypeArg>
         dual: _Identifier
     }
 
@@ -3615,14 +3615,20 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualBase>
+    : _Alternate<_DualTypeArg>
+        dual: _Identifier
+    }
+
+output _DualTypeArg {
+    : _ObjTypeArg
+        dual: _Identifier
     }
 output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputField _InputAlternate>
     }
 
 output _InputBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -3633,7 +3639,13 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputBase>
+    : _Alternate<_InputTypeArg>
+        input: _Identifier
+    }
+
+output _InputTypeArg {
+    : _ObjTypeArg
+        input: _Identifier
     }
 
 output _InputParam {
@@ -3658,11 +3670,13 @@ output _OutputField {
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputBase>
+    : _Alternate<_OutputTypeArg>
+        output: _Identifier
     }
 
 output _OutputTypeArg {
     : _ObjTypeArg
+        output: _Identifier
         label: _Identifier?
     }
 
@@ -3836,7 +3850,7 @@ output _TypeDual {
     }
 
 output _DualBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_DualTypeArg>
         dual: _Identifier
     }
 
@@ -3845,7 +3859,13 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualBase>
+    : _Alternate<_DualTypeArg>
+        dual: _Identifier
+    }
+
+output _DualTypeArg {
+    : _ObjTypeArg
+        dual: _Identifier
     }
 ```
 
@@ -3897,7 +3917,7 @@ output _TypeInput {
     }
 
 output _InputBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
     }
@@ -3908,7 +3928,13 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputBase>
+    : _Alternate<_InputTypeArg>
+        input: _Identifier
+    }
+
+output _InputTypeArg {
+    : _ObjTypeArg
+        input: _Identifier
     }
 
 output _InputParam {
@@ -3993,8 +4019,8 @@ output _ObjTypeParam {
         typeParam: _TypeParam
 }
 
-output _Alternate<$base> {
-      type: $base
+output _Alternate<$arg> {
+    : _ObjBase<$arg>
       collections: _Collections[]
     }
 
@@ -4060,11 +4086,13 @@ output _OutputField {
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputBase>
+    : _Alternate<_OutputTypeArg>
+        output: _Identifier
     }
 
 output _OutputTypeArg {
     : _ObjTypeArg
+        output: _Identifier
         label: _Identifier?
     }
 

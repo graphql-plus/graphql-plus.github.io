@@ -329,13 +329,13 @@ Dual, Input and Output types are all Object types.
 // base definition
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Description? Obj_Base )? Obj_Field+
+Obj_Object = ( ':' Obj_Type )? Obj_Field+
 Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
 
-Obj_Alternate = '|' Obj_Type Collections?
-Obj_Type = Description? ( Internal | Simple | Obj_Base )
-Obj_Base = '$'typeParam | object ( '<' Obj_TypeArg+ '>' )?
-Obj_TypeArg = Description? ( Internal | Simple | '$'typeParam | object )
+Obj_Alternate = '|' Description? ( '$'typeParam | Obj_Base Collections? )
+Obj_Type = Description? ( '$'typeParam | Obj_Base )
+Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
+Obj_TypeArg =  '$'typeParam | Internal | Simple | object
 
 Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 ```
@@ -497,7 +497,7 @@ Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
-Out_TypeArg = Internal | Simple | '$'typeParam | object | EnumValue
+Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -577,13 +577,13 @@ Un_Member = Description? Simple
 // base definition
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Description? Obj_Base )? Obj_Field+
+Obj_Object = ( ':' Obj_Type )? Obj_Field+
 Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
 
-Obj_Alternate = '|' Obj_Type Collections?
-Obj_Type = Description? ( Internal | Simple | Obj_Base )
-Obj_Base = '$'typeParam | object ( '<' Obj_TypeArg+ '>' )?
-Obj_TypeArg = Description? ( Internal | Simple | '$'typeParam | object )
+Obj_Alternate = '|' Description? ( '$'typeParam | Obj_Base Collections? )
+Obj_Type = Description? ( '$'typeParam | Obj_Base )
+Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
+Obj_TypeArg =  '$'typeParam | Internal | Simple | object
 
 Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 
@@ -596,6 +596,6 @@ Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
-Out_TypeArg = Internal | Simple | '$'typeParam | object | EnumValue
+Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
 
 ```
