@@ -62,7 +62,7 @@ Internal = 'Void' | 'Null' | 'null'
 
 Defaults must match the Modifiers/Collections Type of the item the Default is on.
 
-An Enum Value may drop the Enum portion if the Member is unique.
+An Enum Value may drop the Enum portion if the Label is unique.
 Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and (`Unit.`)`_`.
 
 `Boolean`, `Null`, `Unit` and `Void` are all Enum types.
@@ -73,7 +73,7 @@ Enum Value includes (`Boolean.`)`false`, (`Boolean.`)`true`, (`Null.`)`null` and
 ```PEG
 Modifiers = Collections? '?'?
 Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
-Collection_Key = Simple | '$'typeParam // Only in Schemas
+Collection_Key = Simple // Redefined in Schema
 ```
 
 Collections are any combination of Lists and/or Dictionaries.
@@ -162,7 +162,7 @@ Internal = 'Void' | 'Null' | 'null'
 
 Modifiers = Collections? '?'?
 Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
-Collection_Key = Simple | '$'typeParam // Only in Schemas
+Collection_Key = Simple // Redefined in Schema
 
 Constant = Const_List | Const_Object | Const_Value
 Const_Value = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue

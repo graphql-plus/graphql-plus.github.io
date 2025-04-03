@@ -1,24 +1,25 @@
 alias = ID
 category = ID
-dual = ID
-input = ID
-output = ID
 directive = ID
-name = ID
-setting = ID
-parent = ID
 domain = ID
-union = ID
-object = ID
+dual = ID
 field = ID
 fieldAlias = ID
+input = ID
+name = ID
+object = ID
+output = ID
+parent = ID
+setting = ID
+typeParam = ID
+union = ID
 
 Dual = Object
 Dual_Base = Obj_Base
-Dual_BaseArg = Obj_BaseArg
+Dual_TypeArg = Obj_TypeArg
 Input = Object
 In_Type = Obj_Type
-In_BaseArg = Obj_Base
+In_TypeArg = Obj_TypeArg
 Output = Object
 Out_Type = Obj_Type
 
