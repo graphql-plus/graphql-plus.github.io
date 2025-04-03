@@ -5,12 +5,31 @@
 ### all.graphql+
 
 ```gqlp
-category { All }
+"A Category"
+category { "Category Result" All }
+"A Directive"
 directive @all { All }
-enum One { Two Three }
-input Param { afterId: Guid? beforeId: Guid | String }
-output All { items(Param?): String[] | String }
-domain Guid { String /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/ }
+"An Option"
+option Schema { "Schema Setting" all="test" }
+"A Domain"
+domain Guid { String "Guid Regex" /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/ }
+"An Enum"
+enum One { "Label 2" Two "Label 3" Three }
+"A Union"
+union Many { "Guid Id" Guid "Numeric Id" Number }
+"A Dual"
+dual Field { "Some strings" strings: "Strings array" String[] }
+"An Input"
+input Param {
+    "First Id" afterId: "Guid or Int" Many?
+    "Last Id" beforeId: "Guid or Int" Many
+    | "Alternate parameter" String
+    }
+"An Output"
+output All {
+    "Some items" items(Param?): Field
+    | "Alternates" String
+    }
 ```
 
 ### default.graphql+
@@ -33,20 +52,23 @@ output _Schema { }
 ```gqlp
 category query {}
 directive @ {}
+domain Other { Enum }
 enum None [] {}
+union Missing {}
+dual Nothing [] {}
 input Empty {}
 output NoParams<> {}
-domain Other { Enum }
 ```
 
 ##### Expected Parse errors
 
-- `Invalid Category. Expected output type.`
-- `Invalid Schema. Expected no more text.`
+- `Invalid Category. Expected output type`
+- `Invalid Category Output. Expected type name`
+- `Invalid Schema. Expected no more text`
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. '' not defined or not an Output type`
+- `Invalid Category Output. 'query' not defined or not an Output type`
 
 ## Globals
 
@@ -55,79 +77,79 @@ domain Other { Enum }
 ```gqlp
 "A Category"
 "described"
-category { CatDescr }
-output CatDescr { }
+category { Name }
+output Name { }
 ```
 
 ### Globals\category-output-dict.graphql+
 
 ```gqlp
-category { CatDict[*] }
-output CatDict { }
+category { Name[*] }
+output Name { }
 ```
 
 ### Globals\category-output-list.graphql+
 
 ```gqlp
-category { CatList[] }
-output CatList { }
+category { Name[] }
+output Name { }
 ```
 
 ### Globals\category-output-optional.graphql+
 
 ```gqlp
-category { CatOpt? }
-output CatOpt { }
+category { Name? }
+output Name { }
 ```
 
 ### Globals\category-output.graphql+
 
 ```gqlp
-category { Cat }
-output Cat { }
+category { Name }
+output Name { }
 ```
 
 ### Globals\descr-backslash.graphql+
 
 ```gqlp
-'A backslash ("\\") doc'
-output DescrBackslash { }
+'A backslash ("\\") description'
+output Name { }
 ```
 
 ### Globals\descr-between.graphql+
 
 ```gqlp
-category { DescrBetween }
-"A doc between"
-output DescrBetween { }
+category { Name }
+"A description between"
+output Name { }
 ```
 
 ### Globals\descr-complex.graphql+
 
 ```gqlp
-"A \"more\" 'Complicated' \\ doc"
-output DescrComplex { }
+"A \"more\" 'Complicated' \\ description"
+output Name { }
 ```
 
 ### Globals\descr-double.graphql+
 
 ```gqlp
-"A 'double-quoted' doc"
-output DescrDouble { }
+"A 'double-quoted' description"
+output Name { }
 ```
 
 ### Globals\descr-single.graphql+
 
 ```gqlp
-'A "single-quoted" doc'
-output DescrSingle { }
+'A "single-quoted" description'
+output Name { }
 ```
 
 ### Globals\descr.graphql+
 
 ```gqlp
-"A simple doc"
-output Descr { }
+"A simple description"
+output Name { }
 ```
 
 ### Globals\descrs.graphql+
@@ -135,48 +157,48 @@ output Descr { }
 ```gqlp
 "A simple doc"
 "With extra"
-output Descr { }
+output Name { }
 ```
 
 ### Globals\directive-descr.graphql+
 
 ```gqlp
 "A directive described"
-directive @DirDescr { all }
+directive @Name { all }
 ```
 
 ### Globals\directive-no-param.graphql+
 
 ```gqlp
-directive @DirNoParam { all }
+directive @Name { all }
 ```
 
 ### Globals\directive-param-dict.graphql+
 
 ```gqlp
-directive @DirParamDict(DirParamIn[String]) { all }
-input DirParamIn { }
+directive @Name(InName[String]) { all }
+input InName { }
 ```
 
 ### Globals\directive-param-in.graphql+
 
 ```gqlp
-directive @DirParam(DirParamIn) { all }
-input DirParamIn { }
+directive @Name(InName) { all }
+input InName { }
 ```
 
 ### Globals\directive-param-list.graphql+
 
 ```gqlp
-directive @DirParamList(DirParamIn[]) { all }
-input DirParamIn { }
+directive @Name(InName[]) { all }
+input InName { }
 ```
 
 ### Globals\directive-param-opt.graphql+
 
 ```gqlp
-directive @DirParamOpt(DirParamIn?) { all }
-input DirParamIn { }
+directive @Name(InName?) { all }
+input InName { }
 ```
 
 ### Globals\option-schema-alias.graphql+
@@ -325,7 +347,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. '( I@017/0001 Test )' not defined`
+- `Invalid Directive Param. 'Test' not defined`
 
 ### Globals\Invalid\directive-param-mod-param.graphql+
 
@@ -354,177 +376,177 @@ option Schema { }
 ### Merges\category-alias.graphql+
 
 ```gqlp
-category [CatA1] { CatAlias }
-category [CatA2] { CatAlias }
-output CatAlias { }
+category [CatA1] { Name }
+category [CatA2] { Name }
+output Name { }
 ```
 
 ### Merges\category-descr.graphql+
 
 ```gqlp
 "First category"
-category { Test }
+category { Name }
 "Second category"
-category { Test }
-output Test { }
+category { Name }
+output Name { }
 ```
 
 ### Merges\category-mod.graphql+
 
 ```gqlp
-category [CatM1] { CatMods? }
-category [CatM2] { CatMods? }
-output CatMods { }
+category [CatM1] { Name? }
+category [CatM2] { Name? }
+output Name { }
 ```
 
 ### Merges\category.graphql+
 
 ```gqlp
-category { Category }
-category category { Category }
-output Category { }
+category { Name }
+category name { Name }
+output Name { }
 ```
 
 ### Merges\directive-alias.graphql+
 
 ```gqlp
-directive @DirAlias [DirA1] { variable }
-directive @DirAlias [DirA2] { field }
+directive @Name [DirA1] { variable }
+directive @Name [DirA2] { field }
 ```
 
 ### Merges\directive-param.graphql+
 
 ```gqlp
-directive @DirParam(DirParamIn) { operation }
-directive @DirParam { fragment }
-input DirParamIn { }
+directive @Name(InName) { operation }
+directive @Name { fragment }
+input InName { }
 ```
 
 ### Merges\directive.graphql+
 
 ```gqlp
-directive @Dir { inline }
-directive @Dir { spread }
+directive @Name { inline }
+directive @Name { spread }
 ```
 
 ### Merges\domain-alias.graphql+
 
 ```gqlp
-domain NumAlias [Num1] { number }
-domain NumAlias [Num2] { number }
+domain Name [Num1] { number }
+domain Name [Num2] { number }
 ```
 
 ### Merges\domain-boolean-diff.graphql+
 
 ```gqlp
-domain BoolDiff { boolean true }
-domain BoolDiff { boolean false }
+domain Name { boolean true }
+domain Name { boolean false }
 ```
 
 ### Merges\domain-boolean-same.graphql+
 
 ```gqlp
-domain BoolSame { boolean true }
-domain BoolSame { boolean true }
+domain Name { boolean true }
+domain Name { boolean true }
 ```
 
 ### Merges\domain-boolean.graphql+
 
 ```gqlp
-domain Bool { boolean }
-domain Bool { boolean }
+domain Name { boolean }
+domain Name { boolean }
 ```
 
 ### Merges\domain-enum-diff.graphql+
 
 ```gqlp
-domain EnumDiff { enum true }
-domain EnumDiff { enum false }
+domain Name { enum true }
+domain Name { enum false }
 ```
 
 ### Merges\domain-enum-same.graphql+
 
 ```gqlp
-domain EnumSame { enum true }
-domain EnumSame { enum true }
+domain Name { enum true }
+domain Name { enum true }
 ```
 
 ### Merges\domain-number-diff.graphql+
 
 ```gqlp
-domain NumDiff { number 1~9 }
-domain NumDiff { number }
+domain Name { number 1~9 }
+domain Name { number }
 ```
 
 ### Merges\domain-number-same.graphql+
 
 ```gqlp
-domain NumSame { number 1~9 }
-domain NumSame { number 1~9 }
+domain Name { number 1~9 }
+domain Name { number 1~9 }
 ```
 
 ### Merges\domain-number.graphql+
 
 ```gqlp
-domain Num { number }
-domain Num { number }
+domain Name { number }
+domain Name { number }
 ```
 
 ### Merges\domain-string-diff.graphql+
 
 ```gqlp
-domain StrDiff { string /a+/ }
-domain StrDiff { string }
+domain Name { string /a+/ }
+domain Name { string }
 ```
 
 ### Merges\domain-string-same.graphql+
 
 ```gqlp
-domain StrSame { string /a+/ }
-domain StrSame { string /a+/ }
+domain Name { string /a+/ }
+domain Name { string /a+/ }
 ```
 
 ### Merges\domain-string.graphql+
 
 ```gqlp
-domain Str { string }
-domain Str { string }
+domain Name { string }
+domain Name { string }
 ```
 
 ### Merges\enum-alias.graphql+
 
 ```gqlp
-enum EnAlias [En1] { alias }
-enum EnAlias [En2] { alias }
+enum Name [En1] { name }
+enum Name [En2] { name }
 ```
 
 ### Merges\enum-diff.graphql+
 
 ```gqlp
-enum EnDiff { one }
-enum EnDiff { two }
+enum Name { one }
+enum Name { two }
 ```
 
 ### Merges\enum-same-parent.graphql+
 
 ```gqlp
-enum EnSameParent { :EnParent sameP }
-enum EnSameParent { :EnParent sameP }
-enum EnParent { parent }
+enum Name { :PrntName name }
+enum Name { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Merges\enum-same.graphql+
 
 ```gqlp
-enum EnSame { same }
-enum EnSame { same }
+enum Name { name }
+enum Name { name }
 ```
 
 ### Merges\enum-value-alias.graphql+
 
 ```gqlp
-enum EnValAlias { value [val1] }
-enum EnValAlias { value [val2] }
+enum Name { name [val1] }
+enum Name { name [val2] }
 ```
 
 ### Merges\object-alias.graphql+
@@ -545,17 +567,17 @@ object ObjNameType { }
 ### Merges\object-field-alias.graphql+
 
 ```gqlp
-object ObjName { field [field1]: ObjNameFld }
-object ObjName { field [field2]: ObjNameFld }
-object ObjNameFld { }
+object ObjName { field [field1]: FldObjName }
+object ObjName { field [field2]: FldObjName }
+object FldObjName { }
 ```
 
 ### Merges\object-field.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameFld }
-object ObjName { field: ObjNameFld }
-object ObjNameFld { }
+object ObjName { field: FldObjName }
+object ObjName { field: FldObjName }
+object FldObjName { }
 ```
 
 ### Merges\object-param.graphql+
@@ -568,9 +590,9 @@ object ObjName<$type> { type: $type }
 ### Merges\object-parent.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef }
-object ObjName { :ObjNameRef }
-object ObjNameRef { }
+object ObjName { :RefObjName }
+object ObjName { :RefObjName }
+object RefObjName { }
 ```
 
 ### Merges\object.graphql+
@@ -604,54 +626,54 @@ option Schema { }
 ### Merges\output-field-enum-alias.graphql+
 
 ```gqlp
-output FieldEnumAlias { field [field1] = Boolean.true }
-output FieldEnumAlias { field [field2] = true }
+output Name { field [field1] = Boolean.true }
+output Name { field [field2] = true }
 ```
 
 ### Merges\output-field-enum-value.graphql+
 
 ```gqlp
-output FieldEnums { field = Boolean.true }
-output FieldEnums { field = true }
+output Name { field = Boolean.true }
+output Name { field = true }
 ```
 
 ### Merges\output-field-param.graphql+
 
 ```gqlp
-output FieldParam { field(FieldParam1): FieldParamFld }
-output FieldParam { field(FieldParam2): FieldParamFld }
-input FieldParam1 { }
-input FieldParam2 { }
-output FieldParamFld { }
+output Name { field(Name1): FldName }
+output Name { field(Name2): FldName }
+input Name1 { }
+input Name2 { }
+dual FldName { }
 ```
 
 ### Merges\union-alias.graphql+
 
 ```gqlp
-union UnDiff [UnA1] { Boolean }
-union UnDiff [UnA2] { Number }
+union Name [UnA1] { Boolean }
+union Name [UnA2] { Number }
 ```
 
 ### Merges\union-diff.graphql+
 
 ```gqlp
-union UnDiff { Boolean }
-union UnDiff { Number }
+union Name { Boolean }
+union Name { Number }
 ```
 
 ### Merges\union-same-parent.graphql+
 
 ```gqlp
-union UnSameParent { :UnParent Boolean }
-union UnSameParent { :UnParent Boolean }
-union UnParent { String }
+union Name { :PrntName Boolean }
+union Name { :PrntName Boolean }
+union PrntName { String }
 ```
 
 ### Merges\union-same.graphql+
 
 ```gqlp
-union UnSame { Boolean }
-union UnSame { Boolean }
+union Name { Boolean }
+union Name { Boolean }
 ```
 
 ## Objects
@@ -672,15 +694,15 @@ dual ObjDualName { alt: Number | String }
 ### Objects\alt-mod-Boolean.graphql+
 
 ```gqlp
-object ObjName { | ObjNameAlt[^] }
-object ObjNameAlt { alt: Number | String }
+object ObjName { | AltObjName[^] }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\alt-mod-param.graphql+
 
 ```gqlp
-object ObjName<$mod> { | ObjNameAlt[$mod] }
-object ObjNameAlt { alt: Number | String }
+object ObjName<$mod> { | AltObjName[$mod] }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\alt-simple.graphql+
@@ -692,8 +714,8 @@ object ObjName { | String }
 ### Objects\alt.graphql+
 
 ```gqlp
-object ObjName { | ObjNameAlt }
-object ObjNameAlt { alt: Number | String }
+object ObjName { | AltObjName }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\field-descr.graphql+
@@ -705,29 +727,29 @@ object ObjName { "Test" "Descr" field: * }
 ### Objects\field-dual.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameFld }
-dual ObjNameFld { field: Number | String }
+object ObjName { field: FldObjName }
+dual FldObjName { field: Number | String }
 ```
 
 ### Objects\field-mod-Enum.graphql+
 
 ```gqlp
-object ObjName { field: *[ObjEnumName] }
-enum ObjEnumName { value }
+object ObjName { field: *[EnumObjName] }
+enum EnumObjName { value }
 ```
 
 ### Objects\field-mod-param.graphql+
 
 ```gqlp
-object ObjName<$mod> { field: ObjNameFld[$mod] }
-object ObjNameFld { field: Number | String }
+object ObjName<$mod> { field: FldObjName[$mod] }
+object FldObjName { field: Number | String }
 ```
 
 ### Objects\field-object.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameFld }
-object ObjNameFld { field: Number | String }
+object ObjName { field: FldObjName }
+object FldObjName { field: Number | String }
 ```
 
 ### Objects\field-simple.graphql+
@@ -751,38 +773,38 @@ object ObjName { field: * }
 ### Objects\generic-alt-arg-descr.graphql+
 
 ```gqlp
-object ObjName<$type> { | ObjNameRef<"Test" "Descr"$type> }
-object ObjNameRef<$ref> { | $ref }
+object ObjName<$type> { | RefObjName<"Test" "Descr"$type> }
+object RefObjName<$ref> { | $ref }
 ```
 
 ### Objects\generic-alt-arg.graphql+
 
 ```gqlp
-object ObjName<$type> { | ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
+object ObjName<$type> { | RefObjName<$type> }
+object RefObjName<$ref> { | $ref }
 ```
 
 ### Objects\generic-alt-dual.graphql+
 
 ```gqlp
-object ObjName { | ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
+object ObjName { | RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+dual AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-alt-param.graphql+
 
 ```gqlp
-object ObjName { | ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
+object ObjName { | RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-alt-simple.graphql+
 
 ```gqlp
-object ObjName { | ObjNameRef<String> }
-object ObjNameRef<$ref> { | $ref }
+object ObjName { | RefObjName<String> }
+object RefObjName<$ref> { | $ref }
 ```
 
 ### Objects\generic-alt.graphql+
@@ -808,24 +830,24 @@ dual ObjNameAlt { alt: Number | String }
 ### Objects\generic-field-arg.graphql+
 
 ```gqlp
-object ObjName<$type> { field: ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
+object ObjName<$type> { field: RefObjName<$type> }
+object RefObjName<$ref> { | $ref }
 ```
 
 ### Objects\generic-field-dual.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
+object ObjName { field: RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+dual AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-field-param.graphql+
 
 ```gqlp
-object ObjName { field: ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
+object ObjName { field: RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-field.graphql+
@@ -845,40 +867,40 @@ object ObjNameAlt { alt: Number | String }
 ### Objects\generic-parent-arg.graphql+
 
 ```gqlp
-object ObjName<$type> { :ObjNameRef<$type> }
-object ObjNameRef<$ref> { | $ref }
+object ObjName<$type> { :RefObjName<$type> }
+object RefObjName<$ref> { | $ref }
 ```
 
 ### Objects\generic-parent-dual-parent.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { :$ref }
-dual ObjNameAlt { alt: Number | String }
+object ObjName { :RefObjName<AltObjName> }
+object RefObjName<$ref> { :$ref }
+dual AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-parent-dual.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-dual ObjNameAlt { alt: Number | String }
+object ObjName { :RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+dual AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-parent-param-parent.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { :$ref }
-object ObjNameAlt { alt: Number | String }
+object ObjName { :RefObjName<AltObjName> }
+object RefObjName<$ref> { :$ref }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-parent-param.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef<ObjNameAlt> }
-object ObjNameRef<$ref> { | $ref }
-object ObjNameAlt { alt: Number | String }
+object ObjName { :RefObjName<AltObjName> }
+object RefObjName<$ref> { | $ref }
+object AltObjName { alt: Number | String }
 ```
 
 ### Objects\generic-parent.graphql+
@@ -890,194 +912,200 @@ object ObjName<$type> { :$type }
 ### Objects\input-field-descr-Number.graphql+
 
 ```gqlp
-input InFieldNum { "Test" "Descr" field: Number = 0 }
+input Name { "Test" "Descr" field: Number = 0 }
 ```
 
 ### Objects\input-field-Enum.graphql+
 
 ```gqlp
-input InFieldEnum { field: InEnumField = value }
-enum InEnumField { value }
+input Name { field: EnumName = name }
+enum EnumName { name }
 ```
 
 ### Objects\input-field-null.graphql+
 
 ```gqlp
-input InFieldNull { field: InFieldNull? = null }
+input Name { field: FldName? = null }
+dual FldName { }
 ```
 
 ### Objects\input-field-Number-descr.graphql+
 
 ```gqlp
-input InFieldNum { field: "Test" "Descr" Number = 0 }
+input Name { field: "Test" "Descr" Number = 0 }
 ```
 
 ### Objects\input-field-Number.graphql+
 
 ```gqlp
-input InFieldNum { field: Number = 0 }
+input Name { field: Number = 0 }
 ```
 
 ### Objects\input-field-String.graphql+
 
 ```gqlp
-input InFieldStr { field: String = '' }
+input Name { field: String = '' }
 ```
 
 ### Objects\output-descr-param.graphql+
 
 ```gqlp
-output OutParam { "Test" "Descr" field(OutParamIn): OutParam }
-input OutParamIn { param: Number | String }
+output Name { "Test" "Descr" field(InName): FldName }
+dual FldName { }
+input InName { param: Number | String }
 ```
 
 ### Objects\output-field-enum-parent.graphql+
 
 ```gqlp
-output OutFieldParent { field = OutEnumParented.outEnumParent }
-enum OutEnumParented { :OutEnumParent outParent ed }
-enum OutEnumParent { outEnumParent }
+output Name { field = EnumName.prnt_name }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Objects\output-field-enum.graphql+
 
 ```gqlp
-output OutFieldEnum { field = OutEnumField.outEnumField }
-enum OutEnumField { outEnumField }
+output Name { field = EnumName.name }
+enum EnumName { name }
 ```
 
 ### Objects\output-field-value-descr.graphql+
 
 ```gqlp
-output OutFieldValueDescr { field = "Test" "Descr" outEnumValueDescr }
-enum OutEnumValueDescr { outEnumValueDescr }
+output Name { field = "Test" "Descr" name }
+enum EnumName { name }
 ```
 
 ### Objects\output-field-value.graphql+
 
 ```gqlp
-output OutFieldValue { field = outEnumValue }
-enum OutEnumValue { outEnumValue }
+output Name { field = name }
+enum EnumName { name }
 ```
 
 ### Objects\output-generic-enum.graphql+
 
 ```gqlp
-output OutGenEnum { | OutGenEnumRef<OutEnumGen.outEnumGen> }
-output OutGenEnumRef<$type> { field: $type }
-enum OutEnumGen { outEnumGen }
+output Name { | RefName<EnumName.name> }
+output RefName<$type> { field: $type }
+enum EnumName { name }
 ```
 
 ### Objects\output-generic-value.graphql+
 
 ```gqlp
-output OutGenValue { | OutGenValueRef<outValueGen> }
-output OutGenValueRef<$type> { field: $type }
-enum OutValueGen { outValueGen }
+output Name { | RefName<name> }
+output RefName<$type> { field: $type }
+enum EnumName { name }
 ```
 
 ### Objects\output-param-descr.graphql+
 
 ```gqlp
-output OutParam { field("Test" "Descr" OutParamIn): OutParam }
-input OutParamIn { param: Number | String }
+output Name { field("Test" "Descr" InName): FldName }
+dual FldName { }
+input InName { param: Number | String }
 ```
 
 ### Objects\output-param-mod-Domain.graphql+
 
 ```gqlp
-output OutParamDomain { field(OutParamDomainIn[OutDomainParam]): OutDomainParam }
-input OutParamDomainIn { param: Number | String }
-domain OutDomainParam { number 1 ~ 10 }
+output Name { field(InName[DomName]): DomName }
+input InName { param: Number | String }
+domain DomName { number 1 ~ 10 }
 ```
 
 ### Objects\output-param-mod-param.graphql+
 
 ```gqlp
-output OutParamDomainParam<$mod> { field(OutParamDomainParamIn[$mod]): OutDomainsParam }
-input OutParamDomainParamIn { param: Number | String }
-domain OutDomainsParam { number 1 ~ 10 }
+output Name<$mod> { field(InName[$mod]): DomName }
+input InName { param: Number | String }
+domain DomName { number 1 ~ 10 }
 ```
 
 ### Objects\output-param-type-descr.graphql+
 
 ```gqlp
-output OutParam { field(OutParamIn): "Test" "Descr" OutParam }
-input OutParamIn { param: Number | String }
+output Name { field(InName): "Test" "Descr" FldName }
+dual FldName { }
+input InName { param: Number | String }
 ```
 
 ### Objects\output-param.graphql+
 
 ```gqlp
-output OutParam { field(OutParamIn): OutParam }
-input OutParamIn { param: Number | String }
+output Name { field(InName): FldName }
+dual FldName { }
+input InName { param: Number | String }
 ```
 
 ### Objects\output-parent-generic.graphql+
 
 ```gqlp
-output OutGenParent { | OutGenParentRef<OutParentGen.outGenParent> }
-output OutGenParentRef<$type> { field: $type }
-enum OutParentGen { :OutPrntendedGen outGenPrntended }
-enum OutPrntendedGen { outGenParent }
+output Name { | RefName<EnumName.prnt_name> }
+output RefName<$type> { field: $type }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Objects\output-parent-param.graphql+
 
 ```gqlp
-output OutPrntParam { :OutParamParent field(OutPrntParamIn): OutPrntParam }
-output OutParamParent { field(OutParamParentIn): OutPrntParam }
-input OutPrntParamIn { param: Number | String }
-input OutParamParentIn { parent: Number | String }
+output Name { :PrntName field(InName): FldName }
+output PrntName { field(PrntNameIn): FldName }
+dual FldName { }
+input InName { param: Number | String }
+input PrntNameIn { parent: Number | String }
 ```
 
 ### Objects\parent-alt.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef | Number }
-object ObjNameRef {  parent: Number | String }
+object ObjName { :RefObjName | Number }
+object RefObjName {  parent: Number | String }
 ```
 
 ### Objects\parent-descr.graphql+
 
 ```gqlp
-object ObjName { : "Test" "Descr" ObjNameRef }
-object ObjNameRef { parent: Number | String }
+object ObjName { : "Test" "Descr" RefObjName }
+object RefObjName { parent: Number | String }
 ```
 
 ### Objects\parent-dual.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef }
-dual ObjNameRef { parent: Number | String }
+object ObjName { :RefObjName }
+dual RefObjName { parent: Number | String }
 ```
 
 ### Objects\parent-field.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef field: Number }
-object ObjNameRef { parent: Number | String }
+object ObjName { :RefObjName field: Number }
+object RefObjName { parent: Number | String }
 ```
 
 ### Objects\parent-param-diff.graphql+
 
 ```gqlp
-object ObjName<$a> { :ObjNameRef<$a> field: $a }
-object ObjNameRef<$b> { | $b }
+object ObjName<$a> { :RefObjName<$a> field: $a }
+object RefObjName<$b> { | $b }
 ```
 
 ### Objects\parent-param-same.graphql+
 
 ```gqlp
-object ObjName<$a> { :ObjNameRef<$a> field: $a }
-object ObjNameRef<$a> { | $a }
+object ObjName<$a> { :RefObjName<$a> field: $a }
+object RefObjName<$a> { | $a }
 ```
 
 ### Objects\parent.graphql+
 
 ```gqlp
-object ObjName { :ObjNameRef }
-object ObjNameRef { parent: Number | String }
+object ObjName { :RefObjName }
+object RefObjName { parent: Number | String }
 ```
 
 ## Objects (Invalid)
@@ -2444,163 +2472,163 @@ object Dup [a] { }
 ### Simple\domain-bool-descr.graphql+
 
 ```gqlp
-domain DomBoolDescr { Boolean "DomBool" "Descr" true }
+domain Name { Boolean "DomBool" "Descr" true }
 ```
 
 ### Simple\domain-bool-parent.graphql+
 
 ```gqlp
-domain DomBoolPrntTest { :DomBoolTestPrnt Boolean false }
-domain DomBoolTestPrnt { Boolean true }
+domain Name { :PrntName Boolean false }
+domain PrntName { Boolean true }
 ```
 
 ### Simple\domain-enum-all-descr.graphql+
 
 ```gqlp
-domain DomEnumAll { enum "DomAll" "Descr" EnumDomAll.* }
-enum EnumDomAll { dom_all dom_enum_all }
+domain Name { enum "DomAll" "Descr" EnumName.* }
+enum EnumName { name enum_name }
 ```
 
 ### Simple\domain-enum-all-parent.graphql+
 
 ```gqlp
-domain DomEnumAllParent { enum EnumDomAllParent.* }
-enum EnumDomAllParent { :EnumDomParentAll dom_all_parent }
-enum EnumDomParentAll { dom_enum_all_parent }
+domain Name { enum EnumName.* }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Simple\domain-enum-all.graphql+
 
 ```gqlp
-domain DomEnumAll { enum EnumDomAll.* }
-enum EnumDomAll { dom_all dom_enum_all }
+domain Name { enum EnumName.* }
+enum EnumName { name enum_name }
 ```
 
 ### Simple\domain-enum-descr.graphql+
 
 ```gqlp
-domain DomEnumDescr { enum "DomEnum" "Descr" dom_label_desc }
-enum EnumDomDescr { dom_label_desc }
+domain Name { enum "DomEnum" "Descr" name }
+enum EnumName { name }
 ```
 
 ### Simple\domain-enum-label.graphql+
 
 ```gqlp
-domain DomLabel { enum dom_label }
-enum LabelDom { dom_label }
+domain Name { enum name }
+enum EnumName { name }
 ```
 
 ### Simple\domain-enum-parent.graphql+
 
 ```gqlp
-domain DomEnumPrnt { :DomPrntEnum Enum both_enum }
-domain DomPrntEnum { Enum both_parent }
-enum EnumDomBoth { both_enum both_parent }
+domain Name { :PrntName Enum enum_name }
+domain PrntName { Enum prnt_name }
+enum EnumName { enum_name prnt_name }
 ```
 
 ### Simple\domain-enum-unique-parent.graphql+
 
 ```gqlp
-enum EnumDomUniqueParent { :EnumDomParentUnique value }
-enum EnumDomParentUnique { enum_dom_parent_dup }
-enum EnumDomDupParent { enum_dom_parent_dup }
-# domain DomEnumUniqueParent { enum EnumDomUniqueParent.* !EnumDomUniqueParent.enum_dom_parent_dup EnumDomDupParent.enum_dom_parent_dup }
+# domain Name { enum EnumName.* !PrntName.name DupName.name }
+enum EnumName { :PrntName enum_name }
+enum PrntName { name prnt_name }
+enum DupName { name dup_name }
 ```
 
 ### Simple\domain-enum-unique.graphql+
 
 ```gqlp
-enum EnumDomUnique { eum_dom_value eum_dom_dup }
-enum EnumDomDup { eum_dom_dup }
-# domain DomEnumUnique { enum EnumDomUnique.* !EnumDomUnique.eum_dom_dup EnumDomDup.eum_dom_dup }
+# domain Name { enum EnumName.* !EnumName.name DupName.name }
+enum EnumName { enum_name name }
+enum EnumDomDup { name dup_name }
 ```
 
 ### Simple\domain-enum-value-parent.graphql+
 
 ```gqlp
-domain DomEnumParent { Enum EnumDomParent.dom_enum_parent }
-enum EnumDomParent { :EnumParentDom dom_parent_enum }
-enum EnumParentDom { dom_enum_parent }
+domain Name { Enum EnumName.prnt_name }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Simple\domain-enum-value.graphql+
 
 ```gqlp
-domain DomEnum { Enum EnumDom.dom_enum }
-enum EnumDom { dom_enum }
+domain Name { Enum EnumName.name }
+enum EnumName { name }
 ```
 
 ### Simple\domain-number-descr.graphql+
 
 ```gqlp
-domain DomNumDescr { Number "DomNumber" "Descr" <2 }
+domain Name { Number "DomNumber" "Descr" <2 }
 ```
 
 ### Simple\domain-number-parent.graphql+
 
 ```gqlp
-domain DomNumPrnt { :DomPrntNum Number 2>}
-domain DomPrntNum { Number <2 }
+domain Name { :PrntName Number 2>}
+domain PrntName { Number <2 }
 ```
 
 ### Simple\domain-string-descr.graphql+
 
 ```gqlp
-domain DomStrDescr { String "DomString" "Descr" /a+/ }
+domain Name { String "DomString" "Descr" /a+/ }
 ```
 
 ### Simple\domain-string-parent.graphql+
 
 ```gqlp
-domain DomStrPrnt { :DomPrntStr String /a+/ }
-domain DomPrntStr { String /b+/ }
+domain Name { :PrntName String /a+/ }
+domain PrntName { String /b+/ }
 ```
 
 ### Simple\enum-descr.graphql+
 
 ```gqlp
-enum EnDescr { "Enum" "Descr" val_test }
+enum Name { "Enum" "Descr" name }
 ```
 
 ### Simple\enum-parent-alias.graphql+
 
 ```gqlp
-enum EnPrntAlias { :EnAliasPrnt val_prnt_alias val_alias[alias_val] }
-enum EnAliasPrnt { val_alias }
+enum Name { :PrntName val_name prnt_name[name] }
+enum PrntName { prnt_name }
 ```
 
 ### Simple\enum-parent-dup.graphql+
 
 ```gqlp
-enum EnPrntDup { :EnDupPrnt val_prnt_dup  }
-enum EnDupPrnt { val_dup[val_prnt_dup] }
+enum Name { :PrntName name  }
+enum PrntName { prnt_name[name] }
 ```
 
 ### Simple\enum-parent.graphql+
 
 ```gqlp
-enum EnTestPrnt { :EnPrntTest val_prnt }
-enum EnPrntTest { val_test }
+enum Name { :PrntName name }
+enum PrntName { prnt_name }
 ```
 
 ### Simple\union-descr.graphql+
 
 ```gqlp
-union UnionDescr { "Union" "Descr" Number }
+union Name { "Union" "Descr" Number }
 ```
 
 ### Simple\union-parent-dup.graphql+
 
 ```gqlp
-union UnionPrnt { :PrntUnion Number }
-union PrntUnion { Number }
+union Name { :PrntName Number }
+union PrntName { Number }
 ```
 
 ### Simple\union-parent.graphql+
 
 ```gqlp
-union UnionPrnt { :PrntUnion String }
-union PrntUnion { Number }
+union Name { :PrntName String }
+union PrntName { Number }
 ```
 
 ## Simple (Invalid)
@@ -3227,7 +3255,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Described>
+    : _ChildType<$kind _Named>
         items: $item[]
         allItems: $allItem[]
     }
@@ -3237,6 +3265,7 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind> {
+    : _Described
         typeKind: $kind
         name: _Identifier
 }
@@ -3260,6 +3289,7 @@ output _TypeSimple {
 - `Invalid Output Parent. '_Aliased' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_Named' not defined`
 
 ### Specification\Intro_Complete.graphql+
 
@@ -3296,17 +3326,17 @@ input _TypeFilter {
         kinds: _TypeKind[]
     }
 dual _Aliased {
-    : _Described
+    : _Named
         aliases: _Identifier[]
     }
 
-dual _Described {
-    : _Named
-        description: String[]
+dual _Named {
+    : _Described
+        name: _Identifier
     }
 
-dual _Named {
-        name: _Identifier
+dual _Described {
+        description: String[]
     }
 output _Categories {
         category: _Category
@@ -3340,7 +3370,7 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
-    : _Described
+    : _Named
         value: _Constant
 }
 output _Type {
@@ -3365,7 +3395,7 @@ output _ChildType<$kind $parent> {
     }
 
 output _ParentType<$kind $item $allItem> {
-    : _ChildType<$kind _Described>
+    : _ChildType<$kind _Named>
         items: $item[]
         allItems: $allItem[]
     }
@@ -3375,6 +3405,7 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind> {
+    : _Described
         typeKind: $kind
         name: _Identifier
 }
@@ -3448,7 +3479,7 @@ output _BaseDomain<$domain $item $domainItem> {
     }
 
 dual _BaseDomainItem {
-        description: String[]
+    : _Described
         exclude: Boolean
     }
 
@@ -3508,26 +3539,24 @@ output _EnumValue {
         label: _Identifier
     }
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Described _UnionMember>
+    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
 
-dual _UnionMember {
-    : _Described
+output _UnionRef {
+    : _TypeRef<_SimpleKind>
+}
+
+output _UnionMember {
+    : _UnionRef
         union: _Identifier
     }
-output _TypeObject<$kind $parent $typeParam $field $alternate> {
+output _TypeObject<$kind $parent $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: $typeParam[]
+        typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
         allAlternates: _ObjectFor<$alternate>[]
-    }
-
-dual _ObjDescribed<$base> {
-        base: $base
-        description: String[]
-    | $base
     }
 
 output _ObjConstraint<$base> {
@@ -3540,25 +3569,25 @@ output _ObjType<$base> {
     }
 
 output _ObjBase<$arg> {
-        typeArgs: _ObjDescribed<$arg>[]
-    | _TypeParam
+    : _Described
+        typeArgs: $arg[]
+    | _ObjTypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _TypeParam
+    | _ObjTypeParam
 }
 
 domain _TypeParam { :_Identifier String }
 
-output _ObjTypeParam<$base> {
-    typeParam: _TypeParam
-    description: String[]
-    constraint: _ObjConstraint<$base>
+output _ObjTypeParam {
+    : _Described
+        typeParam: _TypeParam
 }
 
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
+output _Alternate<$arg> {
+    : _ObjBase<$arg>
       collections: _Collections[]
     }
 
@@ -3569,24 +3598,16 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDescribed<$base>
+      type: $base
       modifiers: _Modifiers[]
     }
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualTypeParam _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualField _DualAlternate>
     }
 
 output _DualBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_DualTypeArg>
         dual: _Identifier
-    }
-
-output _DualParent {
-    : _ObjDescribed<_DualBase>
-    }
-
-output _DualTypeParam {
-    : _ObjTypeParam<_DualBase>
     }
 
 output _DualField {
@@ -3594,24 +3615,22 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualBase>
+    : _Alternate<_DualTypeArg>
+        dual: _Identifier
+    }
+
+output _DualTypeArg {
+    : _ObjTypeArg
+        dual: _Identifier
     }
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputTypeParam _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputField _InputAlternate>
     }
 
 output _InputBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
-    }
-
-output _InputParent {
-    : _ObjDescribed<_InputBase>
-    }
-
-output _InputTypeParam {
-    : _ObjTypeParam<_InputBase>
     }
 
 output _InputField {
@@ -3620,16 +3639,22 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputBase>
+    : _Alternate<_InputTypeArg>
+        input: _Identifier
+    }
+
+output _InputTypeArg {
+    : _ObjTypeArg
+        input: _Identifier
     }
 
 output _InputParam {
-    : _ObjDescribed<_InputBase>
+    : _InputBase
         modifiers: _Modifiers[]
         default: _Constant?
     }
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputTypeParam _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -3638,26 +3663,20 @@ output _OutputBase {
     | _DualBase
     }
 
-output _OutputParent {
-    : _ObjDescribed<_OutputBase>
-    }
-
-output _OutputTypeParam {
-    : _ObjTypeParam<_OutputBase>
-    }
-
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameters: _InputParam[]
     | _OutputEnum
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputBase>
+    : _Alternate<_OutputTypeArg>
+        output: _Identifier
     }
 
 output _OutputTypeArg {
     : _ObjTypeArg
+        output: _Identifier
         label: _Identifier?
     }
 
@@ -3765,7 +3784,7 @@ output _BaseDomain<$domain $item $domainItem> {
     }
 
 dual _BaseDomainItem {
-        description: String[]
+    : _Described
         exclude: Boolean
     }
 
@@ -3815,31 +3834,24 @@ output _DomainItemRegex {
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_TypeRef' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Dual Parent. '_Described' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
-- `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Field. '_EnumValue' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
 
 ### Specification\Intro_Dual.graphql+
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualParent _DualTypeParam _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualField _DualAlternate>
     }
 
 output _DualBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_DualTypeArg>
         dual: _Identifier
-    }
-
-output _DualParent {
-    : _ObjDescribed<_DualBase>
-    }
-
-output _DualTypeParam {
-    : _ObjTypeParam<_DualBase>
     }
 
 output _DualField {
@@ -3847,7 +3859,13 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualBase>
+    : _Alternate<_DualTypeArg>
+        dual: _Identifier
+    }
+
+output _DualTypeArg {
+    : _ObjTypeArg
+        dual: _Identifier
     }
 ```
 
@@ -3858,9 +3876,7 @@ output _DualAlternate {
 - `Invalid Output Parent. '_Alternate' not defined`
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
 - `Invalid Output Parent. '_ObjTypeArg' not defined`
-- `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
 
@@ -3897,21 +3913,13 @@ output _EnumValue {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputParent _InputTypeParam _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputField _InputAlternate>
     }
 
 output _InputBase {
-    : _ObjBase<_ObjTypeArg>
+    : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
-    }
-
-output _InputParent {
-    : _ObjDescribed<_InputBase>
-    }
-
-output _InputTypeParam {
-    : _ObjTypeParam<_InputBase>
     }
 
 output _InputField {
@@ -3920,11 +3928,17 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputBase>
+    : _Alternate<_InputTypeArg>
+        input: _Identifier
+    }
+
+output _InputTypeArg {
+    : _ObjTypeArg
+        input: _Identifier
     }
 
 output _InputParam {
-    : _ObjDescribed<_InputBase>
+    : _InputBase
         modifiers: _Modifiers[]
         default: _Constant?
     }
@@ -3940,9 +3954,7 @@ output _InputParam {
 - `Invalid Output Parent. '_Alternate' not defined`
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
 - `Invalid Output Parent. '_ObjTypeArg' not defined`
-- `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
 
@@ -3950,17 +3962,17 @@ output _InputParam {
 
 ```gqlp
 dual _Aliased {
-    : _Described
+    : _Named
         aliases: _Identifier[]
     }
 
-dual _Described {
-    : _Named
-        description: String[]
+dual _Named {
+    : _Described
+        name: _Identifier
     }
 
-dual _Named {
-        name: _Identifier
+dual _Described {
+        description: String[]
     }
 ```
 
@@ -3971,19 +3983,13 @@ dual _Named {
 ### Specification\Intro_Object.graphql+
 
 ```gqlp
-output _TypeObject<$kind $parent $typeParam $field $alternate> {
+output _TypeObject<$kind $parent $field $alternate> {
     : _ChildType<$kind $parent>
-        typeParams: $typeParam[]
+        typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
         allAlternates: _ObjectFor<$alternate>[]
-    }
-
-dual _ObjDescribed<$base> {
-        base: $base
-        description: String[]
-    | $base
     }
 
 output _ObjConstraint<$base> {
@@ -3996,25 +4002,25 @@ output _ObjType<$base> {
     }
 
 output _ObjBase<$arg> {
-        typeArgs: _ObjDescribed<$arg>[]
-    | _TypeParam
+    : _Described
+        typeArgs: $arg[]
+    | _ObjTypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _TypeParam
+    | _ObjTypeParam
 }
 
 domain _TypeParam { :_Identifier String }
 
-output _ObjTypeParam<$base> {
-    typeParam: _TypeParam
-    description: String[]
-    constraint: _ObjConstraint<$base>
+output _ObjTypeParam {
+    : _Described
+        typeParam: _TypeParam
 }
 
-output _Alternate<$base> {
-      type: _ObjDescribed<$base>
+output _Alternate<$arg> {
+    : _ObjBase<$arg>
       collections: _Collections[]
     }
 
@@ -4025,45 +4031,46 @@ output _ObjectFor<$for> {
 
 output _Field<$base> {
     : _Aliased
-      type: _ObjDescribed<$base>
+      type: $base
       modifiers: _Modifiers[]
     }
 ```
 
 ##### Expected Verify errors
 
-- `Invalid Output Alternate. '_BaseType' not defined`
-- `Invalid Output Alternate. '_TypeSimple' not defined`
-- `Invalid Output Parent. '_ChildType' not defined`
-- `Invalid Output Parent. '_TypeRef' not defined`
 - `Invalid Domain Parent. '_Identifier' not defined`
-- `Invalid Output Parent. '_Aliased' not defined`
-- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Alternate. '_BaseType' not defined`
 - `Invalid Output Alternate. '_TypeKind' not defined`
+- `Invalid Output Alternate. '_TypeSimple' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Collections' not defined`
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Field. '_Modifiers' not defined`
-- `Invalid Output Field. '_Collections' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
+- `Invalid Output Parent. '_ChildType' not defined`
+- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_TypeKind' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
 
 ### Specification\Intro_Option.graphql+
 
 ```gqlp
 output _Setting {
-    : _Described
+    : _Named
         value: _Constant
 }
 ```
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_Named' not defined`
 - `Invalid Output Field. '_Constant' not defined`
 
 ### Specification\Intro_Output.graphql+
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputParent _OutputTypeParam _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -4072,26 +4079,20 @@ output _OutputBase {
     | _DualBase
     }
 
-output _OutputParent {
-    : _ObjDescribed<_OutputBase>
-    }
-
-output _OutputTypeParam {
-    : _ObjTypeParam<_OutputBase>
-    }
-
 output _OutputField {
     : _Field<_OutputBase>
-        parameter: _InputParam[]
+        parameters: _InputParam[]
     | _OutputEnum
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputBase>
+    : _Alternate<_OutputTypeArg>
+        output: _Identifier
     }
 
 output _OutputTypeArg {
     : _ObjTypeArg
+        output: _Identifier
         label: _Identifier?
     }
 
@@ -4111,9 +4112,7 @@ output _OutputEnum {
 - `Invalid Output Parent. '_Alternate' not defined`
 - `Invalid Output Parent. '_Field' not defined`
 - `Invalid Output Parent. '_ObjBase' not defined`
-- `Invalid Output Parent. '_ObjDescribed' not defined`
 - `Invalid Output Parent. '_ObjTypeArg' not defined`
-- `Invalid Output Parent. '_ObjTypeParam' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
 - `Invalid Output Parent. '_TypeObject' not defined`
 - `Invalid Output Parent. '_TypeRef' not defined`
@@ -4122,20 +4121,24 @@ output _OutputEnum {
 
 ```gqlp
 output _TypeUnion {
-    : _ParentType<_TypeKind.Union _Described _UnionMember>
+    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
 
-dual _UnionMember {
-    : _Described
+output _UnionRef {
+    : _TypeRef<_SimpleKind>
+}
+
+output _UnionMember {
+    : _UnionRef
         union: _Identifier
     }
 ```
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. '_Described' not defined`
-- `Invalid Output Parent. '_ParentType' not defined`
-- `Invalid Dual Field. '_Identifier' not defined`
 - `Invalid Output Arg Enum. '_TypeKind' is not an Enum type`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Parent. '_ParentType' not defined`
+- `Invalid Output Parent. '_SimpleKind' not defined`
 - `Invalid Output Parent. '_TypeKind' not defined`
-- `Invalid Output Parent. '_Described' not defined`
+- `Invalid Output Parent. '_TypeRef' not defined`
