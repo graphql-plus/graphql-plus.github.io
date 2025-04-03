@@ -126,7 +126,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. '( I@017/0001 Test )' not defined`
+- `Invalid Directive Param. 'Test' not defined`
 
 ### directive-param-mod-param.graphql+
 

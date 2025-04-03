@@ -5,12 +5,31 @@
 ### all.graphql+
 
 ```gqlp
-category { All }
+"A Category"
+category { "Category Result" All }
+"A Directive"
 directive @all { All }
-enum One { Two Three }
-input Param { afterId: Guid? beforeId: Guid | String }
-output All { items(Param?): String[] | String }
-domain Guid { String /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/ }
+"An Option"
+option Schema { "Schema Setting" all="test" }
+"A Domain"
+domain Guid { String "Guid Regex" /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/ }
+"An Enum"
+enum One { "Label 2" Two "Label 3" Three }
+"A Union"
+union Many { "Guid Id" Guid "Numeric Id" Number }
+"A Dual"
+dual Field { "Some strings" strings: "Strings array" String[] }
+"An Input"
+input Param {
+    "First Id" afterId: "Guid or Int" Many?
+    "Last Id" beforeId: "Guid or Int" Many
+    | "Alternate parameter" String
+    }
+"An Output"
+output All {
+    "Some items" items(Param?): Field
+    | "Alternates" String
+    }
 ```
 
 ### default.graphql+
@@ -33,17 +52,20 @@ output _Schema { }
 ```gqlp
 category query {}
 directive @ {}
+domain Other { Enum }
 enum None [] {}
+union Missing {}
+dual Nothing [] {}
 input Empty {}
 output NoParams<> {}
-domain Other { Enum }
 ```
 
 ##### Expected Parse errors
 
 - `Invalid Category. Expected output type`
+- `Invalid Category Output. Expected type name`
 - `Invalid Schema. Expected no more text`
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. '' not defined or not an Output type`
+- `Invalid Category Output. 'query' not defined or not an Output type`
