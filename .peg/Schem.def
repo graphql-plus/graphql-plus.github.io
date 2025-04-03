@@ -28,5 +28,3 @@ Oper_Variables = ID
 Oper_Directive = ID
 Oper_Fragment = ID
 Oper_Result = ID
-
-REGEX = "/" ( [^/] / "\\/" )+ "/"

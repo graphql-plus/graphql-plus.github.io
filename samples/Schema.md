@@ -287,8 +287,9 @@ category { }
 
 ##### Expected Verify errors
 
-- `Invalid Category. Expected output type`
 - `Invalid Category Output. '' not defined or not an Output type`
+- `Invalid Category Output. Expected type name`
+- `Invalid Category. Expected output type`
 - `Invalid Schema. Expected no more text`
 
 ### Globals\Invalid\category-output-generic.graphql+
