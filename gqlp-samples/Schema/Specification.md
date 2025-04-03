@@ -14,7 +14,7 @@ output _Simple {
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
     | _EnumValue
-}
+    }
 
 output _ConstantList {
     | _Constant[]
@@ -64,7 +64,7 @@ output _Categories {
         type: _Type
     | _Category
     | _Type
-}
+    }
 
 output _Category {
     : _Aliased
@@ -124,7 +124,7 @@ output _TypeRef<$kind> {
     : _Described
         typeKind: $kind
         name: _Identifier
-}
+    }
 
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
@@ -169,7 +169,8 @@ input _Filter {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier"
+"where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -199,7 +200,7 @@ output _Categories {
         type: _Type
     | _Category
     | _Type
-}
+    }
 
 output _Category {
     : _Aliased
@@ -214,7 +215,7 @@ output _Directives {
         type: _Type
     | _Directive
     | _Type
-}
+    }
 
 output _Directive {
     : _Aliased
@@ -228,7 +229,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 output _Setting {
     : _Named
         value: _Constant
-}
+    }
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
@@ -264,7 +265,7 @@ output _TypeRef<$kind> {
     : _Described
         typeKind: $kind
         name: _Identifier
-}
+    }
 
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
@@ -283,7 +284,7 @@ output _Simple {
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
     | _EnumValue
-}
+    }
 
 output _ConstantList {
     | _Constant[]
@@ -400,15 +401,16 @@ output _TypeUnion {
 
 output _UnionRef {
     : _TypeRef<_SimpleKind>
-}
+    }
 
 output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
-output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
+            $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
-        typeParams: typeParam[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -418,13 +420,13 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed $typeParam:_ObjTypePa
 output _ObjConstraint<$base:_ObjBase> {
     | _TypeSimple
     | $base
-}
+    }
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
     }
 
-output _ObjBase<$arg:_ObjTypeArg {
+output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
     | _ObjTypeParam
@@ -433,14 +435,14 @@ output _ObjBase<$arg:_ObjTypeArg {
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _ObjTypeParam
-}
+    }
 
 domain _TypeParam { :_Identifier String }
 
 output _ObjTypeParam {
     : _Described
         typeParam: _TypeParam
-}
+    }
 
 output _Alternate<$arg:_ObjTypeArg> {
     : _ObjBase<$arg>
@@ -463,7 +465,7 @@ output _ForParam<$base:_ObjBase> {
     | _Field<$base>
     }
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -485,7 +487,7 @@ output _DualTypeArg {
         dual: _Identifier
     }
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -515,7 +517,7 @@ output _InputParam {
         default: _Constant?
     }
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -570,7 +572,8 @@ input _Filter {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier where '.' matches any single character and '*' matches zero or more of any character."
+"_NameFilter is a simple match expression against _Identifier"
+"where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
 input _CategoryFilter {
@@ -602,7 +605,7 @@ output _Directives {
         type: _Type
     | _Directive
     | _Type
-}
+    }
 
 output _Directive {
     : _Aliased
@@ -707,7 +710,7 @@ output _DomainItemRegex {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
     }
 
 output _DualBase {
@@ -774,7 +777,7 @@ output _EnumValue {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
     }
 
 output _InputBase {
@@ -844,9 +847,10 @@ dual _Described {
 ### Intro_Object.graphql+
 
 ```gqlp
-output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
+output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
+            $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
-        typeParams: typeParam[]
+        typeParams: $typeParam[]
         fields: $field[]
         alternates: $alternate[]
         allFields: _ObjectFor<$field>[]
@@ -856,13 +860,13 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed $typeParam:_ObjTypePa
 output _ObjConstraint<$base:_ObjBase> {
     | _TypeSimple
     | $base
-}
+    }
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
     }
 
-output _ObjBase<$arg:_ObjTypeArg {
+output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
     | _ObjTypeParam
@@ -871,14 +875,14 @@ output _ObjBase<$arg:_ObjTypeArg {
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
     | _ObjTypeParam
-}
+    }
 
 domain _TypeParam { :_Identifier String }
 
 output _ObjTypeParam {
     : _Described
         typeParam: _TypeParam
-}
+    }
 
 output _Alternate<$arg:_ObjTypeArg> {
     : _ObjBase<$arg>
@@ -924,7 +928,7 @@ output _ForParam<$base:_ObjBase> {
 output _Setting {
     : _Named
         value: _Constant
-}
+    }
 ```
 
 ##### Expected Verify errors
@@ -936,7 +940,7 @@ output _Setting {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
@@ -992,7 +996,7 @@ output _TypeUnion {
 
 output _UnionRef {
     : _TypeRef<_SimpleKind>
-}
+    }
 
 output _UnionMember {
     : _UnionRef
