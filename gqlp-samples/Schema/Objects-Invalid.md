@@ -157,15 +157,15 @@ object Test { | Number<String> }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Alternate. Args invalid on Number, given 1`
+- `Invalid Dual Alternate. Args invalid on Number. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Alternate. Args invalid on Number, given 1`
+- `Invalid Input Alternate. Args invalid on Number. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Alternate. Args invalid on Number, given 1`
+- `Invalid Output Alternate. Args invalid on Number. Expected 0, given 1`
 
 ### dual-alt-input.graphql+
 
@@ -443,15 +443,15 @@ object Test { field: String<0> }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args invalid on String, given 1`
+- `Invalid Dual Field. Args invalid on String. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args invalid on String, given 1`
+- `Invalid Input Field. Args invalid on String. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args invalid on String, given 1`
+- `Invalid Output Field. Args invalid on String. Expected 0, given 1`
 
 ### generic-alt-undef.graphql+
 
@@ -494,15 +494,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args mismatch, expected 1 given 0`
+- `Invalid Dual Field. Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args mismatch, expected 1 given 0`
+- `Invalid Input Field. Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args mismatch, expected 1 given 0`
+- `Invalid Output Field. Args mismatch on Ref. Expected 1, given 0`
 
 ### generic-arg-more.graphql+
 
@@ -513,15 +513,15 @@ object Ref { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args mismatch, expected 0 given 1`
+- `Invalid Dual Field. Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args mismatch, expected 0 given 1`
+- `Invalid Input Field. Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args mismatch, expected 0 given 1`
+- `Invalid Output Field. Args mismatch on Ref. Expected 0, given 1`
 
 ### generic-arg-undef.graphql+
 
@@ -588,15 +588,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. Args mismatch, expected 1 given 0`
+- `Invalid Dual Parent. Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. Args mismatch, expected 1 given 0`
+- `Invalid Input Parent. Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. Args mismatch, expected 1 given 0`
+- `Invalid Output Parent. Args mismatch on Ref. Expected 1, given 0`
 
 ### generic-parent-more.graphql+
 
@@ -607,15 +607,15 @@ object Ref { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. Args mismatch, expected 0 given 1`
+- `Invalid Dual Parent. Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. Args mismatch, expected 0 given 1`
+- `Invalid Input Parent. Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. Args mismatch, expected 0 given 1`
+- `Invalid Output Parent. Args mismatch on Ref. Expected 0, given 1`
 
 ### generic-parent-undef.graphql+
 
