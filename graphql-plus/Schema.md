@@ -10,7 +10,7 @@
 ```PEG
 Schema = Declaration+
 
-Declaration = Description? ( Category | Directive | Option | Type )
+Declaration = Description? ( Category | Directive | Include | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
 Description = STRING+
 
@@ -111,6 +111,33 @@ but this can be changed with the `repeatable` Directive option.
 Directives can be merged if their Options match.
 
 Locations will be merged by value.
+
+### Include declaration
+
+```PEG
+Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path+ '}'
+Inc_Option = '(' 'settings' ')'
+Inc_Path = STRING
+```
+
+An Include is defined with the URL of the Schema to be included.
+
+All the Types and Directives defined in the included Schema are included into the current Schema.
+Their Name in the current schema is their Name in the included Schema prefixed with the Include's name
+and an underscore (`_`). Any Enum labels are similarly named.
+
+Any Aliases of the Include create Aliases on the included Type, Directive or Enum Label in a similar fashion.
+They also have their original name as an Alias as well as any Aliases from the Included Schema
+
+ie. Given the following Schema at `./plus.graphql+`
+
+> `directive @help[h] { }` > `enum NameKind [nk] { Legal[l] Primary[p] }
+`dual Named [n] { name: String }`
+
+The Include declaration `include Plus [p] { "./plus.graphql+" }` would result in effectively the following
+
+> `directive @Plus_help[help h p_help] { }` > `enum Plus_NameKind [NameKind nk p_NameKind] { Plus_Legal[Legal l p_Legal] Plus_Primary[Primary p p_Primary] }
+`dual Plus_Named [Named n p_Named] { name: String }`
 
 ### Option declaration
 
@@ -530,7 +557,7 @@ or:
 ```PEG
 Schema = Declaration+
 
-Declaration = Description? ( Category | Directive | Option | Type )
+Declaration = Description? ( Category | Directive | Include | Option | Type )
 Type = Dual | Enum | Input | Output | Domain | Union
 Description = STRING+
 
@@ -542,6 +569,10 @@ Cat_Option = 'parallel' | 'sequential' | 'single'
 Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
+
+Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path+ '}'
+Inc_Option = '(' 'settings' ')'
+Inc_Path = STRING
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = Description? setting Default
