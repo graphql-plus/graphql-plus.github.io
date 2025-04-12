@@ -1,31 +1,5 @@
 # Objects-Invalid Schema Samples
 
-### alt-diff-mod.graphql+
-
-```gqlp
-object Test { | Test1 }
-object Test { | Test1[] }
-object Test1 { }
-```
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]']`
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]']`
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
-- `Multiple Types with name 'Test' can't be merged`
-
 ### alt-mod-undef-param.graphql+
 
 ```gqlp

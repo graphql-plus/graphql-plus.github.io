@@ -1,30 +1,5 @@
 # Simple-Invalid Schema Samples
 
-### domain-diff-kind.graphql+
-
-```gqlp
-domain Test { string }
-domain Test { number }
-```
-
-##### Expected Verify errors
-
-- `Multiple Domains with name 'Test' can't be merged`
-- `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
-- `Multiple Types with name 'Test' can't be merged`
-
-### domain-dup-alias.graphql+
-
-```gqlp
-domain Test [a] { Boolean }
-domain Dup [a] { Boolean }
-```
-
-##### Expected Verify errors
-
-- `Multiple Domains with alias 'a' found. Names 'Test' 'Dup'`
-- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
-
 ### domain-enum-none.graphql+
 
 ```gqlp
@@ -233,19 +208,6 @@ output Parent { }
 
 - `Invalid Domain Parent. 'Parent' invalid type. Found 'Output'`
 
-### domain-string-diff.graphql+
-
-```gqlp
-domain Test { string /a+/}
-domain Test { string !/a+/ }
-```
-
-##### Expected Verify errors
-
-- `Multiple Domains with name 'Test' can't be merged`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
-- `Multiple Types with name 'Test' can't be merged`
-
 ### domain-string-parent.graphql+
 
 ```gqlp
@@ -282,20 +244,6 @@ enum Parent { parent[alias] }
 - `Invalid Enum Child. Can't merge Test into Parent Parent`
 - `Aliases of EnumLabel for 'alias' is not singular Name['parent', 'test']`
 
-### enum-parent-diff.graphql+
-
-```gqlp
-enum Test { :Parent test }
-enum Test { test }
-enum Parent { parent }
-```
-
-##### Expected Verify errors
-
-- `Multiple Enums with name 'Test' can't be merged`
-- `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
-
 ### enum-parent-undef.graphql+
 
 ```gqlp
@@ -316,18 +264,6 @@ output Parent { }
 ##### Expected Verify errors
 
 - `Invalid Enum Parent. 'Parent' invalid type. Found 'Output'`
-
-### union-dup-alias.graphql+
-
-```gqlp
-union Test [a] { String }
-union Dup [a] { Number }
-```
-
-##### Expected Verify errors
-
-- `Multiple Unions with alias 'a' found. Names 'Test' 'Dup'`
-- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ### union-more-parent.graphql+
 
@@ -356,20 +292,6 @@ union More { Test }
 - `Invalid Union Member. 'Test' cannot refer to self, even recursively`
 - `Invalid Union Member. 'Bad' cannot refer to self, even recursively`
 - `Invalid Union Member. 'More' cannot refer to self, even recursively`
-
-### union-parent-diff.graphql+
-
-```gqlp
-union Test { :Parent Number }
-union Test { Number }
-union Parent { String }
-```
-
-##### Expected Verify errors
-
-- `Multiple Unions with name 'Test' can't be merged`
-- `Group of Union for 'Test' is not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### union-parent-more.graphql+
 
