@@ -340,7 +340,7 @@ output _UnionMember {
 
 ## Object types
 
-### Object Commonalities
+### Base Object definitions
 
 ```gqlp
 output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed

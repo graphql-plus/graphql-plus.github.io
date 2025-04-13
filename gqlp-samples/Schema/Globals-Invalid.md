@@ -8,7 +8,7 @@
 
 ##### Expected Parse errors
 
-- `Parse Error: Invalid Schema. Expected text`
+- `Expected text`
 
 ### category-output-generic.graphql+
 
@@ -19,7 +19,7 @@ output Test<$a> { | $a }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' is a generic Output type`
+- `'Test' is a generic Output type`
 
 ### category-output-mod-param.graphql+
 
@@ -30,7 +30,7 @@ output Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ### category-output-undef.graphql+
 
@@ -40,7 +40,7 @@ category { Test }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type`
+- `'Test' not defined or not an Output type`
 
 ### category-output-wrong.graphql+
 
@@ -51,7 +51,7 @@ input Test { }
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'Test' not defined or not an Output type`
+- `'Test' not defined or not an Output type`
 
 ### directive-no-param.graphql+
 
@@ -61,7 +61,7 @@ directive @Test(Test) { all }
 
 ##### Expected Verify errors
 
-- `Invalid Directive Param. 'Test' not defined`
+- `'Test' not defined`
 
 ### directive-param-mod-param.graphql+
 
@@ -72,4 +72,4 @@ input TestIn { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`

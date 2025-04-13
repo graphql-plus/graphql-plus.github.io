@@ -4,7 +4,8 @@ New-Item $specificationDir -ItemType Directory -ErrorAction Ignore | Out-Null
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
-  $sections = @{ "Complete" = @() }
+  $complete = "!Complete"
+  $sections = @{ $complete = @() }
   $current = @()
   $type = ""
   $doc = @()
@@ -15,17 +16,22 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($end) { return }
     $doc += @($_)
 
+    if ($_ -match "^## ([-a-zA-Z]+)") {
+      $section =  "+" + $Matches[1]
+    }
+
     if ($_ -match "^### ([-a-zA-Z]+)") {
-      $section = $Matches[1]
+      $subSection = $Matches[1]
     }
     
     if ($type) {
       if ($_ -eq "``````") {
         $all[$type] += $current + @("")
 
-        if ($type -eq "gqlp" -and $section) {
+        if ($type -eq "gqlp" -and $subSection) {
+          $sections[$subSection] += $current + @()
           $sections[$section] += $current + @()
-          $sections["Complete"] += $current + @()
+          $sections[$complete] += $current + @()
         }
 
         $type = ""

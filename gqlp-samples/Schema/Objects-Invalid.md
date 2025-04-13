@@ -9,15 +9,15 @@ object Alt { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ### alt-mod-undef.graphql+
 
@@ -28,15 +28,15 @@ object Alt { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'Domain' not defined`
+- `'Domain' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'Domain' not defined`
+- `'Domain' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'Domain' not defined`
+- `'Domain' not defined`
 
 ### alt-mod-wrong.graphql+
 
@@ -47,15 +47,15 @@ object Alt { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ### alt-more.graphql+
 
@@ -67,21 +67,21 @@ object More { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via More`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Recurse`
+- `'Test' cannot be an alternate of itself, even recursively via More`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Recurse`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via More`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Recurse`
+- `'Test' cannot be an alternate of itself, even recursively via More`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Recurse`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via More`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Recurse`
+- `'Test' cannot be an alternate of itself, even recursively via More`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Recurse`
 
 ### alt-recurse.graphql+
 
@@ -92,18 +92,18 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Recurse' cannot be an alternate of itself, even recursively via Test`
 
 ### alt-self.graphql+
 
@@ -113,15 +113,15 @@ object Test { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself`
+- `'Test' cannot be an alternate of itself`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself`
+- `'Test' cannot be an alternate of itself`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself`
+- `'Test' cannot be an alternate of itself`
 
 ### alt-simple-param.graphql+
 
@@ -131,15 +131,15 @@ object Test { | Number<String> }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Alternate. Args invalid on Number. Expected 0, given 1`
+- `Args invalid on Number. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Alternate. Args invalid on Number. Expected 0, given 1`
+- `Args invalid on Number. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Alternate. Args invalid on Number. Expected 0, given 1`
+- `Args invalid on Number. Expected 0, given 1`
 
 ### dual-alt-input.graphql+
 
@@ -150,7 +150,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### dual-alt-output.graphql+
 
@@ -161,7 +161,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### dual-alt-param-input.graphql+
 
@@ -173,7 +173,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### dual-alt-param-output.graphql+
 
@@ -185,7 +185,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Alternate. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### dual-field-input.graphql+
 
@@ -196,7 +196,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### dual-field-output.graphql+
 
@@ -207,7 +207,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### dual-field-param-input.graphql+
 
@@ -219,7 +219,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Field. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### dual-field-param-output.graphql+
 
@@ -231,7 +231,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Field. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### dual-parent-input.graphql+
 
@@ -242,7 +242,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. 'Bad' invalid type. Found 'Input'`
+- `'Bad' invalid type. Found 'Input'`
 
 ### dual-parent-output.graphql+
 
@@ -253,7 +253,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. 'Bad' invalid type. Found 'Output'`
+- `'Bad' invalid type. Found 'Output'`
 
 ### dual-parent-param-input.graphql+
 
@@ -265,7 +265,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### dual-parent-param-output.graphql+
 
@@ -277,7 +277,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Dual Parent. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### field-alias.graphql+
 
@@ -363,15 +363,15 @@ object Test { field: Test[$a] }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ### field-mod-undef.graphql+
 
@@ -381,15 +381,15 @@ object Test { field: Test[Random] }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'Random' not defined`
+- `'Random' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'Random' not defined`
+- `'Random' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'Random' not defined`
+- `'Random' not defined`
 
 ### field-mod-wrong.graphql+
 
@@ -399,15 +399,15 @@ object Test { field: Test[Test] }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ##### Expected Verify errors Input
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ##### Expected Verify errors Output
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ### field-simple-param.graphql+
 
@@ -417,15 +417,15 @@ object Test { field: String<0> }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args invalid on String. Expected 0, given 1`
+- `Args invalid on String. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args invalid on String. Expected 0, given 1`
+- `Args invalid on String. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args invalid on String. Expected 0, given 1`
+- `Args invalid on String. Expected 0, given 1`
 
 ### generic-alt-undef.graphql+
 
@@ -435,15 +435,15 @@ object Test { | $type }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Alternate. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Alternate. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Alternate. '$type' not defined`
+- `'$type' not defined`
 
 ### generic-arg-constraint.graphql+
 
@@ -468,15 +468,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ### generic-arg-more.graphql+
 
@@ -487,15 +487,15 @@ object Ref { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ### generic-arg-undef.graphql+
 
@@ -506,15 +506,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. '$type' not defined`
+- `'$type' not defined`
 
 ### generic-field-undef.graphql+
 
@@ -524,15 +524,15 @@ object Test { field: $type }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. '$type' not defined`
+- `'$type' not defined`
 
 ### generic-param-undef.graphql+
 
@@ -543,15 +543,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Field. 'Test1' not defined`
+- `'Test1' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Field. 'Test1' not defined`
+- `'Test1' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Field. 'Test1' not defined`
+- `'Test1' not defined`
 
 ### generic-parent-less.graphql+
 
@@ -562,15 +562,15 @@ object Ref<$ref> { | $ref }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. Args mismatch on Ref. Expected 1, given 0`
+- `Args mismatch on Ref. Expected 1, given 0`
 
 ### generic-parent-more.graphql+
 
@@ -581,15 +581,15 @@ object Ref { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. Args mismatch on Ref. Expected 0, given 1`
+- `Args mismatch on Ref. Expected 0, given 1`
 
 ### generic-parent-undef.graphql+
 
@@ -599,15 +599,15 @@ object Test { :$type }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. '$type' not defined`
+- `'$type' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. '$type' not defined`
+- `'$type' not defined`
 
 ### generic-unused.graphql+
 
@@ -617,15 +617,15 @@ object Test<$type> { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. '$type' not used`
+- `'$type' not used`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. '$type' not used`
+- `'$type' not used`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. '$type' not used`
+- `'$type' not used`
 
 ### input-alt-output.graphql+
 
@@ -636,7 +636,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Input Alternate. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### input-field-null.graphql+
 
@@ -646,7 +646,7 @@ input Test { field: Test = null }
 
 ##### Expected Verify errors
 
-- `Invalid Input Field Default. 'null' default requires Optional type, not 'Test'`
+- `'null' default requires Optional type, not 'Test'`
 
 ### input-field-output.graphql+
 
@@ -657,7 +657,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Input Field. Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch for Bad. Found Output`
 
 ### input-parent-output.graphql+
 
@@ -668,7 +668,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Input Parent. 'Bad' invalid type. Found 'Output'`
+- `'Bad' invalid type. Found 'Output'`
 
 ### output-alt-input.graphql+
 
@@ -679,7 +679,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Output Alternate. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### output-enum-bad.graphql+
 
@@ -689,8 +689,8 @@ output Test { field = unknown }
 
 ##### Expected Verify errors
 
-- `Invalid Output Field Enum. Enum Value 'unknown' not defined`
-- `Invalid Output Field. '' not defined`
+- `Enum Value 'unknown' not defined`
+- `'' not defined`
 
 ### output-enum-diff.graphql+
 
@@ -713,7 +713,7 @@ output Test { field = Boolean.unknown }
 
 ##### Expected Verify errors
 
-- `Invalid Output Field Enum Value. 'unknown' not a Value of 'Boolean'`
+- `'unknown' not a Value of 'Boolean'`
 
 ### output-enumValue-wrong.graphql+
 
@@ -724,8 +724,8 @@ input Wrong { }
 
 ##### Expected Verify errors
 
-- `Invalid Output Field Enum. 'Wrong' is not an Enum type`
-- `Invalid Output Field. Type kind mismatch for Wrong. Found Input`
+- `'Wrong' is not an Enum type`
+- `Type kind mismatch for Wrong. Found Input`
 
 ### output-field-input.graphql+
 
@@ -736,7 +736,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Output Field. Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch for Bad. Found Input`
 
 ### output-generic-arg-enum-wrong.graphql+
 
@@ -747,10 +747,10 @@ output Ref<$type> { field: $type }
 
 ##### Expected Verify errors
 
-- `Invalid Output. '$arg' not used`
-- `Invalid Output Arg. Expected Enum value not allowed after Type parameter`
-- `Invalid Schema. Expected declaration selector. 'unknown' unknown`
-- `Invalid Schema. Expected no more text`
+- `'$arg' not used`
+- `Expected Enum value not allowed after Type parameter`
+- `Expected declaration selector. 'unknown' unknown`
+- `Expected no more text`
 
 ### output-generic-enum-bad.graphql+
 
@@ -761,7 +761,7 @@ output Ref<$type> { field: $type }
 
 ##### Expected Verify errors
 
-- `Invalid Output Arg Enum Value. 'unknown' not a Value of 'Boolean'`
+- `'unknown' not a Value of 'Boolean'`
 
 ### output-generic-enum-wrong.graphql+
 
@@ -773,7 +773,7 @@ output Wrong { }
 
 ##### Expected Verify errors
 
-- `Invalid Output Arg Enum. 'Wrong' is not an Enum type`
+- `'Wrong' is not an Enum type`
 
 ### output-param-diff.graphql+
 
@@ -798,7 +798,7 @@ input Param { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'a' not defined`
+- `'a' not defined`
 
 ### output-param-mod-undef.graphql+
 
@@ -809,7 +809,7 @@ input Param { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'Domain' not defined`
+- `'Domain' not defined`
 
 ### output-param-mod-wrong.graphql+
 
@@ -820,7 +820,7 @@ input Param { }
 
 ##### Expected Verify errors
 
-- `Invalid Modifier. 'Test' invalid type`
+- `'Test' invalid type`
 
 ### output-param-undef.graphql+
 
@@ -830,7 +830,7 @@ output Test { field(Param): Test }
 
 ##### Expected Verify errors
 
-- `Invalid Input Param. 'Param' not defined`
+- `'Param' not defined`
 
 ### output-parent-input.graphql+
 
@@ -841,7 +841,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Invalid Output Parent. 'Bad' invalid type. Found 'Input'`
+- `'Bad' invalid type. Found 'Input'`
 
 ### parent-alt-mod.graphql+
 
@@ -882,17 +882,17 @@ object Alt { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ### parent-alt-recurse.graphql+
@@ -906,17 +906,17 @@ object Alt { }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test alternates into Parent Recurse alternates`
+- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
 
 ### parent-alt-self-more.graphql+
@@ -930,24 +930,24 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ### parent-alt-self-recurse.graphql+
 
@@ -959,21 +959,21 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ### parent-alt-self.graphql+
 
@@ -984,18 +984,18 @@ object Alt { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ### parent-field-alias-more.graphql+
 
@@ -1008,17 +1008,17 @@ object Parent { field2 [alias]: Parent }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ### parent-field-alias-recurse.graphql+
@@ -1031,17 +1031,17 @@ object Parent { field2 [alias]: Parent }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
 
 ### parent-field-alias.graphql+
@@ -1081,17 +1081,17 @@ object Parent { field: Test[] }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ### parent-field-mod-recurse.graphql+
@@ -1104,17 +1104,17 @@ object Parent { field: Test[] }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Child. Can't merge Test into Parent Recurse`
+- `Can't merge Test into Parent Recurse`
 - `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
 
 ### parent-field-mod.graphql+
@@ -1153,21 +1153,21 @@ object More { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via More`
-- `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test`
-- `Invalid Dual. 'More' cannot be a child of itself, even recursively via Recurse`
+- `'Test' cannot be a child of itself, even recursively via More`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
+- `'More' cannot be a child of itself, even recursively via Recurse`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be a child of itself, even recursively via More`
-- `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test`
-- `Invalid Input. 'More' cannot be a child of itself, even recursively via Recurse`
+- `'Test' cannot be a child of itself, even recursively via More`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
+- `'More' cannot be a child of itself, even recursively via Recurse`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be a child of itself, even recursively via More`
-- `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
-- `Invalid Output. 'More' cannot be a child of itself, even recursively via Recurse`
+- `'Test' cannot be a child of itself, even recursively via More`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
+- `'More' cannot be a child of itself, even recursively via Recurse`
 
 ### parent-recurse.graphql+
 
@@ -1178,18 +1178,18 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be a child of itself, even recursively via Recurse`
-- `Invalid Dual. 'Recurse' cannot be a child of itself, even recursively via Test`
+- `'Test' cannot be a child of itself, even recursively via Recurse`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be a child of itself, even recursively via Recurse`
-- `Invalid Input. 'Recurse' cannot be a child of itself, even recursively via Test`
+- `'Test' cannot be a child of itself, even recursively via Recurse`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be a child of itself, even recursively via Recurse`
-- `Invalid Output. 'Recurse' cannot be a child of itself, even recursively via Test`
+- `'Test' cannot be a child of itself, even recursively via Recurse`
+- `'Recurse' cannot be a child of itself, even recursively via Test`
 
 ### parent-self-alt-more.graphql+
 
@@ -1202,24 +1202,24 @@ object Recurse { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Dual. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Input. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Output. 'More' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via More`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'More' cannot be an alternate of itself, even recursively via Alt`
+- `'Recurse' cannot be an alternate of itself, even recursively via More`
 
 ### parent-self-alt-recurse.graphql+
 
@@ -1231,21 +1231,21 @@ object Recurse { | Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Dual. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Input. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
-- `Invalid Output. 'Recurse' cannot be an alternate of itself, even recursively via Alt`
+- `'Test' cannot be an alternate of itself, even recursively via Recurse`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
 ### parent-self-alt.graphql+
 
@@ -1256,18 +1256,18 @@ object Alt { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Dual. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Input. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be an alternate of itself, even recursively via Alt`
-- `Invalid Output. 'Alt' cannot be an alternate of itself, even recursively via Test`
+- `'Test' cannot be an alternate of itself, even recursively via Alt`
+- `'Alt' cannot be an alternate of itself, even recursively via Test`
 
 ### parent-self.graphql+
 
@@ -1277,15 +1277,15 @@ object Test { :Test }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual. 'Test' cannot be a child of itself`
+- `'Test' cannot be a child of itself`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input. 'Test' cannot be a child of itself`
+- `'Test' cannot be a child of itself`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output. 'Test' cannot be a child of itself`
+- `'Test' cannot be a child of itself`
 
 ### parent-simple.graphql+
 
@@ -1295,15 +1295,15 @@ object Test { :String }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. 'String' invalid type. Found 'Domain'`
+- `'String' invalid type. Found 'Domain'`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. 'String' invalid type. Found 'Domain'`
+- `'String' invalid type. Found 'Domain'`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. 'String' invalid type. Found 'Domain'`
+- `'String' invalid type. Found 'Domain'`
 
 ### parent-undef.graphql+
 
@@ -1313,15 +1313,15 @@ object Test { :Parent }
 
 ##### Expected Verify errors Dual
 
-- `Invalid Dual Parent. 'Parent' not defined`
+- `'Parent' not defined`
 
 ##### Expected Verify errors Input
 
-- `Invalid Input Parent. 'Parent' not defined`
+- `'Parent' not defined`
 
 ##### Expected Verify errors Output
 
-- `Invalid Output Parent. 'Parent' not defined`
+- `'Parent' not defined`
 
 ### unique-alias.graphql+
 

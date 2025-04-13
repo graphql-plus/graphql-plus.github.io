@@ -62,10 +62,10 @@ output NoParams<> {}
 
 ##### Expected Parse errors
 
-- `Invalid Category. Expected output type`
-- `Invalid Category Output. Expected type name`
-- `Invalid Schema. Expected no more text`
+- `Expected output type`
+- `Expected type name`
+- `Expected no more text`
 
 ##### Expected Verify errors
 
-- `Invalid Category Output. 'query' not defined or not an Output type`
+- `'query' not defined or not an Output type`
