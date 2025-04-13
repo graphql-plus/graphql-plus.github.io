@@ -11,6 +11,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -99,6 +100,78 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+```
+
+### Operation declaration
+
+```gqlp
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        variables: _OpVariable?
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+}
+
+output _OpVariable {
+        name: _Identifier
+        type: _ObjType<_InputBase>
+        modifiers: _Modifiers[]
+        default: String? # Todo: _OpDefault
+        directives: _OpDirective[]
+}
+
+dual _OpDirective {
+        name: _Identifier
+        argument: String? # Todo: _OpArgument
+}
+
+output _OpFragment {
+        name: _Identifier
+        type: _ObjType<_OutputBase>
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>?
+        argument: String? # Todo: _OpArgument
+        body: _OpObject[]
+}
+
+output _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+        alias: String?
+        field: String
+        argument: String? # Todo: _OpArgument
+        modifiers: _Modifiers
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpInline {
+        type: String?
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
 ```
 
 ### Option declaration
@@ -500,6 +573,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -574,6 +648,74 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        variables: _OpVariable?
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+}
+
+output _OpVariable {
+        name: _Identifier
+        type: _ObjType<_InputBase>
+        modifiers: _Modifiers[]
+        default: String? # Todo: _OpDefault
+        directives: _OpDirective[]
+}
+
+dual _OpDirective {
+        name: _Identifier
+        argument: String? # Todo: _OpArgument
+}
+
+output _OpFragment {
+        name: _Identifier
+        type: _ObjType<_OutputBase>
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>?
+        argument: String? # Todo: _OpArgument
+        body: _OpObject[]
+}
+
+output _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+        alias: String?
+        field: String
+        argument: String? # Todo: _OpArgument
+        modifiers: _Modifiers
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpInline {
+        type: String?
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
 
 output _Setting {
     : _Named
