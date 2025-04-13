@@ -3847,9 +3847,14 @@ output _Setting {
 
 - `'_Aliased' not defined`
 - `'_Constant' not defined`
+- `'_Identifier' not defined`
+- `'_InputBase' not defined`
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
+- `'_ObjType' not defined`
+- `'_OutputBase' not defined`
+- `'_SimpleKind' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
@@ -4064,6 +4069,7 @@ dual _Described {
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
+- `'_Operations' not defined`
 - `'_Resolution' not defined`
 - `'_Setting' not defined`
 - `'_Type' not defined`
