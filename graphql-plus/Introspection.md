@@ -353,10 +353,15 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-output _ObjConstraint<$base:_ObjBase> {
-    | _TypeSimple
-    | $base
+output _ObjTypeParam<$kind:_ObjectKind> {
+    : _Named
+        constraint: _ObjConstraint<$kind>?
     }
+
+output _ObjConstraint<$kind:_ObjectKind> {
+    : _TypeRef<$kind>
+    }
+
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
@@ -365,19 +370,17 @@ output _ObjType<$base:_ObjBase> {
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
-    | _ObjTypeParam
+    | _TypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _ObjTypeParam
+    | _TypeParam
     }
 
-domain _TypeParam { :_Identifier String }
-
-output _ObjTypeParam {
+output _TypeParam {
     : _Described
-        typeParam: _TypeParam
+        typeParam: _Identifier
     }
 
 output _Alternate<$arg:_ObjTypeArg> {
@@ -406,12 +409,16 @@ output _ForParam<$base:_ObjBase> {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
         dual: _Identifier
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_TypeKind.Dual>
     }
 
 output _DualField {
@@ -433,13 +440,18 @@ output _DualTypeArg {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_TypeKind.Input>
+    | _TypeRef<_TypeKind.Dual>
     }
 
 output _InputField {
@@ -468,13 +480,19 @@ output _InputParam {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_TypeKind.Output>
+    | _TypeRef<_TypeKind.Dual>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _OutputField {
@@ -785,10 +803,15 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-output _ObjConstraint<$base:_ObjBase> {
-    | _TypeSimple
-    | $base
+output _ObjTypeParam<$kind:_ObjectKind> {
+    : _Named
+        constraint: _ObjConstraint<$kind>?
     }
+
+output _ObjConstraint<$kind:_ObjectKind> {
+    : _TypeRef<$kind>
+    }
+
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
@@ -797,19 +820,17 @@ output _ObjType<$base:_ObjBase> {
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
-    | _ObjTypeParam
+    | _TypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _ObjTypeParam
+    | _TypeParam
     }
 
-domain _TypeParam { :_Identifier String }
-
-output _ObjTypeParam {
+output _TypeParam {
     : _Described
-        typeParam: _TypeParam
+        typeParam: _Identifier
     }
 
 output _Alternate<$arg:_ObjTypeArg> {
@@ -834,12 +855,16 @@ output _ForParam<$base:_ObjBase> {
     }
 
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
         dual: _Identifier
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_TypeKind.Dual>
     }
 
 output _DualField {
@@ -857,13 +882,18 @@ output _DualTypeArg {
     }
 
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_TypeKind.Input>
+    | _TypeRef<_TypeKind.Dual>
     }
 
 output _InputField {
@@ -888,13 +918,19 @@ output _InputParam {
     }
 
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_TypeKind.Output>
+    | _TypeRef<_TypeKind.Dual>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _OutputField {

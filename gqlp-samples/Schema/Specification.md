@@ -270,10 +270,15 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-output _ObjConstraint<$base:_ObjBase> {
-    | _TypeSimple
-    | $base
+output _ObjTypeParam<$kind:_ObjectKind> {
+    : _Named
+        constraint: _ObjConstraint<$kind>?
     }
+
+output _ObjConstraint<$kind:_ObjectKind> {
+    : _TypeRef<$kind>
+    }
+
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
@@ -282,19 +287,17 @@ output _ObjType<$base:_ObjBase> {
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
-    | _ObjTypeParam
+    | _TypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _ObjTypeParam
+    | _TypeParam
     }
 
-domain _TypeParam { :_Identifier String }
-
-output _ObjTypeParam {
+output _TypeParam {
     : _Described
-        typeParam: _TypeParam
+        typeParam: _Identifier
     }
 
 output _Alternate<$arg:_ObjTypeArg> {
@@ -318,12 +321,16 @@ output _ForParam<$base:_ObjBase> {
     | _Field<$base>
     }
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
         dual: _Identifier
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_TypeKind.Dual>
     }
 
 output _DualField {
@@ -340,13 +347,18 @@ output _DualTypeArg {
         dual: _Identifier
     }
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_TypeKind.Input>
+    | _TypeRef<_TypeKind.Dual>
     }
 
 output _InputField {
@@ -370,13 +382,19 @@ output _InputParam {
         default: _Constant?
     }
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_TypeKind.Output>
+    | _TypeRef<_TypeKind.Dual>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _OutputField {
@@ -468,10 +486,15 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-output _ObjConstraint<$base:_ObjBase> {
-    | _TypeSimple
-    | $base
+output _ObjTypeParam<$kind:_ObjectKind> {
+    : _Named
+        constraint: _ObjConstraint<$kind>?
     }
+
+output _ObjConstraint<$kind:_ObjectKind> {
+    : _TypeRef<$kind>
+    }
+
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
@@ -480,19 +503,17 @@ output _ObjType<$base:_ObjBase> {
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
-    | _ObjTypeParam
+    | _TypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _ObjTypeParam
+    | _TypeParam
     }
 
-domain _TypeParam { :_Identifier String }
-
-output _ObjTypeParam {
+output _TypeParam {
     : _Described
-        typeParam: _TypeParam
+        typeParam: _Identifier
     }
 
 output _Alternate<$arg:_ObjTypeArg> {
@@ -516,12 +537,16 @@ output _ForParam<$base:_ObjBase> {
     | _Field<$base>
     }
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
         dual: _Identifier
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_TypeKind.Dual>
     }
 
 output _DualField {
@@ -538,13 +563,18 @@ output _DualTypeArg {
         dual: _Identifier
     }
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_TypeKind.Input>
+    | _TypeRef<_TypeKind.Dual>
     }
 
 output _InputField {
@@ -568,13 +598,19 @@ output _InputParam {
         default: _Constant?
     }
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_TypeKind.Output>
+    | _TypeRef<_TypeKind.Dual>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _OutputField {
@@ -606,15 +642,15 @@ output _OutputEnum {
 - `'_Aliased' not defined`
 - `'_BaseType' not defined`
 - `'_ChildType' not defined`
-- `'_Constant' not defined`
 - `'_Collections' not defined`
+- `'_Constant' not defined`
 - `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
+- `'_Named' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-- `'_TypeSimple' not defined`
 
 ### Intro\_+Schema.graphql+
 
@@ -904,10 +940,15 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
         allAlternates: _ObjectFor<$alternate>[]
     }
 
-output _ObjConstraint<$base:_ObjBase> {
-    | _TypeSimple
-    | $base
+output _ObjTypeParam<$kind:_ObjectKind> {
+    : _Named
+        constraint: _ObjConstraint<$kind>?
     }
+
+output _ObjConstraint<$kind:_ObjectKind> {
+    : _TypeRef<$kind>
+    }
+
 output _ObjType<$base:_ObjBase> {
     | _BaseType<_TypeKind.Internal>
     | _ObjConstraint<$base>
@@ -916,19 +957,17 @@ output _ObjType<$base:_ObjBase> {
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
-    | _ObjTypeParam
+    | _TypeParam
     }
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-    | _ObjTypeParam
+    | _TypeParam
     }
 
-domain _TypeParam { :_Identifier String }
-
-output _ObjTypeParam {
+output _TypeParam {
     : _Described
-        typeParam: _TypeParam
+        typeParam: _Identifier
     }
 
 output _Alternate<$arg:_ObjTypeArg> {
@@ -962,10 +1001,10 @@ output _ForParam<$base:_ObjBase> {
 - `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
+- `'_Named' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-- `'_TypeSimple' not defined`
 
 ### Intro_Built-In.graphql+
 
@@ -1272,12 +1311,16 @@ output _DomainItemRegex {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeArg _DualField _DualAlternate>
+    : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
         dual: _Identifier
+    }
+
+output _DualTypeParam {
+    : _ObjTypeParam<_TypeKind.Dual>
     }
 
 output _DualField {
@@ -1302,6 +1345,7 @@ output _DualTypeArg {
 - `'_Identifier' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
@@ -1337,13 +1381,18 @@ output _EnumValue {
 
 ```gqlp
 output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputBase _InputTypeArg _InputField _InputAlternate>
+    : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
         input: _Identifier
     | _DualBase
+    }
+
+output _InputTypeParam {
+    : _ObjTypeParam<_TypeKind.Input>
+    | _TypeRef<_TypeKind.Dual>
     }
 
 output _InputField {
@@ -1378,9 +1427,11 @@ output _InputParam {
 - `'_Modifiers' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
+- `'_TypeRef' not defined`
 
 ### Intro_Names.graphql+
 
@@ -1422,13 +1473,19 @@ output _Setting {
 
 ```gqlp
 output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeArg _OutputField _OutputAlternate>
+    : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
         output: _Identifier
     | _DualBase
+    }
+
+output _OutputTypeParam {
+    : _ObjTypeParam<_TypeKind.Output>
+    | _TypeRef<_TypeKind.Dual>
+    | _TypeRef<_TypeKind.Enum>
     }
 
 output _OutputField {
@@ -1464,6 +1521,7 @@ output _OutputEnum {
 - `'_InputParam' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
 - `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
