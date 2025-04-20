@@ -191,6 +191,13 @@ object ObjName { | ObjNameType }
 object ObjNameType { }
 ```
 
+### object-constraint.graphql+
+
+```gqlp
+object ObjName<$type> { field: $type }
+object ObjName<$type:*> { str: $type }
+```
+
 ### object-field-alias.graphql+
 
 ```gqlp

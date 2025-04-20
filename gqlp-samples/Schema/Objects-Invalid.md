@@ -141,6 +141,42 @@ object Test { | Number<String> }
 
 - `Args invalid on Number. Expected 0, given 1`
 
+### alt-undef.graphql+
+
+```gqlp
+object Test { | Undef }
+```
+
+##### Expected Verify errors Dual
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Input
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Output
+
+- `'Undef' not defined`
+
+### constraint-undef.graphql+
+
+```gqlp
+object ObjName<$type:Undef> { | $type }
+```
+
+##### Expected Verify errors Dual
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Input
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Output
+
+- `'Undef' not defined`
+
 ### dual-alt-input.graphql+
 
 ```gqlp
@@ -427,6 +463,24 @@ object Test { field: String<0> }
 
 - `Args invalid on String. Expected 0, given 1`
 
+### field-undef.graphql+
+
+```gqlp
+object Test { field: Undef }
+```
+
+##### Expected Verify errors Dual
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Input
+
+- `'Undef' not defined`
+
+##### Expected Verify errors Output
+
+- `'Undef' not defined`
+
 ### generic-alt-undef.graphql+
 
 ```gqlp
@@ -444,20 +498,6 @@ object Test { | $type }
 ##### Expected Verify errors Output
 
 - `'$type' not defined`
-
-### generic-arg-constraint.graphql+
-
-```gqlp
-object Test<$type> { field: $type }
-object Test<$type:*> { str: $type }
-```
-
-### generic-arg-diff.graphql+
-
-```gqlp
-object Test<$type:0> { num: $type }
-object Test<$type:*> { str: $type }
-```
 
 ### generic-arg-less.graphql+
 

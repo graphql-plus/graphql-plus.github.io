@@ -66,6 +66,25 @@ output Output { }
 - `Multiple Categories with name 'test' can't be merged`
 - `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
+### constraint-diff.graphql+
+
+```gqlp
+object Test<$type:0> { num: $type }
+object Test<$type:*> { str: $type }
+```
+
+##### Expected Verify errors Dual
+
+- `ERROR`
+
+##### Expected Verify errors Input
+
+- `ERROR`
+
+##### Expected Verify errors Output
+
+- `ERROR`
+
 ### directive-diff-option.graphql+
 
 ```gqlp

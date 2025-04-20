@@ -393,7 +393,7 @@ An Alternate is defined as:
 
 Object types can be merged if their parent Types match.
 
-Type parameters can be merged if their Constraints match.
+Type parameters can be merged if their Constraints match. A missing Constraint matches any Constraint.
 
 Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
 
