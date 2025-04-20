@@ -22,7 +22,7 @@ enum Dup { value }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainLabel for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `Group of DomainLabel for 'value' not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### domain-enum-undef-all.graphql+
 
@@ -122,7 +122,7 @@ domain Parent { number !1> }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
+- `Group of DomainRange for '1 >' not singular Range['False', 'True']`
 
 ### domain-parent-self-more.graphql+
 
@@ -218,7 +218,7 @@ domain Parent { string !/a+/ }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
 
 ### enum-dup-alias.graphql+
 
@@ -242,7 +242,7 @@ enum Parent { parent[alias] }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Parent`
-- `Aliases of EnumLabel for 'alias' is not singular Name['parent', 'test']`
+- `Aliases of EnumLabel for 'alias' not singular Name['parent', 'test']`
 
 ### enum-parent-undef.graphql+
 
@@ -429,4 +429,4 @@ output Test { }
 ##### Expected Verify errors
 
 - `Multiple Types with name 'Test' can't be merged`
-- `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
+- `Group of Type for 'Test' not singular Type['Enum', 'Output']`

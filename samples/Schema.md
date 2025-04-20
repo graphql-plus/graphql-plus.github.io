@@ -613,19 +613,19 @@ object Test1 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of DualAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of InputAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of OutputAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\category-diff-mod.graphql+
@@ -639,7 +639,7 @@ output Test { }
 ##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
+- `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
 
 ### Merges\Invalid\category-dup-alias.graphql+
 
@@ -666,7 +666,7 @@ output Output { }
 ##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
+- `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
 ### Merges\Invalid\directive-diff-option.graphql+
 
@@ -678,7 +678,7 @@ directive @Test { ( repeatable ) all }
 ##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged`
-- `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
+- `Group of SchemaDirective for 'Test' not singular Option['Repeatable', 'Unique']`
 
 ### Merges\Invalid\directive-diff-param.graphql+
 
@@ -691,7 +691,7 @@ input Test { }
 ##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged`
-- `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
+- `Group of InputParam for 'Test' not singular Modifiers['', '?']`
 
 ### Merges\Invalid\domain-diff-kind.graphql+
 
@@ -703,7 +703,7 @@ domain Test { number }
 ##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged`
-- `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
+- `Group of Domain for 'Test' not singular Domain['Number', 'String']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\domain-dup-alias.graphql+
@@ -728,7 +728,7 @@ domain Test { string !/a+/ }
 ##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\enum-dup-alias.graphql+
@@ -754,7 +754,7 @@ enum Parent { parent }
 ##### Expected Verify errors
 
 - `Multiple Enums with name 'Test' can't be merged`
-- `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
+- `Group of Enum for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\field-diff-mod.graphql+
@@ -767,19 +767,19 @@ object Test { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\field-diff-type.graphql+
@@ -793,19 +793,19 @@ object Test1 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Merges\Invalid\option-diff-name.graphql+
@@ -842,7 +842,7 @@ union Parent { String }
 ##### Expected Verify errors
 
 - `Multiple Unions with name 'Test' can't be merged`
-- `Group of Union for 'Test' is not singular Parent['', 'Parent']`
+- `Group of Union for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ## Objects
@@ -1568,19 +1568,19 @@ object Test { field2 [alias]: Test[] }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\field-diff-mod.graphql+
@@ -1593,19 +1593,19 @@ object Test { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\field-diff-type.graphql+
@@ -1619,19 +1619,19 @@ object Test1 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\field-mod-undef-param.graphql+
@@ -1967,7 +1967,7 @@ output Test { field = false }
 ##### Expected Verify errors
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Boolean.false', 'Boolean.true']`
+- `Group of OutputField for 'field' not singular ModifiedType['Boolean.false', 'Boolean.true']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\output-enumValue-bad.graphql+
@@ -1989,7 +1989,7 @@ input Wrong { }
 
 ##### Expected Verify errors
 
-- `'Wrong' is not an Enum type`
+- `'Wrong' not an Enum type`
 - `Type kind mismatch for Wrong. Found Input`
 
 ### Objects\Invalid\output-field-input.graphql+
@@ -2038,7 +2038,7 @@ output Wrong { }
 
 ##### Expected Verify errors
 
-- `'Wrong' is not an Enum type`
+- `'Wrong' not an Enum type`
 
 ### Objects\Invalid\output-param-diff.graphql+
 
@@ -2051,7 +2051,7 @@ input Param { }
 ##### Expected Verify errors
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of InputParam for 'Param' is not singular Modifiers['', '?']`
+- `Group of InputParam for 'Param' not singular Modifiers['', '?']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\output-param-mod-undef-param.graphql+
@@ -2120,19 +2120,19 @@ object Alt { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\parent-alt-more.graphql+
@@ -2148,17 +2148,17 @@ object Alt { }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ### Objects\Invalid\parent-alt-recurse.graphql+
 
@@ -2172,17 +2172,17 @@ object Alt { }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of DualAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of InputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-- `Group of OutputAlternate for 'Alt' is not singular Modifiers['', '[]']`
+- `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ### Objects\Invalid\parent-alt-self-more.graphql+
 
@@ -2274,17 +2274,17 @@ object Parent { field2 [alias]: Parent }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ### Objects\Invalid\parent-field-alias-recurse.graphql+
 
@@ -2297,17 +2297,17 @@ object Parent { field2 [alias]: Parent }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of DualField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of InputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test into Parent Recurse`
-- `Aliases of OutputField for 'alias' is not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ### Objects\Invalid\parent-field-alias.graphql+
 
@@ -2320,19 +2320,19 @@ object Parent { field2 [alias]: Parent }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\parent-field-mod-more.graphql+
@@ -2347,17 +2347,17 @@ object Parent { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test into Parent Recurse`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test into Parent Recurse`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test into Parent Recurse`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ### Objects\Invalid\parent-field-mod-recurse.graphql+
 
@@ -2370,17 +2370,17 @@ object Parent { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Can't merge Test into Parent Recurse`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Input
 
 - `Can't merge Test into Parent Recurse`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ##### Expected Verify errors Output
 
 - `Can't merge Test into Parent Recurse`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
 
 ### Objects\Invalid\parent-field-mod.graphql+
 
@@ -2393,19 +2393,19 @@ object Parent { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' is not singular Parent['', 'Parent']`
+- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### Objects\Invalid\parent-more.graphql+
@@ -2798,7 +2798,7 @@ enum Dup { value }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainLabel for 'value' is not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `Group of DomainLabel for 'value' not singular Excludes~EnumType['False~Dup', 'False~Enum']`
 
 ### Simple\Invalid\domain-enum-undef-all.graphql+
 
@@ -2898,7 +2898,7 @@ domain Parent { number !1> }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRange for '1 >' is not singular Range['False', 'True']`
+- `Group of DomainRange for '1 >' not singular Range['False', 'True']`
 
 ### Simple\Invalid\domain-parent-self-more.graphql+
 
@@ -2994,7 +2994,7 @@ domain Parent { string !/a+/ }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
 
 ### Simple\Invalid\enum-dup-alias.graphql+
 
@@ -3018,7 +3018,7 @@ enum Parent { parent[alias] }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Parent`
-- `Aliases of EnumLabel for 'alias' is not singular Name['parent', 'test']`
+- `Aliases of EnumLabel for 'alias' not singular Name['parent', 'test']`
 
 ### Simple\Invalid\enum-parent-undef.graphql+
 
@@ -3205,7 +3205,7 @@ output Test { }
 ##### Expected Verify errors
 
 - `Multiple Types with name 'Test' can't be merged`
-- `Group of Type for 'Test' is not singular Type['Enum', 'Output']`
+- `Group of Type for 'Test' not singular Type['Enum', 'Output']`
 
 ## Specification
 
@@ -3653,7 +3653,7 @@ output _Setting {
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -3807,7 +3807,7 @@ output _OutputEnum {
 - `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 - `'_TypeSimple' not defined`
@@ -3974,7 +3974,7 @@ output _UnionMember {
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -4073,7 +4073,7 @@ output _Modifier<$kind> {
 
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_DomainKind' is not an Enum type`
+- `'_DomainKind' not an Enum type`
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
@@ -4151,7 +4151,7 @@ output _Field<$base> {
 - `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 - `'_TypeSimple' not defined`
@@ -4206,7 +4206,7 @@ output _Modifier<$kind> {
 
 ##### Expected Verify errors
 
-- `'_DomainKind' is not an Enum type`
+- `'_DomainKind' not an Enum type`
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
@@ -4237,7 +4237,7 @@ enum _Resolution { Parallel Sequential Single }
 - `'_Aliased' not defined`
 - `'_Modifiers' not defined`
 - `'_Type' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -4452,7 +4452,7 @@ output _DomainItemRegex {
 - `'_EnumValue' not defined`
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -4490,7 +4490,7 @@ output _DualTypeArg {
 - `'_Identifier' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 
@@ -4517,7 +4517,7 @@ output _EnumValue {
 - `'_Aliased' not defined`
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -4566,7 +4566,7 @@ output _InputParam {
 - `'_Modifiers' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 
@@ -4652,7 +4652,7 @@ output _OutputEnum {
 - `'_InputParam' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 - `'_TypeRef' not defined`
@@ -4679,6 +4679,6 @@ output _UnionMember {
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`

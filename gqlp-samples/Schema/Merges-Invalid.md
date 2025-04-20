@@ -11,19 +11,19 @@ object Test1 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of DualAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of InputAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputAlternate for 'Test1' is not singular Modifiers['', '[]']`
+- `Group of OutputAlternate for 'Test1' not singular Modifiers['', '[]']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### category-diff-mod.graphql+
@@ -37,7 +37,7 @@ output Test { }
 ##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
+- `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
 
 ### category-dup-alias.graphql+
 
@@ -64,7 +64,7 @@ output Output { }
 ##### Expected Verify errors
 
 - `Multiple Categories with name 'test' can't be merged`
-- `Group of SchemaCategory for 'test' is not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
+- `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
 
 ### directive-diff-option.graphql+
 
@@ -76,7 +76,7 @@ directive @Test { ( repeatable ) all }
 ##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged`
-- `Group of SchemaDirective for 'Test' is not singular Option['Repeatable', 'Unique']`
+- `Group of SchemaDirective for 'Test' not singular Option['Repeatable', 'Unique']`
 
 ### directive-diff-param.graphql+
 
@@ -89,7 +89,7 @@ input Test { }
 ##### Expected Verify errors
 
 - `Multiple Directives with name 'Test' can't be merged`
-- `Group of InputParam for 'Test' is not singular Modifiers['', '?']`
+- `Group of InputParam for 'Test' not singular Modifiers['', '?']`
 
 ### domain-diff-kind.graphql+
 
@@ -101,7 +101,7 @@ domain Test { number }
 ##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged`
-- `Group of Domain for 'Test' is not singular Domain['Number', 'String']`
+- `Group of Domain for 'Test' not singular Domain['Number', 'String']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### domain-dup-alias.graphql+
@@ -126,7 +126,7 @@ domain Test { string !/a+/ }
 ##### Expected Verify errors
 
 - `Multiple Domains with name 'Test' can't be merged`
-- `Group of DomainRegex for 'a+' is not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### enum-dup-alias.graphql+
@@ -152,7 +152,7 @@ enum Parent { parent }
 ##### Expected Verify errors
 
 - `Multiple Enums with name 'Test' can't be merged`
-- `Group of Enum for 'Test' is not singular Parent['', 'Parent']`
+- `Group of Enum for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### field-diff-mod.graphql+
@@ -165,19 +165,19 @@ object Test { field: Test[] }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### field-diff-type.graphql+
@@ -191,19 +191,19 @@ object Test1 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' is not singular ModifiedType['Test', 'Test1']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test1']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### option-diff-name.graphql+
@@ -240,5 +240,5 @@ union Parent { String }
 ##### Expected Verify errors
 
 - `Multiple Unions with name 'Test' can't be merged`
-- `Group of Union for 'Test' is not singular Parent['', 'Parent']`
+- `Group of Union for 'Test' not singular Parent['', 'Parent']`
 - `Multiple Types with name 'Test' can't be merged`

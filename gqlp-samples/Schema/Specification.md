@@ -471,7 +471,7 @@ output _Setting {
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -652,6 +652,7 @@ output _OutputEnum {
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -818,7 +819,7 @@ output _UnionMember {
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -917,7 +918,7 @@ output _Modifier<$kind:_ModifierKind> {
 
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_DomainKind' is not an Enum type`
+- `'_DomainKind' not an Enum type`
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
@@ -1007,6 +1008,7 @@ output _ForParam<$base:_ObjBase> {
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -1060,7 +1062,7 @@ output _Modifier<$kind:_ModifierKind> {
 
 ##### Expected Verify errors
 
-- `'_DomainKind' is not an Enum type`
+- `'_DomainKind' not an Enum type`
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
@@ -1091,7 +1093,7 @@ enum _Resolution { Parallel Sequential Single }
 - `'_Aliased' not defined`
 - `'_Modifiers' not defined`
 - `'_Type' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -1307,7 +1309,7 @@ output _DomainItemRegex {
 - `'_EnumValue' not defined`
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -1350,7 +1352,7 @@ output _DualTypeArg {
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 
@@ -1377,7 +1379,7 @@ output _EnumValue {
 - `'_Aliased' not defined`
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -1432,7 +1434,7 @@ output _InputParam {
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 - `'_TypeRef' not defined`
@@ -1526,7 +1528,7 @@ output _OutputEnum {
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 - `'_TypeRef' not defined`
@@ -1553,6 +1555,6 @@ output _UnionMember {
 - `'_Identifier' not defined`
 - `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
-- `'_TypeKind' is not an Enum type`
+- `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
