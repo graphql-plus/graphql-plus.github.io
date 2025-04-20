@@ -260,7 +260,9 @@ output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
-output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
+domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
+
+output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
             $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
@@ -476,7 +478,9 @@ output _Setting {
 ### Intro\_+Object.graphql+
 
 ```gqlp
-output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
+domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
+
+output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
             $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
@@ -648,7 +652,6 @@ output _OutputEnum {
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
-- `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
@@ -930,7 +933,9 @@ output _Modifier<$kind:_ModifierKind> {
 ### Intro_Base.graphql+
 
 ```gqlp
-output _TypeObject<$kind:_ObjectKind $parent:_ObjDescribed
+domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
+
+output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
             $typeParam:_ObjTypeParam $field:_Field $alternate:_Alternate> {
     : _ChildType<$kind $parent>
         typeParams: $typeParam[]
@@ -1002,7 +1007,6 @@ output _ForParam<$base:_ObjBase> {
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
-- `'_TypeKind' is not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
