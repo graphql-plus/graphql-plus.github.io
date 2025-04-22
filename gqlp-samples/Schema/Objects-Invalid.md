@@ -162,7 +162,7 @@ object Test { | Undef }
 ### constraint-undef.graphql+
 
 ```gqlp
-object ObjName<$type:Undef> { | $type }
+object Test<$type:Undef> { | $type }
 ```
 
 ##### Expected Verify errors Dual
@@ -176,6 +176,26 @@ object ObjName<$type:Undef> { | $type }
 ##### Expected Verify errors Output
 
 - `'Undef' not defined`
+
+### constraint-wrong.graphql+
+
+```gqlp
+object Ref { | Test<Dom> }
+object Test<$ref:String> { | $ref }
+domain Dom { Number }
+```
+
+##### Expected Verify errors Dual
+
+- `'Dom' not match 'String'`
+
+##### Expected Verify errors Input
+
+- `'Dom' not match 'String'`
+
+##### Expected Verify errors Output
+
+- `'Dom' not match 'String'`
 
 ### dual-alt-input.graphql+
 
