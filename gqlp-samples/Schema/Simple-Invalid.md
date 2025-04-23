@@ -406,7 +406,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### unique-type-alias.graphql+
 

@@ -1528,8 +1528,6 @@ output _OutputEnum {
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
-- `'_TypeKind' not an Enum type`
-- `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
 - `'_TypeRef' not defined`
 

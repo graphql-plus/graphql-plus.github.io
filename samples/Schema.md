@@ -1429,7 +1429,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-alt-output.graphql+
 
@@ -1440,7 +1440,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-alt-param-input.graphql+
 
@@ -1452,7 +1452,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-alt-param-output.graphql+
 
@@ -1464,7 +1464,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-field-input.graphql+
 
@@ -1475,7 +1475,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-field-output.graphql+
 
@@ -1486,7 +1486,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-field-param-input.graphql+
 
@@ -1498,7 +1498,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-field-param-output.graphql+
 
@@ -1510,7 +1510,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-parent-input.graphql+
 
@@ -1544,7 +1544,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\dual-parent-param-output.graphql+
 
@@ -1556,7 +1556,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\field-alias.graphql+
 
@@ -1901,7 +1901,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\input-field-null.graphql+
 
@@ -1922,7 +1922,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Output`
+- `Type kind mismatch`
 
 ### Objects\Invalid\input-parent-output.graphql+
 
@@ -1944,7 +1944,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\output-enum-bad.graphql+
 
@@ -2001,7 +2001,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Objects\Invalid\output-generic-arg-enum-wrong.graphql+
 
@@ -3182,7 +3182,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch for Bad. Found Input`
+- `Type kind mismatch`
 
 ### Simple\Invalid\unique-type-alias.graphql+
 
