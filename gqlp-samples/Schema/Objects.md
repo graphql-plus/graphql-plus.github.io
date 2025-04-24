@@ -329,12 +329,30 @@ input Name { field: Number = 0 }
 input Name { field: String = '' }
 ```
 
+### output-constraint-enum-parent.graphql+
+
+```gqlp
+output Name { | RefName<name> }
+output RefName<$type:ParentName> { field: $type }
+enum EnumName { :ParentName name }
+enum ParentName { parentName }
+```
+
 ### output-constraint-enum.graphql+
 
 ```gqlp
 output Name { | RefName<name> }
 output RefName<$type:EnumName> { field: $type }
 enum EnumName { name }
+```
+
+### output-constraint-parent-enum.graphql+
+
+```gqlp
+output Name { | RefName<parentName> }
+output RefName<$type:EnumName> { field: $type }
+enum EnumName { :ParentName name }
+enum ParentName { parentName }
 ```
 
 ### output-descr-param.graphql+
