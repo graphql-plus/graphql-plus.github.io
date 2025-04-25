@@ -329,6 +329,15 @@ input Name { field: Number = 0 }
 input Name { field: String = '' }
 ```
 
+### output-constraint-dom-enum.graphql+
+
+```gqlp
+output Name { | RefName<name> }
+output RefName<$type:JustName> { field: $type }
+enum EnumName { name other }
+domain JustName { enum EnumName.name }
+```
+
 ### output-constraint-enum-parent.graphql+
 
 ```gqlp
