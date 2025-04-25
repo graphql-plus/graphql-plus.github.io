@@ -364,11 +364,6 @@ output _ObjConstraint<$kind:_ObjectKind> {
     : _TypeRef<$kind>
     }
 
-output _ObjType<$base:_ObjBase> {
-    | _BaseType<_TypeKind.Internal>
-    | _ObjConstraint<$base>
-    }
-
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
@@ -814,11 +809,6 @@ output _ObjTypeParam<$kind:_ObjectKind> {
 
 output _ObjConstraint<$kind:_ObjectKind> {
     : _TypeRef<$kind>
-    }
-
-output _ObjType<$base:_ObjBase> {
-    | _BaseType<_TypeKind.Internal>
-    | _ObjConstraint<$base>
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {

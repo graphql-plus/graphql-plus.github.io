@@ -281,11 +281,6 @@ output _ObjConstraint<$kind:_ObjectKind> {
     : _TypeRef<$kind>
     }
 
-output _ObjType<$base:_ObjBase> {
-    | _BaseType<_TypeKind.Internal>
-    | _ObjConstraint<$base>
-    }
-
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
@@ -499,11 +494,6 @@ output _ObjConstraint<$kind:_ObjectKind> {
     : _TypeRef<$kind>
     }
 
-output _ObjType<$base:_ObjBase> {
-    | _BaseType<_TypeKind.Internal>
-    | _ObjConstraint<$base>
-    }
-
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
@@ -644,7 +634,6 @@ output _OutputEnum {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_BaseType' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Constant' not defined`
@@ -955,11 +944,6 @@ output _ObjConstraint<$kind:_ObjectKind> {
     : _TypeRef<$kind>
     }
 
-output _ObjType<$base:_ObjBase> {
-    | _BaseType<_TypeKind.Internal>
-    | _ObjConstraint<$base>
-    }
-
 output _ObjBase<$arg:_ObjTypeArg> {
     : _Described
         typeArgs: $arg[]
@@ -1001,7 +985,6 @@ output _ForParam<$base:_ObjBase> {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_BaseType' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Described' not defined`
