@@ -377,8 +377,8 @@ output _ObjTypeParam {
         typeParam: _TypeParam
 }
 
-output _Alternate<$arg> {
-    : _ObjBase<$arg>
+output _Alternate<$base> {
+      type: $base
       collections: _Collections[]
     }
 
@@ -411,8 +411,7 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualTypeArg>
-        dual: _Identifier
+    : _Alternate<_DualBase>
     }
 
 output _DualTypeArg {
@@ -440,8 +439,7 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputTypeArg>
-        input: _Identifier
+    : _Alternate<_InputBase>
     }
 
 output _InputTypeArg {
@@ -476,8 +474,7 @@ output _OutputField {
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputTypeArg>
-        output: _Identifier
+    : _Alternate<_OutputBase>
     }
 
 output _OutputTypeArg {
@@ -802,8 +799,8 @@ output _ObjTypeParam {
         typeParam: _TypeParam
 }
 
-output _Alternate<$arg> {
-    : _ObjBase<$arg>
+output _Alternate<$base> {
+      type: $base
       collections: _Collections[]
     }
 
@@ -832,8 +829,7 @@ output _DualField {
     }
 
 output _DualAlternate {
-    : _Alternate<_DualTypeArg>
-        dual: _Identifier
+    : _Alternate<_DualBase>
     }
 
 output _DualTypeArg {
@@ -857,8 +853,7 @@ output _InputField {
     }
 
 output _InputAlternate {
-    : _Alternate<_InputTypeArg>
-        input: _Identifier
+    : _Alternate<_InputBase>
     }
 
 output _InputTypeArg {
@@ -889,8 +884,7 @@ output _OutputField {
     }
 
 output _OutputAlternate {
-    : _Alternate<_OutputTypeArg>
-        output: _Identifier
+    : _Alternate<_OutputBase>
     }
 
 output _OutputTypeArg {
