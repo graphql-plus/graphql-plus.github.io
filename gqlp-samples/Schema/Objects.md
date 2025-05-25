@@ -190,6 +190,18 @@ object RefObjName<$ref> { | $ref }
 dual AltObjName { alt: Number | String }
 ```
 
+### generic-alt-mod-param.graphql+
+
+```gqlp
+object RefObjName<$ref $mod> { | $ref[$mod] }
+```
+
+### generic-alt-mod-String.graphql+
+
+```gqlp
+object RefObjName<$ref> { | $ref[*] }
+```
+
 ### generic-alt-param.graphql+
 
 ```gqlp
