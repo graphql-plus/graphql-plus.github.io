@@ -353,7 +353,7 @@ Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Type )? Obj_Field+
 Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
 
-Obj_Alternate = '|' Description? ( '$'typeParam | Obj_Base Collections? )
+Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object
@@ -361,26 +361,26 @@ Obj_TypeArg =  '$'typeParam | Internal | Simple | object
 Obj_TypeParams = '<' ( Description? '$'typeParam )+ '>'
 ```
 
+An Object type is defined as either:
+
+- an object definition followed by zero or more Alternate object Type references, or
+- one or more Alternate object Type references
+
+Object types can be merged if their parent Types match.
+
+Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
+
+#### Type parameters and Type arguments
+
 An Object type may have Type parameters.
 Each Type parameter may be preceded by description strings.
 
 An Object type with Type parameters is called a Generic type.
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
+Note that Generic types CANNOT be used as Type arguments.
 
-An Object type is defined as either:
-
-- an object definition followed by zero or more Alternate object Type references, or
-- one or more Alternate object Type references
-
-The order of Alternates is significant.
-Alternates may include Collections, but not nullability.
-An Alternate must not reference itself, even recursively.
-
-An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
-If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
-If a Type argument is an object Type it may NOT have Type Arguments.
+#### Object definition and Fields
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -396,17 +396,24 @@ A Field is defined as:
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
+Fields can be merged if their Modified Types match.
+
+#### Object Alternates
+
+The order of Alternates is significant.
+Alternates may include Collections, but not nullability.
+An Alternate must not reference itself, even recursively.
+
+An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+If a reference is an object Type it may have Type Arguments.
+Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
+If a Type argument is an object Type it may NOT have Type Arguments.
+
 An Alternate is defined as:
 
 - optional description strings
 - a type parameter or object type reference, the Alternate's Type
 - zero or more Collections
-
-Object types can be merged if their parent Types match.
-
-Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
-
-Fields can be merged if their Modified Types match.
 
 Alternates are merged by Type and can be merged if their Collections match.
 
@@ -501,11 +508,12 @@ An Input Field redefines an object Field as follows:
 A Default of `null` is only allowed on Optional fields.
 The Default must be compatible with the Modified Type of the field.
 
-Input Parameters define one or more Alternate Input or Simple types,
+Input Parameters define one or more Alternate Input, Dual or Simple types,
 possibly with a description string, Modifiers and/or a Default.
 
 The order of Alternates is significant.
 Alternates are merged by their type and can be merged if their Modifiers match.
+
 Default values are merged as Constant values.
 
 ### Output type
@@ -606,7 +614,7 @@ Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Type )? Obj_Field+
 Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
 
-Obj_Alternate = '|' Description? ( '$'typeParam | Obj_Base Collections? )
+Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object
