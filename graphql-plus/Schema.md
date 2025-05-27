@@ -336,7 +336,7 @@ Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object
-Obj_TypeParams = '<' ( Description? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 ```
 
@@ -353,7 +353,7 @@ Type parameters are considered part of the Object Parent definition and thus not
 
 An Object type may have Type parameters.
 Each Type parameter may be preceded by description strings.
-Each Type parameter may have a Constraint specifying the Type any argument must be or include.
+Each Type parameter must have a Constraint specifying the Type any argument must be assignable to.
 Constraints do not have Type Arguments.
 
 An Object type with Type parameters is called a Generic type.
@@ -361,15 +361,18 @@ A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
 Note that Generic types CANNOT be used as Type arguments.
 
-#### Object definition and Fields
-
 If the Type parameter corresponding to a Type argument has a Constraint,
-then the Type parameter must match the Constraint as follows:
+then the Type argument is assignable to the Constraint if any of the following are true:
 
-- The Type parameter is the same type as the Constraint, excluding any Type arguments
-- The Type parameter descends from the Constraint
-- The Constraint is an Object type with Alternates and the Type parameter matches one of these Alternates
-- The Constraint is a Union type and the Type parameter matches one of the Members of the Union
+- The Constraint is the same type as the Type argument
+- The Constraint is a parent (or grandparent etc) of the Type argument
+- The Constraint is a Simple type and the Type argument is an equivalent Domain type
+- The Constraint is a Union type and the Type argument is assignable to a Union Member
+- The Constraint is an Object type with Alternates and the Type argument is assignable to an Alternate
+
+While checking for assignability any Type parameters are presumed to be their Constraints
+
+#### Object definition and Fields
 
 A object is defined with an optional Parent Type and one or more Fields.
 
@@ -602,7 +605,7 @@ Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object
-Obj_TypeParams = '<' ( Description? '$'typeParam ( ':' Obj_Constraint )? )+ '>'
+Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 
 In_Field = Description? field fieldAlias* ':' In_TypeDefault

@@ -357,7 +357,7 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
 
 output _ObjTypeParam<$kind:_ObjectKind> {
     : _Named
-        constraint: _ObjConstraint<$kind>?
+        constraint: _ObjConstraint<$kind>
     }
 
 output _ObjConstraint<$kind:_ObjectKind> {
@@ -801,7 +801,7 @@ output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
 
 output _ObjTypeParam<$kind:_ObjectKind> {
     : _Named
-        constraint: _ObjConstraint<$kind>?
+        constraint: _ObjConstraint<$kind>
     }
 
 output _ObjConstraint<$kind:_ObjectKind> {
