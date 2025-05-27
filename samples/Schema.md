@@ -3468,7 +3468,7 @@ enum _TypeKind { :_SimpleKind Dual Input Output }
 output _TypeRef<$kind> {
     : _Described
         typeKind: $kind
-        name: _Identifier
+        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -4226,7 +4226,7 @@ enum _TypeKind { :_SimpleKind Dual Input Output }
 output _TypeRef<$kind> {
     : _Described
         typeKind: $kind
-        name: _Identifier
+        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -4489,7 +4489,7 @@ enum _TypeKind { :_SimpleKind Dual Input Output }
 output _TypeRef<$kind> {
     : _Described
         typeKind: $kind
-        name: _Identifier
+        typeName: _Identifier
 }
 
 output _TypeSimple {
