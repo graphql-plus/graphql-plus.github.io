@@ -148,11 +148,11 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+output _TypeRef<$kind:_TypeKind> {
     : _Described
         typeKind: $kind
-        name: _Identifier
-    }
+        typeName: _Identifier
+}
 
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
@@ -632,11 +632,11 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind> {
+output _TypeRef<$kind:_TypeKind> {
     : _Described
         typeKind: $kind
-        name: _Identifier
-    }
+        typeName: _Identifier
+}
 
 output _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
