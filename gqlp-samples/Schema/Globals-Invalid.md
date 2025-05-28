@@ -14,7 +14,7 @@
 
 ```gqlp
 category { Test }
-output Test<$a> { | $a }
+output Test<$a:_Output> { | $a }
 ```
 
 ##### Expected Verify errors

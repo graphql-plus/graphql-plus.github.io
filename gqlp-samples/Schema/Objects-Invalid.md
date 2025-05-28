@@ -223,7 +223,7 @@ output Bad { }
 
 ```gqlp
 dual Test { | Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 input Bad { }
 ```
 
@@ -235,7 +235,7 @@ input Bad { }
 
 ```gqlp
 dual Test { | Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 output Bad { }
 ```
 
@@ -269,7 +269,7 @@ output Bad { }
 
 ```gqlp
 dual Test { field: Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 input Bad { }
 ```
 
@@ -281,7 +281,7 @@ input Bad { }
 
 ```gqlp
 dual Test { field: Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 output Bad { }
 ```
 
@@ -315,7 +315,7 @@ output Bad { }
 
 ```gqlp
 dual Test { :Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 input Bad { }
 ```
 
@@ -327,7 +327,7 @@ input Bad { }
 
 ```gqlp
 dual Test { :Param<Bad> }
-dual Param<$T> { | $T }
+dual Param<$T:*> { | $T }
 output Bad { }
 ```
 
@@ -523,7 +523,7 @@ object Test { | $type }
 
 ```gqlp
 object Test { field: Ref }
-object Ref<$ref> { | $ref }
+object Ref<$ref:*> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -541,7 +541,7 @@ object Ref<$ref> { | $ref }
 ### generic-arg-more.graphql+
 
 ```gqlp
-object Test<$type> { field: Ref<$type> }
+object Test<$type:*> { field: Ref<$type:*> }
 object Ref { }
 ```
 
@@ -560,8 +560,8 @@ object Ref { }
 ### generic-arg-undef.graphql+
 
 ```gqlp
-object Test { field: Ref<$type> }
-object Ref<$ref> { | $ref }
+object Test { field: Ref<$type:*> }
+object Ref<$ref:*> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -598,7 +598,7 @@ object Test { field: $type }
 
 ```gqlp
 object Test { field: Ref<Test1> }
-object Ref<$ref> { | $ref }
+object Ref<$ref:*> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -617,7 +617,7 @@ object Ref<$ref> { | $ref }
 
 ```gqlp
 object Test { :Ref }
-object Ref<$ref> { | $ref }
+object Ref<$ref:*> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -672,7 +672,7 @@ object Test { :$type }
 ### generic-unused.graphql+
 
 ```gqlp
-object Test<$type> { }
+object Test<$type:*> { }
 ```
 
 ##### Expected Verify errors Dual
@@ -801,8 +801,8 @@ input Bad { }
 ### output-generic-arg-enum-wrong.graphql+
 
 ```gqlp
-output Test<$arg> { | Ref<$arg.unknown> }
-output Ref<$type> { field: $type }
+output Test<$arg:*> { | Ref<$arg.unknown> }
+output Ref<$type:*> { field: $type }
 ```
 
 ##### Expected Verify errors
@@ -816,7 +816,7 @@ output Ref<$type> { field: $type }
 
 ```gqlp
 output Test { | Ref<Boolean.unknown> }
-output Ref<$type> { field: $type }
+output Ref<$type:*> { field: $type }
 ```
 
 ##### Expected Verify errors
@@ -827,7 +827,7 @@ output Ref<$type> { field: $type }
 
 ```gqlp
 output Test { | Ref<Wrong.unknown> }
-output Ref<$type> { field: $type }
+output Ref<$type:*> { field: $type }
 output Wrong { }
 ```
 
