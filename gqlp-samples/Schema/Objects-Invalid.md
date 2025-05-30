@@ -223,25 +223,27 @@ output Bad { }
 
 ```gqlp
 dual Test { | Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Alternate. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### dual-alt-param-output.graphql+
 
 ```gqlp
 dual Test { | Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Alternate. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### dual-field-input.graphql+
 
@@ -269,25 +271,27 @@ output Bad { }
 
 ```gqlp
 dual Test { field: Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Field. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### dual-field-param-output.graphql+
 
 ```gqlp
 dual Test { field: Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Field. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### dual-parent-input.graphql+
 
@@ -315,25 +319,27 @@ output Bad { }
 
 ```gqlp
 dual Test { :Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Parent. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### dual-parent-param-output.graphql+
 
 ```gqlp
 dual Test { :Param<Bad> }
-dual Param<$T:*> { | $T }
+dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
 ##### Expected Verify errors
 
 - `Type kind mismatch`
+- `Invalid Dual Parent. Invalid Constraint on Param. 'Bad' not match '_Dual'`
 
 ### field-alias.graphql+
 
@@ -523,7 +529,7 @@ object Test { | $type }
 
 ```gqlp
 object Test { field: Ref }
-object Ref<$ref:*> { | $ref }
+object Ref<$ref:String> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -541,7 +547,7 @@ object Ref<$ref:*> { | $ref }
 ### generic-arg-more.graphql+
 
 ```gqlp
-object Test<$type:*> { field: Ref<$type:*> }
+object Test<$type:String> { field: Ref<$type> }
 object Ref { }
 ```
 
@@ -560,8 +566,8 @@ object Ref { }
 ### generic-arg-undef.graphql+
 
 ```gqlp
-object Test { field: Ref<$type:*> }
-object Ref<$ref:*> { | $ref }
+object Test { field: Ref<$type> }
+object Ref<$ref:String> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -598,26 +604,29 @@ object Test { field: $type }
 
 ```gqlp
 object Test { field: Ref<Test1> }
-object Ref<$ref:*> { | $ref }
+object Ref<$ref:String> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
 
 - `'Test1' not defined`
+- `'Test1' not match 'String'`
 
 ##### Expected Verify errors Input
 
 - `'Test1' not defined`
+- `'Test1' not match 'String'`
 
 ##### Expected Verify errors Output
 
 - `'Test1' not defined`
+- `'Test1' not match 'String'`
 
 ### generic-parent-less.graphql+
 
 ```gqlp
 object Test { :Ref }
-object Ref<$ref:*> { | $ref }
+object Ref<$ref:String> { | $ref }
 ```
 
 ##### Expected Verify errors Dual
@@ -672,7 +681,7 @@ object Test { :$type }
 ### generic-unused.graphql+
 
 ```gqlp
-object Test<$type:*> { }
+object Test<$type:String> { }
 ```
 
 ##### Expected Verify errors Dual
@@ -801,8 +810,8 @@ input Bad { }
 ### output-generic-arg-enum-wrong.graphql+
 
 ```gqlp
-output Test<$arg:*> { | Ref<$arg.unknown> }
-output Ref<$type:*> { field: $type }
+output Test<$arg:String> { | Ref<$arg.unknown> }
+output Ref<$type:String> { field: $type }
 ```
 
 ##### Expected Verify errors
@@ -816,7 +825,7 @@ output Ref<$type:*> { field: $type }
 
 ```gqlp
 output Test { | Ref<Boolean.unknown> }
-output Ref<$type:*> { field: $type }
+output Ref<$type:_Enum> { field: $type }
 ```
 
 ##### Expected Verify errors
@@ -827,13 +836,14 @@ output Ref<$type:*> { field: $type }
 
 ```gqlp
 output Test { | Ref<Wrong.unknown> }
-output Ref<$type:*> { field: $type }
+output Ref<$type:_Enum> { field: $type }
 output Wrong { }
 ```
 
 ##### Expected Verify errors
 
 - `'Wrong' not an Enum type`
+- `Invalid Output Alternate. Invalid Constraint on Ref. 'Wrong' not match '_Enum'`
 
 ### output-param-diff.graphql+
 

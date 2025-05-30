@@ -67,7 +67,7 @@ output Output { }
 
 ```gqlp
 object Test<$type:0> { num: $type }
-object Test<$type:*> { str: $type }
+object Test<$type:String> { str: $type }
 ```
 
 ##### Expected Verify errors Dual

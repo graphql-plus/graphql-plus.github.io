@@ -35,6 +35,7 @@ input _TypeFilter {
     : _Filter
         kinds: _TypeKind[]
     }
+
 dual _Aliased {
     : _Named
         aliases: _Identifier[]
@@ -48,6 +49,7 @@ dual _Named {
 dual _Described {
         description: String[]
     }
+
 output _Categories {
         category: _Category
         type: _Type
@@ -63,6 +65,7 @@ output _Category {
     }
 
 enum _Resolution { Parallel Sequential Single }
+
 output _Directives {
         directive: _Directive
         type: _Type
@@ -79,10 +82,12 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
 output _Setting {
     : _Named
         value: _Constant
     }
+
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
@@ -126,6 +131,13 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
+
+output _Internal {
+    | Null
+    | Object
+    | Void
+    }
+
 output _Constant {
     | _Simple
     | _ConstantList
@@ -133,10 +145,10 @@ output _Constant {
     }
 
 output _Simple {
-    | Boolean
+    | _DomainValue<_DomainKind.Boolean Boolean>
+    | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
-    | _EnumValue
     }
 
 output _ConstantList {
@@ -169,6 +181,7 @@ enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 output _Modifier<$kind:_ModifierKind> {
         modifierKind: $kind
     }
+
 enum _DomainKind { Boolean Enum Number String }
 
 output _TypeDomain {
@@ -198,10 +211,18 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value> {
+output _DomainValue<$kind:_DomainKind $value:_Basic> {
     : _DomainRef<$kind>
         value: $value
     }
+
+output _Basic {
+    | Boolean
+    | _EnumValue
+    | Number
+    | String
+    }
+
 dual _DomainTrueFalse {
     : _BaseDomainItem
         value: Boolean
@@ -210,6 +231,7 @@ dual _DomainTrueFalse {
 output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
+
 output _DomainLabel {
     : _BaseDomainItem
         label: _EnumValue
@@ -218,6 +240,7 @@ output _DomainLabel {
 output _DomainItemLabel {
     : _DomainItem<_DomainLabel>
     }
+
 dual _DomainRange {
     : _BaseDomainItem
         lower: Number?
@@ -227,6 +250,7 @@ dual _DomainRange {
 output _DomainItemRange {
     : _DomainItem<_DomainRange>
     }
+
 dual _DomainRegex {
     : _BaseDomainItem
         pattern: String
@@ -235,6 +259,7 @@ dual _DomainRegex {
 output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
+
 output _TypeEnum {
     : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
     }
@@ -248,6 +273,7 @@ output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
     }
+
 output _TypeUnion {
     : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
@@ -260,6 +286,7 @@ output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
+
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
 output _TypeObject<$kind:_ObjectKind $parent:_ObjBase
@@ -317,6 +344,7 @@ output _ForParam<$base:_ObjBase> {
     | _Alternate<$base>
     | _Field<$base>
     }
+
 output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
@@ -342,6 +370,7 @@ output _DualTypeArg {
     : _ObjTypeArg
         dual: _Identifier
     }
+
 output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
@@ -376,6 +405,7 @@ output _InputParam {
         modifiers: _Modifiers[]
         default: _Constant?
     }
+
 output _TypeOutput {
     : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
@@ -413,6 +443,7 @@ output _OutputEnum {
         field: _Identifier
         label: _Identifier
     }
+
 ```
 
 ### Intro\_+Global.graphql+
@@ -433,6 +464,7 @@ output _Category {
     }
 
 enum _Resolution { Parallel Sequential Single }
+
 output _Directives {
         directive: _Directive
         type: _Type
@@ -449,10 +481,12 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
 output _Setting {
     : _Named
         value: _Constant
     }
+
 ```
 
 ##### Expected Verify errors
@@ -527,6 +561,7 @@ output _ForParam<$base:_ObjBase> {
     | _Alternate<$base>
     | _Field<$base>
     }
+
 output _TypeDual {
     : _TypeObject<_TypeKind.Dual _DualBase _DualTypeParam _DualField _DualAlternate>
     }
@@ -552,6 +587,7 @@ output _DualTypeArg {
     : _ObjTypeArg
         dual: _Identifier
     }
+
 output _TypeInput {
     : _TypeObject<_TypeKind.Input _InputBase _InputTypeParam _InputField _InputAlternate>
     }
@@ -586,6 +622,7 @@ output _InputParam {
         modifiers: _Modifiers[]
         default: _Constant?
     }
+
 output _TypeOutput {
     : _TypeObject<_TypeKind.Output _OutputBase _OutputTypeParam _OutputField _OutputAlternate>
     }
@@ -623,6 +660,7 @@ output _OutputEnum {
         field: _Identifier
         label: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors
@@ -637,6 +675,7 @@ output _OutputEnum {
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
+- `'_TypeKind' not match '_ObjectKind'`
 - `'_TypeRef' not defined`
 
 ### Intro\_+Schema.graphql+
@@ -674,6 +713,7 @@ input _TypeFilter {
     : _Filter
         kinds: _TypeKind[]
     }
+
 dual _Aliased {
     : _Named
         aliases: _Identifier[]
@@ -687,6 +727,7 @@ dual _Named {
 dual _Described {
         description: String[]
     }
+
 ```
 
 ##### Expected Verify errors
@@ -730,10 +771,18 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value> {
+output _DomainValue<$kind:_DomainKind $value:_Basic> {
     : _DomainRef<$kind>
         value: $value
     }
+
+output _Basic {
+    | Boolean
+    | _EnumValue
+    | Number
+    | String
+    }
+
 dual _DomainTrueFalse {
     : _BaseDomainItem
         value: Boolean
@@ -742,6 +791,7 @@ dual _DomainTrueFalse {
 output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
+
 output _DomainLabel {
     : _BaseDomainItem
         label: _EnumValue
@@ -750,6 +800,7 @@ output _DomainLabel {
 output _DomainItemLabel {
     : _DomainItem<_DomainLabel>
     }
+
 dual _DomainRange {
     : _BaseDomainItem
         lower: Number?
@@ -759,6 +810,7 @@ dual _DomainRange {
 output _DomainItemRange {
     : _DomainItem<_DomainRange>
     }
+
 dual _DomainRegex {
     : _BaseDomainItem
         pattern: String
@@ -767,6 +819,7 @@ dual _DomainRegex {
 output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
+
 output _TypeEnum {
     : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
     }
@@ -780,6 +833,7 @@ output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
     }
+
 output _TypeUnion {
     : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
@@ -792,6 +846,7 @@ output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors
@@ -852,6 +907,13 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
+
+output _Internal {
+    | Null
+    | Object
+    | Void
+    }
+
 output _Constant {
     | _Simple
     | _ConstantList
@@ -859,10 +921,10 @@ output _Constant {
     }
 
 output _Simple {
-    | Boolean
+    | _DomainValue<_DomainKind.Boolean Boolean>
+    | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
-    | _EnumValue
     }
 
 output _ConstantList {
@@ -895,6 +957,7 @@ enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 output _Modifier<$kind:_ModifierKind> {
         modifierKind: $kind
     }
+
 ```
 
 ##### Expected Verify errors
@@ -907,6 +970,7 @@ output _Modifier<$kind:_ModifierKind> {
 - `'_EnumValue' not defined`
 - `'_Identifier' not defined`
 - `'_Named' not defined`
+- `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
 - `'_TypeDual' not defined`
 - `'_TypeEnum' not defined`
@@ -974,6 +1038,7 @@ output _ForParam<$base:_ObjBase> {
     | _Alternate<$base>
     | _Field<$base>
     }
+
 ```
 
 ##### Expected Verify errors
@@ -992,6 +1057,12 @@ output _ForParam<$base:_ObjBase> {
 ### Intro_Built-In.graphql+
 
 ```gqlp
+output _Internal {
+    | Null
+    | Object
+    | Void
+    }
+
 output _Constant {
     | _Simple
     | _ConstantList
@@ -999,10 +1070,10 @@ output _Constant {
     }
 
 output _Simple {
-    | Boolean
+    | _DomainValue<_DomainKind.Boolean Boolean>
+    | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
-    | _EnumValue
     }
 
 output _ConstantList {
@@ -1035,6 +1106,7 @@ enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 output _Modifier<$kind:_ModifierKind> {
         modifierKind: $kind
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1063,6 +1135,7 @@ output _Category {
     }
 
 enum _Resolution { Parallel Sequential Single }
+
 ```
 
 ##### Expected Verify errors
@@ -1120,6 +1193,7 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1128,6 +1202,7 @@ output _TypeSimple {
 - `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Named' not defined`
+- `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
 - `'_TypeDual' not defined`
 - `'_TypeEnum' not defined`
@@ -1170,6 +1245,7 @@ input _TypeFilter {
     : _Filter
         kinds: _TypeKind[]
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1200,6 +1276,7 @@ output _Directive {
     }
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
+
 
 ```
 
@@ -1241,10 +1318,18 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value> {
+output _DomainValue<$kind:_DomainKind $value:_Basic> {
     : _DomainRef<$kind>
         value: $value
     }
+
+output _Basic {
+    | Boolean
+    | _EnumValue
+    | Number
+    | String
+    }
+
 dual _DomainTrueFalse {
     : _BaseDomainItem
         value: Boolean
@@ -1253,6 +1338,7 @@ dual _DomainTrueFalse {
 output _DomainItemTrueFalse {
     : _DomainItem<_DomainTrueFalse>
     }
+
 output _DomainLabel {
     : _BaseDomainItem
         label: _EnumValue
@@ -1261,6 +1347,7 @@ output _DomainLabel {
 output _DomainItemLabel {
     : _DomainItem<_DomainLabel>
     }
+
 dual _DomainRange {
     : _BaseDomainItem
         lower: Number?
@@ -1270,6 +1357,7 @@ dual _DomainRange {
 output _DomainItemRange {
     : _DomainItem<_DomainRange>
     }
+
 dual _DomainRegex {
     : _BaseDomainItem
         pattern: String
@@ -1278,6 +1366,7 @@ dual _DomainRegex {
 output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1318,6 +1407,7 @@ output _DualTypeArg {
     : _ObjTypeArg
         dual: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1348,6 +1438,7 @@ output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1396,6 +1487,7 @@ output _InputParam {
         modifiers: _Modifiers[]
         default: _Constant?
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1430,6 +1522,7 @@ dual _Named {
 dual _Described {
         description: String[]
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1443,6 +1536,7 @@ output _Setting {
     : _Named
         value: _Constant
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1490,6 +1584,7 @@ output _OutputEnum {
         field: _Identifier
         label: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors
@@ -1522,6 +1617,7 @@ output _UnionMember {
     : _UnionRef
         union: _Identifier
     }
+
 ```
 
 ##### Expected Verify errors

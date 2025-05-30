@@ -195,7 +195,7 @@ object ObjNameType { }
 
 ```gqlp
 object ObjName<$type:String> { field: $type }
-object ObjName<$type:*> { str: $type }
+object ObjName<$type:String> { str: $type }
 ```
 
 ### object-field-alias.graphql+
@@ -210,7 +210,7 @@ object FldObjName { }
 
 ```gqlp
 object ObjName { field: String }
-object ObjName { field: * }
+object ObjName { field: String }
 ```
 
 ### object-field.graphql+
@@ -224,22 +224,22 @@ object FldObjName { }
 ### object-param-constraint.graphql+
 
 ```gqlp
-object ObjName<$test:*> { test: $test }
-object ObjName<$test:*> { type: $test }
+object ObjName<$test:String> { test: $test }
+object ObjName<$test:String> { type: $test }
 ```
 
 ### object-param-dup.graphql+
 
 ```gqlp
-object ObjName<$test:*> { test: $test }
-object ObjName<$test:*> { type: $test }
+object ObjName<$test:String> { test: $test }
+object ObjName<$test:String> { type: $test }
 ```
 
 ### object-param.graphql+
 
 ```gqlp
-object ObjName<$test:*> { test: $test }
-object ObjName<$type:*> { type: $type }
+object ObjName<$test:String> { test: $test }
+object ObjName<$type:String> { type: $type }
 ```
 
 ### object-parent.graphql+
@@ -314,13 +314,6 @@ union Name [UnA2] { Number }
 ```gqlp
 union Name { Boolean }
 union Name { Number }
-```
-
-### union-same-alias.graphql+
-
-```gqlp
-union Name { Boolean }
-union Name { ^ }
 ```
 
 ### union-same-parent.graphql+

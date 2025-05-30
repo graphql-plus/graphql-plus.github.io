@@ -165,6 +165,12 @@ output _TypeSimple {
 ### Built-In types
 
 ```gqlp
+output _Internal {
+    | Null
+    | Object
+    | Void
+    }
+
 output _Constant {
     | _Simple
     | _ConstantList
@@ -172,10 +178,10 @@ output _Constant {
     }
 
 output _Simple {
-    | Boolean
+    | _DomainValue<_DomainKind.Boolean Boolean>
+    | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
-    | _EnumValue
     }
 
 output _ConstantList {
@@ -244,9 +250,16 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value> {
+output _DomainValue<$kind:_DomainKind $value:_Basic> {
     : _DomainRef<$kind>
         value: $value
+    }
+
+output _Basic {
+    | Boolean
+    | _EnumValue
+    | Number
+    | String
     }
 ```
 
@@ -645,6 +658,12 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
+output _Internal {
+    | Null
+    | Object
+    | Void
+    }
+
 output _Constant {
     | _Simple
     | _ConstantList
@@ -652,10 +671,10 @@ output _Constant {
     }
 
 output _Simple {
-    | Boolean
+    | _DomainValue<_DomainKind.Boolean Boolean>
+    | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
-    | _EnumValue
     }
 
 output _ConstantList {
@@ -718,9 +737,16 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value> {
+output _DomainValue<$kind:_DomainKind $value:_Basic> {
     : _DomainRef<$kind>
         value: $value
+    }
+
+output _Basic {
+    | Boolean
+    | _EnumValue
+    | Number
+    | String
     }
 
 dual _DomainTrueFalse {
