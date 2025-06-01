@@ -284,7 +284,7 @@ dual AltObjName { alt: Number | String }
 ### generic-parent-enum-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<EnumName> }
+object ObjName { :FieldObjName<EnumName> }
 object FieldObjName<$ref:ParentName> { field: $ref }
 enum EnumName { :ParentName nameLabel }
 enum ParentName { nameParent }
@@ -309,7 +309,7 @@ object AltObjName { alt: Number | String }
 ### generic-parent-simple-enum.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<EnumName> }
+object ObjName { :FieldObjName<EnumName> }
 object FieldObjName<$ref:_Simple> { field: $ref }
 enum EnumName { name }
 ```
@@ -317,7 +317,7 @@ enum EnumName { name }
 ### generic-parent-string-dom.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<DomName> }
+object ObjName { :FieldObjName<DomName> }
 object FieldObjName<$ref:String> { field: $ref }
 domain DomName { string /\w+/ }
 ```
