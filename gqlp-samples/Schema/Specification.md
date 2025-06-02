@@ -139,12 +139,12 @@ output _Internal {
     }
 
 output _Constant {
-    | _Simple
+    | _SimpleValue
     | _ConstantList
     | _ConstantMap
     }
 
-output _Simple {
+output _SimpleValue {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -211,12 +211,12 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value:_Basic> {
+output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
     }
 
-output _Basic {
+output _BasicValue {
     | Boolean
     | _EnumValue
     | Number
@@ -771,12 +771,12 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value:_Basic> {
+output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
     }
 
-output _Basic {
+output _BasicValue {
     | Boolean
     | _EnumValue
     | Number
@@ -915,12 +915,12 @@ output _Internal {
     }
 
 output _Constant {
-    | _Simple
+    | _SimpleValue
     | _ConstantList
     | _ConstantMap
     }
 
-output _Simple {
+output _SimpleValue {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -1064,12 +1064,12 @@ output _Internal {
     }
 
 output _Constant {
-    | _Simple
+    | _SimpleValue
     | _ConstantList
     | _ConstantMap
     }
 
-output _Simple {
+output _SimpleValue {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -1318,12 +1318,12 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Identifier
     }
 
-output _DomainValue<$kind:_DomainKind $value:_Basic> {
+output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
     }
 
-output _Basic {
+output _BasicValue {
     | Boolean
     | _EnumValue
     | Number
