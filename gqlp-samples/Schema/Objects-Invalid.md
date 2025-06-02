@@ -230,7 +230,7 @@ input Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Alternate. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### dual-alt-param-output.graphql+
 
@@ -243,7 +243,7 @@ output Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Alternate. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### dual-field-input.graphql+
 
@@ -278,7 +278,7 @@ input Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Field. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### dual-field-param-output.graphql+
 
@@ -291,7 +291,7 @@ output Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Field. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### dual-parent-input.graphql+
 
@@ -326,7 +326,7 @@ input Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Parent. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### dual-parent-param-output.graphql+
 
@@ -339,7 +339,7 @@ output Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-- `Invalid Dual Parent. Invalid Constraint on Param. 'Bad' not match '_Dual'`
+- `'Bad' not match '_Dual'`
 
 ### field-alias.graphql+
 
@@ -843,7 +843,7 @@ output Wrong { }
 ##### Expected Verify errors
 
 - `'Wrong' not an Enum type`
-- `Invalid Output Alternate. Invalid Constraint on Ref. 'Wrong' not match '_Enum'`
+- `'Wrong' not match '_Enum'`
 
 ### output-param-diff.graphql+
 
