@@ -281,6 +281,24 @@ object RefObjName<$ref:_Dual> { | $ref }
 dual AltObjName { alt: Number | String }
 ```
 
+### generic-parent-enum-child.graphql+
+
+```gqlp
+object ObjName { :FieldObjName<ParentName> }
+object FieldObjName<$ref:EnumName> { field: $ref }
+enum EnumName { :ParentName nameLabel }
+enum ParentName { nameParent }
+```
+
+### generic-parent-enum-dom.graphql+
+
+```gqlp
+object ObjName { :FieldObjName<DomName> }
+object FieldObjName<$ref:EnumName> { field: $ref }
+enum EnumName { nameLabel nameOther }
+domain DomName { enum nameLabel }
+```
+
 ### generic-parent-enum-parent.graphql+
 
 ```gqlp

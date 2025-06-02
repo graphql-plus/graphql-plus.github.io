@@ -367,6 +367,7 @@ then the Type argument is assignable to the Constraint if any of the following a
 - The Constraint is the same type as the Type argument
 - The Constraint is a parent (or grandparent etc) of the Type argument
 - The Constraint is a Simple type and the Type argument is an equivalent Domain type
+- The Constraint is a Enum type and the Type argument is parent of that type
 - The Constraint is a Union type and the Type argument is assignable to a Union Member
 - The Constraint is an Object type with Alternates and the Type argument is assignable to an Alternate
 
