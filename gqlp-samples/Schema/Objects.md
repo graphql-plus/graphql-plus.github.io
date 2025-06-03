@@ -3,289 +3,289 @@
 ### alt-descr.graphql+
 
 ```gqlp
-object ObjName { | "Test" "Descr" String }
+object Name { | "Test" "Descr" String }
 ```
 
 ### alt-dual.graphql+
 
 ```gqlp
-object ObjName { | ObjDualName }
+object Name { | ObjDualName }
 dual ObjDualName { alt: Number | String }
 ```
 
 ### alt-mod-Boolean.graphql+
 
 ```gqlp
-object ObjName { | AltObjName[^] }
-object AltObjName { alt: Number | String }
+object Name { | AltName[^] }
+object AltName { alt: Number | String }
 ```
 
 ### alt-mod-param.graphql+
 
 ```gqlp
-object ObjName<$mod:String> { | AltObjName[$mod] }
-object AltObjName { alt: Number | String }
+object Name<$mod:String> { | AltName[$mod] }
+object AltName { alt: Number | String }
 ```
 
 ### alt-simple.graphql+
 
 ```gqlp
-object ObjName { | String }
+object Name { | String }
 ```
 
 ### alt.graphql+
 
 ```gqlp
-object ObjName { | AltObjName }
-object AltObjName { alt: Number | String }
+object Name { | AltName }
+object AltName { alt: Number | String }
 ```
 
 ### constraint-alt-domain.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<DomName> }
-object RefObjName<$ref:String> { | $ref }
+object Name { | RefName<DomName> }
+object RefName<$ref:String> { | $ref }
 domain DomName { String /\w+/ }
 ```
 
 ### constraint-alt-dual.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { | $ref }
-dual PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { | RefName<AltName> }
+object RefName<$ref:PrntName> { | $ref }
+dual PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### constraint-alt-obj.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { | $ref }
-object PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { | RefName<AltName> }
+object RefName<$ref:PrntName> { | $ref }
+object PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### constraint-alt.graphql+
 
 ```gqlp
-object ObjName<$type:Number> { | $type }
+object Name<$type:Number> { | $type }
 ```
 
 ### constraint-field-domain.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<DomName> }
-object RefObjName<$ref:String> { field: $ref }
+object Name { :RefName<DomName> }
+object RefName<$ref:String> { field: $ref }
 domain DomName { String /\w+/ }
 ```
 
 ### constraint-field-dual.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { field: $ref }
-dual PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { :RefName<AltName> }
+object RefName<$ref:PrntName> { field: $ref }
+dual PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### constraint-field-obj.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { field: $ref }
-object PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { :RefName<AltName> }
+object RefName<$ref:PrntName> { field: $ref }
+object PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### constraint-parent-dual-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { :$ref }
-dual PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { :RefName<AltName> }
+object RefName<$ref:PrntName> { :$ref }
+dual PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### constraint-parent-obj-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:PrntObjName> { :$ref }
-object PrntObjName { | String }
-object AltObjName { :PrntObjName alt: Number }
+object Name { :RefName<AltName> }
+object RefName<$ref:PrntName> { :$ref }
+object PrntName { | String }
+object AltName { :PrntName alt: Number }
 ```
 
 ### field-descr.graphql+
 
 ```gqlp
-object ObjName { "Test" "Descr" field: String }
+object Name { "Test" "Descr" field: String }
 ```
 
 ### field-dual.graphql+
 
 ```gqlp
-object ObjName { field: FldObjName }
-dual FldObjName { field: Number | String }
+object Name { field: FldName }
+dual FldName { field: Number | String }
 ```
 
 ### field-mod-Enum.graphql+
 
 ```gqlp
-object ObjName { field: String[EnumObjName] }
-enum EnumObjName { value }
+object Name { field: String[EnumName] }
+enum EnumName { value }
 ```
 
 ### field-mod-param.graphql+
 
 ```gqlp
-object ObjName<$mod:String> { field: FldObjName[$mod] }
-object FldObjName { field: Number | String }
+object Name<$mod:String> { field: FldName[$mod] }
+object FldName { field: Number | String }
 ```
 
 ### field-object.graphql+
 
 ```gqlp
-object ObjName { field: FldObjName }
-object FldObjName { field: Number | String }
+object Name { field: FldName }
+object FldName { field: Number | String }
 ```
 
 ### field-simple.graphql+
 
 ```gqlp
-object ObjName { field: Number }
+object Name { field: Number }
 ```
 
 ### field-type-descr.graphql+
 
 ```gqlp
-object ObjName { field: "Test" "Descr" Number }
+object Name { field: "Test" "Descr" Number }
 ```
 
 ### field.graphql+
 
 ```gqlp
-object ObjName { field: String }
+object Name { field: String }
 ```
 
 ### generic-alt-arg-descr.graphql+
 
 ```gqlp
-object ObjName<$type:String> { | RefObjName<"Test" "Descr"$type> }
-object RefObjName<$ref:String> { | $ref }
+object Name<$type:String> { | RefName<"Test" "Descr"$type> }
+object RefName<$ref:String> { | $ref }
 ```
 
 ### generic-alt-arg.graphql+
 
 ```gqlp
-object ObjName<$type:String> { | RefObjName<$type> }
-object RefObjName<$ref:String> { | $ref }
+object Name<$type:String> { | RefName<$type> }
+object RefName<$ref:String> { | $ref }
 ```
 
 ### generic-alt-dual.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<AltObjName> }
-object RefObjName<$ref:_Dual> { | $ref }
-dual AltObjName { alt: Number | String }
+object Name { | RefName<AltName> }
+object RefName<$ref:_Dual> { | $ref }
+dual AltName { alt: Number | String }
 ```
 
 ### generic-alt-mod-param.graphql+
 
 ```gqlp
-object RefObjName<$ref:String $mod:String> { | $ref[$mod] }
+object RefName<$ref:String $mod:String> { | $ref[$mod] }
 ```
 
 ### generic-alt-mod-String.graphql+
 
 ```gqlp
-object RefObjName<$ref:String> { | $ref[*] }
+object RefName<$ref:String> { | $ref[*] }
 ```
 
 ### generic-alt-param.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<AltObjName> }
-object RefObjName<$ref:_Object> { | $ref }
-object AltObjName { alt: Number | String }
+object Name { | RefName<AltName> }
+object RefName<$ref:_Object> { | $ref }
+object AltName { alt: Number | String }
 ```
 
 ### generic-alt-simple.graphql+
 
 ```gqlp
-object ObjName { | RefObjName<String> }
-object RefObjName<$ref:String> { | $ref }
+object Name { | RefName<String> }
+object RefName<$ref:String> { | $ref }
 ```
 
 ### generic-alt.graphql+
 
 ```gqlp
-object ObjName<$type:String> { | $type }
+object Name<$type:String> { | $type }
 ```
 
 ### generic-descr.graphql+
 
 ```gqlp
-object ObjName<"Test" "Descr" $type:String> { field: $type }
+object Name<"Test" "Descr" $type:String> { field: $type }
 ```
 
 ### generic-field-arg.graphql+
 
 ```gqlp
-object ObjName<$type:String> { field: RefObjName<$type> }
-object RefObjName<$ref:String> { | $ref }
+object Name<$type:String> { field: RefName<$type> }
+object RefName<$ref:String> { | $ref }
 ```
 
 ### generic-field-dual.graphql+
 
 ```gqlp
-object ObjName { field: RefObjName<AltObjName> }
-object RefObjName<$ref:_Dual> { | $ref }
-dual AltObjName { alt: Number | String }
+object Name { field: RefName<AltName> }
+object RefName<$ref:_Dual> { | $ref }
+dual AltName { alt: Number | String }
 ```
 
 ### generic-field-param.graphql+
 
 ```gqlp
-object ObjName { field: RefObjName<AltObjName> }
-object RefObjName<$ref:_Object> { | $ref }
-object AltObjName { alt: Number | String }
+object Name { field: RefName<AltName> }
+object RefName<$ref:_Object> { | $ref }
+object AltName { alt: Number | String }
 ```
 
 ### generic-field.graphql+
 
 ```gqlp
-object ObjName<$type:String> { field: $type }
+object Name<$type:String> { field: $type }
 ```
 
 ### generic-parent-arg.graphql+
 
 ```gqlp
-object ObjName<$type:String> { :RefObjName<$type> }
-object RefObjName<$ref:String> { | $ref }
+object Name<$type:String> { :RefName<$type> }
+object RefName<$ref:String> { | $ref }
 ```
 
 ### generic-parent-dual-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:_Dual> { :$ref }
-dual AltObjName { alt: Number | String }
+object Name { :RefName<AltName> }
+object RefName<$ref:_Dual> { :$ref }
+dual AltName { alt: Number | String }
 ```
 
 ### generic-parent-dual.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:_Dual> { | $ref }
-dual AltObjName { alt: Number | String }
+object Name { :RefName<AltName> }
+object RefName<$ref:_Dual> { | $ref }
+dual AltName { alt: Number | String }
 ```
 
 ### generic-parent-enum-child.graphql+
 
 ```gqlp
-object ObjName { :FieldObjName<ParentName> }
-object FieldObjName<$ref:EnumName> { field: $ref }
+object Name { :FieldName<ParentName> }
+object FieldName<$ref:EnumName> { field: $ref }
 enum EnumName { :ParentName nameLabel }
 enum ParentName { nameParent }
 ```
@@ -293,8 +293,8 @@ enum ParentName { nameParent }
 ### generic-parent-enum-dom.graphql+
 
 ```gqlp
-object ObjName { :FieldObjName<DomName> }
-object FieldObjName<$ref:EnumName> { field: $ref }
+object Name { :FieldName<DomName> }
+object FieldName<$ref:EnumName> { field: $ref }
 enum EnumName { nameLabel nameOther }
 domain DomName { enum nameLabel }
 ```
@@ -302,8 +302,8 @@ domain DomName { enum nameLabel }
 ### generic-parent-enum-parent.graphql+
 
 ```gqlp
-object ObjName { :FieldObjName<EnumName> }
-object FieldObjName<$ref:ParentName> { field: $ref }
+object Name { :FieldName<EnumName> }
+object FieldName<$ref:ParentName> { field: $ref }
 enum EnumName { :ParentName nameLabel }
 enum ParentName { nameParent }
 ```
@@ -311,39 +311,39 @@ enum ParentName { nameParent }
 ### generic-parent-param-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:_Object> { :$ref }
-object AltObjName { alt: Number | String }
+object Name { :RefName<AltName> }
+object RefName<$ref:_Object> { :$ref }
+object AltName { alt: Number | String }
 ```
 
 ### generic-parent-param.graphql+
 
 ```gqlp
-object ObjName { :RefObjName<AltObjName> }
-object RefObjName<$ref:_Object> { | $ref }
-object AltObjName { alt: Number | String }
+object Name { :RefName<AltName> }
+object RefName<$ref:_Object> { | $ref }
+object AltName { alt: Number | String }
 ```
 
 ### generic-parent-simple-enum.graphql+
 
 ```gqlp
-object ObjName { :FieldObjName<EnumName> }
-object FieldObjName<$ref:_Simple> { field: $ref }
+object Name { :FieldName<EnumName> }
+object FieldName<$ref:_Simple> { field: $ref }
 enum EnumName { name }
 ```
 
 ### generic-parent-string-dom.graphql+
 
 ```gqlp
-object ObjName { :FieldObjName<DomName> }
-object FieldObjName<$ref:String> { field: $ref }
+object Name { :FieldName<DomName> }
+object FieldName<$ref:String> { field: $ref }
 domain DomName { string /\w+/ }
 ```
 
 ### generic-parent.graphql+
 
 ```gqlp
-object ObjName<$type:String> { :$type }
+object Name<$type:String> { :$type }
 ```
 
 ### input-field-descr-Number.graphql+
@@ -534,48 +534,48 @@ input PrntNameIn { parent: Number | String }
 ### parent-alt.graphql+
 
 ```gqlp
-object ObjName { :RefObjName | Number }
-object RefObjName {  parent: Number | String }
+object Name { :RefName | Number }
+object RefName {  parent: Number | String }
 ```
 
 ### parent-descr.graphql+
 
 ```gqlp
-object ObjName { : "Test" "Descr" RefObjName }
-object RefObjName { parent: Number | String }
+object Name { : "Test" "Descr" RefName }
+object RefName { parent: Number | String }
 ```
 
 ### parent-dual.graphql+
 
 ```gqlp
-object ObjName { :RefObjName }
-dual RefObjName { parent: Number | String }
+object Name { :RefName }
+dual RefName { parent: Number | String }
 ```
 
 ### parent-field.graphql+
 
 ```gqlp
-object ObjName { :RefObjName field: Number }
-object RefObjName { parent: Number | String }
+object Name { :RefName field: Number }
+object RefName { parent: Number | String }
 ```
 
 ### parent-param-diff.graphql+
 
 ```gqlp
-object ObjName<$a:String> { :RefObjName<$a> field: $a }
-object RefObjName<$b:String> { | $b }
+object Name<$a:String> { :RefName<$a> field: $a }
+object RefName<$b:String> { | $b }
 ```
 
 ### parent-param-same.graphql+
 
 ```gqlp
-object ObjName<$a:String> { :RefObjName<$a> field: $a }
-object RefObjName<$a:String> { | $a }
+object Name<$a:String> { :RefName<$a> field: $a }
+object RefName<$a:String> { | $a }
 ```
 
 ### parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName }
-object RefObjName { parent: Number | String }
+object Name { :RefName }
+object RefName { parent: Number | String }
 ```

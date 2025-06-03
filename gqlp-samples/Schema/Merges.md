@@ -179,82 +179,82 @@ enum Name { name [val2] }
 ### object-alias.graphql+
 
 ```gqlp
-object ObjName [Obj1] { }
-object ObjName [Obj2] { }
+object Name [Object1] { }
+object Name [Object2] { }
 ```
 
 ### object-alt.graphql+
 
 ```gqlp
-object ObjName { | ObjNameType }
-object ObjName { | ObjNameType }
-object ObjNameType { }
+object Name { | NameType }
+object Name { | NameType }
+object NameType { }
 ```
 
 ### object-constraint.graphql+
 
 ```gqlp
-object ObjName<$type:String> { field: $type }
-object ObjName<$type:String> { str: $type }
+object Name<$type:String> { field: $type }
+object Name<$type:String> { str: $type }
 ```
 
 ### object-field-alias.graphql+
 
 ```gqlp
-object ObjName { field [field1]: FldObjName }
-object ObjName { field [field2]: FldObjName }
-object FldObjName { }
+object Name { field [field1]: FldName }
+object Name { field [field2]: FldName }
+object FldName { }
 ```
 
 ### object-field-type-alias.graphql+
 
 ```gqlp
-object ObjName { field: String }
-object ObjName { field: String }
+object Name { field: String }
+object Name { field: String }
 ```
 
 ### object-field.graphql+
 
 ```gqlp
-object ObjName { field: FldObjName }
-object ObjName { field: FldObjName }
-object FldObjName { }
+object Name { field: FldName }
+object Name { field: FldName }
+object FldName { }
 ```
 
 ### object-param-constraint.graphql+
 
 ```gqlp
-object ObjName<$test:String> { test: $test }
-object ObjName<$test:String> { type: $test }
+object Name<$test:String> { test: $test }
+object Name<$test:String> { type: $test }
 ```
 
 ### object-param-dup.graphql+
 
 ```gqlp
-object ObjName<$test:String> { test: $test }
-object ObjName<$test:String> { type: $test }
+object Name<$test:String> { test: $test }
+object Name<$test:String> { type: $test }
 ```
 
 ### object-param.graphql+
 
 ```gqlp
-object ObjName<$test:String> { test: $test }
-object ObjName<$type:String> { type: $type }
+object Name<$test:String> { test: $test }
+object Name<$type:String> { type: $type }
 ```
 
 ### object-parent.graphql+
 
 ```gqlp
-object ObjName { :RefObjName }
-object ObjName { :RefObjName }
-object RefObjName { }
+object Name { :RefName }
+object Name { :RefName }
+object RefName { }
 ```
 
 ### object.graphql+
 
 ```gqlp
-object ObjName { }
-object ObjName { }
+object Name { }
+object Name { }
 ```
 
 ### option-alias.graphql+
