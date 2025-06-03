@@ -1,40 +1,6 @@
-# Operation Samples
+# Invalid Operation Samples
 
-## Root
-
-### frag-end.gql+
-
-```gqlp
-{...named}fragment named on Named{name}
-```
-
-### frag-first.gql+
-
-```gqlp
-&named:Named{name}{|named}
-```
-
-### simple.gql+
-
-```gqlp
-{simple}
-```
-
-### var-null.gql+
-
-```gqlp
-($var:Id?=null):Boolean($var)
-```
-
-### var.gql+
-
-```gqlp
-($var):Boolean($var)
-```
-
-## Invalid (Invalid)
-
-### Invalid\empty.gql+
+### empty.gql+
 
 ```gqlp
 
@@ -44,7 +10,7 @@
 
 - `Expected text`
 
-### Invalid\error.gql+
+### error.gql+
 
 ```gqlp
 {}
@@ -54,7 +20,7 @@
 
 - `Expected Object or Type`
 
-### Invalid\frag-undef.gql+
+### frag-undef.gql+
 
 ```gqlp
 {...named}
@@ -64,7 +30,7 @@
 
 - `Spread not defined`
 
-### Invalid\frag-unused.gql+
+### frag-unused.gql+
 
 ```gqlp
 &named:Named{name}{name}
@@ -74,7 +40,7 @@
 
 - `Spread not used`
 
-### Invalid\list-map-def.gql+
+### list-map-def.gql+
 
 ```gqlp
 ($var:Id[]={a:b}):Boolean($var)
@@ -84,7 +50,7 @@
 
 - `List Type cannot have Object default`
 
-### Invalid\list-null-map-def.gql+
+### list-null-map-def.gql+
 
 ```gqlp
 ($var:Id[]?={a:b}):Boolean($var)
@@ -94,7 +60,7 @@
 
 - `Optional List Type cannot have Object default`
 
-### Invalid\map-list-def.gql+
+### map-list-def.gql+
 
 ```gqlp
 ($var:Id[*]=[a]):Boolean($var)
@@ -104,7 +70,7 @@
 
 - `Dictionary Type must have Object default`
 
-### Invalid\map-null-list-def.gql+
+### map-null-list-def.gql+
 
 ```gqlp
 ($var:Id[*]?=[a]):Boolean($var)
@@ -114,7 +80,7 @@
 
 - `Optional Dictionary Type must have Object default`
 
-### Invalid\null-def-invalid.gql+
+### null-def-invalid.gql+
 
 ```gqlp
 ($var:Id=null):Boolean($var)
@@ -124,7 +90,7 @@
 
 - `Default of 'null' must be on Optional Type`
 
-### Invalid\var-undef.gql+
+### var-undef.gql+
 
 ```gqlp
 :Boolean($var)
@@ -134,7 +100,7 @@
 
 - `Variable not defined`
 
-### Invalid\var-unused.gql+
+### var-unused.gql+
 
 ```gqlp
 ($var):Boolean

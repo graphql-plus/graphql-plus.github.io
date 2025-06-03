@@ -1,0 +1,29 @@
+- name: GraphQl
+  href: GraphQl.md
+  items:
+- name: Operation
+  href: Operation.md
+  items:
+    - name: Invalid
+      href: Operation/Invalid.md
+- name: Schema
+  href: Schema.md
+  items:
+    - name: Globals
+      href: Schema/Globals.md
+    - name: Globals-Invalid
+      href: Schema/Globals-Invalid.md
+    - name: Merges
+      href: Schema/Merges.md
+    - name: Merges-Invalid
+      href: Schema/Merges-Invalid.md
+    - name: Objects
+      href: Schema/Objects.md
+    - name: Objects-Invalid
+      href: Schema/Objects-Invalid.md
+    - name: Simple
+      href: Schema/Simple.md
+    - name: Simple-Invalid
+      href: Schema/Simple-Invalid.md
+    - name: Specification
+      href: Schema/Specification.md
