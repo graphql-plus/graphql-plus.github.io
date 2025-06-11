@@ -265,6 +265,12 @@ object Name<$type:String> { :RefName<$type> }
 object RefName<$ref:String> { | $ref }
 ```
 
+### generic-parent-descr.graphql+
+
+```gqlp
+object Name<$type:String> { :"Parent comment"$type }
+```
+
 ### generic-parent-dual-parent.graphql+
 
 ```gqlp
