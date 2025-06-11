@@ -74,7 +74,7 @@ Global declarations define specific capabilities that cover the entirety of the 
 ### Category declaration
 
 ```PEG
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Description? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 ```
 
@@ -558,7 +558,7 @@ Description = STRING+
 
 Aliases = '[' alias+ ']'
 
-Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Out_Type Modifiers? '}'
+Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Description? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
 Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
