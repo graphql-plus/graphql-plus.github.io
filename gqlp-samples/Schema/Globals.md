@@ -9,6 +9,13 @@ category { Name }
 output Name { }
 ```
 
+### category-output-descr.graphql+
+
+```gqlp
+category { "Output comment" Name }
+output Name { }
+```
+
 ### category-output-dict.graphql+
 
 ```gqlp
