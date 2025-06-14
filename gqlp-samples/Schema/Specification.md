@@ -7,6 +7,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -82,6 +83,74 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        variables: _OpVariable?
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+}
+
+output _OpVariable {
+        name: _Identifier
+        type: _ObjType<_InputBase>
+        modifiers: _Modifiers[]
+        default: String? # Todo: _OpDefault
+        directives: _OpDirective[]
+}
+
+dual _OpDirective {
+        name: _Identifier
+        argument: String? # Todo: _OpArgument
+}
+
+output _OpFragment {
+        name: _Identifier
+        type: _ObjType<_OutputBase>
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>?
+        argument: String? # Todo: _OpArgument
+        body: _OpObject[]
+}
+
+output _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+        alias: String?
+        field: String
+        argument: String? # Todo: _OpArgument
+        modifiers: _Modifiers
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpInline {
+        type: String?
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
 
 output _Setting {
     : _Named
@@ -482,6 +551,74 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        variables: _OpVariable?
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+}
+
+output _OpVariable {
+        name: _Identifier
+        type: _ObjType<_InputBase>
+        modifiers: _Modifiers[]
+        default: String? # Todo: _OpDefault
+        directives: _OpDirective[]
+}
+
+dual _OpDirective {
+        name: _Identifier
+        argument: String? # Todo: _OpArgument
+}
+
+output _OpFragment {
+        name: _Identifier
+        type: _ObjType<_OutputBase>
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>?
+        argument: String? # Todo: _OpArgument
+        body: _OpObject[]
+}
+
+output _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+        alias: String?
+        field: String
+        argument: String? # Todo: _OpArgument
+        modifiers: _Modifiers
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpInline {
+        type: String?
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
+
 output _Setting {
     : _Named
         value: _Constant
@@ -493,9 +630,14 @@ output _Setting {
 
 - `'_Aliased' not defined`
 - `'_Constant' not defined`
+- `'_Identifier' not defined`
+- `'_InputBase' not defined`
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
+- `'_ObjType' not defined`
+- `'_OutputBase' not defined`
+- `'_SimpleKind' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
@@ -685,6 +827,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -734,6 +877,7 @@ dual _Described {
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
+- `'_Operations' not defined`
 - `'_Resolution' not defined`
 - `'_Setting' not defined`
 - `'_Type' not defined`
@@ -1217,6 +1361,7 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Identifier]
         directives(_Filter?): _Directives[_Identifier]
+        operations(_Filter?): _Operations[_Identifier]
         types(_TypeFilter?): _Type[_Identifier]
         settings(_Filter?): _Setting[_Identifier]
     }
@@ -1253,6 +1398,7 @@ input _TypeFilter {
 - `'_Categories' not defined`
 - `'_Directives' not defined`
 - `'_Named' not defined`
+- `'_Operations' not defined`
 - `'_Resolution' not defined`
 - `'_Setting' not defined`
 - `'_Type' not defined`
@@ -1528,6 +1674,93 @@ dual _Described {
 ##### Expected Verify errors
 
 - `'_Identifier' not defined`
+
+### Intro_Operation.graphql+
+
+```gqlp
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _Operation {
+    : _Aliased
+        category: _Identifier
+        variables: _OpVariable?
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+}
+
+output _OpVariable {
+        name: _Identifier
+        type: _ObjType<_InputBase>
+        modifiers: _Modifiers[]
+        default: String? # Todo: _OpDefault
+        directives: _OpDirective[]
+}
+
+dual _OpDirective {
+        name: _Identifier
+        argument: String? # Todo: _OpArgument
+}
+
+output _OpFragment {
+        name: _Identifier
+        type: _ObjType<_OutputBase>
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>?
+        argument: String? # Todo: _OpArgument
+        body: _OpObject[]
+}
+
+output _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+        alias: String?
+        field: String
+        argument: String? # Todo: _OpArgument
+        modifiers: _Modifiers
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpInline {
+        type: String?
+        directives: _OpDirective[]
+        body: _OpObject[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
+
+```
+
+##### Expected Verify errors
+
+- `Invalid Dual Field. '_Identifier' not defined`
+- `Invalid Output Alternate. '_Type' not defined`
+- `Invalid Output Field. '_Identifier' not defined`
+- `Invalid Output Field. '_InputBase' not defined`
+- `Invalid Output Field. '_Modifiers' not defined`
+- `Invalid Output Field. '_ObjType' not defined`
+- `Invalid Output Field. '_OutputBase' not defined`
+- `Invalid Output Field. '_SimpleKind' not defined`
+- `Invalid Output Field. '_Type' not defined`
+- `Invalid Output Field. '_TypeRef' not defined`
+- `Invalid Output Parent. '_Aliased' not defined`
 
 ### Intro_Option.graphql+
 
