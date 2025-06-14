@@ -6,6 +6,13 @@
 domain Name { Boolean "DomBool" "Descr" true }
 ```
 
+### domain-bool-parent-descr.graphql+
+
+```gqlp
+domain Name { :"Parent comment"PrntName Boolean false }
+domain PrntName { Boolean true }
+```
+
 ### domain-bool-parent.graphql+
 
 ```gqlp
@@ -47,6 +54,14 @@ enum EnumName { name }
 ```gqlp
 domain Name { enum name }
 enum EnumName { name }
+```
+
+### domain-enum-parent-descr.graphql+
+
+```gqlp
+domain Name { :"Parent comment"PrntName Enum enum_name }
+domain PrntName { Enum prnt_name }
+enum EnumName { enum_name prnt_name }
 ```
 
 ### domain-enum-parent.graphql+
@@ -95,6 +110,13 @@ enum EnumName { name }
 domain Name { Number "DomNumber" "Descr" <2 }
 ```
 
+### domain-number-parent-descr.graphql+
+
+```gqlp
+domain Name { :"Parent comment"PrntName Number 2>}
+domain PrntName { Number <2 }
+```
+
 ### domain-number-parent.graphql+
 
 ```gqlp
@@ -106,6 +128,13 @@ domain PrntName { Number <2 }
 
 ```gqlp
 domain Name { String "DomString" "Descr" /a+/ }
+```
+
+### domain-string-parent-descr.graphql+
+
+```gqlp
+domain Name { :"Parent comment"PrntName String /a+/ }
+domain PrntName { String /b+/ }
 ```
 
 ### domain-string-parent.graphql+
@@ -128,6 +157,13 @@ enum Name { :PrntName val_name prnt_name[name] }
 enum PrntName { prnt_name }
 ```
 
+### enum-parent-descr.graphql+
+
+```gqlp
+enum Name { : "Parent comment" PrntName name  }
+enum PrntName { prnt_name }
+```
+
 ### enum-parent-dup.graphql+
 
 ```gqlp
@@ -146,6 +182,13 @@ enum PrntName { prnt_name }
 
 ```gqlp
 union Name { "Union" "Descr" Number }
+```
+
+### union-parent-descr.graphql+
+
+```gqlp
+union Name { :"Parent comment"PrntName Number }
+union PrntName { Number }
 ```
 
 ### union-parent-dup.graphql+
