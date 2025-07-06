@@ -72,7 +72,7 @@ If the Tagged value's tag doesn't match the expected type, an error is raised.
 | String        | _Used_               | _Text_                | _Text_                |
 | Number        | Parse number         | _Used_                | true => 1, false => 0 |
 | Boolean       | "true", "false"      | 1 => true, 0 => false | _Used_                |
-| Enum          | Parse label or alias | _Error_               | _Error_               |
+| Enum          | Parse label or alias | n => label            | _Error_               |
 | Domain        | See below            | See below             | See below             |
 
 If the expected type is a matching Domain type, the value is decoded,

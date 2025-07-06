@@ -161,7 +161,7 @@ Collection_Key_ReDef = Simple | '$'typeParam // Redefined Collection_Key
 Boolean, Null, Unit and Void are effectively enum types as follows:
 
 ```gqlp
-enum Boolean [bool, ^] { true false }
+enum Boolean [bool, ^] { false true }
 
 enum Null [null] { null }
 
