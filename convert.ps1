@@ -125,11 +125,24 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     }
 
     "### $($path[-1])`n" | Add-Content $file
-    "``````gqlp" | Add-Content $file
+    if ($_ -match '.*ql.*') {
+      "``````gqlp" | Add-Content $file
+    } else {
+      "``````" | Add-Content $file
+    }
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
 
     $base = ($_ -split '\.g')[0]
+    $response = "samples/$name/$base.resp"
+  if (Test-Path $response) {
+    "##### Expected response $base.resp`n" | Add-Content $file
+    "``````" | Add-Content $file
+    Get-Content $response | Add-Content $file
+    "```````n" | Add-Content $file
+  }
+
+
     if ($_ -match 'Invalid') {
       foreach ($suffix in $suffixes) {
         Add-Errors $base $suffix "Parse"

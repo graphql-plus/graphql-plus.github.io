@@ -4,6 +4,8 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.graphql+": "${capture}*-errors"
+    "*.g+req": "${capture}+*-errors,${basename}.*-errors,${basename}.resp",
+    "*.gql+": "${capture}+*-errors,${basename}.*-errors",
+    "*.graphql+": "${capture}+*-errors,${basename}.*-errors"
   }
 }
