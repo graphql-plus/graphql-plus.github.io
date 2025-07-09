@@ -52,7 +52,7 @@ EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 
-Boolean = 'true' | 'false'
+Boolean = 'false' | 'true'
 
 Simple = Basic | enum
 Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' | '_'
@@ -153,7 +153,7 @@ EnumValue = ( enum '.' )? label
 
 FieldKey = EnumValue | NUMBER | STRING
 
-Boolean = 'true' | 'false'
+Boolean = 'false' | 'true'
 
 Simple = Basic | enum
 Basic = 'Boolean' | '^' | 'Number' | '0' | 'String' | '*' | 'Unit' | '_'

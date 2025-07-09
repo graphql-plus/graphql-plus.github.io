@@ -164,12 +164,6 @@ output _TypeSimple {
 ### Built-In types
 
 ```gqlp
-output _Internal {
-    | Null
-    | Object
-    | Void
-    }
-
 output _Constant {
     | _SimpleValue
     | _ConstantList
@@ -188,7 +182,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Key]
     }
 
 output _Collections {
@@ -650,12 +644,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
-output _Internal {
-    | Null
-    | Object
-    | Void
-    }
-
 output _Constant {
     | _SimpleValue
     | _ConstantList
@@ -674,7 +662,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Key]
     }
 
 output _Collections {
