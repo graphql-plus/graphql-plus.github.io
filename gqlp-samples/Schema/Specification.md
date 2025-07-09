@@ -650,7 +650,6 @@ output _OutputEnum {
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Constant' not defined`
-- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -942,7 +941,6 @@ output _Modifier<$kind:_ModifierKind> {
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
-- `'_Identifier' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
@@ -1020,7 +1018,6 @@ output _ForParam<$base:_ObjBase> {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
-- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -1167,7 +1164,6 @@ output _TypeSimple {
 
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_Identifier' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
@@ -1379,7 +1375,6 @@ output _DualTypeArg {
 
 - `'_Alternate' not defined`
 - `'_Field' not defined`
-- `'_Identifier' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
@@ -1459,7 +1454,6 @@ output _InputParam {
 - `'_Constant' not defined`
 - `'_DualBase' not defined`
 - `'_Field' not defined`
-- `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
