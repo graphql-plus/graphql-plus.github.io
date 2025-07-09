@@ -149,9 +149,8 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind:_TypeKind> {
-    : _Described
+    : _Named
         typeKind: $kind
-        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -378,7 +377,7 @@ output _ObjConstraint<$kind:_ObjectKind> {
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {
-    : _Described
+    : _Named
         typeArgs: $arg[]
     | _TypeParam
     }
@@ -389,7 +388,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Described
+    : _Named
         typeParam: _Identifier
     }
 
@@ -424,7 +423,6 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
-        dual: _Identifier
     }
 
 output _DualTypeParam {
@@ -441,7 +439,6 @@ output _DualAlternate {
 
 output _DualTypeArg {
     : _ObjTypeArg
-        dual: _Identifier
     }
 ```
 
@@ -454,7 +451,6 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
-        input: _Identifier
     | _DualBase
     }
 
@@ -474,7 +470,6 @@ output _InputAlternate {
 
 output _InputTypeArg {
     : _ObjTypeArg
-        input: _Identifier
     }
 
 output _InputParam {
@@ -493,7 +488,6 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
-        output: _Identifier
     | _DualBase
     }
 
@@ -515,7 +509,6 @@ output _OutputAlternate {
 
 output _OutputTypeArg {
     : _ObjTypeArg
-        output: _Identifier
         label: _Identifier?
     }
 
@@ -646,9 +639,8 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind:_TypeKind> {
-    : _Described
+    : _Named
         typeKind: $kind
-        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -835,7 +827,7 @@ output _ObjConstraint<$kind:_ObjectKind> {
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {
-    : _Described
+    : _Named
         typeArgs: $arg[]
     | _TypeParam
     }
@@ -846,7 +838,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Described
+    : _Named
         typeParam: _Identifier
     }
 
@@ -877,7 +869,6 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
-        dual: _Identifier
     }
 
 output _DualTypeParam {
@@ -894,7 +885,6 @@ output _DualAlternate {
 
 output _DualTypeArg {
     : _ObjTypeArg
-        dual: _Identifier
     }
 
 output _TypeInput {
@@ -903,7 +893,6 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
-        input: _Identifier
     | _DualBase
     }
 
@@ -923,7 +912,6 @@ output _InputAlternate {
 
 output _InputTypeArg {
     : _ObjTypeArg
-        input: _Identifier
     }
 
 output _InputParam {
@@ -938,7 +926,6 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
-        output: _Identifier
     | _DualBase
     }
 
@@ -960,7 +947,6 @@ output _OutputAlternate {
 
 output _OutputTypeArg {
     : _ObjTypeArg
-        output: _Identifier
         label: _Identifier?
     }
 
