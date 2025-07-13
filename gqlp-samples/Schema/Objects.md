@@ -98,6 +98,16 @@ object PrntName { | String }
 object AltName { :PrntName alt: Number }
 ```
 
+### constraint-parent-dual-grandparent.graphql+
+
+```gqlp
+object Name { :RefName<AltName> }
+object RefName<$ref:GrndName> { :$ref }
+dual GrndName { | String }
+dual PrntName { :GrndName }
+object AltName { :PrntName alt: Number }
+```
+
 ### constraint-parent-dual-parent.graphql+
 
 ```gqlp
