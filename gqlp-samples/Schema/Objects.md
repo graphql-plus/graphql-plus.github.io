@@ -98,6 +98,16 @@ object PrntName { | String }
 object AltName { :PrntName alt: Number }
 ```
 
+### constraint-parent-dual-grandparent.graphql+
+
+```gqlp
+object Name { :RefName<AltName> }
+object RefName<$ref:GrndName> { :$ref }
+dual GrndName { | String }
+dual PrntName { :GrndName }
+object AltName { :PrntName alt: Number }
+```
+
 ### constraint-parent-dual-parent.graphql+
 
 ```gqlp
@@ -355,7 +365,7 @@ object Name<$type:String> { :$type }
 ### input-field-descr-Number.graphql+
 
 ```gqlp
-input Name { "Test" "Descr" field: Number = 0 }
+input Name { "Test" "Descr" field: Number = 42 }
 ```
 
 ### input-field-Enum.graphql+
@@ -375,19 +385,19 @@ dual FldName { }
 ### input-field-Number-descr.graphql+
 
 ```gqlp
-input Name { field: "Test" "Descr" Number = 0 }
+input Name { field: "Test" "Descr" Number = 42 }
 ```
 
 ### input-field-Number.graphql+
 
 ```gqlp
-input Name { field: Number = 0 }
+input Name { field: Number = 42 }
 ```
 
 ### input-field-String.graphql+
 
 ```gqlp
-input Name { field: String = '' }
+input Name { field: String = 'default' }
 ```
 
 ### output-constraint-dom-enum.graphql+

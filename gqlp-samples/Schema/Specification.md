@@ -189,9 +189,8 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind:_TypeKind> {
-    : _Described
+    : _Named
         typeKind: $kind
-        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -199,12 +198,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
-    }
-
-output _Internal {
-    | Null
-    | Object
-    | Void
     }
 
 output _Constant {
@@ -225,7 +218,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Key]
     }
 
 output _Collections {
@@ -378,7 +371,7 @@ output _ObjConstraint<$kind:_ObjectKind> {
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {
-    : _Described
+    : _Named
         typeArgs: $arg[]
     | _TypeParam
     }
@@ -389,7 +382,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Described
+    : _Named
         typeParam: _Identifier
     }
 
@@ -420,7 +413,6 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
-        dual: _Identifier
     }
 
 output _DualTypeParam {
@@ -437,7 +429,6 @@ output _DualAlternate {
 
 output _DualTypeArg {
     : _ObjTypeArg
-        dual: _Identifier
     }
 
 output _TypeInput {
@@ -446,7 +437,6 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
-        input: _Identifier
     | _DualBase
     }
 
@@ -466,7 +456,6 @@ output _InputAlternate {
 
 output _InputTypeArg {
     : _ObjTypeArg
-        input: _Identifier
     }
 
 output _InputParam {
@@ -481,7 +470,6 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
-        output: _Identifier
     | _DualBase
     }
 
@@ -503,7 +491,6 @@ output _OutputAlternate {
 
 output _OutputTypeArg {
     : _ObjTypeArg
-        output: _Identifier
         label: _Identifier?
     }
 
@@ -668,7 +655,7 @@ output _ObjConstraint<$kind:_ObjectKind> {
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {
-    : _Described
+    : _Named
         typeArgs: $arg[]
     | _TypeParam
     }
@@ -679,7 +666,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Described
+    : _Named
         typeParam: _Identifier
     }
 
@@ -710,7 +697,6 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
-        dual: _Identifier
     }
 
 output _DualTypeParam {
@@ -727,7 +713,6 @@ output _DualAlternate {
 
 output _DualTypeArg {
     : _ObjTypeArg
-        dual: _Identifier
     }
 
 output _TypeInput {
@@ -736,7 +721,6 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
-        input: _Identifier
     | _DualBase
     }
 
@@ -756,7 +740,6 @@ output _InputAlternate {
 
 output _InputTypeArg {
     : _ObjTypeArg
-        input: _Identifier
     }
 
 output _InputParam {
@@ -771,7 +754,6 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
-        output: _Identifier
     | _DualBase
     }
 
@@ -793,7 +775,6 @@ output _OutputAlternate {
 
 output _OutputTypeArg {
     : _ObjTypeArg
-        output: _Identifier
         label: _Identifier?
     }
 
@@ -811,7 +792,6 @@ output _OutputEnum {
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Constant' not defined`
-- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -1040,9 +1020,8 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind:_TypeKind> {
-    : _Described
+    : _Named
         typeKind: $kind
-        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -1050,12 +1029,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
-    }
-
-output _Internal {
-    | Null
-    | Object
-    | Void
     }
 
 output _Constant {
@@ -1076,7 +1049,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Key]
     }
 
 output _Collections {
@@ -1112,7 +1085,6 @@ output _Modifier<$kind:_ModifierKind> {
 - `'_DomainKind' not defined`
 - `'_DomainValue' not defined`
 - `'_EnumValue' not defined`
-- `'_Identifier' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
@@ -1147,7 +1119,7 @@ output _ObjConstraint<$kind:_ObjectKind> {
     }
 
 output _ObjBase<$arg:_ObjTypeArg> {
-    : _Described
+    : _Named
         typeArgs: $arg[]
     | _TypeParam
     }
@@ -1158,7 +1130,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Described
+    : _Named
         typeParam: _Identifier
     }
 
@@ -1190,7 +1162,6 @@ output _ForParam<$base:_ObjBase> {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
-- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -1201,12 +1172,6 @@ output _ForParam<$base:_ObjBase> {
 ### Intro_Built-In.graphql+
 
 ```gqlp
-output _Internal {
-    | Null
-    | Object
-    | Void
-    }
-
 output _Constant {
     | _SimpleValue
     | _ConstantList
@@ -1225,7 +1190,7 @@ output _ConstantList {
     }
 
 output _ConstantMap {
-    | _Constant[Simple]
+    | _Constant[_Key]
     }
 
 output _Collections {
@@ -1326,9 +1291,8 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
 output _TypeRef<$kind:_TypeKind> {
-    : _Described
+    : _Named
         typeKind: $kind
-        typeName: _Identifier
 }
 
 output _TypeSimple {
@@ -1344,7 +1308,6 @@ output _TypeSimple {
 
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_Identifier' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
@@ -1534,7 +1497,6 @@ output _TypeDual {
 
 output _DualBase {
     : _ObjBase<_DualTypeArg>
-        dual: _Identifier
     }
 
 output _DualTypeParam {
@@ -1551,7 +1513,6 @@ output _DualAlternate {
 
 output _DualTypeArg {
     : _ObjTypeArg
-        dual: _Identifier
     }
 
 ```
@@ -1560,7 +1521,6 @@ output _DualTypeArg {
 
 - `'_Alternate' not defined`
 - `'_Field' not defined`
-- `'_Identifier' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
 - `'_ObjTypeParam' not defined`
@@ -1605,7 +1565,6 @@ output _TypeInput {
 
 output _InputBase {
     : _ObjBase<_InputTypeArg>
-        input: _Identifier
     | _DualBase
     }
 
@@ -1625,7 +1584,6 @@ output _InputAlternate {
 
 output _InputTypeArg {
     : _ObjTypeArg
-        input: _Identifier
     }
 
 output _InputParam {
@@ -1642,7 +1600,6 @@ output _InputParam {
 - `'_Constant' not defined`
 - `'_DualBase' not defined`
 - `'_Field' not defined`
-- `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_ObjBase' not defined`
 - `'_ObjTypeArg' not defined`
@@ -1786,7 +1743,6 @@ output _TypeOutput {
 
 output _OutputBase {
     : _ObjBase<_OutputTypeArg>
-        output: _Identifier
     | _DualBase
     }
 
@@ -1808,7 +1764,6 @@ output _OutputAlternate {
 
 output _OutputTypeArg {
     : _ObjTypeArg
-        output: _Identifier
         label: _Identifier?
     }
 
