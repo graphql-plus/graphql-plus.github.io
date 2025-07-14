@@ -22,21 +22,21 @@ object Alt { }
 ### alt-mod-undef.graphql+
 
 ```gqlp
-object Test { | Alt[Domain] }
+object Test { | Alt[Dom] }
 object Alt { }
 ```
 
 ##### Expected Verify errors Dual
 
-- `'Domain' not defined`
+- `'Dom' not defined`
 
 ##### Expected Verify errors Input
 
-- `'Domain' not defined`
+- `'Dom' not defined`
 
 ##### Expected Verify errors Output
 
-- `'Domain' not defined`
+- `'Dom' not defined`
 
 ### alt-mod-wrong.graphql+
 
@@ -873,13 +873,13 @@ input Param { }
 ### output-param-mod-undef.graphql+
 
 ```gqlp
-output Test { field(Param[Domain]): Test }
+output Test { field(Param[Dom]): Test }
 input Param { }
 ```
 
 ##### Expected Verify errors
 
-- `'Domain' not defined`
+- `'Dom' not defined`
 
 ### output-param-mod-wrong.graphql+
 

@@ -188,7 +188,7 @@ Collection_Key_ReDef = Simple | '$'typeParam // Redefined Collection_Key
 Boolean, Null, Unit and Void are effectively enum types as follows:
 
 ```gqlp
-enum Boolean [bool, ^] { true false }
+enum Boolean [bool, ^] { false true }
 
 enum Null [null] { null }
 
@@ -205,33 +205,45 @@ domain Number [int, 0] { Number }
 domain String [str, *] { String }
 ```
 
+Basic, Internal and \_Key are effectively unions of the following types:
+
+```gqlp
+union _Basic [Basic] { Boolean Number String Unit }
+
+union _Internal [Internal] { Null Void }
+
+union _Key [Key] { _Basic _Internal _Simple }
+```
+
 Object is a general Dictionary as follows:
 
 ```gqlp
 "%"
-dual _Object [Object, obj, %] { :_Map<Any> } // recursive
+dual _Object [Object, obj, %] { :_Map<Any> } // recursive!
 
-dual _Most<$T> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictionary<$T> } // recursive! not in _Dual, _Input or _Output
-dual _MostList<$T> { _Most<$T>[] } // recursive! not in _Dual, _Input or _Output
-dual _MostDictionary<$T> { _Most<$T>[Simple?] } // recursive! not in _Dual, _Input or _Output
+dual _Most<$T:_Any> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictionary<$T> } // recursive!
+dual _MostList<$T:_Any> { _Most<$T>[] } // recursive!
+dual _MostDictionary<$T:_Any> { _Most<$T>[_Key?] } // recursive!
 
-dual _Any [Any] { :_Most<_Dual> } // not in _Dual
-input _Any [Any] { :_Most<_Input> } // not in _Input
-output _Any [Any] { :_Most<_Output> } // not in _Output
-union _Any [Any] { Basic Internal _Enum _Domain _Union } // not in _Union
+dual _Any [Any] { :_Most<_Dual> }
+input _Any [Any] { :_Most<_Input> }
+output _Any [Any] { :_Most<_Output> }
+union _Any [Any] { _Basic _Internal _Simple }
 ```
 
-The internal types `_Union [Union]`, `_Domain [Domain]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]`
-and `_Dual [Dual]` are automatically defined to be a union of all user defined Union, Domain, Output, Input,
+The internal types `_Union [Union]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]`, `_Dual [Dual]`
+and `_Domain [Domain]` are automatically defined to be a union of all user defined Union, Domain, Output, Input,
 Enum and Dual types respectively, as follows:
 
 ```gqlp
+union _Domain [Domain] { } // All user defined Domain types
 dual _Dual [Dual] { } // All user defined Dual types
 union _Enum [Enum] { } // All user defined Enum types
 input _Input [Input] { } // All user defined Input types
 output _Output [Output] { } // All user defined Output types
-union _Domain [Domain] { } // All user defined Domain types
 union _Union [Union] { } // All user defined Union types
+
+union _Simple [Simple] { _Enum _Domain _Union }
 ```
 
 </details>
