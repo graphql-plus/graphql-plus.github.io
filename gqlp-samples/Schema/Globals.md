@@ -136,6 +136,14 @@ directive @Name(InName?) { all }
 input InName { }
 ```
 
+### operation-category.graphql+
+
+```gqlp
+operation Op { cat :String }
+category { Cat }
+output Cat { }
+```
+
 ### option-schema-alias.graphql+
 
 ```gqlp

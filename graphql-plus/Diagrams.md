@@ -38,6 +38,7 @@ classDiagram
 
     Global <|-- Category
     Global <|-- Directive
+    Global <|-- Operation
     Global <|-- Option
 
     <<Declaration>> Category
@@ -45,6 +46,8 @@ classDiagram
 
     <<Declaration>> Directive
     Directive : Param[]
+
+    <<Declaration>> Operation
 
     <<Declaration>> Option
     Option *-- Setting

@@ -10,6 +10,19 @@
 
 - `Expected text`
 
+### category-no-type.graphql+
+
+```gqlp
+category { }
+```
+
+##### Expected Verify errors
+
+- `Invalid Category Output. '' not defined or not an Output type`
+- `Invalid Category Output. Expected type name`
+- `Invalid Category. Expected output type`
+- `Invalid Schema. Expected no more text`
+
 ### category-output-generic.graphql+
 
 ```gqlp
@@ -73,3 +86,27 @@ input TestIn { }
 ##### Expected Verify errors
 
 - `'a' not defined`
+
+### operation-no-category.graphql+
+
+```gqlp
+operation Test { { test } }
+```
+
+##### Expected Verify errors
+
+- `Invalid Operation. Expected category`
+- `Invalid Schema. Expected no more text`
+
+### operation-no-result.graphql+
+
+```gqlp
+operation Test { test }
+category { Test }
+output Test { }
+```
+
+##### Expected Verify errors
+
+- `Invalid Operation. Expected Object or Type`
+- `Invalid Schema. Expected no more text`
