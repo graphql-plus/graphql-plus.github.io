@@ -16,7 +16,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -524,7 +524,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]

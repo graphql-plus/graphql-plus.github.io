@@ -120,7 +120,7 @@ A Field may have none, one, more or even all of the following, in this order:
 
 ```PEG
 Argument = '(' Arg_Fields+ | Arg_Values+ ')'
-Arg_Value = '$'variable | Arg_List | Arg_Object | Constant
+Arg_Value = '$'variable | Arg_List | Arg_Object | Value
 Arg_List = '[' Arg_Values* ']'
 Arg_Values = Arg_Value ',' Arg_Values | Arg_Value
 
@@ -163,7 +163,7 @@ Spread = fragment Directive*
 TypeCondition = ( 'on' | ':' ) type
 
 Argument = '(' Arg_Fields+ | Arg_Values+ ')'
-Arg_Value = '$'variable | Arg_List | Arg_Object | Constant
+Arg_Value = '$'variable | Arg_List | Arg_Object | Value
 Arg_List = '[' Arg_Values* ']'
 Arg_Values = Arg_Value ',' Arg_Values | Arg_Value
 

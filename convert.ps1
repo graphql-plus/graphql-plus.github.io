@@ -1,10 +1,11 @@
-
 $specificationDir = "samples\Schema\Specification"
 New-Item $specificationDir -ItemType Directory -ErrorAction Ignore | Out-Null
 
+$specifications = "Intro", "Reque"
+
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
-  $complete = "!Complete"
+  $complete = "!" + $_.BaseName
   $sections = @{ $complete = @() }
   $current = @()
   $type = ""
@@ -64,9 +65,9 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   }
   $doc | Set-Content $_.FullName
 
-  if ($name -eq "Intro") {
+  if ($specifications -contains $name) {
     foreach ($section in $sections.Keys) {
-      $sections[$section] | Set-Content "$specificationDir\Intro_$section.graphql+"
+      $sections[$section] | Set-Content "$specificationDir\$name`_$section.graphql+"
     }
   }
 }
