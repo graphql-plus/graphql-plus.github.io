@@ -1592,8 +1592,8 @@ input Request {
         operation: _Identifier? = null
         definition: _Operation
         parameters: Any? = null
-    |   String
-}
+    |   "Parsed into definition" String
+    }
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
@@ -1602,123 +1602,68 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
-    | String // Parsed into above fields
-}
+    | "Parsed into above fields" String
+    }
 
 input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
+        modifiers: _Modifier[]
+        default: "Todo: _OpDefault" String?
         directives: _OpDirective[]
-}
+    }
 
 dual _OpDirective {
         name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
+        argument: "Todo: _OpArgument" String?
+    }
 
 input _OpFragment {
         name: _Identifier
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpResult {
         domain: _Identifier? = null
-        argument: String? # Todo: _OpArgument
+        argument: "Todo: _OpArgument" String?
         body: _OpObject[]
-}
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+input _Modifier {
+        modifierKind: _ModifierKind
+        by: _Identifier?
+        optional: Boolean?
+    }
 
 input _OpObject {
     |   _OpField
     |   _OpSpread
     |   _OpInline
-}
+    }
 
 input _OpField {
         alias: _Identifier? = null
         field: _Identifier
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
+        argument: "Todo: _OpArgument" String?
+        modifiers: _Modifier[]
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 dual _OpSpread {
         fragment: _Identifier
-        directives: _OpDirective[]}
-
-```
-
-### Reque\_+Operation.graphql+
-
-```gqlp
-input _Operation {
-        variables: _OpVariable[]
         directives: _OpDirective[]
-        fragments: _OpFragment[]
-        result: _OpResult
-    | String // Parsed into above fields
-}
-
-input _OpVariable {
-        name: _Identifier
-        type: _Identifier? = null
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
-        directives: _OpDirective[]
-}
-
-dual _OpDirective {
-        name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
-
-input _OpFragment {
-        name: _Identifier
-        type: _Identifier? = null
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-input _OpResult {
-        domain: _Identifier? = null
-        argument: String? # Todo: _OpArgument
-        body: _OpObject[]
-}
-
-input _OpObject {
-    |   _OpField
-    |   _OpSpread
-    |   _OpInline
-}
-
-input _OpField {
-        alias: _Identifier? = null
-        field: _Identifier
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-input _OpInline {
-        type: _Identifier? = null
-        directives: _OpDirective[]
-        body: _OpObject[]
-}
-
-dual _OpSpread {
-        fragment: _Identifier
-        directives: _OpDirective[]}
+    }
 
 ```
 
@@ -1730,23 +1675,8 @@ input Request {
         operation: _Identifier? = null
         definition: _Operation
         parameters: Any? = null
-    |   String
-}
-
-domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
-
-```
-
-### Reque_Argument.graphql+
-
-```gqlp
-input Request {
-        category: _Identifier? = null
-        operation: _Identifier? = null
-        definition: _Operation
-        parameters: Any? = null
-    |   String
-}
+    |   "Parsed into definition" String
+    }
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
@@ -1755,58 +1685,163 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
-    | String // Parsed into above fields
-}
+    | "Parsed into above fields" String
+    }
 
 input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
+        modifiers: _Modifier[]
+        default: "Todo: _OpDefault" String?
         directives: _OpDirective[]
-}
+    }
 
 dual _OpDirective {
         name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
+        argument: "Todo: _OpArgument" String?
+    }
 
 input _OpFragment {
         name: _Identifier
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpResult {
         domain: _Identifier? = null
-        argument: String? # Todo: _OpArgument
+        argument: "Todo: _OpArgument" String?
         body: _OpObject[]
-}
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+input _Modifier {
+        modifierKind: _ModifierKind
+        by: _Identifier?
+        optional: Boolean?
+    }
 
 input _OpObject {
     |   _OpField
     |   _OpSpread
     |   _OpInline
-}
+    }
 
 input _OpField {
         alias: _Identifier? = null
         field: _Identifier
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
+        argument: "Todo: _OpArgument" String?
+        modifiers: _Modifier[]
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 dual _OpSpread {
         fragment: _Identifier
-        directives: _OpDirective[]}
+        directives: _OpDirective[]
+    }
 
 ```
+
+### Reque_Full.graphql+
+
+```gqlp
+input Request {
+        category: _Identifier? = null
+        operation: _Identifier? = null
+        definition: _Operation
+        parameters: Any? = null
+    |   "Parsed into definition" String
+    }
+
+domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
+
+```
+
+##### Expected Verify errors
+
+- `'_Operation' not defined`
+
+### Reque_Operation.graphql+
+
+```gqlp
+input _Operation {
+        variables: _OpVariable[]
+        directives: _OpDirective[]
+        fragments: _OpFragment[]
+        result: _OpResult
+    | "Parsed into above fields" String
+    }
+
+input _OpVariable {
+        name: _Identifier
+        type: _Identifier? = null
+        modifiers: _Modifier[]
+        default: "Todo: _OpDefault" String?
+        directives: _OpDirective[]
+    }
+
+dual _OpDirective {
+        name: _Identifier
+        argument: "Todo: _OpArgument" String?
+    }
+
+input _OpFragment {
+        name: _Identifier
+        type: _Identifier? = null
+        directives: _OpDirective[]
+        body: _OpObject[]
+    }
+
+input _OpResult {
+        domain: _Identifier? = null
+        argument: "Todo: _OpArgument" String?
+        body: _OpObject[]
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+input _Modifier {
+        modifierKind: _ModifierKind
+        by: _Identifier?
+        optional: Boolean?
+    }
+
+input _OpObject {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+    }
+
+input _OpField {
+        alias: _Identifier? = null
+        field: _Identifier
+        argument: "Todo: _OpArgument" String?
+        modifiers: _Modifier[]
+        directives: _OpDirective[]
+        body: _OpObject[]
+    }
+
+input _OpInline {
+        type: _Identifier? = null
+        directives: _OpDirective[]
+        body: _OpObject[]
+    }
+
+dual _OpSpread {
+        fragment: _Identifier
+        directives: _OpDirective[]
+    }
+
+```
+
+##### Expected Verify errors
+
+- `'_Identifier' not defined`

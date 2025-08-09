@@ -4,19 +4,21 @@ A GraphQL+ Request is defined as follows.
 
 ## Request
 
+### Full definition
+
 ```gqlp
 input Request {
         category: _Identifier? = null
         operation: _Identifier? = null
         definition: _Operation
         parameters: Any? = null
-    |   String
-}
+    |   "Parsed into definition" String
+    }
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 ```
 
-## Operation
+### Operation
 
 ```gqlp
 input _Operation {
@@ -24,59 +26,68 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
-    | String // Parsed into above fields
-}
+    | "Parsed into above fields" String
+    }
 
 input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
+        modifiers: _Modifier[]
+        default: "Todo: _OpDefault" String?
         directives: _OpDirective[]
-}
+    }
 
 dual _OpDirective {
         name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
+        argument: "Todo: _OpArgument" String?
+    }
 
 input _OpFragment {
         name: _Identifier
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpResult {
         domain: _Identifier? = null
-        argument: String? # Todo: _OpArgument
+        argument: "Todo: _OpArgument" String?
         body: _OpObject[]
-}
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+input _Modifier {
+        modifierKind: _ModifierKind
+        by: _Identifier?
+        optional: Boolean?
+    }
 
 input _OpObject {
     |   _OpField
     |   _OpSpread
     |   _OpInline
-}
+    }
 
 input _OpField {
         alias: _Identifier? = null
         field: _Identifier
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
+        argument: "Todo: _OpArgument" String?
+        modifiers: _Modifier[]
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 dual _OpSpread {
         fragment: _Identifier
-        directives: _OpDirective[]}
+        directives: _OpDirective[]
+    }
 ```
 
 ## Complete Definition
@@ -87,8 +98,8 @@ input Request {
         operation: _Identifier? = null
         definition: _Operation
         parameters: Any? = null
-    |   String
-}
+    |   "Parsed into definition" String
+    }
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
@@ -97,58 +108,67 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
-    | String // Parsed into above fields
-}
+    | "Parsed into above fields" String
+    }
 
 input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
-        modifiers: _Modifiers[]
-        default: String? # Todo: _OpDefault
+        modifiers: _Modifier[]
+        default: "Todo: _OpDefault" String?
         directives: _OpDirective[]
-}
+    }
 
 dual _OpDirective {
         name: _Identifier
-        argument: String? # Todo: _OpArgument
-}
+        argument: "Todo: _OpArgument" String?
+    }
 
 input _OpFragment {
         name: _Identifier
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpResult {
         domain: _Identifier? = null
-        argument: String? # Todo: _OpArgument
+        argument: "Todo: _OpArgument" String?
         body: _OpObject[]
-}
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+input _Modifier {
+        modifierKind: _ModifierKind
+        by: _Identifier?
+        optional: Boolean?
+    }
 
 input _OpObject {
     |   _OpField
     |   _OpSpread
     |   _OpInline
-}
+    }
 
 input _OpField {
         alias: _Identifier? = null
         field: _Identifier
-        argument: String? # Todo: _OpArgument
-        modifiers: _Modifiers
+        argument: "Todo: _OpArgument" String?
+        modifiers: _Modifier[]
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
         body: _OpObject[]
-}
+    }
 
 dual _OpSpread {
         fragment: _Identifier
-        directives: _OpDirective[]}
+        directives: _OpDirective[]
+    }
 
 ```
