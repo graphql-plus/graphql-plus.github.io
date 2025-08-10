@@ -28,5 +28,10 @@
       href: Schema/Simple.md
     - name: Simple-Invalid
       href: Schema/Simple-Invalid.md
-    - name: Specification
-      href: Schema/Specification.md
+- name: Specification
+  href: Specification.md
+  items:
+    - name: Introspection
+      href: Specification/Introspection.md
+    - name: Request
+      href: Specification/Request.md

@@ -1,11 +1,10 @@
-$specificationDir = "samples\Schema\Specification"
-New-Item $specificationDir -ItemType Directory -ErrorAction Ignore | Out-Null
-
+$specificationDir = "samples\Specification"
 $specifications = "Intro", "Reque"
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
-  $complete = "!" + $_.BaseName
+  $baseName = $_.BaseName
+  $complete = $baseName
   $sections = @{ $complete = @() }
   $current = @()
   $type = ""
@@ -18,11 +17,11 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     $doc += @($_)
 
     if ($_ -match "^## ([-a-zA-Z]+)") {
-      $section =  "+" + $Matches[1]
+      $section = $baseName + "/+" + $Matches[1]
     }
 
     if ($_ -match "^### ([-a-zA-Z]+)") {
-      $subSection = $Matches[1]
+      $subSection = $baseName + "/" + $Matches[1]
     }
     
     if ($type) {
@@ -66,8 +65,9 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $doc | Set-Content $_.FullName
 
   if ($specifications -contains $name) {
+    New-Item $specificationDir/$baseName -ItemType Directory -ErrorAction Ignore | Out-Null
     foreach ($section in $sections.Keys) {
-      $sections[$section] | Set-Content "$specificationDir\$name`_$section.graphql+"
+      $sections[$section] | Set-Content "$specificationDir\$section.graphql+"
     }
   }
 }
