@@ -1,4 +1,4 @@
-# Requests Samples
+# Request Samples
 
 ## Root
 

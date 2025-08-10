@@ -1,4 +1,4 @@
-# Objects-Invalid Schema Samples
+# Object-Invalid Schema Samples
 
 ### alt-mod-undef-param.graphql+
 

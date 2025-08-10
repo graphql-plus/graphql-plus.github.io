@@ -6,24 +6,24 @@
   items:
     - name: Invalid
       href: Operation/Invalid.md
-- name: Requests
-  href: Requests.md
+- name: Request
+  href: Request.md
   items:
 - name: Schema
   href: Schema.md
   items:
-    - name: Globals
-      href: Schema/Globals.md
-    - name: Globals-Invalid
-      href: Schema/Globals-Invalid.md
-    - name: Merges
-      href: Schema/Merges.md
-    - name: Merges-Invalid
-      href: Schema/Merges-Invalid.md
-    - name: Objects
-      href: Schema/Objects.md
-    - name: Objects-Invalid
-      href: Schema/Objects-Invalid.md
+    - name: Global
+      href: Schema/Global.md
+    - name: Global-Invalid
+      href: Schema/Global-Invalid.md
+    - name: Merge
+      href: Schema/Merge.md
+    - name: Merge-Invalid
+      href: Schema/Merge-Invalid.md
+    - name: Object
+      href: Schema/Object.md
+    - name: Object-Invalid
+      href: Schema/Object-Invalid.md
     - name: Simple
       href: Schema/Simple.md
     - name: Simple-Invalid

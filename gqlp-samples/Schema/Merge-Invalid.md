@@ -1,4 +1,4 @@
-# Merges-Invalid Schema Samples
+# Merge-Invalid Schema Samples
 
 ### alt-diff-mod.graphql+
 

@@ -1,4 +1,4 @@
-# Globals-Invalid Schema Samples
+# Global-Invalid Schema Samples
 
 ### bad-parse.graphql+
 
