@@ -21,3 +21,22 @@ types:
     parent:
       name: _TypeObject
 ```
+
+### enum-types.g+req
+
+```
+category = _Schema
+definition = ($filter) { types($filter) { name typeKind parent { name } } }
+parameters.filter.kinds = Enum
+```
+
+##### Expected response enum-types.resp
+
+```
+types:
+  _TypeInput:
+    name: _TypeInput
+    typeKind: Input
+    parent:
+      name: _TypeObject
+```
