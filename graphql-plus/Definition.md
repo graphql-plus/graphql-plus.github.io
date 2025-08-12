@@ -48,7 +48,7 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 ```PEG
 Default = '=' Value
 
-EnumValue = ( enum '.' )? label
+EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
 FieldKey = EnumValue | NUMBER | STRING
 
@@ -137,7 +137,7 @@ domain Number [int, 0] { Number }
 domain String [str, *] { String }
 ```
 
-Basic, Internal and \_Key are effectively unions of the following types:
+Basic, Internal and Key are effectively unions of the following types:
 
 ```gqlp
 union _Basic [Basic] { Boolean Number String Unit }
@@ -181,14 +181,14 @@ union _Simple [Simple] { _Enum _Domain _Union }
 ## Values
 
 ```PEG
-Value = Value_List | Value_Object | Value_Scalar
-Value_Scalar = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue
-Value_List = '[' Value_Scalar* ']'
-Value_Values = Value ',' Value_Scalar | Value
+Value = Val_List | Val_Object | Val_Scalar
+Val_Scalar = NUMBER | STRING | EnumValue
+Val_List = '[' Val_Values* ']'
+Val_Values = Value ',' Val_Values | Value
 
-Value_Object = '{' Value_Fields* '}'
-Value_Fields = Value_Field ',' Value_Fields | Value_Field
-Value_Field = FieldKey ':' Value_Scalar
+Val_Object = '{' Val_Fields* '}'
+Val_Fields = Val_Field ',' Val_Fields | Val_Field
+Val_Field = FieldKey ':' Value
 ```
 
 A Value is a single value. Commas (`,`) can be used to separate list values and object fields.
@@ -209,12 +209,36 @@ If a Value Object FieldKey appears more than once, all the values will be merged
 > 2. If both values are Objects, the keys are combined and any common keys value's are merged.
 > 3. Otherwise the B value is used.
 
+Value is defined for GraphQL+ schemas as follows:
+
+```gqlp
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueObject
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueObject {
+    | _Value[_ValueScalar]
+    }
+```
+
 ## Complete Grammar
 
 ```PEG
 Default = '=' Value
 
-EnumValue = ( enum '.' )? label
+EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
 FieldKey = EnumValue | NUMBER | STRING
 
@@ -229,13 +253,13 @@ Modifiers = Collections? '?'?
 Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
 Collection_Key = Simple // Redefined in Schema
 
-Value = Value_List | Value_Object | Value_Scalar
-Value_Scalar = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue
-Value_List = '[' Value_Scalar* ']'
-Value_Values = Value ',' Value_Scalar | Value
+Value = Val_List | Val_Object | Val_Scalar
+Val_Scalar = NUMBER | STRING | EnumValue
+Val_List = '[' Val_Values* ']'
+Val_Values = Value ',' Val_Values | Value
 
-Value_Object = '{' Value_Fields* '}'
-Value_Fields = Value_Field ',' Value_Fields | Value_Field
-Value_Field = FieldKey ':' Value_Scalar
+Val_Object = '{' Val_Fields* '}'
+Val_Fields = Val_Field ',' Val_Fields | Val_Field
+Val_Field = FieldKey ':' Value
 
 ```

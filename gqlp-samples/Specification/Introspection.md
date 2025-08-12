@@ -38,10 +38,22 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
     : _Named
-        value: _Constant
+        value: _Value
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Constant' not defined`
+- `'_InputParam' not defined`
+- `'_Modifiers' not defined`
+- `'_Named' not defined`
+- `'_Type' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
 
 ### +Object.graphql+
 
@@ -144,7 +156,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: _Value?
     }
 
 output _InputAlternate {
@@ -158,7 +170,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: _Value?
     }
 
 output _TypeOutput {
@@ -198,6 +210,20 @@ output _OutputEnum {
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_ChildType' not defined`
+- `'_Collections' not defined`
+- `'_Constant' not defined`
+- `'_Identifier' not defined`
+- `'_Modifiers' not defined`
+- `'_Named' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeKind' not match '_ObjectKind'`
+- `'_TypeRef' not defined`
 
 ### +Schema.graphql+
 
@@ -251,6 +277,15 @@ dual _Described {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Categories' not defined`
+- `'_Directives' not defined`
+- `'_Resolution' not defined`
+- `'_Setting' not defined`
+- `'_Type' not defined`
+- `'_TypeKind' not defined`
+
 ### +Simple.graphql+
 
 ```gqlp
@@ -286,6 +321,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -361,6 +397,18 @@ output _UnionMember {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Aliased' not defined`
+- `'_Described' not defined`
+- `'_Identifier' not defined`
+- `'_ParentType' not defined`
+- `'_SimpleKind' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
+
 ### +Type.graphql+
 
 ```gqlp
@@ -407,25 +455,27 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
+output _Value {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
     }
 
-output _SimpleValue {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
+    | Unit
+    | Null
     }
 
-output _ConstantList {
-    | _Constant[]
+output _ValueList {
+    | _Value[]
     }
 
-output _ConstantMap {
-    | _Constant[_Key]
+output _ValueMap {
+    | _Value[_ValueScalar]
     }
 
 output _Collections {
@@ -452,6 +502,23 @@ output _Modifier<$kind:_ModifierKind> {
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Described' not defined`
+- `'_DomainKind' not an Enum type`
+- `'_DomainKind' not defined`
+- `'_DomainValue' not defined`
+- `'_EnumValue' not defined`
+- `'_Named' not defined`
+- `'_Named' not match '_Described'`
+- `'_TypeDomain' not defined`
+- `'_TypeDual' not defined`
+- `'_TypeEnum' not defined`
+- `'_TypeInput' not defined`
+- `'_TypeOutput' not defined`
+- `'_TypeUnion' not defined`
 
 ### Base.graphql+
 
@@ -516,28 +583,42 @@ output _ForParam<$base:_ObjBase> {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_ChildType' not defined`
+- `'_Collections' not defined`
+- `'_Identifier' not defined`
+- `'_Modifiers' not defined`
+- `'_Named' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
+
 ### Built-In.graphql+
 
 ```gqlp
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
+output _Value {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
     }
 
-output _SimpleValue {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
+    | Unit
+    | Null
     }
 
-output _ConstantList {
-    | _Constant[]
+output _ValueList {
+    | _Value[]
     }
 
-output _ConstantMap {
-    | _Constant[_Key]
+output _ValueMap {
+    | _Value[_ValueScalar]
     }
 
 output _Collections {
@@ -565,6 +646,14 @@ output _Modifier<$kind:_ModifierKind> {
 
 ```
 
+##### Expected Verify errors
+
+- `'_DomainKind' not an Enum type`
+- `'_DomainKind' not defined`
+- `'_DomainValue' not defined`
+- `'_EnumValue' not defined`
+- `'_TypeSimple' not defined`
+
 ### Category.graphql+
 
 ```gqlp
@@ -585,6 +674,15 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Modifiers' not defined`
+- `'_Type' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
 
 ### Common.graphql+
 
@@ -634,6 +732,19 @@ output _TypeSimple {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Described' not defined`
+- `'_Named' not defined`
+- `'_Named' not match '_Described'`
+- `'_TypeDomain' not defined`
+- `'_TypeDual' not defined`
+- `'_TypeEnum' not defined`
+- `'_TypeInput' not defined`
+- `'_TypeOutput' not defined`
+- `'_TypeUnion' not defined`
+
 ### Declarations.graphql+
 
 ```gqlp
@@ -672,6 +783,16 @@ input _TypeFilter {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Categories' not defined`
+- `'_Directives' not defined`
+- `'_Named' not defined`
+- `'_Resolution' not defined`
+- `'_Setting' not defined`
+- `'_Type' not defined`
+- `'_TypeKind' not defined`
+
 ### Directive.graphql+
 
 ```gqlp
@@ -693,6 +814,12 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_InputParam' not defined`
+- `'_Type' not defined`
 
 ### Domain.graphql+
 
@@ -729,6 +856,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -777,6 +905,16 @@ output _DomainItemRegex {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Described' not defined`
+- `'_EnumValue' not defined`
+- `'_Identifier' not defined`
+- `'_ParentType' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
+
 ### Dual.graphql+
 
 ```gqlp
@@ -806,6 +944,17 @@ output _DualTypeArg {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Alternate' not defined`
+- `'_Field' not defined`
+- `'_ObjBase' not defined`
+- `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeObject' not defined`
+
 ### Enum.graphql+
 
 ```gqlp
@@ -824,6 +973,15 @@ output _EnumValue {
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Identifier' not defined`
+- `'_ParentType' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`
 
 ### Input.graphql+
 
@@ -844,7 +1002,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: _Value?
     }
 
 output _InputAlternate {
@@ -858,10 +1016,25 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: _Value?
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Alternate' not defined`
+- `'_Constant' not defined`
+- `'_DualBase' not defined`
+- `'_Field' not defined`
+- `'_Modifiers' not defined`
+- `'_ObjBase' not defined`
+- `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeObject' not defined`
+- `'_TypeRef' not defined`
 
 ### Names.graphql+
 
@@ -882,15 +1055,24 @@ dual _Described {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Identifier' not defined`
+
 ### Option.graphql+
 
 ```gqlp
 output _Setting {
     : _Named
-        value: _Constant
+        value: _Value
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Named' not defined`
+- `'_Constant' not defined`
 
 ### Output.graphql+
 
@@ -933,6 +1115,21 @@ output _OutputEnum {
 
 ```
 
+##### Expected Verify errors
+
+- `'_Alternate' not defined`
+- `'_DualBase' not defined`
+- `'_Field' not defined`
+- `'_Identifier' not defined`
+- `'_InputParam' not defined`
+- `'_ObjBase' not defined`
+- `'_ObjTypeArg' not defined`
+- `'_ObjTypeParam' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeObject' not defined`
+- `'_TypeRef' not defined`
+
 ### Union.graphql+
 
 ```gqlp
@@ -950,3 +1147,12 @@ output _UnionMember {
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Identifier' not defined`
+- `'_ParentType' not defined`
+- `'_SimpleKind' not defined`
+- `'_TypeKind' not an Enum type`
+- `'_TypeKind' not defined`
+- `'_TypeRef' not defined`

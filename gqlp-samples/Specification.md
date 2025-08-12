@@ -87,7 +87,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
     : _Named
-        value: _Constant
+        value: _Value
     }
 
 output _Type {
@@ -133,25 +133,27 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
+output _Value {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
     }
 
-output _SimpleValue {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
+    | Unit
+    | Null
     }
 
-output _ConstantList {
-    | _Constant[]
+output _ValueList {
+    | _Value[]
     }
 
-output _ConstantMap {
-    | _Constant[_Key]
+output _ValueMap {
+    | _Value[_ValueScalar]
     }
 
 output _Collections {
@@ -209,6 +211,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -380,7 +383,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: _Value?
     }
 
 output _InputAlternate {
@@ -394,7 +397,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: _Value?
     }
 
 output _TypeOutput {
@@ -438,7 +441,7 @@ output _OutputEnum {
 ### Request.graphql+
 
 ```gqlp
-input Request {
+input _Request {
         category: _Identifier? = null
         operation: _Identifier? = null
         definition: _Operation
@@ -453,32 +456,26 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
-    | "Parsed into above fields" String
+    | "Parsed into above fields, plus Request category and operation" String
     }
 
 input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
         modifiers: _Modifier[]
-        default: "Todo: _OpDefault" String?
+        default: _Value?
         directives: _OpDirective[]
     }
 
 dual _OpDirective {
         name: _Identifier
-        argument: "Todo: _OpArgument" String?
+        argument: _OpArgument?
     }
 
 input _OpFragment {
         name: _Identifier
         type: _Identifier? = null
         directives: _OpDirective[]
-        body: _OpObject[]
-    }
-
-input _OpResult {
-        domain: _Identifier? = null
-        argument: "Todo: _OpArgument" String?
         body: _OpObject[]
     }
 
@@ -490,6 +487,31 @@ input _Modifier {
         optional: Boolean?
     }
 
+input _OpArgument {
+    |   _OpArgScalar
+    |   _OpArgList
+    |   _OpArgObject
+    }
+
+input _OpArgScalar {
+        variable: _Identifier
+    |   _Value
+    }
+
+input _OpArgList {
+    | _OpArgument[]
+    }
+
+input _OpArgObject {
+    | _OpArgument[_OpArgScalar]
+    }
+
+input _OpResult {
+        domain: _Identifier? = null
+        argument: _OpArgument?
+        body: _OpObject[]
+    }
+
 input _OpObject {
     |   _OpField
     |   _OpSpread
@@ -499,7 +521,7 @@ input _OpObject {
 input _OpField {
         alias: _Identifier? = null
         field: _Identifier
-        argument: "Todo: _OpArgument" String?
+        argument: _OpArgument?
         modifiers: _Modifier[]
         directives: _OpDirective[]
         body: _OpObject[]

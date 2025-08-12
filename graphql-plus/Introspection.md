@@ -108,7 +108,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 ```gqlp
 output _Setting {
     : _Named
-        value: _Constant
+        value: _Value
     }
 ```
 
@@ -164,25 +164,27 @@ output _TypeSimple {
 ### Built-In types
 
 ```gqlp
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
+output _Value {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
     }
 
-output _SimpleValue {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
+    | Unit
+    | Null
     }
 
-output _ConstantList {
-    | _Constant[]
+output _ValueList {
+    | _Value[]
     }
 
-output _ConstantMap {
-    | _Constant[_Key]
+output _ValueMap {
+    | _Value[_ValueScalar]
     }
 
 output _Collections {
@@ -246,6 +248,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -455,7 +458,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: _Value?
     }
 
 output _InputAlternate {
@@ -469,7 +472,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: _Value?
     }
 ```
 
@@ -598,7 +601,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
     : _Named
-        value: _Constant
+        value: _Value
     }
 
 output _Type {
@@ -644,25 +647,27 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
+output _Value {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
     }
 
-output _SimpleValue {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
     | _DomainValue<_DomainKind.String String>
+    | Unit
+    | Null
     }
 
-output _ConstantList {
-    | _Constant[]
+output _ValueList {
+    | _Value[]
     }
 
-output _ConstantMap {
-    | _Constant[_Key]
+output _ValueMap {
+    | _Value[_ValueScalar]
     }
 
 output _Collections {
@@ -720,6 +725,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -891,7 +897,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: _Value?
     }
 
 output _InputAlternate {
@@ -905,7 +911,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: _Value?
     }
 
 output _TypeOutput {
