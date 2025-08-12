@@ -51,7 +51,7 @@ input _OpArgument {
     }
 
 input _OpArgScalar {
-        variable: _Identifier        
+        variable: _Identifier
     |   _Value
     }
 

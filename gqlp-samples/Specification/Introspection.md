@@ -46,7 +46,7 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_Constant' not defined`
+- `'_Value' not defined`
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -216,7 +216,7 @@ output _OutputEnum {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
-- `'_Constant' not defined`
+- `'_Value' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -461,7 +461,7 @@ output _Value {
     | _ValueMap
     }
 
-output _ValueScalar {
+union _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -604,7 +604,7 @@ output _Value {
     | _ValueMap
     }
 
-output _ValueScalar {
+union _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -1024,7 +1024,7 @@ output _InputParam {
 ##### Expected Verify errors
 
 - `'_Alternate' not defined`
-- `'_Constant' not defined`
+- `'_Value' not defined`
 - `'_DualBase' not defined`
 - `'_Field' not defined`
 - `'_Modifiers' not defined`
@@ -1072,7 +1072,7 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Named' not defined`
-- `'_Constant' not defined`
+- `'_Value' not defined`
 
 ### Output.graphql+
 

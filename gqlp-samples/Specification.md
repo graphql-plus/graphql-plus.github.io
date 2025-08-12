@@ -139,7 +139,7 @@ output _Value {
     | _ValueMap
     }
 
-output _ValueScalar {
+union _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
