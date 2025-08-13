@@ -31,6 +31,8 @@
 - name: Specification
   href: Specification.md
   items:
+    - name: Definition
+      href: Specification/Definition.md
     - name: Introspection
       href: Specification/Introspection.md
     - name: Request

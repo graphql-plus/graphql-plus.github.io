@@ -126,7 +126,7 @@ enum Null [null] { null }
 
 enum Unit [_] { _ }
 
-enum Void { }  // no valid value
+"No valid value"enum Void { }
 ```
 
 Number and String are effectively domain types as follows:
@@ -151,16 +151,18 @@ Object is a general Dictionary as follows:
 
 ```gqlp
 "%"
-dual _Object [Object, obj, %] { :_Map<Any> } // recursive!
+"recursive!" dual _Object [Object, obj, %] { :_Map<Any> }
 
-dual _Most<$T:_Any> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictionary<$T> } // recursive!
-dual _MostList<$T:_Any> { _Most<$T>[] } // recursive!
-dual _MostDictionary<$T:_Any> { _Most<$T>[_Key?] } // recursive!
+"recursive!" dual _Most<$T:_Any> [Most] { | $T | _Object | _Most<$T> | _MostList<$T> | _MostMap<$T> }
+"recursive!" dual _MostList<$T:_Any> { | _Most<$T>[] }
+"recursive!" dual _MostMap<$T:_Any> { | _Most<$T>[_Key?] }
 
 dual _Any [Any] { :_Most<_Dual> }
 input _Any [Any] { :_Most<_Input> }
 output _Any [Any] { :_Most<_Output> }
 union _Any [Any] { _Basic _Internal _Simple }
+
+dual _Map<$T:_Any> [Map] { | $T[*] }
 ```
 
 The internal types `_Union [Union]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]`, `_Dual [Dual]`
@@ -168,17 +170,17 @@ and `_Domain [Domain]` are automatically defined to be a union of all user defin
 Enum and Dual types respectively, as follows:
 
 ```gqlp
-union _Domain [Domain] { } // All user defined Domain types
-dual _Dual [Dual] { } // All user defined Dual types
-union _Enum [Enum] { } // All user defined Enum types
-input _Input [Input] { } // All user defined Input types
-output _Output [Output] { } // All user defined Output types
-union _Union [Union] { } // All user defined Union types
+"All user defined Domain types" union _Domain [Domain] { }
+"All user defined Dual types" dual _Dual [Dual] { }
+"All user defined Enum types" union _Enum [Enum] { }
+"All user defined Input types" input _Input [Input] { }
+"All user defined Output types" output _Output [Output] { }
+"All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
 ```
 
-## Values
+### Values
 
 ```PEG
 Value = Val_List | Val_Object | Val_Scalar
@@ -215,7 +217,7 @@ Value is defined for GraphQL+ schemas as follows:
 dual _Value[Value] {
     | _ValueScalar
     | _ValueList
-    | _ValueObject
+    | _ValueMap
     }
 
 dual _ValueScalar {
@@ -228,9 +230,11 @@ dual _ValueList {
     | _Value[]
     }
 
-dual _ValueObject {
-    | _Value[_ValueScalar]
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
     }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 ```
 
 ## Complete Grammar
@@ -261,5 +265,73 @@ Val_Values = Value ',' Val_Values | Value
 Val_Object = '{' Val_Fields* '}'
 Val_Fields = Val_Field ',' Val_Fields | Val_Field
 Val_Field = FieldKey ':' Value
+
+```
+
+## Complete Definition
+
+```gqlp
+enum Boolean [bool, ^] { false true }
+
+enum Null [null] { null }
+
+enum Unit [_] { _ }
+
+"No valid value"enum Void { }
+
+domain Number [int, 0] { Number }
+
+domain String [str, *] { String }
+
+union _Basic [Basic] { Boolean Number String Unit }
+
+union _Internal [Internal] { Null Void }
+
+union _Key [Key] { _Basic _Internal _Simple }
+
+"%"
+"recursive!" dual _Object [Object, obj, %] { :_Map<Any> }
+
+"recursive!" dual _Most<$T:_Any> [Most] { | $T | _Object | _Most<$T> | _MostList<$T> | _MostMap<$T> }
+"recursive!" dual _MostList<$T:_Any> { | _Most<$T>[] }
+"recursive!" dual _MostMap<$T:_Any> { | _Most<$T>[_Key?] }
+
+dual _Any [Any] { :_Most<_Dual> }
+input _Any [Any] { :_Most<_Input> }
+output _Any [Any] { :_Most<_Output> }
+union _Any [Any] { _Basic _Internal _Simple }
+
+dual _Map<$T:_Any> [Map] { | $T[*] }
+
+"All user defined Domain types" union _Domain [Domain] { }
+"All user defined Dual types" dual _Dual [Dual] { }
+"All user defined Enum types" union _Enum [Enum] { }
+"All user defined Input types" input _Input [Input] { }
+"All user defined Output types" output _Output [Output] { }
+"All user defined Union types" union _Union [Union] { }
+
+union _Simple [Simple] { _Enum _Domain _Union }
+
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```

@@ -34,22 +34,24 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 

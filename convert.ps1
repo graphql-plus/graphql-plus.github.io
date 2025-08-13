@@ -1,5 +1,5 @@
 $specificationDir = "samples\Specification"
-$specifications = "Intro", "Reque"
+$specifications = "Defin", "Intro", "Reque"
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
@@ -48,6 +48,10 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
           if ($name -ne "Defin") {
             Get-Content ".peg/Defin.pegjs" | Add-Content ".peg/$name.pegjs"
           }
+
+          if ($all.Keys -contains "gqlp") {
+            $doc += @("", "## Complete Definition", "", "``````gqlp") + $all["gqlp"] + @("``````")
+          }     
 
           $end = $true
         } elseif ($all.Keys -contains "gqlp") {

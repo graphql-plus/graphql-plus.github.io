@@ -368,32 +368,25 @@ Modifiers are equivalent to predefined generic Input and Output types as follows
 
 ```gqlp
 "$T?"
-dual _Opt<$T> [Opt] { $T | Null }
+dual _Opt<$T:_Any> [Opt] { | $T | Null }
 
-"$T[]"
-dual _List<$T> [List] { $T[] }
+dual _List<$T:_Any> [List] { | $T[] }
 
-"$T[$K]"
-dual _Dict<$K $T> [Dict] { $K: $T }
+dual _Dict<$K:_Key $T:_Any> [Dict] { | $T[$K] }
 ```
 
 The following GraphQlPlus idioms have equivalent generic Input and Output types.
 
 ```gqlp
-"$T[String] or $T[*]"
-dual _Map<$T> [Map] { _Dict<* $T> }
+dual _Map<$T:_Any> [Map] { | $T[*] }
 
-"$T[Number] or $T[0]"
-dual _Array<$T> [Array] { _Dict<0 $T> }
+dual _Array<$T:_Any> [Array] { | $T[0] }
 
-"$T[Boolean] or $T[^]"
-dual _IfElse<$T> [IfElse] { _Dict<^ $T> }
+dual _IfElse<$T:_Any> [IfElse] { | $T[^] }
 
-"Unit[$K] or _[$K]"
-dual _Set<$K> [Set] { _Dict<$K _> }
+dual _Set<$K:_Key> [Set] { | _[$K] }
 
-"Boolean[$K] or ^[$K]"
-dual _Mask<$K> [Mask] { _Dict<$K ^> }
+dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 ```
 
 These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
@@ -563,5 +556,27 @@ Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
 Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
+
+```
+
+## Complete Definition
+
+```gqlp
+"$T?"
+dual _Opt<$T:_Any> [Opt] { | $T | Null }
+
+dual _List<$T:_Any> [List] { | $T[] }
+
+dual _Dict<$K:_Key $T:_Any> [Dict] { | $T[$K] }
+
+dual _Map<$T:_Any> [Map] { | $T[*] }
+
+dual _Array<$T:_Any> [Array] { | $T[0] }
+
+dual _IfElse<$T:_Any> [IfElse] { | $T[^] }
+
+dual _Set<$K:_Key> [Set] { | _[$K] }
+
+dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 
 ```

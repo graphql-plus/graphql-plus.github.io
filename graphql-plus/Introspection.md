@@ -170,7 +170,7 @@ output _Value {
     | _ValueMap
     }
 
-union _ValueScalar {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -184,8 +184,10 @@ output _ValueList {
     }
 
 output _ValueMap {
-    | _Value[_ValueScalar]
+    | _Value[_ValueBuiltIn]
     }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 output _Collections {
     | _Modifier<_ModifierKind.List>
@@ -653,7 +655,7 @@ output _Value {
     | _ValueMap
     }
 
-union _ValueScalar {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -667,8 +669,10 @@ output _ValueList {
     }
 
 output _ValueMap {
-    | _Value[_ValueScalar]
+    | _Value[_ValueBuiltIn]
     }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 output _Collections {
     | _Modifier<_ModifierKind.List>

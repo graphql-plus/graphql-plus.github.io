@@ -49,23 +49,25 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 
 input _OpResult {
@@ -99,6 +101,55 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
+
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
+
+```
+
+### Built-In.graphql+
+
+```gqlp
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```
 
@@ -160,23 +211,25 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 
 ```
@@ -184,6 +237,10 @@ input _OpArgObject {
 ##### Expected Verify errors
 
 - `'_Identifier' not defined`
+- `'_OpObject' not defined`
+- `'_OpResult' not defined`
+- `'_Value' not defined`
+- `'_ValueBuiltIn' not defined`
 
 ### Result.graphql+
 
@@ -221,3 +278,10 @@ dual _OpSpread {
     }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Identifier' not defined`
+- `'_Modifier' not defined`
+- `'_OpArgument' not defined`
+- `'_OpDirective' not defined`

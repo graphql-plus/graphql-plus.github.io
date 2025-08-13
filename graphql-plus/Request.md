@@ -57,23 +57,25 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 ```
 
@@ -111,6 +113,32 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
+```
+
+### Built-In types
+
+```gqlp
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 ```
 
 ## Complete Definition
@@ -162,23 +190,25 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 
 input _OpResult {
@@ -212,5 +242,27 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
+
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```

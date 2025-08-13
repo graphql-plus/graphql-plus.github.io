@@ -2,6 +2,74 @@
 
 ## Root
 
+### Definition.graphql+
+
+```gqlp
+enum Boolean [bool, ^] { false true }
+
+enum Null [null] { null }
+
+enum Unit [_] { _ }
+
+"No valid value"enum Void { }
+
+domain Number [int, 0] { Number }
+
+domain String [str, *] { String }
+
+union _Basic [Basic] { Boolean Number String Unit }
+
+union _Internal [Internal] { Null Void }
+
+union _Key [Key] { _Basic _Internal _Simple }
+
+"%"
+"recursive!" dual _Object [Object, obj, %] { :_Map<Any> }
+
+"recursive!" dual _Most<$T:_Any> [Most] { | $T | _Object | _Most<$T> | _MostList<$T> | _MostMap<$T> }
+"recursive!" dual _MostList<$T:_Any> { | _Most<$T>[] }
+"recursive!" dual _MostMap<$T:_Any> { | _Most<$T>[_Key?] }
+
+dual _Any [Any] { :_Most<_Dual> }
+input _Any [Any] { :_Most<_Input> }
+output _Any [Any] { :_Most<_Output> }
+union _Any [Any] { _Basic _Internal _Simple }
+
+dual _Map<$T:_Any> [Map] { | $T[*] }
+
+"All user defined Domain types" union _Domain [Domain] { }
+"All user defined Dual types" dual _Dual [Dual] { }
+"All user defined Enum types" union _Enum [Enum] { }
+"All user defined Input types" input _Input [Input] { }
+"All user defined Output types" output _Output [Output] { }
+"All user defined Union types" union _Union [Union] { }
+
+union _Simple [Simple] { _Enum _Domain _Union }
+
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
+
+```
+
 ### Introspection.graphql+
 
 ```gqlp
@@ -139,7 +207,7 @@ output _Value {
     | _ValueMap
     }
 
-union _ValueScalar {
+output _ValueScalar {
     | _DomainValue<_DomainKind.Boolean Boolean>
     | _DomainValue<_DomainKind.Enum _EnumValue>
     | _DomainValue<_DomainKind.Number Number>
@@ -153,8 +221,10 @@ output _ValueList {
     }
 
 output _ValueMap {
-    | _Value[_ValueScalar]
+    | _Value[_ValueBuiltIn]
     }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 output _Collections {
     | _Modifier<_ModifierKind.List>
@@ -487,23 +557,25 @@ input _Modifier {
         optional: Boolean?
     }
 
-input _OpArgument {
+dual _OpArgument {
     |   _OpArgScalar
     |   _OpArgList
-    |   _OpArgObject
+    |   _OpArgMap
     }
 
-input _OpArgScalar {
+dual _OpArgScalar {
         variable: _Identifier
     |   _Value
     }
 
-input _OpArgList {
+dual _OpArgList {
     | _OpArgument[]
     }
 
-input _OpArgObject {
-    | _OpArgument[_OpArgScalar]
+dual _OpArgMap {
+        value: _OpArgument
+        byVariable: _Identifier
+    | _OpArgument[_ValueBuiltIn]
     }
 
 input _OpResult {
@@ -537,5 +609,27 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
+
+dual _Value[Value] {
+    | _ValueScalar
+    | _ValueList
+    | _ValueMap
+    }
+
+dual _ValueScalar {
+    | _Basic
+    | _Internal
+    | _Simple
+    }
+
+dual _ValueList {
+    | _Value[]
+    }
+
+dual _ValueMap {
+    | _Value[_ValueBuiltIn]
+    }
+
+union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```
