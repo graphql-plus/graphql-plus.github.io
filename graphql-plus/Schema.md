@@ -389,6 +389,13 @@ dual _Set<$K:_Key> [Set] { | _[$K] }
 dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 ```
 
+Definitions to support the above idioms
+
+```gqlp
+union _Key { }
+dual _Any { }
+```
+
 These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
 
 `Set`, `Object` and `Mask` are both Input and Output types.
@@ -578,5 +585,8 @@ dual _IfElse<$T:_Any> [IfElse] { | $T[^] }
 dual _Set<$K:_Key> [Set] { | _[$K] }
 
 dual _Mask<$K:_Key> [Mask] { | ^[$K] }
+
+union _Key { }
+dual _Any { }
 
 ```

@@ -37,3 +37,5 @@
       href: Specification/Introspection.md
     - name: Request
       href: Specification/Request.md
+    - name: Schema
+      href: Specification/Schema.md

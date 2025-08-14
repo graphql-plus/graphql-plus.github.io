@@ -1,5 +1,5 @@
 $specificationDir = "samples\Specification"
-$specifications = "Defin", "Intro", "Reque"
+$specifications = "Defin", "Intro", "Reque", "Schem"
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
