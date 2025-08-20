@@ -63,14 +63,21 @@ dual _Described {
 
 ## Global declarations
 
+```gqlp
+output _AndType {
+    : _Named
+        type: _Type
+    | _Type
+    }
+```
+
 ### Category declaration
 
 ```gqlp
 output _Categories {
+    : _AndType
         category: _Category
-        type: _Type
     | _Category
-    | _Type
     }
 
 output _Category {
@@ -87,10 +94,9 @@ enum _Resolution { Parallel Sequential Single }
 
 ```gqlp
 output _Directives {
+    : _AndType
         directive: _Directive
-        type: _Type
     | _Directive
-    | _Type
     }
 
 output _Directive {
@@ -637,11 +643,16 @@ dual _Described {
         description: String[]
     }
 
-output _Categories {
-        category: _Category
+output _AndType {
+    : _Named
         type: _Type
-    | _Category
     | _Type
+    }
+
+output _Categories {
+    : _AndType
+        category: _Category
+    | _Category
     }
 
 output _Category {
@@ -654,10 +665,9 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 
 output _Directives {
+    : _AndType
         directive: _Directive
-        type: _Type
     | _Directive
-    | _Type
     }
 
 output _Directive {

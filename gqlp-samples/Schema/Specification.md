@@ -51,11 +51,16 @@ dual _Described {
         description: String[]
     }
 
-output _Categories {
-        category: _Category
+output _AndType {
+    : _Named
         type: _Type
-    | _Category
     | _Type
+    }
+
+output _Categories {
+    : _AndType
+        category: _Category
+    | _Category
     }
 
 output _Category {
@@ -68,10 +73,9 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 
 output _Directives {
+    : _AndType
         directive: _Directive
-        type: _Type
     | _Directive
-    | _Type
     }
 
 output _Directive {
@@ -505,11 +509,16 @@ output _OutputEnum {
 ### Intro\_+Global.graphql+
 
 ```gqlp
-output _Categories {
-        category: _Category
+output _AndType {
+    : _Named
         type: _Type
-    | _Category
     | _Type
+    }
+
+output _Categories {
+    : _AndType
+        category: _Category
+    | _Category
     }
 
 output _Category {
@@ -522,10 +531,9 @@ output _Category {
 enum _Resolution { Parallel Sequential Single }
 
 output _Directives {
+    : _AndType
         directive: _Directive
-        type: _Type
     | _Directive
-    | _Type
     }
 
 output _Directive {
@@ -1230,10 +1238,9 @@ output _Modifier<$kind:_ModifierKind> {
 
 ```gqlp
 output _Categories {
+    : _AndType
         category: _Category
-        type: _Type
     | _Category
-    | _Type
     }
 
 output _Category {
@@ -1250,8 +1257,8 @@ enum _Resolution { Parallel Sequential Single }
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
+- `'_AndType' not defined`
 - `'_Modifiers' not defined`
-- `'_Type' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
@@ -1371,10 +1378,9 @@ input _TypeFilter {
 
 ```gqlp
 output _Directives {
+    : _AndType
         directive: _Directive
-        type: _Type
     | _Directive
-    | _Type
     }
 
 output _Directive {
@@ -1392,8 +1398,8 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
+- `'_AndType' not defined`
 - `'_InputParam' not defined`
-- `'_Type' not defined`
 
 ### Intro_Domain.graphql+
 
@@ -1626,11 +1632,18 @@ dual _Described {
         description: String[]
     }
 
+output _AndType {
+    : _Named
+        type: _Type
+    | _Type
+    }
+
 ```
 
 ##### Expected Verify errors
 
 - `'_Identifier' not defined`
+- `'_Type' not defined`
 
 ### Intro_Operation.graphql+
 
