@@ -2,6 +2,23 @@
 
 ## Root
 
+### categories.g+req
+
+```
+_Schema { categories { name } }
+```
+
+##### Expected response categories.resp
+
+```
+types:
+  _TypeInput:
+    name: _TypeInput
+    typeKind: Input
+    parent:
+      name: _TypeObject
+```
+
 ### dual-input-types.g+req
 
 ```

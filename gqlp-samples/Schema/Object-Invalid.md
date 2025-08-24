@@ -131,15 +131,15 @@ object Test { | Number<String> }
 
 ##### Expected Verify errors Dual
 
-- `Args invalid on Number. Expected 0, given 1`
+- `Args mismatch on Number. Expected none, given 1`
 
 ##### Expected Verify errors Input
 
-- `Args invalid on Number. Expected 0, given 1`
+- `Args mismatch on Number. Expected none, given 1`
 
 ##### Expected Verify errors Output
 
-- `Args invalid on Number. Expected 0, given 1`
+- `Args mismatch on Number. Expected none, given 1`
 
 ### alt-undef.graphql+
 
@@ -479,15 +479,15 @@ object Test { field: String<0> }
 
 ##### Expected Verify errors Dual
 
-- `Args invalid on String. Expected 0, given 1`
+- `Args mismatch on String. Expected none, given 1`
 
 ##### Expected Verify errors Input
 
-- `Args invalid on String. Expected 0, given 1`
+- `Args mismatch on String. Expected none, given 1`
 
 ##### Expected Verify errors Output
 
-- `Args invalid on String. Expected 0, given 1`
+- `Args mismatch on String. Expected none, given 1`
 
 ### field-undef.graphql+
 
