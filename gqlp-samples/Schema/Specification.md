@@ -106,7 +106,7 @@ output _Operation {
 
 output _OpVariable {
         name: _Identifier
-        type: _ObjType<_InputBase>
+        type: _InputBase
         modifiers: _Modifiers[]
         default: String? # Todo: _OpDefault
         directives: _OpDirective[]
@@ -119,7 +119,7 @@ dual _OpDirective {
 
 output _OpFragment {
         name: _Identifier
-        type: _ObjType<_OutputBase>
+        type: _OutputBase
         directives: _OpDirective[]
         body: _OpObject[]
 }
@@ -564,7 +564,7 @@ output _Operation {
 
 output _OpVariable {
         name: _Identifier
-        type: _ObjType<_InputBase>
+        type: _InputBase
         modifiers: _Modifiers[]
         default: String? # Todo: _OpDefault
         directives: _OpDirective[]
@@ -577,7 +577,7 @@ dual _OpDirective {
 
 output _OpFragment {
         name: _Identifier
-        type: _ObjType<_OutputBase>
+        type: _OutputBase
         directives: _OpDirective[]
         body: _OpObject[]
 }
@@ -630,7 +630,6 @@ output _Setting {
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
-- `'_ObjType' not defined`
 - `'_OutputBase' not defined`
 - `'_SimpleKind' not defined`
 - `'_Type' not defined`
@@ -1666,7 +1665,7 @@ output _Operation {
 
 output _OpVariable {
         name: _Identifier
-        type: _ObjType<_InputBase>
+        type: _InputBase
         modifiers: _Modifiers[]
         default: String? # Todo: _OpDefault
         directives: _OpDirective[]
@@ -1679,7 +1678,7 @@ dual _OpDirective {
 
 output _OpFragment {
         name: _Identifier
-        type: _ObjType<_OutputBase>
+        type: _OutputBase
         directives: _OpDirective[]
         body: _OpObject[]
 }
@@ -1725,7 +1724,6 @@ output _OpSpread {
 - `Invalid Output Field. '_Identifier' not defined`
 - `Invalid Output Field. '_InputBase' not defined`
 - `Invalid Output Field. '_Modifiers' not defined`
-- `Invalid Output Field. '_ObjType' not defined`
 - `Invalid Output Field. '_OutputBase' not defined`
 - `Invalid Output Field. '_SimpleKind' not defined`
 - `Invalid Output Field. '_Type' not defined`

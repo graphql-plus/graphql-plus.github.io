@@ -131,7 +131,7 @@ output _Operation {
 
 output _OpVariable {
         name: _Identifier
-        type: _ObjType<_InputBase>
+        type: _InputBase
         modifiers: _Modifiers[]
         default: String? # Todo: _OpDefault
         directives: _OpDirective[]
@@ -144,7 +144,7 @@ dual _OpDirective {
 
 output _OpFragment {
         name: _Identifier
-        type: _ObjType<_OutputBase>
+        type: _OutputBase
         directives: _OpDirective[]
         body: _OpObject[]
 }
@@ -698,7 +698,7 @@ output _Operation {
 
 output _OpVariable {
         name: _Identifier
-        type: _ObjType<_InputBase>
+        type: _InputBase
         modifiers: _Modifiers[]
         default: String? # Todo: _OpDefault
         directives: _OpDirective[]
@@ -711,7 +711,7 @@ dual _OpDirective {
 
 output _OpFragment {
         name: _Identifier
-        type: _ObjType<_OutputBase>
+        type: _OutputBase
         directives: _OpDirective[]
         body: _OpObject[]
 }
