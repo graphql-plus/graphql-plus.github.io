@@ -40,17 +40,18 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 | NUMBER   | `[-+]?[0-9_]+(\.[0-9_]+)?`           | A number, possibly signed and/or with a fractional portion. An underscore (`_`) can be used to separate digit groups                 | 1 2.3 45 67.89 0.10 -11 +12 -13.14 +15.16 17_18.19_20 |
 | STRING   | `"([^"]\|\\.)*"` or `'([^']\|\\.)*'` | A string delimited by either single (`'`) or double (`"`) quotes and with any characters in the string escaped by a backslash (`\`). | "" "a" "b\\"c" "d'e" <br/> '' 'f' 'g"h' 'i\\'j'       |
 | REGEX    | `/.*/`                               | A regex delimited by slashes (`/`) conforming to POSIX ERE                                                                           | /.\*/                                                 |
+| VALUE    | _See below_                          | A literal value as defined below. Can be scalar or complex. below.                                                                   | {"a":"b"} ["a" "b"]                                   |
 
 **Note:** Both STRING and REGEX constants can include end-of-line and other control characters.
 
 ## Common
 
 ```PEG
-Default = '=' Value
+Default = '=' VALUE
 
 EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
-FieldKey = EnumValue | NUMBER | STRING
+Scalar = EnumValue | NUMBER | STRING
 
 Boolean = 'false' | 'true'
 
@@ -172,19 +173,18 @@ union _Simple [Simple] { _Enum _Domain _Union }
 ### Values
 
 ```PEG
-Value = Val_List | Val_Object | Val_Scalar
-Val_Scalar = NUMBER | STRING | EnumValue
+VALUE = Val_List | Val_Object | Scalar
 Val_List = '[' Val_Values* ']'
-Val_Values = Value ',' Val_Values | Value
+Val_Values = VALUE ',' Val_Values | VALUE
 
 Val_Object = '{' Val_Fields* '}'
 Val_Fields = Val_Field ',' Val_Fields | Val_Field
-Val_Field = FieldKey ':' Value
+Val_Field = Scalar ':' VALUE
 ```
 
 A Value is a single value. Commas (`,`) can be used to separate list values and object fields.
 
-If a Value Object FieldKey appears more than once, all the values will be merged as follows:
+If a Value Object Scalar appears more than once, all the values will be merged as follows:
 
 > A merged with B results as follows:
 >
@@ -205,11 +205,11 @@ As Value is a recursive type it can't be defined in a GraphQl+ schema.
 ## Complete Grammar
 
 ```PEG
-Default = '=' Value
+Default = '=' VALUE
 
 EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
-FieldKey = EnumValue | NUMBER | STRING
+Scalar = EnumValue | NUMBER | STRING
 
 Boolean = 'false' | 'true'
 
@@ -222,14 +222,13 @@ Modifiers = Collections? '?'?
 Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
 Collection_Key = Simple // Redefined in Schema
 
-Value = Val_List | Val_Object | Val_Scalar
-Val_Scalar = NUMBER | STRING | EnumValue
+VALUE = Val_List | Val_Object | Scalar
 Val_List = '[' Val_Values* ']'
-Val_Values = Value ',' Val_Values | Value
+Val_Values = VALUE ',' Val_Values | VALUE
 
 Val_Object = '{' Val_Fields* '}'
 Val_Fields = Val_Field ',' Val_Fields | Val_Field
-Val_Field = FieldKey ':' Value
+Val_Field = Scalar ':' VALUE
 
 ```
 
