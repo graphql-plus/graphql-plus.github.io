@@ -180,74 +180,6 @@ Simple_ReDef = Basic | domain | enum | union // Redefined Simple
 Collection_Key_ReDef = Simple | '$'typeParam // Redefined Collection_Key
 ```
 
-<details>
-<summary>Built-In types</summary>
-
-<i>The following GraphQlPlus isn't strictly valid but ...</i>
-
-Boolean, Null, Unit and Void are effectively enum types as follows:
-
-```gqlp
-enum Boolean [bool, ^] { false true }
-
-enum Null [null] { null }
-
-enum Unit [_] { _ }
-
-enum Void { }  // no valid value
-```
-
-Number and String are effectively domain types as follows:
-
-```gqlp
-domain Number [int, 0] { Number }
-
-domain String [str, *] { String }
-```
-
-Basic, Internal and \_Key are effectively unions of the following types:
-
-```gqlp
-union _Basic [Basic] { Boolean Number String Unit }
-
-union _Internal [Internal] { Null Void }
-
-union _Key [Key] { _Basic _Internal _Simple }
-```
-
-Object is a general Dictionary as follows:
-
-```gqlp
-"%"
-dual _Object [Object, obj, %] { :_Map<Any> } // recursive!
-
-dual _Most<$T:_Any> [Most] { $T | Object | _Most<$T>? | _MostList<$T> | _MostDictionary<$T> } // recursive!
-dual _MostList<$T:_Any> { _Most<$T>[] } // recursive!
-dual _MostDictionary<$T:_Any> { _Most<$T>[_Key?] } // recursive!
-
-dual _Any [Any] { :_Most<_Dual> }
-input _Any [Any] { :_Most<_Input> }
-output _Any [Any] { :_Most<_Output> }
-union _Any [Any] { _Basic _Internal _Simple }
-```
-
-The internal types `_Union [Union]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]`, `_Dual [Dual]`
-and `_Domain [Domain]` are automatically defined to be a union of all user defined Union, Domain, Output, Input,
-Enum and Dual types respectively, as follows:
-
-```gqlp
-union _Domain [Domain] { } // All user defined Domain types
-dual _Dual [Dual] { } // All user defined Dual types
-union _Enum [Enum] { } // All user defined Enum types
-input _Input [Input] { } // All user defined Input types
-output _Output [Output] { } // All user defined Output types
-union _Union [Union] { } // All user defined Union types
-
-union _Simple [Simple] { _Enum _Domain _Union }
-```
-
-</details>
-
 ## Simple types
 
 Domain, Enum and Union are Simple types.
@@ -463,32 +395,32 @@ Modifiers are equivalent to predefined generic Input and Output types as follows
 
 ```gqlp
 "$T?"
-dual _Opt<$T> [Opt] { $T | Null }
+dual _Opt<$T:_Any> [Opt] { | $T | Null }
 
-"$T[]"
-dual _List<$T> [List] { $T[] }
+dual _List<$T:_Any> [List] { | $T[] }
 
-"$T[$K]"
-dual _Dict<$K $T> [Dict] { $K: $T }
+dual _Dict<$K:_Key $T:_Any> [Dict] { | $T[$K] }
 ```
 
 The following GraphQlPlus idioms have equivalent generic Input and Output types.
 
 ```gqlp
-"$T[String] or $T[*]"
-dual _Map<$T> [Map] { _Dict<* $T> }
+dual _Map<$T:_Any> [Map] { | $T[*] }
 
-"$T[Number] or $T[0]"
-dual _Array<$T> [Array] { _Dict<0 $T> }
+dual _Array<$T:_Any> [Array] { | $T[0] }
 
-"$T[Boolean] or $T[^]"
-dual _IfElse<$T> [IfElse] { _Dict<^ $T> }
+dual _IfElse<$T:_Any> [IfElse] { | $T[^] }
 
-"Unit[$K] or _[$K]"
-dual _Set<$K> [Set] { _Dict<$K _> }
+dual _Set<$K:_Key> [Set] { | _[$K] }
 
-"Boolean[$K] or ^[$K]"
-dual _Mask<$K> [Mask] { _Dict<$K ^> }
+dual _Mask<$K:_Key> [Mask] { | ^[$K] }
+```
+
+Definitions to support the above idioms
+
+```gqlp
+union _Key { }
+dual _Any { }
 ```
 
 These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
@@ -662,5 +594,30 @@ Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
 Out_EnumField = fieldAlias* '=' Description? EnumValue
 
 Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
+
+```
+
+## Complete Definition
+
+```gqlp
+"$T?"
+dual _Opt<$T:_Any> [Opt] { | $T | Null }
+
+dual _List<$T:_Any> [List] { | $T[] }
+
+dual _Dict<$K:_Key $T:_Any> [Dict] { | $T[$K] }
+
+dual _Map<$T:_Any> [Map] { | $T[*] }
+
+dual _Array<$T:_Any> [Array] { | $T[0] }
+
+dual _IfElse<$T:_Any> [IfElse] { | $T[^] }
+
+dual _Set<$K:_Key> [Set] { | _[$K] }
+
+dual _Mask<$K:_Key> [Mask] { | ^[$K] }
+
+union _Key { }
+dual _Any { }
 
 ```

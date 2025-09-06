@@ -7,15 +7,7 @@ object Test { | Alt[$a] }
 object Alt { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'a' not defined`
-
-##### Expected Verify errors Input
-
-- `'a' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'a' not defined`
 
@@ -26,15 +18,7 @@ object Test { | Alt[Dom] }
 object Alt { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Dom' not defined`
-
-##### Expected Verify errors Input
-
-- `'Dom' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Dom' not defined`
 
@@ -45,15 +29,7 @@ object Test { | Alt[Test] }
 object Alt { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Input
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' invalid type`
 
@@ -65,19 +41,7 @@ object Recurse { | More }
 object More { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via More`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Recurse`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via More`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Recurse`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via More`
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -90,17 +54,7 @@ object Test { | Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -111,15 +65,7 @@ object Recurse { | Test }
 object Test { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself`
 
@@ -129,15 +75,7 @@ object Test { | Test }
 object Test { | Number<String> }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Number. Expected none, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Number. Expected none, given 1`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on Number. Expected none, given 1`
 
@@ -147,15 +85,7 @@ object Test { | Number<String> }
 object Test { | Undef }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Input
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Undef' not defined`
 
@@ -165,15 +95,7 @@ object Test { | Undef }
 object Test<$type:Undef> { | $type }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Input
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Undef' not defined`
 
@@ -185,15 +107,7 @@ object Test<$ref:String> { | $ref }
 domain Dom { Number }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Dom' not match 'String'`
-
-##### Expected Verify errors Input
-
-- `'Dom' not match 'String'`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Dom' not match 'String'`
 
@@ -344,132 +258,117 @@ output Bad { }
 ### field-alias.graphql+
 
 ```gqlp
-object Test { field1 [alias]: Test }
-object Test { field2 [alias]: Test[] }
+object Test { field1 [alias]: Field }
+object Test { field2 [alias]: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### field-diff-mod.graphql+
 
 ```gqlp
-object Test { field: Test }
-object Test { field: Test[] }
+object Test { field: Field }
+object Test { field: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
 ```gqlp
-object Test { field: Test }
 object Test { field: Test1 }
+object Test { field: Test2 }
 object Test1 { }
+object Test2 { }
 ```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test1']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of DualField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test1']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of InputField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test1']`
-- `Multiple Types with name 'Test' can't be merged`
+- `Group of OutputField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ### field-mod-undef-param.graphql+
 
 ```gqlp
-object Test { field: Test[$a] }
+object Test { field: Field[$a] }
+object Field { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'a' not defined`
-
-##### Expected Verify errors Input
-
-- `'a' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'a' not defined`
 
 ### field-mod-undef.graphql+
 
 ```gqlp
-object Test { field: Test[Random] }
+object Test { field: Field[Random] }
+object Field { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Random' not defined`
-
-##### Expected Verify errors Input
-
-- `'Random' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Random' not defined`
 
 ### field-mod-wrong.graphql+
 
 ```gqlp
-object Test { field: Test[Test] }
+object Test { field: Field[Field] }
+object Field { }
 ```
 
-##### Expected Verify errors Dual
+##### Expected Verify errors
 
-- `'Test' invalid type`
-
-##### Expected Verify errors Input
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Output
-
-- `'Test' invalid type`
+- `'Field' invalid type`
 
 ### field-simple-param.graphql+
 
@@ -477,15 +376,7 @@ object Test { field: Test[Test] }
 object Test { field: String<0> }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on String. Expected none, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on String. Expected none, given 1`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on String. Expected none, given 1`
 
@@ -495,15 +386,7 @@ object Test { field: String<0> }
 object Test { field: Undef }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Input
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Undef' not defined`
 
@@ -513,15 +396,7 @@ object Test { field: Undef }
 object Test { | $type }
 ```
 
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'$type' not defined`
 
@@ -532,15 +407,7 @@ object Test { field: Ref }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on Ref. Expected 1, given 0`
 
@@ -551,15 +418,7 @@ object Test<$type:String> { field: Ref<$type> }
 object Ref { }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on Ref. Expected 0, given 1`
 
@@ -570,15 +429,7 @@ object Test { field: Ref<$type> }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'$type' not defined`
 
@@ -588,15 +439,7 @@ object Ref<$ref:String> { | $ref }
 object Test { field: $type }
 ```
 
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'$type' not defined`
 
@@ -607,17 +450,7 @@ object Test { field: Ref<Test1> }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test1' not defined`
-- `'Test1' not match 'String'`
-
-##### Expected Verify errors Input
-
-- `'Test1' not defined`
-- `'Test1' not match 'String'`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test1' not defined`
 - `'Test1' not match 'String'`
@@ -629,15 +462,7 @@ object Test { :Ref }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on Ref. Expected 1, given 0`
 
@@ -648,15 +473,7 @@ object Test { :Ref<Number> }
 object Ref { }
 ```
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `Args mismatch on Ref. Expected 0, given 1`
 
@@ -666,15 +483,7 @@ object Ref { }
 object Test { :$type }
 ```
 
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'$type' not defined`
 
@@ -684,15 +493,7 @@ object Test { :$type }
 object Test<$type:String> { }
 ```
 
-##### Expected Verify errors Dual
-
-- `'$type' not used`
-
-##### Expected Verify errors Input
-
-- `'$type' not used`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'$type' not used`
 
@@ -710,12 +511,13 @@ output Bad { }
 ### input-field-null.graphql+
 
 ```gqlp
-input Test { field: Test = null }
+input Test { field: Field = null }
+input Field { }
 ```
 
 ##### Expected Verify errors
 
-- `'null' default requires Optional type, not 'Test'`
+- `'null' default requires Optional type, not 'Field'`
 
 ### input-field-output.graphql+
 
@@ -848,9 +650,10 @@ output Wrong { }
 ### output-param-diff.graphql+
 
 ```gqlp
-output Test { field(Param): Test }
-output Test { field(Param?): Test }
+output Test { field(Param): Field }
+output Test { field(Param?): Field }
 input Param { }
+output Field { }
 ```
 
 ##### Expected Verify errors
@@ -862,8 +665,9 @@ input Param { }
 ### output-param-mod-undef-param.graphql+
 
 ```gqlp
-output Test { field(Param[$a]): Test }
+output Test { field(Param[$a]): Field }
 input Param { }
+output Field { }
 ```
 
 ##### Expected Verify errors
@@ -873,8 +677,9 @@ input Param { }
 ### output-param-mod-undef.graphql+
 
 ```gqlp
-output Test { field(Param[Dom]): Test }
+output Test { field(Param[Dom]): Field }
 input Param { }
+output Field { }
 ```
 
 ##### Expected Verify errors
@@ -884,8 +689,9 @@ input Param { }
 ### output-param-mod-wrong.graphql+
 
 ```gqlp
-output Test { field(Param[Test]): Test }
+output Test { field(Param[Test]): Field }
 input Param { }
+output Field { }
 ```
 
 ##### Expected Verify errors
@@ -895,7 +701,8 @@ input Param { }
 ### output-param-undef.graphql+
 
 ```gqlp
-output Test { field(Param): Test }
+output Test { field(Param): Field }
+output Field { }
 ```
 
 ##### Expected Verify errors
@@ -922,23 +729,24 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
+
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### parent-alt-more.graphql+
 
@@ -950,19 +758,20 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors Dual
+##### Expected Verify errors
 
 - `Can't merge Test alternates into Parent Recurse alternates`
+
+##### Expected Verify errors Dual
+
 - `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ### parent-alt-recurse.graphql+
@@ -974,19 +783,20 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors Dual
+##### Expected Verify errors
 
 - `Can't merge Test alternates into Parent Recurse alternates`
+
+##### Expected Verify errors Dual
+
 - `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test alternates into Parent Recurse alternates`
 - `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
 
 ### parent-alt-self-more.graphql+
@@ -998,21 +808,7 @@ object More { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1027,19 +823,7 @@ object Alt { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1052,17 +836,7 @@ object Test { :Alt }
 object Alt { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Alt`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1070,148 +844,160 @@ object Alt { | Test }
 ### parent-field-alias-more.graphql+
 
 ```gqlp
-object Test { :Recurse field1 [alias]: Test }
+object Test { :Recurse field1 [alias]: Field }
 object Recurse { :More }
 object More { :Parent }
-object Parent { field2 [alias]: Parent }
+object Parent { field2 [alias]: Field }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Can't merge Test into Parent Recurse`
 
 ##### Expected Verify errors Dual
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ### parent-field-alias-recurse.graphql+
 
 ```gqlp
-object Test { :Recurse field1 [alias]: Test }
+object Test { :Recurse field1 [alias]: Field }
 object Recurse { :Parent }
-object Parent { field2 [alias]: Parent }
+object Parent { field2 [alias]: Field }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Can't merge Test into Parent Recurse`
 
 ##### Expected Verify errors Dual
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test into Parent Recurse`
 - `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
 
 ### parent-field-alias.graphql+
 
 ```gqlp
 object Test { :Parent }
-object Test { field1 [alias]: Test }
-object Parent { field2 [alias]: Parent }
+object Test { field1 [alias]: Field }
+object Parent { field2 [alias]: Field }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### parent-field-mod-more.graphql+
 
 ```gqlp
-object Test { :Recurse field: Test }
+object Test { :Recurse field: Field }
 object Recurse { :More }
 object More { :Parent }
-object Parent { field: Test[] }
+object Parent { field: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Can't merge Test into Parent Recurse`
 
 ##### Expected Verify errors Dual
 
-- `Can't merge Test into Parent Recurse`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test into Parent Recurse`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test into Parent Recurse`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ### parent-field-mod-recurse.graphql+
 
 ```gqlp
-object Test { :Recurse field: Test }
+object Test { :Recurse field: Field }
 object Recurse { :Parent }
-object Parent { field: Test[] }
+object Parent { field: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Can't merge Test into Parent Recurse`
 
 ##### Expected Verify errors Dual
 
-- `Can't merge Test into Parent Recurse`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `Can't merge Test into Parent Recurse`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `Can't merge Test into Parent Recurse`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ### parent-field-mod.graphql+
 
 ```gqlp
 object Test { :Parent }
-object Test { field: Test }
-object Parent { field: Test[] }
+object Test { field: Field }
+object Parent { field: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
 - `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
 - `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### parent-more.graphql+
 
@@ -1221,19 +1007,7 @@ object Recurse { :More }
 object More { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself, even recursively via More`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-- `'More' cannot be a child of itself, even recursively via Recurse`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself, even recursively via More`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-- `'More' cannot be a child of itself, even recursively via Recurse`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be a child of itself, even recursively via More`
 - `'Recurse' cannot be a child of itself, even recursively via Test`
@@ -1246,17 +1020,7 @@ object Test { :Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself, even recursively via Recurse`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself, even recursively via Recurse`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be a child of itself, even recursively via Recurse`
 - `'Recurse' cannot be a child of itself, even recursively via Test`
@@ -1270,21 +1034,7 @@ object More { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1299,19 +1049,7 @@ object Alt { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1324,17 +1062,7 @@ object Test { | Alt }
 object Alt { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be an alternate of itself, even recursively via Alt`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1345,15 +1073,7 @@ object Alt { :Test }
 object Test { :Test }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Test' cannot be a child of itself`
 
@@ -1363,15 +1083,7 @@ object Test { :Test }
 object Test { :String }
 ```
 
-##### Expected Verify errors Dual
-
-- `'String' invalid type. Found 'Domain'`
-
-##### Expected Verify errors Input
-
-- `'String' invalid type. Found 'Domain'`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'String' invalid type. Found 'Domain'`
 
@@ -1381,15 +1093,7 @@ object Test { :String }
 object Test { :Parent }
 ```
 
-##### Expected Verify errors Dual
-
-- `'Parent' not defined`
-
-##### Expected Verify errors Input
-
-- `'Parent' not defined`
-
-##### Expected Verify errors Output
+##### Expected Verify errors
 
 - `'Parent' not defined`
 
@@ -1400,17 +1104,18 @@ object Test [a] { }
 object Dup [a] { }
 ```
 
+##### Expected Verify errors
+
+- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
+
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with alias 'a' found. Names 'Test' 'Dup'`
-- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with alias 'a' found. Names 'Test' 'Dup'`
-- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with alias 'a' found. Names 'Test' 'Dup'`
-- `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`

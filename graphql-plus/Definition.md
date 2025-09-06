@@ -20,7 +20,7 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 | Word       | `category`    | A simple name defined by the regex `\[A-Za-z][A-Za-z0-9_.]+`                             |
 | Prefix     | `'$'variable` | A String surrounded by quotes immediately followed by a Word.                            |
 | Literal    | `'('`         | A String surrounded by quotes that must appear exactly as written.                       |
-| Built-In   | `NUMBER`      | An expression that matches a specific regex as defined below. Built-Ins are in all-caps. |
+| Constant   | `NUMBER`      | An expression that matches a specific regex as defined below. Constants are in all-caps. |
 |            |
 | Repetition |
 | Optional   | exp `?`       | The expression occurs zero or one times.                                                 |
@@ -33,24 +33,25 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 
 **Note:** The above are in descending order of precedence
 
-## Built-Ins
+## Constants
 
-| Built-In | RegEx                                | Description                                                                                                                          | Examples                                              |
+| Constant | RegEx                                | Description                                                                                                                          | Examples                                              |
 | -------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
 | NUMBER   | `[-+]?[0-9_]+(\.[0-9_]+)?`           | A number, possibly signed and/or with a fractional portion. An underscore (`_`) can be used to separate digit groups                 | 1 2.3 45 67.89 0.10 -11 +12 -13.14 +15.16 17_18.19_20 |
 | STRING   | `"([^"]\|\\.)*"` or `'([^']\|\\.)*'` | A string delimited by either single (`'`) or double (`"`) quotes and with any characters in the string escaped by a backslash (`\`). | "" "a" "b\\"c" "d'e" <br/> '' 'f' 'g"h' 'i\\'j'       |
 | REGEX    | `/.*/`                               | A regex delimited by slashes (`/`) conforming to POSIX ERE                                                                           | /.\*/                                                 |
+| VALUE    | _See below_                          | A literal value as defined below. Can be scalar or complex. below.                                                                   | {"a":"b"} ["a" "b"]                                   |
 
-**Note:** Both STRING and REGEX built-ins can include end-of-line and other control characters.
+**Note:** Both STRING and REGEX constants can include end-of-line and other control characters.
 
 ## Common
 
 ```PEG
-Default = '=' Constant
+Default = '=' VALUE
 
-EnumValue = ( enum '.' )? label
+EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
-FieldKey = EnumValue | NUMBER | STRING
+Scalar = EnumValue | NUMBER | STRING
 
 Boolean = 'false' | 'true'
 
@@ -113,22 +114,77 @@ Multiple Modifiers from left to right are from outside to inside finishing with 
 
 </details>
 
-## Constant
+### Built-In types
 
-```PEG
-Constant = Const_List | Const_Object | Const_Value
-Const_Value = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue
-Const_List = '[' Const_Values* ']'
-Const_Values = Constant ',' Const_Values | Constant
+<i>The following GraphQlPlus isn't strictly valid but ...</i>
 
-Const_Object = '{' Const_Fields* '}'
-Const_Fields = Const_Field ',' Const_Fields | Const_Field
-Const_Field = FieldKey ':' Const_Value
+Boolean, Null, Unit and Void are effectively enum types as follows:
+
+```gqlp
+enum Boolean [bool, ^] { false true }
+
+enum Null [null] { null }
+
+enum Unit [_] { _ }
+
+"No valid value"enum Void { }
 ```
 
-A Constant is a single value. Commas (`,`) can be used to separate list values and object fields.
+Number and String are effectively domain types as follows:
 
-If a Constant Object FieldKey appears more than once, all the values will be merged as follows:
+```gqlp
+domain Number [int, 0] { Number }
+
+domain String [str, *] { String }
+```
+
+Basic, Internal and Key are effectively unions of the following types:
+
+```gqlp
+union _Basic [Basic] { Boolean Number String Unit }
+
+union _Internal [Internal] { Null Void }
+
+union _Key [Key] { _Basic _Internal _Simple }
+```
+
+Object is a general Dictionary and \_Any literally any defined type.
+
+```gqlp
+"%"
+dual _Object [Object, obj, %] { }
+```
+
+The internal types `_Union [Union]`, `_Output [Output]`, `_Input [Input]`, `_Enum [Enum]`, `_Dual [Dual]`
+and `_Domain [Domain]` are automatically defined to be a union of all user defined Union, Domain, Output, Input,
+Enum and Dual types respectively, as follows:
+
+```gqlp
+"All user defined Domain types" union _Domain [Domain] { }
+"All user defined Dual types" dual _Dual [Dual] { }
+"All user defined Enum types" union _Enum [Enum] { }
+"All user defined Input types" input _Input [Input] { }
+"All user defined Output types" output _Output [Output] { }
+"All user defined Union types" union _Union [Union] { }
+
+union _Simple [Simple] { _Enum _Domain _Union }
+```
+
+### Values
+
+```PEG
+VALUE = Val_List | Val_Object | Scalar
+Val_List = '[' Val_Values* ']'
+Val_Values = VALUE ',' Val_Values | VALUE
+
+Val_Object = '{' Val_Fields* '}'
+Val_Fields = Val_Field ',' Val_Fields | Val_Field
+Val_Field = Scalar ':' VALUE
+```
+
+A Value is a single value. Commas (`,`) can be used to separate list values and object fields.
+
+If a Value Object Scalar appears more than once, all the values will be merged as follows:
 
 > A merged with B results as follows:
 >
@@ -144,14 +200,16 @@ If a Constant Object FieldKey appears more than once, all the values will be mer
 > 2. If both values are Objects, the keys are combined and any common keys value's are merged.
 > 3. Otherwise the B value is used.
 
+As Value is a recursive type it can't be defined in a GraphQl+ schema.
+
 ## Complete Grammar
 
 ```PEG
-Default = '=' Constant
+Default = '=' VALUE
 
-EnumValue = ( enum '.' )? label
+EnumValue = ( enum '.' )? label  // includes Boolean ('true', 'false'), Null ('null') and Unit ('_')
 
-FieldKey = EnumValue | NUMBER | STRING
+Scalar = EnumValue | NUMBER | STRING
 
 Boolean = 'false' | 'true'
 
@@ -164,13 +222,47 @@ Modifiers = Collections? '?'?
 Collections = '[]' Collections? | '[' Collection_Key '?'? ']' Collections?
 Collection_Key = Simple // Redefined in Schema
 
-Constant = Const_List | Const_Object | Const_Value
-Const_Value = NUMBER | STRING | Boolean | 'null' | '_' | EnumValue
-Const_List = '[' Const_Values* ']'
-Const_Values = Constant ',' Const_Values | Constant
+VALUE = Val_List | Val_Object | Scalar
+Val_List = '[' Val_Values* ']'
+Val_Values = VALUE ',' Val_Values | VALUE
 
-Const_Object = '{' Const_Fields* '}'
-Const_Fields = Const_Field ',' Const_Fields | Const_Field
-Const_Field = FieldKey ':' Const_Value
+Val_Object = '{' Val_Fields* '}'
+Val_Fields = Val_Field ',' Val_Fields | Val_Field
+Val_Field = Scalar ':' VALUE
+
+```
+
+## Complete Definition
+
+```gqlp
+enum Boolean [bool, ^] { false true }
+
+enum Null [null] { null }
+
+enum Unit [_] { _ }
+
+"No valid value"enum Void { }
+
+domain Number [int, 0] { Number }
+
+domain String [str, *] { String }
+
+union _Basic [Basic] { Boolean Number String Unit }
+
+union _Internal [Internal] { Null Void }
+
+union _Key [Key] { _Basic _Internal _Simple }
+
+"%"
+dual _Object [Object, obj, %] { }
+
+"All user defined Domain types" union _Domain [Domain] { }
+"All user defined Dual types" dual _Dual [Dual] { }
+"All user defined Enum types" union _Enum [Enum] { }
+"All user defined Input types" input _Input [Input] { }
+"All user defined Output types" output _Output [Output] { }
+"All user defined Union types" union _Union [Union] { }
+
+union _Simple [Simple] { _Enum _Domain _Union }
 
 ```

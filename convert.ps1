@@ -1,10 +1,10 @@
-
-$specificationDir = "samples\Schema\Specification"
-New-Item $specificationDir -ItemType Directory -ErrorAction Ignore | Out-Null
+$specificationDir = "samples\Specification"
+$specifications = "Defin", "Intro", "Reque", "Schem"
 
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
-  $complete = "!Complete"
+  $baseName = $_.BaseName
+  $complete = $baseName
   $sections = @{ $complete = @() }
   $current = @()
   $type = ""
@@ -17,11 +17,11 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     $doc += @($_)
 
     if ($_ -match "^## ([-a-zA-Z]+)") {
-      $section =  "+" + $Matches[1]
+      $section = $baseName + "/+" + $Matches[1]
     }
 
     if ($_ -match "^### ([-a-zA-Z]+)") {
-      $subSection = $Matches[1]
+      $subSection = $baseName + "/" + $Matches[1]
     }
     
     if ($type) {
@@ -49,6 +49,10 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
             Get-Content ".peg/Defin.pegjs" | Add-Content ".peg/$name.pegjs"
           }
 
+          if ($all.Keys -contains "gqlp") {
+            $doc += @("", "## Complete Definition", "", "``````gqlp") + $all["gqlp"] + @("``````")
+          }     
+
           $end = $true
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
@@ -64,9 +68,10 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   }
   $doc | Set-Content $_.FullName
 
-  if ($name -eq "Intro") {
+  if ($specifications -contains $name) {
+    New-Item $specificationDir/$baseName -ItemType Directory -ErrorAction Ignore | Out-Null
     foreach ($section in $sections.Keys) {
-      $sections[$section] | Set-Content "$specificationDir\Intro_$section.graphql+"
+      $sections[$section] | Set-Content "$specificationDir\$section.graphql+"
     }
   }
 }
@@ -125,11 +130,24 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     }
 
     "### $($path[-1])`n" | Add-Content $file
-    "``````gqlp" | Add-Content $file
+    if ($_ -match '.*ql.*') {
+      "``````gqlp" | Add-Content $file
+    } else {
+      "``````" | Add-Content $file
+    }
     Get-Content "samples/$name/$_" | Add-Content $file
     "```````n" | Add-Content $file
 
     $base = ($_ -split '\.g')[0]
+    $response = "samples/$name/$base.resp"
+  if (Test-Path $response) {
+    "##### Expected response $base.resp`n" | Add-Content $file
+    "``````" | Add-Content $file
+    Get-Content $response | Add-Content $file
+    "```````n" | Add-Content $file
+  }
+
+
     if ($_ -match 'Invalid') {
       foreach ($suffix in $suffixes) {
         Add-Errors $base $suffix "Parse"
