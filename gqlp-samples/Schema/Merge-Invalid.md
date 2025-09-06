@@ -8,19 +8,20 @@ object Test { | Test1[] }
 object Test1 { }
 ```
 
-##### Expected Verify errors Dual
+##### Expected Verify errors
 
 - `'Test' can't be merged`
+
+##### Expected Verify errors Dual
+
 - `Group of DualAlternate for 'Test1' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Input
 
-- `'Test' can't be merged`
 - `Group of InputAlternate for 'Test1' not singular Modifiers['', '[]']`
 
 ##### Expected Verify errors Output
 
-- `'Test' can't be merged`
 - `Group of OutputAlternate for 'Test1' not singular Modifiers['', '[]']`
 
 ### category-diff-mod.graphql+
@@ -69,6 +70,11 @@ output Output { }
 object Test<$type:0> { num: $type }
 object Test<$type:String> { str: $type }
 ```
+
+##### Expected Verify errors
+
+- `'Test' can't be merged`
+- `Different values merging p => p.Constraint`
 
 ##### Expected Verify errors Dual
 
@@ -172,47 +178,51 @@ enum Parent { parent }
 ### field-diff-mod.graphql+
 
 ```gqlp
-object Test { field: Test }
-object Test { field: Test[] }
+object Test { field: Field }
+object Test { field: Field[] }
+object Field { }
 ```
+
+##### Expected Verify errors
+
+- `'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
-- `'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test []']`
+- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
 ```gqlp
-object Test { field: Test }
 object Test { field: Test1 }
+object Test { field: Test2 }
 object Test1 { }
+object Test2 { }
 ```
+
+##### Expected Verify errors
+
+- `'Test' can't be merged`
 
 ##### Expected Verify errors Dual
 
-- `'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Test', 'Test1']`
+- `Group of DualField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ##### Expected Verify errors Input
 
-- `'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Test', 'Test1']`
+- `Group of InputField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ##### Expected Verify errors Output
 
-- `'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Test', 'Test1']`
+- `Group of OutputField for 'field' not singular ModifiedType['Test1', 'Test2']`
 
 ### option-diff-name.graphql+
 

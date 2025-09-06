@@ -513,10 +513,6 @@ output _Modifier<$kind:_ModifierKind> {
 
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_DomainKind' not an Enum type`
-- `'_DomainKind' not defined`
-- `'_DomainValue' not defined`
-- `'_EnumValue' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
 - `'_TypeDomain' not defined`
