@@ -94,13 +94,15 @@ output _OpField {
         argument: String? # Todo: _OpArgument
         modifiers: _Modifiers
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpInline {
         type: String?
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpSpread {
@@ -1231,13 +1233,15 @@ output _OpField {
         argument: String? # Todo: _OpArgument
         modifiers: _Modifiers
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpInline {
         type: String?
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpSpread {
@@ -1246,6 +1250,18 @@ output _OpSpread {
 }
 
 ```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Identifier' not defined`
+- `'_InputBase' not defined`
+- `'_Modifiers' not defined`
+- `'_Modifiers' not defined`
+- `'_OutputBase' not defined`
+- `'_SimpleKind' not defined`
+- `'_Type' not defined`
+- `'_TypeRef' not defined`
 
 ### Option.graphql+
 

@@ -167,13 +167,15 @@ output _OpField {
         argument: String? # Todo: _OpArgument
         modifiers: _Modifiers
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpInline {
         type: String?
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpSpread {
@@ -714,13 +716,15 @@ output _OpField {
         argument: String? # Todo: _OpArgument
         modifiers: _Modifiers
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpInline {
         type: String?
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
 }
 
 output _OpSpread {
