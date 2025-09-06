@@ -17,7 +17,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -187,7 +187,7 @@ output _OpSpread {
 ```gqlp
 output _Setting {
     : _Named
-        value: _Constant
+        value: Value
     }
 ```
 
@@ -243,27 +243,6 @@ output _TypeSimple {
 ### Built-In types
 
 ```gqlp
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
-    }
-
-output _SimpleValue {
-    | _DomainValue<_DomainKind.Boolean Boolean>
-    | _DomainValue<_DomainKind.Enum _EnumValue>
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    }
-
-output _ConstantList {
-    | _Constant[]
-    }
-
-output _ConstantMap {
-    | _Constant[_Key]
-    }
-
 output _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
@@ -325,6 +304,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -534,7 +514,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: Value?
     }
 
 output _InputAlternate {
@@ -548,7 +528,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: Value?
     }
 ```
 
@@ -604,7 +584,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_]+/ }
+domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -750,7 +730,7 @@ output _OpSpread {
 
 output _Setting {
     : _Named
-        value: _Constant
+        value: Value
     }
 
 output _Type {
@@ -794,27 +774,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
-    }
-
-output _Constant {
-    | _SimpleValue
-    | _ConstantList
-    | _ConstantMap
-    }
-
-output _SimpleValue {
-    | _DomainValue<_DomainKind.Boolean Boolean>
-    | _DomainValue<_DomainKind.Enum _EnumValue>
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    }
-
-output _ConstantList {
-    | _Constant[]
-    }
-
-output _ConstantMap {
-    | _Constant[_Key]
     }
 
 output _Collections {
@@ -872,6 +831,7 @@ output _DomainItem<$item:_BaseDomainItem> {
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
     : _DomainRef<$kind>
         value: $value
+    | $value
     }
 
 output _BasicValue {
@@ -1043,7 +1003,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Constant?
+        default: Value?
     }
 
 output _InputAlternate {
@@ -1057,7 +1017,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Constant?
+        default: Value?
     }
 
 output _TypeOutput {
