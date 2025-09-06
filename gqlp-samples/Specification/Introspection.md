@@ -42,7 +42,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
     : _Named
-        value: _Value
+        value: Value
     }
 
 ```
@@ -160,7 +160,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Value?
+        default: Value?
     }
 
 output _InputAlternate {
@@ -174,7 +174,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Value?
+        default: Value?
     }
 
 output _TypeOutput {
@@ -459,31 +459,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Union>
     }
 
-output _Value {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-output _ValueScalar {
-    | _DomainValue<_DomainKind.Boolean Boolean>
-    | _DomainValue<_DomainKind.Enum _EnumValue>
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    | Unit
-    | Null
-    }
-
-output _ValueList {
-    | _Value[]
-    }
-
-output _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
-
 output _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
@@ -600,31 +575,6 @@ output _ForParam<$base:_ObjBase> {
 ### Built-In.graphql+
 
 ```gqlp
-output _Value {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-output _ValueScalar {
-    | _DomainValue<_DomainKind.Boolean Boolean>
-    | _DomainValue<_DomainKind.Enum _EnumValue>
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    | Unit
-    | Null
-    }
-
-output _ValueList {
-    | _Value[]
-    }
-
-output _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
-
 output _Collections {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
@@ -1004,7 +954,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Value?
+        default: Value?
     }
 
 output _InputAlternate {
@@ -1018,7 +968,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Value?
+        default: Value?
     }
 
 ```
@@ -1073,7 +1023,7 @@ output _AndType {
 ```gqlp
 output _Setting {
     : _Named
-        value: _Value
+        value: Value
     }
 
 ```

@@ -119,21 +119,25 @@ A Field may have none, one, more or even all of the following, in this order:
 ### Argument
 
 ```PEG
-Argument = '(' Arg_Fields+ | Arg_Values+ ')'
-Arg_Value = '$'variable | Arg_List | Arg_Object | Value
+Argument = '(' Arg_List | Arg_Object | Arg_Fields+ | Arg_Values+ ')'
+Arg_Value = '$'variable | VALUE
+Arg_Scalar = '$'variable | Scalar
 Arg_List = '[' Arg_Values* ']'
 Arg_Values = Arg_Value ',' Arg_Values | Arg_Value
 
 Arg_Object = '{' Arg_Fields* '}'
 Arg_Fields = Arg_Field ',' Arg_Fields | Arg_Field
-Arg_Field = FieldKey ':' Arg_Value
+Arg_Field = Arg_Scalar ':' Arg_Value
 ```
 
-An Argument is usually a single value. If multiple values are provided they are treated as a list. If one or more fields are provided they are treated as an object.
+An Argument is usually a single value. If multiple values are provided they are treated as a list.
+If one or more fields are provided they are treated as an object.
+
+Note that variables can only appear in the first level of an Argument, ie. Variables can't be used in an inner list or object.
 
 Commas (`,`) can be used to separate list values and object fields.
 
-If a Argument Object FieldKey appears more than once, all the values will be merged in the similar way as for Constant Object Field values, with Variables being treated as a Value, List or Object depending on their Modifiers.
+If a Argument Object Field Scalar appears more than once, all the values will be merged in the similar way as for Value Object Field values, with Variables being treated as a Value, List or Object depending on their definition Modifiers.
 
 ## Complete Grammar
 
@@ -162,13 +166,14 @@ Inline = TypeCondition? Directive* Object
 Spread = fragment Directive*
 TypeCondition = ( 'on' | ':' ) type
 
-Argument = '(' Arg_Fields+ | Arg_Values+ ')'
-Arg_Value = '$'variable | Arg_List | Arg_Object | Value
+Argument = '(' Arg_List | Arg_Object | Arg_Fields+ | Arg_Values+ ')'
+Arg_Value = '$'variable | VALUE
+Arg_Scalar = '$'variable | Scalar
 Arg_List = '[' Arg_Values* ']'
 Arg_Values = Arg_Value ',' Arg_Values | Arg_Value
 
 Arg_Object = '{' Arg_Fields* '}'
 Arg_Fields = Arg_Field ',' Arg_Fields | Arg_Field
-Arg_Field = FieldKey ':' Arg_Value
+Arg_Field = Arg_Scalar ':' Arg_Value
 
 ```

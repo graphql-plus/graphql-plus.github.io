@@ -1,4 +1,4 @@
-# Merge Schema Samples
+# Merges Schema Samples
 
 ### category-alias.graphql+
 

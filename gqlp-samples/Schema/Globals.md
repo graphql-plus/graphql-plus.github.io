@@ -1,4 +1,4 @@
-# Global Schema Samples
+# Globals Schema Samples
 
 ### category-descrs.graphql+
 

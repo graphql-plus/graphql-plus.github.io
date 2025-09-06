@@ -24,18 +24,7 @@ union _Internal [Internal] { Null Void }
 union _Key [Key] { _Basic _Internal _Simple }
 
 "%"
-"recursive!" dual _Object [Object, obj, %] { :_Map<Any> }
-
-"recursive!" dual _Most<$T:_Any> [Most] { | $T | _Object | _Most<$T> | _MostList<$T> | _MostMap<$T> }
-"recursive!" dual _MostList<$T:_Any> { | _Most<$T>[] }
-"recursive!" dual _MostMap<$T:_Any> { | _Most<$T>[_Key?] }
-
-dual _Any [Any] { :_Most<_Dual> }
-input _Any [Any] { :_Most<_Input> }
-output _Any [Any] { :_Most<_Output> }
-union _Any [Any] { _Basic _Internal _Simple }
-
-dual _Map<$T:_Any> [Map] { | $T[*] }
+dual _Object [Object, obj, %] { }
 
 "All user defined Domain types" union _Domain [Domain] { }
 "All user defined Dual types" dual _Dual [Dual] { }
@@ -45,28 +34,6 @@ dual _Map<$T:_Any> [Map] { | $T[*] }
 "All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
-
-dual _Value[Value] {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-dual _ValueScalar {
-    | _Basic
-    | _Internal
-    | _Simple
-    }
-
-dual _ValueList {
-    | _Value[]
-    }
-
-dual _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```
 
@@ -159,7 +126,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Setting {
     : _Named
-        value: _Value
+        value: Value
     }
 
 output _Type {
@@ -204,31 +171,6 @@ output _TypeSimple {
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
-
-output _Value {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-output _ValueScalar {
-    | _DomainValue<_DomainKind.Boolean Boolean>
-    | _DomainValue<_DomainKind.Enum _EnumValue>
-    | _DomainValue<_DomainKind.Number Number>
-    | _DomainValue<_DomainKind.String String>
-    | Unit
-    | Null
-    }
-
-output _ValueList {
-    | _Value[]
-    }
-
-output _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
 
 output _Collections {
     | _Modifier<_ModifierKind.List>
@@ -457,7 +399,7 @@ output _InputTypeParam {
 
 output _InputField {
     : _Field<_InputBase>
-        default: _Value?
+        default: Value?
     }
 
 output _InputAlternate {
@@ -471,7 +413,7 @@ output _InputTypeArg {
 output _InputParam {
     : _InputBase
         modifiers: _Modifiers[]
-        default: _Value?
+        default: Value?
     }
 
 output _TypeOutput {

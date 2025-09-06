@@ -1,4 +1,4 @@
-# Object Schema Samples
+# Objects Schema Samples
 
 ### alt-descr.graphql+
 
