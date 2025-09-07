@@ -541,6 +541,90 @@ output Bad { }
 
 - `'Bad' invalid type. Found 'Output'`
 
+### object-enum-bad.graphql+
+
+```gqlp
+object Test { field = unknown }
+```
+
+##### Expected Verify errors
+
+- `Enum Value 'unknown' not defined`
+- `'' not defined`
+
+### object-enum-diff.graphql+
+
+```gqlp
+object Test { field = true }
+object Test { field = false }
+```
+
+##### Expected Verify errors
+
+- `Multiple Outputs with name 'Test' can't be merged`
+- `Group of OutputField for 'field' not singular ModifiedType['Boolean.false', 'Boolean.true']`
+- `Multiple Types with name 'Test' can't be merged`
+
+### object-enumValue-bad.graphql+
+
+```gqlp
+object Test { field = Boolean.unknown }
+```
+
+##### Expected Verify errors
+
+- `'unknown' not a Value of 'Boolean'`
+
+### object-enumValue-wrong.graphql+
+
+```gqlp
+object Test { field = Wrong.unknown }
+input Wrong { }
+```
+
+##### Expected Verify errors
+
+- `'Wrong' not an Enum type`
+- `Type kind mismatch for Wrong. Found Input`
+
+### object-generic-arg-enum-wrong.graphql+
+
+```gqlp
+object Test<$arg:String> { | Ref<$arg.unknown> }
+object Ref<$type:String> { field: $type }
+```
+
+##### Expected Verify errors
+
+- `'$arg' not used`
+- `Expected Enum value not allowed after Type parameter`
+- `Expected declaration selector. 'unknown' unknown`
+- `Expected no more text`
+
+### object-generic-enum-bad.graphql+
+
+```gqlp
+object Test { | Ref<Boolean.unknown> }
+object Ref<$type:_Enum> { field: $type }
+```
+
+##### Expected Verify errors
+
+- `'unknown' not a Value of 'Boolean'`
+
+### object-generic-enum-wrong.graphql+
+
+```gqlp
+object Test { | Ref<Wrong.unknown> }
+object Ref<$type:_Enum> { field: $type }
+object Wrong { }
+```
+
+##### Expected Verify errors
+
+- `'Wrong' not an Enum type`
+- `'Wrong' not match '_Enum'`
+
 ### output-alt-input.graphql+
 
 ```gqlp
@@ -552,52 +636,6 @@ input Bad { }
 
 - `Type kind mismatch`
 
-### output-enum-bad.graphql+
-
-```gqlp
-output Test { field = unknown }
-```
-
-##### Expected Verify errors
-
-- `Enum Value 'unknown' not defined`
-- `'' not defined`
-
-### output-enum-diff.graphql+
-
-```gqlp
-output Test { field = true }
-output Test { field = false }
-```
-
-##### Expected Verify errors
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Boolean.false', 'Boolean.true']`
-- `Multiple Types with name 'Test' can't be merged`
-
-### output-enumValue-bad.graphql+
-
-```gqlp
-output Test { field = Boolean.unknown }
-```
-
-##### Expected Verify errors
-
-- `'unknown' not a Value of 'Boolean'`
-
-### output-enumValue-wrong.graphql+
-
-```gqlp
-output Test { field = Wrong.unknown }
-input Wrong { }
-```
-
-##### Expected Verify errors
-
-- `'Wrong' not an Enum type`
-- `Type kind mismatch for Wrong. Found Input`
-
 ### output-field-input.graphql+
 
 ```gqlp
@@ -608,44 +646,6 @@ input Bad { }
 ##### Expected Verify errors
 
 - `Type kind mismatch`
-
-### output-generic-arg-enum-wrong.graphql+
-
-```gqlp
-output Test<$arg:String> { | Ref<$arg.unknown> }
-output Ref<$type:String> { field: $type }
-```
-
-##### Expected Verify errors
-
-- `'$arg' not used`
-- `Expected Enum value not allowed after Type parameter`
-- `Expected declaration selector. 'unknown' unknown`
-- `Expected no more text`
-
-### output-generic-enum-bad.graphql+
-
-```gqlp
-output Test { | Ref<Boolean.unknown> }
-output Ref<$type:_Enum> { field: $type }
-```
-
-##### Expected Verify errors
-
-- `'unknown' not a Value of 'Boolean'`
-
-### output-generic-enum-wrong.graphql+
-
-```gqlp
-output Test { | Ref<Wrong.unknown> }
-output Ref<$type:_Enum> { field: $type }
-output Wrong { }
-```
-
-##### Expected Verify errors
-
-- `'Wrong' not an Enum type`
-- `'Wrong' not match '_Enum'`
 
 ### output-param-diff.graphql+
 

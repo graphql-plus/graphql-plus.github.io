@@ -400,39 +400,84 @@ input Name { field: Number = 42 }
 input Name { field: String = 'default' }
 ```
 
-### output-constraint-dom-enum.graphql+
+### object-constraint-dom-enum.graphql+
 
 ```gqlp
-output Name { | RefName<name> }
-output RefName<$type:JustName> { field: $type }
+object Name { | RefName<name> }
+object RefName<$type:JustName> { field: $type }
 enum EnumName { name other }
 domain JustName { enum EnumName.name }
 ```
 
-### output-constraint-enum-parent.graphql+
+### object-constraint-enum-parent.graphql+
 
 ```gqlp
-output Name { | RefName<name> }
-output RefName<$type:ParentName> { field: $type }
+object Name { | RefName<name> }
+object RefName<$type:ParentName> { field: $type }
 enum EnumName { :ParentName name }
 enum ParentName { parentName }
 ```
 
-### output-constraint-enum.graphql+
+### object-constraint-enum.graphql+
 
 ```gqlp
-output Name { | RefName<name> }
-output RefName<$type:EnumName> { field: $type }
+object Name { | RefName<name> }
+object RefName<$type:EnumName> { field: $type }
 enum EnumName { name }
 ```
 
-### output-constraint-parent-enum.graphql+
+### object-constraint-parent-enum.graphql+
 
 ```gqlp
-output Name { | RefName<parentName> }
-output RefName<$type:EnumName> { field: $type }
+object Name { | RefName<parentName> }
+object RefName<$type:EnumName> { field: $type }
 enum EnumName { :ParentName name }
 enum ParentName { parentName }
+```
+
+### object-field-enum-parent.graphql+
+
+```gqlp
+object Name { field = EnumName.prnt_name }
+enum EnumName { :PrntName name }
+enum PrntName { prnt_name }
+```
+
+### object-field-enum.graphql+
+
+```gqlp
+object Name { field = EnumName.name }
+enum EnumName { name }
+```
+
+### object-field-value-descr.graphql+
+
+```gqlp
+object Name { field = "Test" "Descr" name }
+enum EnumName { name }
+```
+
+### object-field-value.graphql+
+
+```gqlp
+object Name { field = name }
+enum EnumName { name }
+```
+
+### object-generic-enum.graphql+
+
+```gqlp
+object Name { | RefName<EnumName.name> }
+object RefName<$type:_Enum> { field: $type }
+enum EnumName { name }
+```
+
+### object-generic-value.graphql+
+
+```gqlp
+object Name { | RefName<name> }
+object RefName<$type:_Enum> { field: $type }
+enum EnumName { name }
 ```
 
 ### output-descr-param.graphql+
@@ -441,51 +486,6 @@ enum ParentName { parentName }
 output Name { "Test" "Descr" field(InName): FldName }
 dual FldName { }
 input InName { param: Number | String }
-```
-
-### output-field-enum-parent.graphql+
-
-```gqlp
-output Name { field = EnumName.prnt_name }
-enum EnumName { :PrntName name }
-enum PrntName { prnt_name }
-```
-
-### output-field-enum.graphql+
-
-```gqlp
-output Name { field = EnumName.name }
-enum EnumName { name }
-```
-
-### output-field-value-descr.graphql+
-
-```gqlp
-output Name { field = "Test" "Descr" name }
-enum EnumName { name }
-```
-
-### output-field-value.graphql+
-
-```gqlp
-output Name { field = name }
-enum EnumName { name }
-```
-
-### output-generic-enum.graphql+
-
-```gqlp
-output Name { | RefName<EnumName.name> }
-output RefName<$type:_Enum> { field: $type }
-enum EnumName { name }
-```
-
-### output-generic-value.graphql+
-
-```gqlp
-output Name { | RefName<name> }
-output RefName<$type:_Enum> { field: $type }
-enum EnumName { name }
 ```
 
 ### output-param-descr.graphql+

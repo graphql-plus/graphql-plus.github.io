@@ -206,6 +206,20 @@ object Name { field [field2]: FldName }
 object FldName { }
 ```
 
+### object-field-enum-alias.graphql+
+
+```gqlp
+object Name { field [field1] = Boolean.true }
+object Name { field [field2] = true }
+```
+
+### object-field-enum-value.graphql+
+
+```gqlp
+object Name { field = Boolean.true }
+object Name { field = true }
+```
+
 ### object-field-type-alias.graphql+
 
 ```gqlp
@@ -276,20 +290,6 @@ option Schema { merged=[0] }
 ```gqlp
 option Schema { }
 option Schema { }
-```
-
-### output-field-enum-alias.graphql+
-
-```gqlp
-output Name { field [field1] = Boolean.true }
-output Name { field [field2] = true }
-```
-
-### output-field-enum-value.graphql+
-
-```gqlp
-output Name { field = Boolean.true }
-output Name { field = true }
 ```
 
 ### output-field-param.graphql+

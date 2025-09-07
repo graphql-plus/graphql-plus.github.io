@@ -274,12 +274,14 @@ Dual, Input and Output types are all Object types.
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Type )? Obj_Field+
-Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
+Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
+Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
+Obj_EnumField = fieldAlias* '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
-Obj_TypeArg =  '$'typeParam | Internal | Simple | object
+Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
 Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 ```
@@ -423,7 +425,7 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_Field = Description? field fieldAlias* ':' In_TypeDefault
+In_TypeField = fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
 
 InputParams = '(' In_TypeDefault+ ')'
@@ -459,11 +461,7 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' Description? EnumValue
-
-Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
 ```
 
 Output types define the result values for Categories.
@@ -544,25 +542,23 @@ Un_Member = Description? Simple
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Type )? Obj_Field+
-Obj_Field = Description? field Aliases? ':' Obj_Type Modifiers?
+Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
+Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
+Obj_EnumField = fieldAlias* '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections?
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
-Obj_TypeArg =  '$'typeParam | Internal | Simple | object
+Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
 Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 
-In_Field = Description? field fieldAlias* ':' In_TypeDefault
+In_TypeField = fieldAlias* ':' In_TypeDefault
 In_TypeDefault = In_Type Modifiers? Default?
 
 InputParams = '(' In_TypeDefault+ ')'
 
-Out_Field = Description? field ( Out_TypeField | Out_EnumField )
 Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
-Out_EnumField = fieldAlias* '=' Description? EnumValue
-
-Out_TypeArg = '$'typeParam | Internal | Simple | object | EnumValue
 
 ```
 
