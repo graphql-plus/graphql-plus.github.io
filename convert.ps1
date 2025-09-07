@@ -1,6 +1,8 @@
 $specificationDir = "samples\Specification"
 $specifications = "Defin", "Intro", "Reque", "Schem"
 
+Get-ChildItem "samples\Specification" -Recurse -Filter "*.graphql+" | Remove-Item -Force -ErrorAction Ignore
+
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
   $baseName = $_.BaseName

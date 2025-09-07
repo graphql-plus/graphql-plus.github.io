@@ -50,7 +50,6 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_Value' not defined`
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -220,7 +219,6 @@ output _OutputEnum {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
-- `'_Value' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -602,10 +600,6 @@ output _Modifier<$kind:_ModifierKind> {
 
 ##### Expected Verify errors
 
-- `'_DomainKind' not an Enum type`
-- `'_DomainKind' not defined`
-- `'_DomainValue' not defined`
-- `'_EnumValue' not defined`
 - `'_TypeSimple' not defined`
 
 ### Category.graphql+
@@ -976,7 +970,6 @@ output _InputParam {
 ##### Expected Verify errors
 
 - `'_Alternate' not defined`
-- `'_Value' not defined`
 - `'_DualBase' not defined`
 - `'_Field' not defined`
 - `'_Modifiers' not defined`
@@ -1031,7 +1024,6 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Named' not defined`
-- `'_Value' not defined`
 
 ### Output.graphql+
 

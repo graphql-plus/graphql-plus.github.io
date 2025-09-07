@@ -25,7 +25,7 @@ input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
         modifiers: _Modifier[]
-        default: _Value?
+        default: Value?
         directives: _OpDirective[]
     }
 
@@ -50,24 +50,24 @@ input _Modifier {
     }
 
 dual _OpArgument {
-    |   _OpArgScalar
+    |   _OpArgValue
     |   _OpArgList
     |   _OpArgMap
     }
 
-dual _OpArgScalar {
+dual _OpArgValue {
         variable: _Identifier
-    |   _Value
+    |   Value
     }
 
 dual _OpArgList {
-    | _OpArgument[]
+    | _OpArgValue[]
     }
 
 dual _OpArgMap {
-        value: _OpArgument
+        value: _OpArgValue
         byVariable: _Identifier
-    | _OpArgument[_ValueBuiltIn]
+    | _OpArgValue[Scalar]
     }
 
 input _OpResult {
@@ -88,68 +88,21 @@ input _OpField {
         argument: _OpArgument?
         modifiers: _Modifier[]
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
     }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
     }
 
 dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
-
-dual _Value[Value] {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-dual _ValueScalar {
-    | _Basic
-    | _Internal
-    | _Simple
-    }
-
-dual _ValueList {
-    | _Value[]
-    }
-
-dual _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
-
-```
-
-### Built-In.graphql+
-
-```gqlp
-dual _Value[Value] {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-dual _ValueScalar {
-    | _Basic
-    | _Internal
-    | _Simple
-    }
-
-dual _ValueList {
-    | _Value[]
-    }
-
-dual _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
 
 ```
 
@@ -187,7 +140,7 @@ input _OpVariable {
         name: _Identifier
         type: _Identifier? = null
         modifiers: _Modifier[]
-        default: _Value?
+        default: Value?
         directives: _OpDirective[]
     }
 
@@ -212,24 +165,24 @@ input _Modifier {
     }
 
 dual _OpArgument {
-    |   _OpArgScalar
+    |   _OpArgValue
     |   _OpArgList
     |   _OpArgMap
     }
 
-dual _OpArgScalar {
+dual _OpArgValue {
         variable: _Identifier
-    |   _Value
+    |   Value
     }
 
 dual _OpArgList {
-    | _OpArgument[]
+    | _OpArgValue[]
     }
 
 dual _OpArgMap {
-        value: _OpArgument
+        value: _OpArgValue
         byVariable: _Identifier
-    | _OpArgument[_ValueBuiltIn]
+    | _OpArgValue[Scalar]
     }
 
 ```
@@ -239,8 +192,6 @@ dual _OpArgMap {
 - `'_Identifier' not defined`
 - `'_OpObject' not defined`
 - `'_OpResult' not defined`
-- `'_Value' not defined`
-- `'_ValueBuiltIn' not defined`
 
 ### Result.graphql+
 
@@ -263,13 +214,15 @@ input _OpField {
         argument: _OpArgument?
         modifiers: _Modifier[]
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
     }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
-        body: _OpObject[]
+        "The body as a string as we can't have nested objects."
+        body: String
     }
 
 dual _OpSpread {

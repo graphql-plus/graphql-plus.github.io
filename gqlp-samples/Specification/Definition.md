@@ -69,30 +69,3 @@ dual _Object [Object, obj, %] { }
 union _Simple [Simple] { _Enum _Domain _Union }
 
 ```
-
-### Values.graphql+
-
-```gqlp
-dual _Value[Value] {
-    | _ValueScalar
-    | _ValueList
-    | _ValueMap
-    }
-
-dual _ValueScalar {
-    | _Basic
-    | _Internal
-    | _Simple
-    }
-
-dual _ValueList {
-    | _Value[]
-    }
-
-dual _ValueMap {
-    | _Value[_ValueBuiltIn]
-    }
-
-union _ValueBuiltIn { Boolean Number String Unit Null }
-
-```
