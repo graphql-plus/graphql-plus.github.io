@@ -43,7 +43,7 @@ enum Enum { value }
 
 ##### Expected Verify errors
 
-- `'undef' not a Value of 'Enum'`
+- `'undef' not a Label of 'Enum'`
 
 ### domain-enum-undef-value.graphql+
 
@@ -63,7 +63,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Enum Value 'undef' not defined`
+- `Enum Label 'undef' not defined`
 
 ### domain-enum-unique-all.graphql+
 

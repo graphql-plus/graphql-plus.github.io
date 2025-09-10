@@ -174,15 +174,15 @@ object Field { }
 
 ##### Expected Verify errors Dual
 
-- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
@@ -199,15 +199,15 @@ object Test2 { }
 
 ##### Expected Verify errors Dual
 
-- `Group of DualField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ##### Expected Verify errors Input
 
-- `Group of InputField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ##### Expected Verify errors Output
 
-- `Group of OutputField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ### option-diff-name.graphql+
 

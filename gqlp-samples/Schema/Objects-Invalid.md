@@ -270,17 +270,17 @@ object Field { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### field-diff-mod.graphql+
 
@@ -297,17 +297,17 @@ object Field { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
@@ -325,17 +325,17 @@ object Test2 { }
 ##### Expected Verify errors Dual
 
 - `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ##### Expected Verify errors Input
 
 - `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ### field-mod-undef-param.graphql+
 
@@ -549,7 +549,7 @@ object Test { field = unknown }
 
 ##### Expected Verify errors
 
-- `Enum Value 'unknown' not defined`
+- `Enum Label 'unknown' not defined`
 - `'' not defined`
 
 ### object-enum-diff.graphql+
@@ -562,7 +562,7 @@ object Test { field = false }
 ##### Expected Verify errors
 
 - `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType['Boolean.false', 'Boolean.true']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
 - `Multiple Types with name 'Test' can't be merged`
 
 ### object-enumValue-bad.graphql+
@@ -573,7 +573,7 @@ object Test { field = Boolean.unknown }
 
 ##### Expected Verify errors
 
-- `'unknown' not a Value of 'Boolean'`
+- `'unknown' not a Label of 'Boolean'`
 
 ### object-enumValue-wrong.graphql+
 
@@ -610,7 +610,7 @@ object Ref<$type:_Enum> { field: $type }
 
 ##### Expected Verify errors
 
-- `'unknown' not a Value of 'Boolean'`
+- `'unknown' not a Label of 'Boolean'`
 
 ### object-generic-enum-wrong.graphql+
 
@@ -857,15 +857,15 @@ object Field { }
 
 ##### Expected Verify errors Dual
 
-- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### parent-field-alias-recurse.graphql+
 
@@ -882,15 +882,15 @@ object Field { }
 
 ##### Expected Verify errors Dual
 
-- `Aliases of DualField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Input
 
-- `Aliases of InputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ##### Expected Verify errors Output
 
-- `Aliases of OutputField for 'alias' not singular ModifiedType['field1', 'field2']`
+- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### parent-field-alias.graphql+
 
@@ -936,15 +936,15 @@ object Field { }
 
 ##### Expected Verify errors Dual
 
-- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### parent-field-mod-recurse.graphql+
 
@@ -961,15 +961,15 @@ object Field { }
 
 ##### Expected Verify errors Dual
 
-- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Input
 
-- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ##### Expected Verify errors Output
 
-- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### parent-field-mod.graphql+
 
