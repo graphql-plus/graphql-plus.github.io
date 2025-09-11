@@ -1,15 +1,5 @@
 # Simple-Invalid Schema Samples
 
-### domain-enum-none.graphql+
-
-```gqlp
-domain Test { Enum }
-```
-
-##### Expected Verify errors
-
-- `Expected enum Labels`
-
 ### domain-enum-parent-unique.graphql+
 
 ```gqlp

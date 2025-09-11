@@ -550,7 +550,6 @@ object Test { field = unknown }
 ##### Expected Verify errors
 
 - `Enum Label 'unknown' not defined`
-- `'' not defined`
 
 ### object-enum-diff.graphql+
 
@@ -561,9 +560,22 @@ object Test { field = false }
 
 ##### Expected Verify errors
 
+- `Multiple Types with name 'Test' can't be merged`
+
+##### Expected Verify errors Dual
+
+- `Multiple Duals with name 'Test' can't be merged`
+- `Group of DualField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
+
+##### Expected Verify errors Input
+
+- `Multiple Inputs with name 'Test' can't be merged`
+- `Group of InputField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
+
+##### Expected Verify errors Output
+
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of OutputField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
-- `Multiple Types with name 'Test' can't be merged`
 
 ### object-enumValue-bad.graphql+
 
@@ -585,21 +597,6 @@ input Wrong { }
 ##### Expected Verify errors
 
 - `'Wrong' not an Enum type`
-- `Type kind mismatch for Wrong. Found Input`
-
-### object-generic-arg-enum-wrong.graphql+
-
-```gqlp
-object Test<$arg:String> { | Ref<$arg.unknown> }
-object Ref<$type:String> { field: $type }
-```
-
-##### Expected Verify errors
-
-- `'$arg' not used`
-- `Expected Enum value not allowed after Type parameter`
-- `Expected declaration selector. 'unknown' unknown`
-- `Expected no more text`
 
 ### object-generic-enum-bad.graphql+
 

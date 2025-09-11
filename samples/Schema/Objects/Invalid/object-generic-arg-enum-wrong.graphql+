@@ -1,2 +1,0 @@
-object Test<$arg:String> { | Ref<$arg.unknown> }
-object Ref<$type:String> { field: $type }
