@@ -255,6 +255,48 @@ output Bad { }
 - `Type kind mismatch`
 - `'Bad' not match '_Dual'`
 
+### enum-bad.graphql+
+
+```gqlp
+object Test { field = unknown }
+```
+
+##### Expected Verify errors
+
+- `Enum Label 'unknown' not defined`
+
+### enum-diff.graphql+
+
+```gqlp
+object Test { field = true }
+object Test { field = false }
+```
+
+##### Expected Verify errors
+
+- `Multiple Types with name 'Test' can't be merged`
+
+### enumValue-bad.graphql+
+
+```gqlp
+object Test { field = Boolean.unknown }
+```
+
+##### Expected Verify errors
+
+- `'unknown' not a Label of 'Boolean'`
+
+### enumValue-wrong.graphql+
+
+```gqlp
+object Test { field = Wrong.unknown }
+input Wrong { }
+```
+
+##### Expected Verify errors
+
+- `'Wrong' not an Enum type`
+
 ### field-alias.graphql+
 
 ```gqlp
@@ -433,6 +475,30 @@ object Ref<$ref:String> { | $ref }
 
 - `'$type' not defined`
 
+### generic-enum-bad.graphql+
+
+```gqlp
+object Test { | Ref<Boolean.unknown> }
+object Ref<$type:_Enum> { field: $type }
+```
+
+##### Expected Verify errors
+
+- `'unknown' not a Label of 'Boolean'`
+
+### generic-enum-wrong.graphql+
+
+```gqlp
+object Test { | Ref<Wrong.unknown> }
+object Ref<$type:_Enum> { field: $type }
+object Wrong { }
+```
+
+##### Expected Verify errors
+
+- `'Wrong' not an Enum type`
+- `'Wrong' not match '_Enum'`
+
 ### generic-field-undef.graphql+
 
 ```gqlp
@@ -540,87 +606,6 @@ output Bad { }
 ##### Expected Verify errors
 
 - `'Bad' invalid type. Found 'Output'`
-
-### object-enum-bad.graphql+
-
-```gqlp
-object Test { field = unknown }
-```
-
-##### Expected Verify errors
-
-- `Enum Label 'unknown' not defined`
-
-### object-enum-diff.graphql+
-
-```gqlp
-object Test { field = true }
-object Test { field = false }
-```
-
-##### Expected Verify errors
-
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
-
-### object-enumValue-bad.graphql+
-
-```gqlp
-object Test { field = Boolean.unknown }
-```
-
-##### Expected Verify errors
-
-- `'unknown' not a Label of 'Boolean'`
-
-### object-enumValue-wrong.graphql+
-
-```gqlp
-object Test { field = Wrong.unknown }
-input Wrong { }
-```
-
-##### Expected Verify errors
-
-- `'Wrong' not an Enum type`
-
-### object-generic-enum-bad.graphql+
-
-```gqlp
-object Test { | Ref<Boolean.unknown> }
-object Ref<$type:_Enum> { field: $type }
-```
-
-##### Expected Verify errors
-
-- `'unknown' not a Label of 'Boolean'`
-
-### object-generic-enum-wrong.graphql+
-
-```gqlp
-object Test { | Ref<Wrong.unknown> }
-object Ref<$type:_Enum> { field: $type }
-object Wrong { }
-```
-
-##### Expected Verify errors
-
-- `'Wrong' not an Enum type`
-- `'Wrong' not match '_Enum'`
 
 ### output-alt-input.graphql+
 

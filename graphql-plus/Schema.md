@@ -26,7 +26,7 @@ Declarations have the following general form:
 > `label name Parameters? Aliases? '{' ( '(' Option ')' )? Definition '}'`
 
 Declarations are matched by label and name.
-When merging Declarations, Options and Definitions will also be merged.
+When merging Declarations, Options and Definitions are also merged.
 
 The following declarations are implied but can be specified explicitly:
 
@@ -53,6 +53,7 @@ Some item lists can be merged and thus de-duplicated.
 
 Merging two (or more) lists will be done by some matching criteria.
 If the items are named the default matching criteria is their names.
+Otherwise the matching criteria is specific to the items.
 
 Unless otherwise specified, items are merged as follows:
 
@@ -278,7 +279,7 @@ Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
 Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
 Obj_EnumField = fieldAlias* '=' Description? EnumValue
 
-Obj_Alternate = '|' Obj_Type Collections?
+Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
@@ -286,16 +287,18 @@ Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 ```
 
-An Object type is defined as either:
+An Object type is defined as:
 
-- an object definition followed by zero or more Alternate object Type references, or
-- one or more Alternate object Type references
+- zero or more Type parameters
+- an optional Parent Type reference
+- zero or more object Fields
+- zero or more Alternate Type references
+
+An Object type must have either a Parent, a Field or an Alternate.
 
 Object types can be merged if their parent Types match.
 
-Type parameters are considered part of the Object Parent definition and thus not merged between Parent and child.
-
-#### Type parameters and Type arguments
+#### Type parameters
 
 An Object type may have Type parameters.
 Each Type parameter may be preceded by description strings.
@@ -303,12 +306,27 @@ Each Type parameter must have a Constraint specifying the Type any argument must
 Constraints do not have Type Arguments.
 
 An Object type with Type parameters is called a Generic type.
+
+Type parameters are considered part of the Object Parent definition and thus are not merged between Parent and Child.
+
+#### Type references
+
+A Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the containing object.
+If a Type reference is an object Type it may have Type arguments.
+Type arguments may be any Type or a Enum Label.
+
+If a Type reference is defined with a Type parameter then that parameter's Constraint
+(and thus any corresponding Type argument) must be valid for where that reference is.
+
+#### Type arguments
+
 A reference to a Generic type must include the correct number of Type arguments.
 Generic Type references match if all their Type arguments match.
-Note that Generic types CANNOT be used as Type arguments.
+Type arguments must be assignable to the Constraint of their corresponding Type parameter.
 
-If the Type parameter corresponding to a Type argument has a Constraint,
-then the Type argument is assignable to the Constraint if any of the following are true:
+Generic type references CANNOT be used as Type arguments.
+
+A Type argument is assignable to a Constraint if any of the following are true:
 
 - The Constraint is the same type as the Type argument
 - The Constraint is a parent (or grandparent etc) of the Type argument
@@ -316,12 +334,12 @@ then the Type argument is assignable to the Constraint if any of the following a
 - The Constraint is a Enum type and the Type argument is parent of that type
 - The Constraint is a Union type and the Type argument is assignable to a Union Member
 - The Constraint is an Object type with Alternates and the Type argument is assignable to an Alternate
+- The Constraint is a Enum type and the Type argument is Label of that type (or it's parent, grandparent etc)
+  If there is a conflict between a bare Enum Label and a Type, the Type will have precedence.
 
 While checking for assignability any Type parameters are presumed to be their Constraints
 
-#### Object definition and Fields
-
-A object is defined with an optional Parent Type and one or more Fields.
+#### Fields
 
 A Field is defined as:
 
@@ -329,30 +347,44 @@ A Field is defined as:
 - a Field name
 - zero or more Field Aliases
 - optional type description strings
-- a type parameter or object type reference, the Field's Type
+- a Type parameter or Type reference, the Field's Type
 - zero or more Modifiers
+
+or:
+
+- optional field description strings
+- a Field name
+- zero or more Field Aliases
+- optional type description strings
+- an Enum Label (which will imply the Field's Type)
 
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
 
+If a Field is defined with a Type parameter and the corresponding Type argument is an Enum Label,
+any Modifiers will be ignored.
+
 Fields can be merged if their Modified Types match.
 
-#### Object Alternates
+#### Alternates
 
 The order of Alternates is significant.
 Alternates may include Collections, but not nullability.
-An Alternate must not reference itself, even recursively.
-
-An object Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
-If a reference is an object Type it may have Type Arguments.
-Type arguments may be an Internal Type, Simple Type, Type parameter or the same object Type as the reference.
-If a Type argument is an object Type it may NOT have Type Arguments.
+An Alternate must not reference it's containing Type, even recursively.
 
 An Alternate is defined as:
 
 - optional description strings
-- a type parameter or object type reference, the Alternate's Type
+- a Type parameter or object Type reference, the Alternate's Type
 - zero or more Collections
+
+or:
+
+- optional description strings
+- an Enum Label (which will imply the Alternate's Type)
+
+If an Alternate is defined with a Type parameter and the corresponding Type argument is an Enum Label,
+the Alternate will be defined as that Label and any Collections will be ignored.
 
 Alternates are merged by Type and can be merged if their Collections match.
 
@@ -431,7 +463,7 @@ In_TypeDefault = In_Type Modifiers? Default?
 InputParams = '(' In_TypeDefault+ ')'
 ```
 
-Input types define the type of Arguments, used on Directives or Output fields.
+Input types define the Input Parameters of Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
 
@@ -440,20 +472,18 @@ An Input Field redefines an object Field as follows:
 - an optional description string
 - a Field name
 - zero or more Field Aliases
-- a type parameter or Input type references
-- zero or more type Modifiers
+- a type parameter or Input type reference
+- zero or more Modifiers
 - an optional Default value
 
 A Default of `null` is only allowed on Optional fields.
 The Default must be compatible with the Modified Type of the field.
 
+Default values are merged as Constant values.
+
 Input Parameters define one or more Alternate Input, Dual or Simple types,
 possibly with a description string, Modifiers and/or a Default.
-
-The order of Alternates is significant.
-Alternates are merged by their type and can be merged if their Modifiers match.
-
-Default values are merged as Constant values.
+On Output Fields they could also include an Type parameter.
 
 ### Output type
 
@@ -468,9 +498,6 @@ Output types define the result values for Categories.
 
 An Output type is defined as an object type with the following alterations.
 
-An Output type reference may have Type Arguments of Output type references, without arguments, and/or Enum Labels.
-If there is a conflict between a bare Enum Label and a Type, the Type will have precedence.
-
 An Output Field redefines an object Field as follows:
 
 - optional field description strings
@@ -480,14 +507,6 @@ An Output Field redefines an object Field as follows:
 - optional type description strings
 - a type parameter or an Output type reference
 - zero or more type Modifiers
-
-or:
-
-- optional field description strings
-- a Field name
-- zero or more Field Aliases
-- optional type description strings
-- an Enum Label (which will imply the field Type)
 
 ## Complete Grammar
 
@@ -546,7 +565,7 @@ Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
 Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
 Obj_EnumField = fieldAlias* '=' Description? EnumValue
 
-Obj_Alternate = '|' Obj_Type Collections?
+Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
 Obj_Type = Description? ( '$'typeParam | Obj_Base )
 Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
 Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
