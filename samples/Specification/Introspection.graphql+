@@ -283,12 +283,12 @@ output _ObjBase {
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-        label: _Identifier? 
+        label: _Identifier?
     | _TypeParam
     }
 
 output _TypeParam {
-    : _Named
+    : _Described
         typeParam: _Identifier
     }
 

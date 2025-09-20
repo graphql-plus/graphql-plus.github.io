@@ -330,7 +330,7 @@ output _ObjTypeArg {
     }
 
 output _TypeParam {
-    : _Named
+    : _Described
         typeParam: _Identifier
     }
 
