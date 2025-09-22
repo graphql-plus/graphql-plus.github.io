@@ -274,15 +274,15 @@ Dual, Input and Output types are all Object types.
 // base definition
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Obj_Type )? Obj_Field+
-Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
-Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
-Obj_EnumField = fieldAlias* '=' Description? EnumValue
+Obj_Object = ( ':' Obj_Base )? Obj_Field+
+Obj_Field = Description? field ( Obj_FieldType | Obj_FieldEnum )
+Obj_FieldType = fieldAlias* ':' Obj_Type Modifiers?
+Obj_FieldEnum = fieldAlias* '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
-Obj_Type = Description? ( '$'typeParam | Obj_Base )
-Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
-Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
+Obj_Base = Description? ( '$'typeParam | object ( '<' ( Description? Obj_TypeArg )+ '>' )? )
+Obj_Type = Obj_Base | Simple | Internal
+Obj_TypeArg =  '$'typeParam | Obj_Constraint | Internal | EnumValue
 Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 ```
@@ -311,12 +311,16 @@ Type parameters are considered part of the Object Parent definition and thus are
 
 #### Type references
 
-A Type reference may be an Internal Type, Simple Type, Type parameter or the same object Type as the containing object.
+An object Base is a special Type reference that can only be a Type parameter
+or the same object Type as the containing object.
 If a Type reference is an object Type it may have Type arguments.
-Type arguments may be any Type or a Enum Label.
+An Object's Parent must be an object Base.
 
-If a Type reference is defined with a Type parameter then that parameter's Constraint
-(and thus any corresponding Type argument) must be valid for where that reference is.
+A Type reference may be an Internal Type, Simple Type, Type parameter or an object Base.
+Type arguments may be any Type or a Enum Label (or Value).
+
+If a Type reference is a Type parameter then that parameter's Constraint
+(and thus any corresponding Type argument) must be valid for that Type reference.
 
 #### Type arguments
 
@@ -347,16 +351,12 @@ A Field is defined as:
 - a Field name
 - zero or more Field Aliases
 - optional type description strings
-- a Type parameter or Type reference, the Field's Type
+- a Field Type or an Enum Label (which will imply the Field's Type)
+
+A Field Type is defined as:
+
+- a Type reference
 - zero or more Modifiers
-
-or:
-
-- optional field description strings
-- a Field name
-- zero or more Field Aliases
-- optional type description strings
-- an Enum Label (which will imply the Field's Type)
 
 Field names and Field Aliases must be unique within the object, including any parent.
 Explicit Field names will override the same name being used as a Field Alias.
@@ -384,7 +384,7 @@ or:
 - an Enum Label (which will imply the Alternate's Type)
 
 If an Alternate is defined with a Type parameter and the corresponding Type argument is an Enum Label,
-the Alternate will be defined as that Label and any Collections will be ignored.
+any Collections will be ignored.
 
 Alternates are merged by Type and can be merged if their Collections match.
 
@@ -457,10 +457,9 @@ An Input type is an Object type with the following Term differences,
 after replacing "object" with "input" and "Obj" with "In".
 
 ```PEG
-In_TypeField = fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type Modifiers? Default?
+In_FieldType = In_Type Modifiers? Default?
 
-InputParams = '(' In_TypeDefault+ ')'
+InputParams = '(' In_FieldType+ ')'
 ```
 
 Input types define the Input Parameters of Directives or Output fields.
@@ -491,7 +490,7 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParams? fieldAlias* ':' Out_Type Modifiers?
 ```
 
 Output types define the result values for Categories.
@@ -560,24 +559,23 @@ Un_Member = Description? Simple
 // base definition
 Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
-Obj_Object = ( ':' Obj_Type )? Obj_Field+
-Obj_Field = Description? field ( Obj_TypeField | Obj_EnumField )
-Obj_TypeField = fieldAlias* ':' Obj_Type Modifiers?
-Obj_EnumField = fieldAlias* '=' Description? EnumValue
+Obj_Object = ( ':' Obj_Base )? Obj_Field+
+Obj_Field = Description? field ( Obj_FieldType | Obj_FieldEnum )
+Obj_FieldType = fieldAlias* ':' Obj_Type Modifiers?
+Obj_FieldEnum = fieldAlias* '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
-Obj_Type = Description? ( '$'typeParam | Obj_Base )
-Obj_Base = Internal | Simple | object ( '<' ( Description? Obj_TypeArg )+ '>' )?
-Obj_TypeArg =  '$'typeParam | Internal | Simple | object | EnumValue
+Obj_Base = Description? ( '$'typeParam | object ( '<' ( Description? Obj_TypeArg )+ '>' )? )
+Obj_Type = Obj_Base | Simple | Internal
+Obj_TypeArg =  '$'typeParam | Obj_Constraint | Internal | EnumValue
 Obj_TypeParams = '<' ( Description? '$'typeParam ':' Obj_Constraint )+ '>'
 Obj_Constraint = Simple | object
 
-In_TypeField = fieldAlias* ':' In_TypeDefault
-In_TypeDefault = In_Type Modifiers? Default?
+In_FieldType = In_Type Modifiers? Default?
 
-InputParams = '(' In_TypeDefault+ ')'
+InputParams = '(' In_FieldType+ ')'
 
-Out_TypeField = InputParams? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParams? fieldAlias* ':' Out_Type Modifiers?
 
 ```
 

@@ -337,13 +337,13 @@ output _UnionMember {
 ```gqlp
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_Field> {
+output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
     : _ChildType<$kind _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
-        alternates: _Alternate[]
+        alternates: _ObjAlternate[]
         allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<_Alternate>[]
+        allAlternates: _ObjectFor<_ObjAlternate>[]
     }
 
 output _ObjTypeParam {
@@ -368,13 +368,13 @@ output _TypeParam {
         typeParam: _Identifier
     }
 
-output _Alternate {
+output _ObjAlternate {
       type: _ObjBase
       collections: _Collections[]
-    | _AlternateEnum
+    | _ObjAlternateEnum
     }
 
-output _AlternateEnum {
+output _ObjAlternateEnum {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
     }
@@ -383,22 +383,25 @@ output _ObjectFor<$for:_ForParam> {
         object: _Identifier
     }
 
-output _Field {
+output _ObjField<$type:_ObjFieldType> {
     : _Aliased
-      type: _ObjBase
-      modifiers: _Modifiers[]
-    | _FieldEnum
+      type: $type
     }
 
-output _FieldEnum {
+output _ObjFieldType {
+    : _ObjBase
+        modifiers: _Modifiers[]
+    | _ObjFieldEnum
+    }
+
+output _ObjFieldEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: _Identifier
         label: _Identifier
     }
 
 output _ForParam {
-    | _Alternate
-    | _Field
+    | _ObjAlternate
+    | _ObjField
     }
 ```
 
@@ -406,7 +409,11 @@ output _ForParam {
 
 ```gqlp
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _Field>
+    : _TypeObject<_TypeKind.Dual _DualField>
+    }
+
+output _DualField {
+    : _ObjField<_ObjFieldType>
     }
 ```
 
@@ -418,14 +425,16 @@ output _TypeInput {
     }
 
 output _InputField {
-    : _Field
+    : _ObjField<_InputFieldType>
+    }
+
+output _InputFieldType {
+    : _ObjFieldType
         default: Value?
     }
 
 output _InputParam {
-    : _InputBase
-        modifiers: _Modifiers[]
-        default: Value?
+    : _InputFieldType
     }
 ```
 
@@ -437,7 +446,11 @@ output _TypeOutput {
     }
 
 output _OutputField {
-    : _Field
+    : _ObjField<_ObjFieldType>
+    }
+
+output _OutputFieldType {
+    : _ObjFieldType
         parameters: _InputParam[]
     }
 ```
@@ -708,13 +721,13 @@ output _UnionMember {
 
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_Field> {
+output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
     : _ChildType<$kind _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
-        alternates: _Alternate[]
+        alternates: _ObjAlternate[]
         allFields: _ObjectFor<$field>[]
-        allAlternates: _ObjectFor<_Alternate>[]
+        allAlternates: _ObjectFor<_ObjAlternate>[]
     }
 
 output _ObjTypeParam {
@@ -739,13 +752,13 @@ output _TypeParam {
         typeParam: _Identifier
     }
 
-output _Alternate {
+output _ObjAlternate {
       type: _ObjBase
       collections: _Collections[]
-    | _AlternateEnum
+    | _ObjAlternateEnum
     }
 
-output _AlternateEnum {
+output _ObjAlternateEnum {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
     }
@@ -754,26 +767,33 @@ output _ObjectFor<$for:_ForParam> {
         object: _Identifier
     }
 
-output _Field {
+output _ObjField<$type:_ObjFieldType> {
     : _Aliased
-      type: _ObjBase
-      modifiers: _Modifiers[]
-    | _FieldEnum
+      type: $type
     }
 
-output _FieldEnum {
+output _ObjFieldType {
+    : _ObjBase
+        modifiers: _Modifiers[]
+    | _ObjFieldEnum
+    }
+
+output _ObjFieldEnum {
     : _TypeRef<_TypeKind.Enum>
-        field: _Identifier
         label: _Identifier
     }
 
 output _ForParam {
-    | _Alternate
-    | _Field
+    | _ObjAlternate
+    | _ObjField
     }
 
 output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _Field>
+    : _TypeObject<_TypeKind.Dual _DualField>
+    }
+
+output _DualField {
+    : _ObjField<_ObjFieldType>
     }
 
 output _TypeInput {
@@ -781,14 +801,16 @@ output _TypeInput {
     }
 
 output _InputField {
-    : _Field
+    : _ObjField<_InputFieldType>
+    }
+
+output _InputFieldType {
+    : _ObjFieldType
         default: Value?
     }
 
 output _InputParam {
-    : _InputBase
-        modifiers: _Modifiers[]
-        default: Value?
+    : _InputFieldType
     }
 
 output _TypeOutput {
@@ -796,7 +818,11 @@ output _TypeOutput {
     }
 
 output _OutputField {
-    : _Field
+    : _ObjField<_ObjFieldType>
+    }
+
+output _OutputFieldType {
+    : _ObjFieldType
         parameters: _InputParam[]
     }
 
