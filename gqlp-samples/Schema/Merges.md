@@ -183,6 +183,13 @@ object Name [Object1] { }
 object Name [Object2] { }
 ```
 
+### object-alt-enum.graphql+
+
+```gqlp
+object Name { | true }
+object Name { | false }
+```
+
 ### object-alt.graphql+
 
 ```gqlp
@@ -233,13 +240,6 @@ object Name { field: String }
 object Name { field: FldName }
 object Name { field: FldName }
 object FldName { }
-```
-
-### object-param-constraint.graphql+
-
-```gqlp
-object Name<$test:String> { test: $test }
-object Name<$test:String> { type: $test }
 ```
 
 ### object-param-dup.graphql+

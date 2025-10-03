@@ -45,7 +45,7 @@ Many named items can also have Aliases, which are a list of alternate ids for a 
 
 Within any list of named items with Aliases, after merging all Aliases must be unique.
 Any conflicts between names and Aliases will be resolved in the favour of the name,
-ie. Any Aliases in a list of items that match any of the item's names will simply be removed.
+ie. Any Aliases in a list of items that match any names of the items will be removed.
 
 ### Merging (and de-duplicating)
 
@@ -138,6 +138,7 @@ Merging of Types is only possible if their Kinds match.
 
 All Types may specify another Type of the same Kind that they extend.
 Child (Extending) Types merge in the definition of their Parent (Extended) Type.
+All Parent items are considered to have been defined before any Child items.
 A Type cannot extend itself, even recursively.
 
 ### Built-In types
@@ -307,7 +308,9 @@ Constraints do not have Type Arguments.
 
 An Object type with Type parameters is called a Generic type.
 
-Type parameters are considered part of the Object Parent definition and thus are not merged between Parent and Child.
+Type parameters are not merged between Parent and Child.
+
+Type parameters can be merged if their Constraints match.
 
 #### Type references
 
@@ -341,7 +344,7 @@ A Type argument is assignable to a Constraint if any of the following are true:
 - The Constraint is a Enum type and the Type argument is Label of that type (or it's parent, grandparent etc)
   If there is a conflict between a bare Enum Label and a Type, the Type will have precedence.
 
-While checking for assignability any Type parameters are presumed to be their Constraints
+While checking for assignability any Type parameters are presumed to be their Constraints.
 
 #### Fields
 
@@ -364,7 +367,7 @@ Explicit Field names will override the same name being used as a Field Alias.
 If a Field is defined with a Type parameter and the corresponding Type argument is an Enum Label,
 any Modifiers will be ignored.
 
-Fields can be merged if their Modified Types match.
+Fields can be merged if their Field Types or Enum Labels match.
 
 #### Alternates
 
@@ -386,7 +389,7 @@ or:
 If an Alternate is defined with a Type parameter and the corresponding Type argument is an Enum Label,
 any Collections will be ignored.
 
-Alternates are merged by Type and can be merged if their Collections match.
+Alternates are merged by Type or Enum Label and can be merged if their Collections match.
 
 ### Modifiers / Collections
 
