@@ -186,8 +186,8 @@ object Name [Object2] { }
 ### object-alt-enum.graphql+
 
 ```gqlp
-object Name { | true }
-object Name { | false }
+object Name { ! true }
+object Name { ! false }
 ```
 
 ### object-alt.graphql+

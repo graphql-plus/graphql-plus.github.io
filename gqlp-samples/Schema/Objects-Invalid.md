@@ -275,7 +275,7 @@ object Test { field = false }
 ##### Expected Verify errors
 
 - `name 'Test' can't be merged`
-- `not singular ModifiedType_Label`
+- `'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
 
 ### enumValue-bad.graphql+
 
@@ -308,22 +308,8 @@ object Field { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
+- `with name 'Test' can't be merged`
+- `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### field-diff-mod.graphql+
 
@@ -335,22 +321,8 @@ object Field { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
+- `with name 'Test' can't be merged`
+- `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
@@ -363,22 +335,8 @@ object Test2 { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
+- `with name 'Test' can't be merged`
+- `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ### field-mod-undef-param.graphql+
 
@@ -715,22 +673,8 @@ object Alt { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
+- `with name 'Test' can't be merged`
+- `for 'Test' not singular Parent['', 'Parent']`
 
 ### parent-alt-more.graphql+
 
@@ -816,18 +760,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Recurse`
-
-##### Expected Verify errors Dual
-
-- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Input
-
-- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Output
-
-- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
+- `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### parent-field-alias-recurse.graphql+
 
@@ -841,18 +774,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Recurse`
-
-##### Expected Verify errors Dual
-
-- `Aliases of DualField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Input
-
-- `Aliases of InputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
-
-##### Expected Verify errors Output
-
-- `Aliases of OutputField for 'alias' not singular ModifiedType_Label['field1', 'field2']`
+- `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
 
 ### parent-field-alias.graphql+
 
@@ -865,22 +787,8 @@ object Field { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
+- `with name 'Test' can't be merged`
+- `for 'Test' not singular Parent['', 'Parent']`
 
 ### parent-field-mod-more.graphql+
 
@@ -895,18 +803,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Recurse`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
+- `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### parent-field-mod-recurse.graphql+
 
@@ -920,18 +817,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `Can't merge Test into Parent Recurse`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
+- `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### parent-field-mod.graphql+
 
@@ -944,22 +830,8 @@ object Field { }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Multiple Duals with name 'Test' can't be merged`
-- `Group of DualObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Input
-
-- `Multiple Inputs with name 'Test' can't be merged`
-- `Group of InputObject for 'Test' not singular Parent['', 'Parent']`
-
-##### Expected Verify errors Output
-
-- `Multiple Outputs with name 'Test' can't be merged`
-- `Group of OutputObject for 'Test' not singular Parent['', 'Parent']`
+- `with name 'Test' can't be merged`
+- `for 'Test' not singular Parent['', 'Parent']`
 
 ### parent-more.graphql+
 

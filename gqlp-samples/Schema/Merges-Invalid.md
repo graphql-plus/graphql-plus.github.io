@@ -160,18 +160,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Field', 'Field []']`
+- `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
@@ -185,18 +174,7 @@ object Test2 { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
+- `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ### option-diff-name.graphql+
 
