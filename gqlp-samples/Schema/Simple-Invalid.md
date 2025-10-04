@@ -398,7 +398,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### unique-type-alias.graphql+
 

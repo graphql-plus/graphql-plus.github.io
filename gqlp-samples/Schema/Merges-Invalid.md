@@ -11,18 +11,7 @@ object Test1 { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualAlternate for 'Test1' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Input
-
-- `Group of InputAlternate for 'Test1' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputAlternate for 'Test1' not singular Modifiers['', '[]']`
+- `Group of ObjAlt for 'Test1' not singular Modifiers['', '[]']`
 
 ### category-diff-mod.graphql+
 

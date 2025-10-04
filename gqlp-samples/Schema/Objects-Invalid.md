@@ -120,7 +120,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### dual-alt-output.graphql+
 
@@ -131,7 +131,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### dual-alt-param-input.graphql+
 
@@ -143,7 +143,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### dual-alt-param-output.graphql+
@@ -156,7 +156,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### dual-field-input.graphql+
@@ -168,7 +168,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### dual-field-output.graphql+
 
@@ -179,7 +179,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### dual-field-param-input.graphql+
 
@@ -191,7 +191,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### dual-field-param-output.graphql+
@@ -204,7 +204,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### dual-parent-input.graphql+
@@ -239,7 +239,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### dual-parent-param-output.graphql+
@@ -252,7 +252,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 - `'Bad' not match '_Dual'`
 
 ### enum-bad.graphql+
@@ -274,7 +274,8 @@ object Test { field = false }
 
 ##### Expected Verify errors
 
-- `Multiple Types with name 'Test' can't be merged`
+- `name 'Test' can't be merged`
+- `not singular ModifiedType_Label`
 
 ### enumValue-bad.graphql+
 
@@ -474,6 +475,7 @@ object Ref<$ref:String> { | $ref }
 ##### Expected Verify errors
 
 - `'$type' not defined`
+- `Invalid Constraint on $ref of Ref`
 
 ### generic-enum-bad.graphql+
 
@@ -572,7 +574,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### input-field-null.graphql+
 
@@ -594,7 +596,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### input-parent-output.graphql+
 
@@ -616,7 +618,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### output-field-input.graphql+
 
@@ -627,7 +629,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### output-param-diff.graphql+
 
@@ -743,18 +745,7 @@ object Alt { }
 ##### Expected Verify errors
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-
-##### Expected Verify errors Dual
-
-- `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Input
-
-- `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
+- `not singular Modifiers['', '[]']`
 
 ### parent-alt-recurse.graphql+
 
@@ -768,18 +759,7 @@ object Alt { }
 ##### Expected Verify errors
 
 - `Can't merge Test alternates into Parent Recurse alternates`
-
-##### Expected Verify errors Dual
-
-- `Group of DualAlternate for 'Alt' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Input
-
-- `Group of InputAlternate for 'Alt' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputAlternate for 'Alt' not singular Modifiers['', '[]']`
+- `not singular Modifiers['', '[]']`
 
 ### parent-alt-self-more.graphql+
 
