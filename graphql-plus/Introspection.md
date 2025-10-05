@@ -154,12 +154,12 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$kind:_TypeKind> {
     : _Named
         typeKind: $kind
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
@@ -399,9 +399,9 @@ output _ObjFieldEnum {
         label: _Identifier
     }
 
-output _ForParam {
+output _ForParam<$type:_ObjFieldType> {
     | _ObjAlternate
-    | _ObjField
+    | _ObjField<$type>
     }
 ```
 
@@ -578,12 +578,12 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$kind:_TypeKind> {
     : _Named
         typeKind: $kind
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
@@ -783,9 +783,9 @@ output _ObjFieldEnum {
         label: _Identifier
     }
 
-output _ForParam {
+output _ForParam<$type:_ObjFieldType> {
     | _ObjAlternate
-    | _ObjField
+    | _ObjField<$type>
     }
 
 output _TypeDual {

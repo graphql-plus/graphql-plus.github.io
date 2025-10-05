@@ -125,9 +125,9 @@ output _ObjFieldEnum {
         label: _Identifier
     }
 
-output _ForParam {
+output _ForParam<$type:_ObjFieldType> {
     | _ObjAlternate
-    | _ObjField
+    | _ObjField<$type>
     }
 
 output _TypeDual {
@@ -175,6 +175,7 @@ output _OutputFieldType {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
+- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -401,12 +402,12 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$kind:_TypeKind> {
     : _Named
         typeKind: $kind
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
@@ -518,9 +519,9 @@ output _ObjFieldEnum {
         label: _Identifier
     }
 
-output _ForParam {
+output _ForParam<$type:_ObjFieldType> {
     | _ObjAlternate
-    | _ObjField
+    | _ObjField<$type>
     }
 
 ```
@@ -530,6 +531,7 @@ output _ForParam {
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
+- `'_Described' not defined`
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
@@ -632,12 +634,12 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-output _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$kind:_TypeKind> {
     : _Named
         typeKind: $kind
 }
 
-output _TypeSimple {
+dual _TypeSimple {
     | _TypeRef<_TypeKind.Basic>
     | _TypeRef<_TypeKind.Enum>
     | _TypeRef<_TypeKind.Domain>
@@ -843,11 +845,8 @@ output _DualField {
 
 ##### Expected Verify errors
 
-- `'_Alternate' not defined`
-- `'_Field' not defined`
-- `'_ObjBase' not defined`
-- `'_ObjTypeArg' not defined`
-- `'_ObjTypeParam' not defined`
+- `'_ObjField' not defined`
+- `'_ObjFieldType' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
@@ -904,17 +903,11 @@ output _InputParam {
 
 ##### Expected Verify errors
 
-- `'_Alternate' not defined`
-- `'_DualBase' not defined`
-- `'_Field' not defined`
-- `'_Modifiers' not defined`
-- `'_ObjBase' not defined`
-- `'_ObjTypeArg' not defined`
-- `'_ObjTypeParam' not defined`
+- `'_ObjField' not defined`
+- `'_ObjFieldType' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
-- `'_TypeRef' not defined`
 
 ### Names.graphql+
 
@@ -980,18 +973,12 @@ output _OutputFieldType {
 
 ##### Expected Verify errors
 
-- `'_Alternate' not defined`
-- `'_DualBase' not defined`
-- `'_Field' not defined`
-- `'_Identifier' not defined`
 - `'_InputParam' not defined`
-- `'_ObjBase' not defined`
-- `'_ObjTypeArg' not defined`
-- `'_ObjTypeParam' not defined`
+- `'_ObjField' not defined`
+- `'_ObjFieldType' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeObject' not defined`
-- `'_TypeRef' not defined`
 
 ### Union.graphql+
 
