@@ -1,6 +1,6 @@
 # Request Specification Samples
 
-### +Request.graphql+
+### -Request.graphql+
 
 ```gqlp
 input _Request {

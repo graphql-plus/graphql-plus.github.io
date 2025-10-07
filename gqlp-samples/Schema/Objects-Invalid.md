@@ -612,6 +612,18 @@ object Ref<$ref:String> { | $ref }
 - `'$type' not defined`
 - `Invalid Constraint on $ref of Ref`
 
+##### Expected Verify errors Dual
+
+- `'$type' not defined`
+
+##### Expected Verify errors Input
+
+- `'$type' not defined`
+
+##### Expected Verify errors Output
+
+- `'$type' not defined`
+
 ### generic-enum-bad.graphql+
 
 ```gqlp
@@ -635,18 +647,6 @@ object Wrong { }
 
 - `'Wrong' not an Enum type`
 - `'Wrong' not match '_Enum'`
-
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
-
-- `'$type' not defined`
 
 ### generic-field-undef.graphql+
 
