@@ -132,13 +132,21 @@ They also have their original name as an Alias as well as any Aliases from the I
 
 ie. Given the following Schema at `./plus.graphql+`
 
-> `directive @help[h] { }` > `enum NameKind [nk] { Legal[l] Primary[p] }
-`dual Named [n] { name: String }`
+```directive @help[h] { }
+enum NameKind [nk] {
+  Legal[l] Primary[p]
+}
+dual Named [n] { name: String }
+```
 
 The Include declaration `include Plus [p] { "./plus.graphql+" }` would result in effectively the following
 
-> `directive @Plus_help[help h p_help] { }` > `enum Plus_NameKind [NameKind nk p_NameKind] { Plus_Legal[Legal l p_Legal] Plus_Primary[Primary p p_Primary] }
-`dual Plus_Named [Named n p_Named] { name: String }`
+```directive @Plus_help[help h p_help] { }
+enum Plus_NameKind [NameKind nk p_NameKind] {
+  Plus_Legal[Legal l p_Legal] Plus_Primary[Primary p p_Primary]
+}
+dual Plus_Named [Named n p_Named] { name: String }
+```
 
 ### Option declaration
 
