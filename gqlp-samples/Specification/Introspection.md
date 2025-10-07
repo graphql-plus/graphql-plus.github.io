@@ -1,6 +1,6 @@
 # Introspection Specification Samples
 
-### +Global.graphql+
+### -Global.graphql+
 
 ```gqlp
 output _AndType {
@@ -58,7 +58,7 @@ output _Setting {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-### +Object.graphql+
+### -Object.graphql+
 
 ```gqlp
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
@@ -184,7 +184,7 @@ output _OutputFieldType {
 - `'_TypeKind' not match '_ObjectKind'`
 - `'_TypeRef' not defined`
 
-### +Schema.graphql+
+### -Schema.graphql+
 
 ```gqlp
 output _Schema {
@@ -245,7 +245,7 @@ dual _Described {
 - `'_Type' not defined`
 - `'_TypeKind' not defined`
 
-### +Simple.graphql+
+### -Simple.graphql+
 
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
@@ -368,7 +368,7 @@ output _UnionMember {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-### +Type.graphql+
+### -Type.graphql+
 
 ```gqlp
 output _Type {

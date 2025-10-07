@@ -1,6 +1,6 @@
 # Definition Specification Samples
 
-### +Common.graphql+
+### -Common.graphql+
 
 ```gqlp
 enum Boolean [bool, ^] { false true }
