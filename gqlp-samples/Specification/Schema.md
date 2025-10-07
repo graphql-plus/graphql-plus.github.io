@@ -1,6 +1,6 @@
 # Schema Specification Samples
 
-### +Object.graphql+
+### -Object.graphql+
 
 ```gqlp
 "$T?"
