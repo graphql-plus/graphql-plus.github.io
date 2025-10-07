@@ -1,15 +1,5 @@
 # Simple-Invalid Schema Samples
 
-### domain-enum-none.graphql+
-
-```gqlp
-domain Test { Enum }
-```
-
-##### Expected Verify errors
-
-- `Expected enum Labels`
-
 ### domain-enum-parent-unique.graphql+
 
 ```gqlp
@@ -43,7 +33,7 @@ enum Enum { value }
 
 ##### Expected Verify errors
 
-- `'undef' not a Value of 'Enum'`
+- `'undef' not a Label of 'Enum'`
 
 ### domain-enum-undef-value.graphql+
 
@@ -63,7 +53,7 @@ domain Test { enum undef }
 
 ##### Expected Verify errors
 
-- `Enum Value 'undef' not defined`
+- `Enum Label 'undef' not defined`
 
 ### domain-enum-unique-all.graphql+
 
@@ -409,7 +399,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `Type kind mismatch`
+- `Invalid Kind`
 
 ### unique-type-alias.graphql+
 

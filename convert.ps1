@@ -19,7 +19,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     $doc += @($_)
 
     if ($_ -match "^## ([-a-zA-Z]+)") {
-      $section = $baseName + "/+" + $Matches[1]
+      $section = $baseName + "/-" + $Matches[1]
     }
 
     if ($_ -match "^### ([-a-zA-Z]+)") {
