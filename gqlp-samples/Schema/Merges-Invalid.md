@@ -11,18 +11,7 @@ object Test1 { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualAlternate for 'Test1' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Input
-
-- `Group of InputAlternate for 'Test1' not singular Modifiers['', '[]']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputAlternate for 'Test1' not singular Modifiers['', '[]']`
+- `Group of ObjAlt for 'Test1' not singular Modifiers['', '[]']`
 
 ### category-diff-mod.graphql+
 
@@ -171,18 +160,7 @@ object Field { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType['Field', 'Field []']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType['Field', 'Field []']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType['Field', 'Field []']`
+- `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
 
 ### field-diff-type.graphql+
 
@@ -196,18 +174,7 @@ object Test2 { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-
-##### Expected Verify errors Dual
-
-- `Group of DualField for 'field' not singular ModifiedType['Test1', 'Test2']`
-
-##### Expected Verify errors Input
-
-- `Group of InputField for 'field' not singular ModifiedType['Test1', 'Test2']`
-
-##### Expected Verify errors Output
-
-- `Group of OutputField for 'field' not singular ModifiedType['Test1', 'Test2']`
+- `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
 
 ### option-diff-name.graphql+
 
