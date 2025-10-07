@@ -1,15 +1,5 @@
 # Globals-Invalid Schema Samples
 
-### bad-parse.graphql+
-
-```gqlp
-
-```
-
-##### Expected Parse errors
-
-- `Expected text`
-
 ### category-output-generic.graphql+
 
 ```gqlp
