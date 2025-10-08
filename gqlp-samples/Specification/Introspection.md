@@ -58,7 +58,7 @@ output _Operation {
 
 output _OpVariable {
     : _Named
-        type: _InputBase
+        type: _ObjBase
         modifiers: _Modifiers[]
         default: Value?
         directives: _OpDirective[]
@@ -71,9 +71,8 @@ dual _OpDirective {
 
 output _OpFragment {
     : _Named
-        type: _OutputBase
+        type: _ObjBase
         directives: _OpDirective[]
-        body: _OpObject[]
 }
 
 dual _OpArgument {
@@ -98,9 +97,9 @@ dual _OpArgMap {
     }
 
 output _OpResult {
-        domain: _TypeRef<_SimpleKind>?
+        selections: _OpObject[_Path]
         argument: _OpArgument?
-        body: _OpObject[]
+    | _TypeRef<_SimpleKind>
 }
 
 output _OpObject {
@@ -115,15 +114,11 @@ output _OpField {
         argument: _OpArgument?
         modifiers: _Modifiers[]
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
 }
 
 output _OpInline {
-        type: _OutputBase?
+        type: _ObjBase?
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
 }
 
 output _OpSpread {
@@ -1059,7 +1054,7 @@ output _Operation {
 
 output _OpVariable {
     : _Named
-        type: _InputBase
+        type: _ObjBase
         modifiers: _Modifiers[]
         default: Value?
         directives: _OpDirective[]
@@ -1072,9 +1067,8 @@ dual _OpDirective {
 
 output _OpFragment {
     : _Named
-        type: _OutputBase
+        type: _ObjBase
         directives: _OpDirective[]
-        body: _OpObject[]
 }
 
 dual _OpArgument {
@@ -1099,9 +1093,9 @@ dual _OpArgMap {
     }
 
 output _OpResult {
-        domain: _TypeRef<_SimpleKind>?
+        selections: _OpObject[_Path]
         argument: _OpArgument?
-        body: _OpObject[]
+    | _TypeRef<_SimpleKind>
 }
 
 output _OpObject {
@@ -1116,15 +1110,11 @@ output _OpField {
         argument: _OpArgument?
         modifiers: _Modifiers[]
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
 }
 
 output _OpInline {
-        type: _OutputBase?
+        type: _ObjBase?
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
 }
 
 output _OpSpread {
