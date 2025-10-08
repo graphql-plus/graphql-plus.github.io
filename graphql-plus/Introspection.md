@@ -17,7 +17,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Identifier { String /\w[\w\d]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -30,7 +30,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Identifier"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w\d.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -168,6 +168,8 @@ dual _OpArgMap {
         byVariable: _Identifier
     | _OpArgValue[Scalar]
     }
+
+domain _Path { String /\$?\.*\w[\w\d]*(\.\w[\w\d]*)*/ }
 
 output _OpResult {
         selections: _OpObject[_Path]
@@ -558,7 +560,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Identifier]
     }
 
-domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Identifier { String /\w[\w\d]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -571,7 +573,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Identifier"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w\d.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -689,6 +691,8 @@ dual _OpArgMap {
         byVariable: _Identifier
     | _OpArgValue[Scalar]
     }
+
+domain _Path { String /\$?\.*\w[\w\d]*(\.\w[\w\d]*)*/ }
 
 output _OpResult {
         selections: _OpObject[_Path]
