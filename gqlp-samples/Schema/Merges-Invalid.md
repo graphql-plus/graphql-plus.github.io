@@ -11,7 +11,7 @@ object Test1 { }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-- `Group of ObjAlt for 'Test1' not singular Modifiers['', '[]']`
+- `Group of Alternate for 'Test1' not singular Modifiers['', '[]']`
 
 ### category-diff-mod.graphql+
 
