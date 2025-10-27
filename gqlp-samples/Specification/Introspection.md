@@ -221,16 +221,8 @@ output _ForParam<$type:_ObjFieldType> {
     | _ObjField<$type>
     }
 
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualField>
-    }
-
 output _DualField {
     : _ObjField<_ObjFieldType>
-    }
-
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputField>
     }
 
 output _InputField {
@@ -244,10 +236,6 @@ output _InputFieldType {
 
 output _InputParam {
     : _InputFieldType
-    }
-
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _OutputField {
@@ -272,7 +260,6 @@ output _OutputFieldType {
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
-- `'_TypeKind' not match '_ObjectKind'`
 - `'_TypeRef' not defined`
 
 ### -Schema.graphql+
@@ -342,13 +329,6 @@ dual _Described {
 
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
 
 output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
@@ -420,10 +400,6 @@ output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
 
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
-    }
-
 dual _EnumLabel {
     : _Aliased
         enum: _Identifier
@@ -432,10 +408,6 @@ dual _EnumLabel {
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
-    }
-
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
 
 output _UnionRef {
@@ -467,12 +439,15 @@ output _UnionMember {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    | _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
+    | _ParentType<_TypeKind.Union _UnionRef _UnionMember>
+    | _TypeObject<_TypeKind.Dual _DualField>
+    | _TypeObject<_TypeKind.Input _InputField>
+    | _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _BaseType<$kind:_TypeKind> {
@@ -535,15 +510,31 @@ dual _Modifier<$kind:_ModifierKind> {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
+- `'_Aliased' not match '_Described'`
+- `'_BaseDomain' not defined`
 - `'_Described' not defined`
+- `'_DomainItemLabel' not defined`
+- `'_DomainItemRange' not defined`
+- `'_DomainItemRegex' not defined`
+- `'_DomainItemTrueFalse' not defined`
+- `'_DomainKind' not an Enum type`
+- `'_DomainKind' not defined`
+- `'_DomainLabel' not defined`
+- `'_DomainRange' not defined`
+- `'_DomainRegex' not defined`
+- `'_DomainTrueFalse' not defined`
+- `'_DualField' not defined`
+- `'_EnumLabel' not defined`
+- `'_EnumLabel' not match '_Described'`
+- `'_InputField' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
-- `'_TypeDomain' not defined`
-- `'_TypeDual' not defined`
-- `'_TypeEnum' not defined`
-- `'_TypeInput' not defined`
-- `'_TypeOutput' not defined`
-- `'_TypeUnion' not defined`
+- `'_OutputField' not defined`
+- `'_TypeObject' not defined`
+- `'_UnionMember' not defined`
+- `'_UnionMember' not match '_Described'`
+- `'_UnionRef' not defined`
+- `'_UnionRef' not match '_Described'`
 
 ### Base.graphql+
 
@@ -699,12 +690,15 @@ enum _Resolution { Parallel Sequential Single }
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    | _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
+    | _ParentType<_TypeKind.Union _UnionRef _UnionMember>
+    | _TypeObject<_TypeKind.Dual _DualField>
+    | _TypeObject<_TypeKind.Input _InputField>
+    | _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _BaseType<$kind:_TypeKind> {
@@ -744,15 +738,31 @@ dual _TypeSimple {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
+- `'_Aliased' not match '_Described'`
+- `'_BaseDomain' not defined`
 - `'_Described' not defined`
+- `'_DomainItemLabel' not defined`
+- `'_DomainItemRange' not defined`
+- `'_DomainItemRegex' not defined`
+- `'_DomainItemTrueFalse' not defined`
+- `'_DomainKind' not an Enum type`
+- `'_DomainKind' not defined`
+- `'_DomainLabel' not defined`
+- `'_DomainRange' not defined`
+- `'_DomainRegex' not defined`
+- `'_DomainTrueFalse' not defined`
+- `'_DualField' not defined`
+- `'_EnumLabel' not defined`
+- `'_EnumLabel' not match '_Described'`
+- `'_InputField' not defined`
 - `'_Named' not defined`
 - `'_Named' not match '_Described'`
-- `'_TypeDomain' not defined`
-- `'_TypeDual' not defined`
-- `'_TypeEnum' not defined`
-- `'_TypeInput' not defined`
-- `'_TypeOutput' not defined`
-- `'_TypeUnion' not defined`
+- `'_OutputField' not defined`
+- `'_TypeObject' not defined`
+- `'_UnionMember' not defined`
+- `'_UnionMember' not match '_Described'`
+- `'_UnionRef' not defined`
+- `'_UnionRef' not match '_Described'`
 
 ### Declarations.graphql+
 
@@ -835,13 +845,6 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
 
 output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
@@ -928,10 +931,6 @@ output _DomainItemRegex {
 ### Dual.graphql+
 
 ```gqlp
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualField>
-    }
-
 output _DualField {
     : _ObjField<_ObjFieldType>
     }
@@ -942,17 +941,10 @@ output _DualField {
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-- `'_TypeKind' not an Enum type`
-- `'_TypeKind' not defined`
-- `'_TypeObject' not defined`
 
 ### Enum.graphql+
 
 ```gqlp
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
-    }
-
 dual _EnumLabel {
     : _Aliased
         enum: _Identifier
@@ -969,7 +961,6 @@ output _EnumValue {
 
 - `'_Aliased' not defined`
 - `'_Identifier' not defined`
-- `'_ParentType' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
@@ -977,10 +968,6 @@ output _EnumValue {
 ### Input.graphql+
 
 ```gqlp
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputField>
-    }
-
 output _InputField {
     : _ObjField<_InputFieldType>
     }
@@ -1000,9 +987,6 @@ output _InputParam {
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-- `'_TypeKind' not an Enum type`
-- `'_TypeKind' not defined`
-- `'_TypeObject' not defined`
 
 ### Names.graphql+
 
@@ -1155,10 +1139,6 @@ output _Setting {
 ### Output.graphql+
 
 ```gqlp
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputField>
-    }
-
 output _OutputField {
     : _ObjField<_ObjFieldType>
     }
@@ -1175,17 +1155,10 @@ output _OutputFieldType {
 - `'_InputParam' not defined`
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-- `'_TypeKind' not an Enum type`
-- `'_TypeKind' not defined`
-- `'_TypeObject' not defined`
 
 ### Union.graphql+
 
 ```gqlp
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
-    }
-
 output _UnionRef {
     : _TypeRef<_SimpleKind>
     }
@@ -1200,8 +1173,5 @@ output _UnionMember {
 ##### Expected Verify errors
 
 - `'_Identifier' not defined`
-- `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
-- `'_TypeKind' not an Enum type`
-- `'_TypeKind' not defined`
 - `'_TypeRef' not defined`

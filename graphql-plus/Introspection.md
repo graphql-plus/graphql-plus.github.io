@@ -219,12 +219,15 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    | _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
+    | _ParentType<_TypeKind.Union _UnionRef _UnionMember>
+    | _TypeObject<_TypeKind.Dual _DualField>
+    | _TypeObject<_TypeKind.Input _InputField>
+    | _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _BaseType<$kind:_TypeKind> {
@@ -293,13 +296,6 @@ dual _Modifier<$kind:_ModifierKind> {
 
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
 
 output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
@@ -391,10 +387,6 @@ output _DomainItemRegex {
 ### Enum type
 
 ```gqlp
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
-    }
-
 dual _EnumLabel {
     : _Aliased
         enum: _Identifier
@@ -409,10 +401,6 @@ output _EnumValue {
 ### Union type
 
 ```gqlp
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
-    }
-
 output _UnionRef {
     : _TypeRef<_SimpleKind>
     }
@@ -501,10 +489,6 @@ output _ForParam<$type:_ObjFieldType> {
 ### Dual type
 
 ```gqlp
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualField>
-    }
-
 output _DualField {
     : _ObjField<_ObjFieldType>
     }
@@ -513,10 +497,6 @@ output _DualField {
 ### Input type
 
 ```gqlp
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputField>
-    }
-
 output _InputField {
     : _ObjField<_InputFieldType>
     }
@@ -534,10 +514,6 @@ output _InputParam {
 ### Output type
 
 ```gqlp
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputField>
-    }
-
 output _OutputField {
     : _ObjField<_ObjFieldType>
     }
@@ -732,12 +708,15 @@ output _Setting {
 output _Type {
     | _BaseType<_TypeKind.Basic>
     | _BaseType<_TypeKind.Internal>
-    | _TypeDual
-    | _TypeEnum
-    | _TypeInput
-    | _TypeOutput
-    | _TypeDomain
-    | _TypeUnion
+    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
+    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
+    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
+    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
+    | _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
+    | _ParentType<_TypeKind.Union _UnionRef _UnionMember>
+    | _TypeObject<_TypeKind.Dual _DualField>
+    | _TypeObject<_TypeKind.Input _InputField>
+    | _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _BaseType<$kind:_TypeKind> {
@@ -796,13 +775,6 @@ dual _Modifier<$kind:_ModifierKind> {
     }
 
 enum _DomainKind { Boolean Enum Number String }
-
-output _TypeDomain {
-    | _BaseDomain<_DomainKind.Boolean _DomainTrueFalse _DomainItemTrueFalse>
-    | _BaseDomain<_DomainKind.Enum _DomainLabel _DomainItemLabel>
-    | _BaseDomain<_DomainKind.Number _DomainRange _DomainItemRange>
-    | _BaseDomain<_DomainKind.String _DomainRegex _DomainItemRegex>
-    }
 
 output _DomainRef<$kind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
@@ -874,10 +846,6 @@ output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
 
-output _TypeEnum {
-    : _ParentType<_TypeKind.Enum _Aliased _EnumLabel>
-    }
-
 dual _EnumLabel {
     : _Aliased
         enum: _Identifier
@@ -886,10 +854,6 @@ dual _EnumLabel {
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Identifier
-    }
-
-output _TypeUnion {
-    : _ParentType<_TypeKind.Union _UnionRef _UnionMember>
     }
 
 output _UnionRef {
@@ -970,16 +934,8 @@ output _ForParam<$type:_ObjFieldType> {
     | _ObjField<$type>
     }
 
-output _TypeDual {
-    : _TypeObject<_TypeKind.Dual _DualField>
-    }
-
 output _DualField {
     : _ObjField<_ObjFieldType>
-    }
-
-output _TypeInput {
-    : _TypeObject<_TypeKind.Input _InputField>
     }
 
 output _InputField {
@@ -993,10 +949,6 @@ output _InputFieldType {
 
 output _InputParam {
     : _InputFieldType
-    }
-
-output _TypeOutput {
-    : _TypeObject<_TypeKind.Output _OutputField>
     }
 
 output _OutputField {
