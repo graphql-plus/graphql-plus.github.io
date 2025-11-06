@@ -333,7 +333,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `'Bad' invalid type. Found 'Input'`
+- `Invalid Kind for Bad. Input`
 
 ### dual-parent-output.graphql+
 
@@ -344,7 +344,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `'Bad' invalid type. Found 'Output'`
+- `Invalid Kind for Bad. Output`
 
 ### dual-parent-param-input.graphql+
 
@@ -781,7 +781,7 @@ output Bad { }
 
 ##### Expected Verify errors
 
-- `'Bad' invalid type. Found 'Output'`
+- `Invalid Kind for Bad. Output`
 
 ### output-alt-input.graphql+
 
@@ -876,7 +876,7 @@ input Bad { }
 
 ##### Expected Verify errors
 
-- `'Bad' invalid type. Found 'Input'`
+- `Invalid Kind for Bad. Input`
 
 ### parent-alt-mod.graphql+
 
@@ -1234,7 +1234,7 @@ object Test { :String }
 
 ##### Expected Verify errors
 
-- `'String' invalid type. Found 'Domain'`
+- `Invalid Kind for String. Domain`
 
 ##### Expected Verify errors Dual
 
