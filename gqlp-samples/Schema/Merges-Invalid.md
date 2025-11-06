@@ -65,21 +65,6 @@ object Test<$type:String> { str: $type }
 - `'Test' can't be merged`
 - `Different values merging p => p.Constraint`
 
-##### Expected Verify errors Dual
-
-- `'Test' can't be merged`
-- `Different values merging p => p.Constraint`
-
-##### Expected Verify errors Input
-
-- `'Test' can't be merged`
-- `Different values merging p => p.Constraint`
-
-##### Expected Verify errors Output
-
-- `'Test' can't be merged`
-- `Different values merging p => p.Constraint`
-
 ### directive-diff-option.graphql+
 
 ```gqlp

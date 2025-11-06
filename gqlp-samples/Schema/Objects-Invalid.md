@@ -11,18 +11,6 @@ object Alt { }
 
 - `'a' not defined`
 
-##### Expected Verify errors Dual
-
-- `'a' not defined`
-
-##### Expected Verify errors Input
-
-- `'a' not defined`
-
-##### Expected Verify errors Output
-
-- `'a' not defined`
-
 ### alt-mod-undef.graphql+
 
 ```gqlp
@@ -34,18 +22,6 @@ object Alt { }
 
 - `'Dom' not defined`
 
-##### Expected Verify errors Dual
-
-- `'Dom' not defined`
-
-##### Expected Verify errors Input
-
-- `'Dom' not defined`
-
-##### Expected Verify errors Output
-
-- `'Dom' not defined`
-
 ### alt-mod-wrong.graphql+
 
 ```gqlp
@@ -54,18 +30,6 @@ object Alt { }
 ```
 
 ##### Expected Verify errors
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Dual
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Input
-
-- `'Test' invalid type`
-
-##### Expected Verify errors Output
 
 - `'Test' invalid type`
 
@@ -83,24 +47,6 @@ object More { | Test }
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
 - `'More' cannot be an alternate of itself, even recursively via Recurse`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via More`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Recurse`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via More`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Recurse`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be an alternate of itself, even recursively via More`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Recurse`
-
 ### alt-recurse.graphql+
 
 ```gqlp
@@ -109,21 +55,6 @@ object Recurse { | Test }
 ```
 
 ##### Expected Verify errors
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Recurse' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Output
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -138,18 +69,6 @@ object Test { | Test }
 
 - `'Test' cannot be an alternate of itself`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be an alternate of itself`
-
 ### alt-simple-param.graphql+
 
 ```gqlp
@@ -160,18 +79,6 @@ object Test { | Number<String> }
 
 - `Args mismatch on Number. Expected none, given 1`
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Number. Expected none, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Number. Expected none, given 1`
-
-##### Expected Verify errors Output
-
-- `Args mismatch on Number. Expected none, given 1`
-
 ### alt-undef.graphql+
 
 ```gqlp
@@ -179,18 +86,6 @@ object Test { | Undef }
 ```
 
 ##### Expected Verify errors
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Dual
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Input
-
-- `'Undef' not defined`
-
-##### Expected Verify errors Output
 
 - `'Undef' not defined`
 
@@ -213,18 +108,6 @@ domain Dom { Number }
 ```
 
 ##### Expected Verify errors
-
-- `'Dom' not match 'String'`
-
-##### Expected Verify errors Dual
-
-- `'Dom' not match 'String'`
-
-##### Expected Verify errors Input
-
-- `'Dom' not match 'String'`
-
-##### Expected Verify errors Output
 
 - `'Dom' not match 'String'`
 
@@ -477,18 +360,6 @@ object Field { }
 
 - `'Random' not defined`
 
-##### Expected Verify errors Dual
-
-- `'Random' not defined`
-
-##### Expected Verify errors Input
-
-- `'Random' not defined`
-
-##### Expected Verify errors Output
-
-- `'Random' not defined`
-
 ### field-mod-wrong.graphql+
 
 ```gqlp
@@ -507,18 +378,6 @@ object Test { field: String<0> }
 ```
 
 ##### Expected Verify errors
-
-- `Args mismatch on String. Expected none, given 1`
-
-##### Expected Verify errors Dual
-
-- `Args mismatch on String. Expected none, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on String. Expected none, given 1`
-
-##### Expected Verify errors Output
 
 - `Args mismatch on String. Expected none, given 1`
 
@@ -542,18 +401,6 @@ object Test { | $type }
 
 - `'$type' not defined`
 
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
-
-- `'$type' not defined`
-
 ### generic-arg-less.graphql+
 
 ```gqlp
@@ -562,18 +409,6 @@ object Ref<$ref:String> { | $ref }
 ```
 
 ##### Expected Verify errors
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 1, given 0`
-
-##### Expected Verify errors Output
 
 - `Args mismatch on Ref. Expected 1, given 0`
 
@@ -588,18 +423,6 @@ object Ref { }
 
 - `Args mismatch on Ref. Expected 0, given 1`
 
-##### Expected Verify errors Dual
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Input
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
-##### Expected Verify errors Output
-
-- `Args mismatch on Ref. Expected 0, given 1`
-
 ### generic-arg-undef.graphql+
 
 ```gqlp
@@ -611,18 +434,6 @@ object Ref<$ref:String> { | $ref }
 
 - `'$type' not defined`
 - `Invalid Constraint on $ref of Ref`
-
-##### Expected Verify errors Dual
-
-- `'$type' not defined`
-
-##### Expected Verify errors Input
-
-- `'$type' not defined`
-
-##### Expected Verify errors Output
-
-- `'$type' not defined`
 
 ### generic-enum-bad.graphql+
 
@@ -670,21 +481,6 @@ object Ref<$ref:String> { | $ref }
 - `'Test1' not defined`
 - `'Test1' not match 'String'`
 
-##### Expected Verify errors Dual
-
-- `'Test1' not defined`
-- `'Test1' not match 'String'`
-
-##### Expected Verify errors Input
-
-- `'Test1' not defined`
-- `'Test1' not match 'String'`
-
-##### Expected Verify errors Output
-
-- `'Test1' not defined`
-- `'Test1' not match 'String'`
-
 ### generic-parent-less.graphql+
 
 ```gqlp
@@ -724,18 +520,6 @@ object Test<$type:String> { }
 ```
 
 ##### Expected Verify errors
-
-- `'$type' not used`
-
-##### Expected Verify errors Dual
-
-- `'$type' not used`
-
-##### Expected Verify errors Input
-
-- `'$type' not used`
-
-##### Expected Verify errors Output
 
 - `'$type' not used`
 
@@ -937,27 +721,6 @@ object Recurse { | Test }
 - `'More' cannot be an alternate of itself, even recursively via Alt`
 - `'Recurse' cannot be an alternate of itself, even recursively via More`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'More' cannot be an alternate of itself, even recursively via Alt`
-- `'Recurse' cannot be an alternate of itself, even recursively via More`
-
 ### parent-alt-self-recurse.graphql+
 
 ```gqlp
@@ -972,24 +735,6 @@ object Recurse { :Test }
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
 - `'Recurse' cannot be an alternate of itself, even recursively via Alt`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be an alternate of itself, even recursively via Recurse`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-- `'Recurse' cannot be an alternate of itself, even recursively via Alt`
-
 ### parent-alt-self.graphql+
 
 ```gqlp
@@ -998,21 +743,6 @@ object Alt { | Test }
 ```
 
 ##### Expected Verify errors
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Dual
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be an alternate of itself, even recursively via Alt`
-- `'Alt' cannot be an alternate of itself, even recursively via Test`
-
-##### Expected Verify errors Output
 
 - `'Test' cannot be an alternate of itself, even recursively via Alt`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -1117,24 +847,6 @@ object More { :Test }
 - `'Recurse' cannot be a child of itself, even recursively via Test`
 - `'More' cannot be a child of itself, even recursively via Recurse`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself, even recursively via More`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-- `'More' cannot be a child of itself, even recursively via Recurse`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself, even recursively via More`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-- `'More' cannot be a child of itself, even recursively via Recurse`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be a child of itself, even recursively via More`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-- `'More' cannot be a child of itself, even recursively via Recurse`
-
 ### parent-recurse.graphql+
 
 ```gqlp
@@ -1143,21 +855,6 @@ object Recurse { :Test }
 ```
 
 ##### Expected Verify errors
-
-- `'Test' cannot be a child of itself, even recursively via Recurse`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself, even recursively via Recurse`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself, even recursively via Recurse`
-- `'Recurse' cannot be a child of itself, even recursively via Test`
-
-##### Expected Verify errors Output
 
 - `'Test' cannot be a child of itself, even recursively via Recurse`
 - `'Recurse' cannot be a child of itself, even recursively via Test`
@@ -1214,18 +911,6 @@ object Test { :Test }
 
 - `'Test' cannot be a child of itself`
 
-##### Expected Verify errors Dual
-
-- `'Test' cannot be a child of itself`
-
-##### Expected Verify errors Input
-
-- `'Test' cannot be a child of itself`
-
-##### Expected Verify errors Output
-
-- `'Test' cannot be a child of itself`
-
 ### parent-simple.graphql+
 
 ```gqlp
@@ -1236,18 +921,6 @@ object Test { :String }
 
 - `Invalid Kind for String. Domain`
 
-##### Expected Verify errors Dual
-
-- `'String' invalid type. Found 'Domain'`
-
-##### Expected Verify errors Input
-
-- `'String' invalid type. Found 'Domain'`
-
-##### Expected Verify errors Output
-
-- `'String' invalid type. Found 'Domain'`
-
 ### parent-undef.graphql+
 
 ```gqlp
@@ -1255,18 +928,6 @@ object Test { :Parent }
 ```
 
 ##### Expected Verify errors
-
-- `'Parent' not defined`
-
-##### Expected Verify errors Dual
-
-- `'Parent' not defined`
-
-##### Expected Verify errors Input
-
-- `'Parent' not defined`
-
-##### Expected Verify errors Output
 
 - `'Parent' not defined`
 
