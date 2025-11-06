@@ -357,7 +357,7 @@ object RefName<$ref:String> { | $ref }
 ### generic-parent-descr.graphql+
 
 ```gqlp
-object Name<$type:String> { :"Parent comment"$type }
+object Name<$type:_Dual> { :"Parent comment"$type }
 ```
 
 ### generic-parent-dual-parent.graphql+
@@ -438,7 +438,7 @@ domain DomName { string /\w+/ }
 ### generic-parent.graphql+
 
 ```gqlp
-object Name<$type:String> { :$type }
+object Name<$type:_Dual> { :$type }
 ```
 
 ### generic-value.graphql+
