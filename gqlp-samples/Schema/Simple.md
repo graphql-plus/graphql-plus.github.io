@@ -86,7 +86,7 @@ enum DupName { name dup_name }
 ```gqlp
 domain Name { enum EnumName.* !EnumName.name DupName.name }
 enum EnumName { enum_name name }
-enum EnumDomDup { name dup_name }
+enum DupName { name dup_name }
 ```
 
 ### domain-enum-value-parent.graphql+
