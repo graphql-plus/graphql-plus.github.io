@@ -11,8 +11,7 @@ enum Dup { value }
 
 ##### Expected Verify errors
 
-- `Can't merge Test items into Parent Parent items`
-- `Group of DomainLabel for 'value' not singular Excludes~EnumType['False~Dup', 'False~Enum']`
+- `'value' duplicated from these Enums: Dup Enum`
 
 ### domain-enum-undef-all.graphql+
 
@@ -112,7 +111,7 @@ domain Parent { number !1> }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRange for '1 >' not singular Range['False', 'True']`
+- `Group of DomainRange for '1>' not singular Excludes['False', 'True']`
 
 ### domain-parent-self-more.graphql+
 
@@ -208,7 +207,7 @@ domain Parent { string !/a+/ }
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Excludes['False', 'True']`
 
 ### enum-dup-alias.graphql+
 

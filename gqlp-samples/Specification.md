@@ -42,13 +42,13 @@ union _Simple [Simple] { _Enum _Domain _Union }
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[_Identifier]
-        directives(_Filter?): _Directives[_Identifier]
-        types(_TypeFilter?): _Type[_Identifier]
-        settings(_Filter?): _Setting[_Identifier]
+        categories(_CategoryFilter?): _Categories[_Name]
+        directives(_Filter?): _Directives[_Name]
+        types(_TypeFilter?): _Type[_Name]
+        settings(_Filter?): _Setting[_Name]
     }
 
-domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -59,7 +59,7 @@ input _Filter {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier"
+"_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[A-Za-z_.*]+/ }
 
@@ -75,12 +75,12 @@ input _TypeFilter {
 
 dual _Aliased {
     : _Named
-        aliases: _Identifier[]
+        aliases: _Name[]
     }
 
 dual _Named {
     : _Described
-        name: _Identifier
+        name: _Name
     }
 
 dual _Described {
@@ -217,7 +217,7 @@ dual _BaseDomainItem {
 
 output _DomainItem<$item:_BaseDomainItem> {
     : $item
-        domain: _Identifier
+        domain: _Name
     }
 
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
@@ -272,12 +272,12 @@ output _DomainItemRegex {
 
 dual _EnumLabel {
     : _Aliased
-        enum: _Identifier
+        enum: _Name
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 output _UnionRef {
@@ -286,7 +286,7 @@ output _UnionRef {
 
 output _UnionMember {
     : _UnionRef
-        union: _Identifier
+        union: _Name
     }
 
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
@@ -313,13 +313,13 @@ output _ObjBase {
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-        label: _Identifier?
+        label: _Name?
     | _TypeParam
     }
 
 output _TypeParam {
     : _Described
-        typeParam: _Identifier
+        typeParam: _Name
     }
 
 output _ObjAlternate {
@@ -330,11 +330,11 @@ output _ObjAlternate {
 
 output _ObjAlternateEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 output _ObjectFor<$for:_ForParam> {
     : $for
-        object: _Identifier
+        object: _Name
     }
 
 output _ObjField<$type:_ObjFieldType> {
@@ -350,7 +350,7 @@ output _ObjFieldType {
 
 output _ObjFieldEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 output _ForParam<$type:_ObjFieldType> {
