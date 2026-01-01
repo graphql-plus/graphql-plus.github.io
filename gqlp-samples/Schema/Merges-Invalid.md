@@ -123,7 +123,7 @@ domain Test { string !/a+/ }
 ##### Expected Verify errors
 
 - `'Test' can't be merged`
-- `Group of DomainRegex for 'a+' not singular Regex['False', 'True']`
+- `Group of DomainRegex for 'a+' not singular Excludes['False', 'True']`
 
 ### enum-dup-alias.graphql+
 
