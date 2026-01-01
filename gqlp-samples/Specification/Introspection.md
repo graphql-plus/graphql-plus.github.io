@@ -49,7 +49,7 @@ output _Operations {
 
 output _Operation {
     : _Aliased
-        category: _Identifier
+        category: _Name
         variables: _OpVariable[]
         directives: _OpDirective[]
         fragments: _OpFragment[]
@@ -82,7 +82,7 @@ dual _OpArgument {
     }
 
 dual _OpArgValue {
-        variable: _Identifier
+        variable: _Name
     |   Value
     }
 
@@ -92,7 +92,7 @@ dual _OpArgList {
 
 dual _OpArgMap {
         value: _OpArgValue
-        byVariable: _Identifier
+        byVariable: _Name
     | _OpArgValue[Scalar]
     }
 
@@ -138,9 +138,9 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_Identifier' not defined`
 - `'_InputParam' not defined`
 - `'_Modifiers' not defined`
+- `'_Name' not defined`
 - `'_Named' not defined`
 - `'_ObjBase' not defined`
 - `'_SimpleKind' not defined`
@@ -176,13 +176,13 @@ output _ObjBase {
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-        label: _Identifier?
+        label: _Name?
     | _TypeParam
     }
 
 output _TypeParam {
     : _Described
-        typeParam: _Identifier
+        typeParam: _Name
     }
 
 output _ObjAlternate {
@@ -193,11 +193,11 @@ output _ObjAlternate {
 
 output _ObjAlternateEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 output _ObjectFor<$for:_ForParam> {
     : $for
-        object: _Identifier
+        object: _Name
     }
 
 output _ObjField<$type:_ObjFieldType> {
@@ -213,7 +213,7 @@ output _ObjFieldType {
 
 output _ObjFieldEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 output _ForParam<$type:_ObjFieldType> {
@@ -255,8 +255,8 @@ output _OutputFieldType {
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Described' not defined`
-- `'_Identifier' not defined`
 - `'_Modifiers' not defined`
+- `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
@@ -267,14 +267,14 @@ output _OutputFieldType {
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[_Identifier]
-        directives(_Filter?): _Directives[_Identifier]
-        operations(_Filter?): _Operations[_Identifier]
-        types(_TypeFilter?): _Type[_Identifier]
-        settings(_Filter?): _Setting[_Identifier]
+        categories(_CategoryFilter?): _Categories[_Name]
+        directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
+        types(_TypeFilter?): _Type[_Name]
+        settings(_Filter?): _Setting[_Name]
     }
 
-domain _Identifier { String /\w[\w\d]*/ }
+domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -285,7 +285,7 @@ input _Filter {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier"
+"_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[\w\d.*]+/ }
 
@@ -301,12 +301,12 @@ input _TypeFilter {
 
 dual _Aliased {
     : _Named
-        aliases: _Identifier[]
+        aliases: _Name[]
     }
 
 dual _Named {
     : _Described
-        name: _Identifier
+        name: _Name
     }
 
 dual _Described {
@@ -347,7 +347,7 @@ dual _BaseDomainItem {
 
 output _DomainItem<$item:_BaseDomainItem> {
     : $item
-        domain: _Identifier
+        domain: _Name
     }
 
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
@@ -402,12 +402,12 @@ output _DomainItemRegex {
 
 dual _EnumLabel {
     : _Aliased
-        enum: _Identifier
+        enum: _Name
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 output _UnionRef {
@@ -416,7 +416,7 @@ output _UnionRef {
 
 output _UnionMember {
     : _UnionRef
-        union: _Identifier
+        union: _Name
     }
 
 ```
@@ -426,7 +426,7 @@ output _UnionMember {
 - `'_Aliased' not defined`
 - `'_Aliased' not defined`
 - `'_Described' not defined`
-- `'_Identifier' not defined`
+- `'_Name' not defined`
 - `'_ParentType' not defined`
 - `'_SimpleKind' not defined`
 - `'_TypeKind' not an Enum type`
@@ -563,13 +563,13 @@ output _ObjBase {
 
 output _ObjTypeArg {
     : _TypeRef<_TypeKind>
-        label: _Identifier?
+        label: _Name?
     | _TypeParam
     }
 
 output _TypeParam {
     : _Described
-        typeParam: _Identifier
+        typeParam: _Name
     }
 
 output _ObjAlternate {
@@ -580,11 +580,11 @@ output _ObjAlternate {
 
 output _ObjAlternateEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 output _ObjectFor<$for:_ForParam> {
     : $for
-        object: _Identifier
+        object: _Name
     }
 
 output _ObjField<$type:_ObjFieldType> {
@@ -600,7 +600,7 @@ output _ObjFieldType {
 
 output _ObjFieldEnum {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 output _ForParam<$type:_ObjFieldType> {
@@ -616,8 +616,8 @@ output _ForParam<$type:_ObjFieldType> {
 - `'_ChildType' not defined`
 - `'_Collections' not defined`
 - `'_Described' not defined`
-- `'_Identifier' not defined`
 - `'_Modifiers' not defined`
+- `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
@@ -769,14 +769,14 @@ dual _TypeSimple {
 ```gqlp
 output _Schema {
     : _Named
-        categories(_CategoryFilter?): _Categories[_Identifier]
-        directives(_Filter?): _Directives[_Identifier]
-        operations(_Filter?): _Operations[_Identifier]
-        types(_TypeFilter?): _Type[_Identifier]
-        settings(_Filter?): _Setting[_Identifier]
+        categories(_CategoryFilter?): _Categories[_Name]
+        directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
+        types(_TypeFilter?): _Type[_Name]
+        settings(_Filter?): _Setting[_Name]
     }
 
-domain _Identifier { String /\w[\w\d]*/ }
+domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -787,7 +787,7 @@ input _Filter {
     | _NameFilter[]
     }
 
-"_NameFilter is a simple match expression against _Identifier"
+"_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
 domain _NameFilter { String /[\w\d.*]+/ }
 
@@ -863,7 +863,7 @@ dual _BaseDomainItem {
 
 output _DomainItem<$item:_BaseDomainItem> {
     : $item
-        domain: _Identifier
+        domain: _Name
     }
 
 output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
@@ -922,7 +922,7 @@ output _DomainItemRegex {
 
 - `'_Described' not defined`
 - `'_EnumValue' not defined`
-- `'_Identifier' not defined`
+- `'_Name' not defined`
 - `'_ParentType' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
@@ -947,12 +947,12 @@ output _DualField {
 ```gqlp
 dual _EnumLabel {
     : _Aliased
-        enum: _Identifier
+        enum: _Name
     }
 
 output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
-        label: _Identifier
+        label: _Name
     }
 
 ```
@@ -960,7 +960,7 @@ output _EnumValue {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_Identifier' not defined`
+- `'_Name' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
@@ -993,12 +993,12 @@ output _InputParam {
 ```gqlp
 dual _Aliased {
     : _Named
-        aliases: _Identifier[]
+        aliases: _Name[]
     }
 
 dual _Named {
     : _Described
-        name: _Identifier
+        name: _Name
     }
 
 dual _Described {
@@ -1015,7 +1015,7 @@ output _AndType {
 
 ##### Expected Verify errors
 
-- `'_Identifier' not defined`
+- `'_Name' not defined`
 - `'_Type' not defined`
 
 ### Operation.graphql+
@@ -1030,7 +1030,7 @@ output _Operations {
 
 output _Operation {
     : _Aliased
-        category: _Identifier
+        category: _Name
         variables: _OpVariable[]
         directives: _OpDirective[]
         fragments: _OpFragment[]
@@ -1063,7 +1063,7 @@ dual _OpArgument {
     }
 
 dual _OpArgValue {
-        variable: _Identifier
+        variable: _Name
     |   Value
     }
 
@@ -1073,7 +1073,7 @@ dual _OpArgList {
 
 dual _OpArgMap {
         value: _OpArgValue
-        byVariable: _Identifier
+        byVariable: _Name
     | _OpArgValue[Scalar]
     }
 
@@ -1114,8 +1114,8 @@ output _OpSpread {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_Identifier' not defined`
 - `'_Modifiers' not defined`
+- `'_Name' not defined`
 - `'_Named' not defined`
 - `'_ObjBase' not defined`
 - `'_SimpleKind' not defined`
@@ -1165,13 +1165,13 @@ output _UnionRef {
 
 output _UnionMember {
     : _UnionRef
-        union: _Identifier
+        union: _Name
     }
 
 ```
 
 ##### Expected Verify errors
 
-- `'_Identifier' not defined`
+- `'_Name' not defined`
 - `'_SimpleKind' not defined`
 - `'_TypeRef' not defined`

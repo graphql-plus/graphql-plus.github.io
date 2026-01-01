@@ -75,7 +75,7 @@ enum EnumName { enum_name prnt_name }
 ### domain-enum-unique-parent.graphql+
 
 ```gqlp
-# domain Name { enum EnumName.* !PrntName.name DupName.name }
+domain Name { enum EnumName.* !PrntName.name DupName.name }
 enum EnumName { :PrntName enum_name }
 enum PrntName { name prnt_name }
 enum DupName { name dup_name }
@@ -84,9 +84,9 @@ enum DupName { name dup_name }
 ### domain-enum-unique.graphql+
 
 ```gqlp
-# domain Name { enum EnumName.* !EnumName.name DupName.name }
+domain Name { enum EnumName.* !EnumName.name DupName.name }
 enum EnumName { enum_name name }
-enum EnumDomDup { name dup_name }
+enum DupName { name dup_name }
 ```
 
 ### domain-enum-value-parent.graphql+
@@ -124,10 +124,22 @@ domain Name { :PrntName Number 2>}
 domain PrntName { Number <2 }
 ```
 
+### domain-number-positive.graphql+
+
+```gqlp
+domain Name { Number !<0 }
+```
+
 ### domain-string-descr.graphql+
 
 ```gqlp
 domain Name { String "DomString" "Descr" /a+/ }
+```
+
+### domain-string-non-empty.graphql+
+
+```gqlp
+domain Name { String !/\s*/ }
 ```
 
 ### domain-string-parent-descr.graphql+
