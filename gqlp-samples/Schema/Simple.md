@@ -24,22 +24,22 @@ domain PrntName { Boolean true }
 
 ```gqlp
 domain Name { enum "DomAll" "Descr" EnumName.* }
-enum EnumName { name enum_name }
+enum EnumName { name enum_name nameValue}
 ```
 
 ### domain-enum-all-parent.graphql+
 
 ```gqlp
 domain Name { enum EnumName.* }
-enum EnumName { :PrntName name }
-enum PrntName { prnt_name }
+enum EnumName { :PrntName name nameValue }
+enum PrntName { prnt_name namePrnt }
 ```
 
 ### domain-enum-all.graphql+
 
 ```gqlp
 domain Name { enum EnumName.* }
-enum EnumName { name enum_name }
+enum EnumName { name enum_name nameValue }
 ```
 
 ### domain-enum-descr.graphql+
@@ -76,17 +76,17 @@ enum EnumName { enum_name prnt_name }
 
 ```gqlp
 domain Name { enum EnumName.* !PrntName.name DupName.name }
-enum EnumName { :PrntName enum_name }
-enum PrntName { name prnt_name }
-enum DupName { name dup_name }
+enum EnumName { :PrntName enum_name nameValue }
+enum PrntName { name prnt_name namePrnt }
+enum DupName { name dup_name nameDup }
 ```
 
 ### domain-enum-unique.graphql+
 
 ```gqlp
 domain Name { enum EnumName.* !EnumName.name DupName.name }
-enum EnumName { enum_name name }
-enum DupName { name dup_name }
+enum EnumName { enum_name name nameValue }
+enum DupName { name dup_name nameDup }
 ```
 
 ### domain-enum-value-parent.graphql+
