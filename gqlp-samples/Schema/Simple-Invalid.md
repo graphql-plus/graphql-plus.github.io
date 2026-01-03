@@ -58,8 +58,8 @@ domain Test { enum undef }
 
 ```gqlp
 domain Test { enum Enum.* Dup.* }
-enum Enum { value }
-enum Dup { value }
+enum Enum { value single enumValue }
+enum Dup { value duplicate dupValue }
 ```
 
 ##### Expected Verify errors
@@ -71,7 +71,7 @@ enum Dup { value }
 ```gqlp
 domain Test { enum Enum.value Dup.* }
 enum Enum { value }
-enum Dup { value }
+enum Dup { value duplicate dupValue }
 ```
 
 ##### Expected Verify errors
