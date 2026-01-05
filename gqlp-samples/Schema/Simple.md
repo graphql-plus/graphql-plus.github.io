@@ -49,6 +49,21 @@ domain Name { enum "DomEnum" "Descr" name }
 enum EnumName { name }
 ```
 
+### domain-enum-exclude-parent.graphql+
+
+```gqlp
+domain Name { enum EnumName.* !PrntName.* }
+enum EnumName { :PrntName name nameValue }
+enum PrntName { prnt_name namePrnt }
+```
+
+### domain-enum-exclude.graphql+
+
+```gqlp
+domain Name { enum !name EnumName.* }
+enum EnumName { name enum_name nameValue }
+```
+
 ### domain-enum-label.graphql+
 
 ```gqlp
