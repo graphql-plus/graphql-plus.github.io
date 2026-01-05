@@ -113,6 +113,27 @@ Directives can be merged if their Options match.
 
 Locations will be merged by value.
 
+### Operation declaration
+
+```PEG
+Operation = 'operation' name Aliases? '{' Oper_Definition '}'
+Oper_Definition = category Oper_Variables? Oper_Directive* Oper_Fragment* Oper_Result
+```
+
+An Operation declaration defines a named Operation for the Schema as a whole.
+The definition is essentially the same as in [Operation](Operation.md)
+but the Term's names are prefixed with `Oper_` and the following are redefined.
+
+```PEG
+Oper_TypeCondition = ':' type
+```
+
+Note the `category` is required, the name is specified outside definition and
+most of the GraphQl compatibility options are dropped.
+Specifically trailing Fragment definitions and the alternate `on` keyword for Type Conditions.
+
+Operations can only be merged if their Categories match.
+
 ### Option declaration
 
 ```PEG
@@ -529,6 +550,11 @@ Cat_Option = 'parallel' | 'sequential' | 'single'
 Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
+
+Operation = 'operation' name Aliases? '{' Oper_Definition '}'
+Oper_Definition = category Oper_Variables? Oper_Directive* Oper_Fragment* Oper_Result
+
+Oper_TypeCondition = ':' type
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = Description? setting Default
