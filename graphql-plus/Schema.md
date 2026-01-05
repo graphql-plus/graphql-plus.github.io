@@ -216,7 +216,9 @@ All Labels of an Enum type can also be included (or excluded).
 
 If exclusion Items are specified for an Enum type,
 but but no "All Labels" inclusion is specified for that Enum type or any of it's children,
-then and "All labels" inclusion is implied.
+then an "All labels" inclusion for that Enum type is implied.
+
+Enum domains must contain at least one Label after all exclusions are applied.
 
 Labels can be merged if their Type and inclusion/exclusion matches.
 Enum domains must contain only unique Labels after merging, irrelevant of the enum Type the Labels is defined for.
