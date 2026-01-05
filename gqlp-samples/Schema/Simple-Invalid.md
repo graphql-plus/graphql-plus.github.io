@@ -1,5 +1,16 @@
 # Simple-Invalid Schema Samples
 
+### domain-enum-exclude-all.graphql+
+
+```gqlp
+domain Test { enum !Enum.* }
+enum Enum { value single enumValue }
+```
+
+##### Expected Verify errors
+
+- `All labels excluded`
+
 ### domain-enum-parent-unique.graphql+
 
 ```gqlp
