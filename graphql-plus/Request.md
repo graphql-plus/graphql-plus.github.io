@@ -1,8 +1,50 @@
-# Request Definition
+# GraphQL+ Request
+
+A GraphQL+ Request must have a Definition and may have a Category, Operation and Parameters.
+Category and Operation are identifiers and Parameters may have any type.
+
+## Processing a Request
+
+A Request is processed against a Schema to generate a Response by the following steps:
+
+### Input decoding
+
+Starting with the raw input of the GraphQL+ request, that input is parsed into a Simple type
+which is then transformed into an untyped Request.
+
+This Request is matched with a Schema by Category to find the expected Output type of this Request.
+
+This Request is then Decoded using the expected Output type to create a typed Request.
+Note that this include fully typing the Request's Parameters.
+Decoding will proceed recursively though the entirety of the Request and Parameters.
+
+Any decoding errors will cause Handling to not be attempted for the field where Error was raised.
+
+A Warning message will be output for each Parameter supplied that wasn't used in the Decoding of the Response.
+
+### Handling
+
+Each top level field in the Request results in a call to the appropriate Handling function,
+passing in any Parameters specified, and returning a value of the expected type of that field.
+
+### Output encoding
+
+The value returned for each top level field is encoded into a Simple type and then
+combined into a Map keyed by the top level field name.
+
+This Simple type is then converted into the expected Response format and
+this Response output to the Originator of the Request along with any Decoding or Handling messages generated.
+
+If requested the fully Typed Request is returned as a part of the response.
+
+## Validating a Request
+
+A Request can be Validated instead of Processed, in which case the Input decoding step is run
+and then the fully typed Request and any Decoding messages are output.
+
+## Request Definition
 
 A GraphQL+ Request is defined as follows.
-
-## Request
 
 ### Full definition
 

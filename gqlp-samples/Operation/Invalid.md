@@ -1,5 +1,23 @@
 # Invalid Operation Samples
 
+### alias-collision.gql+
+
+```gqlp
+"""
+Invalid example: alias/response-name collision where the same response name is used for different field shapes.
+Validator should flag conflicting response names with incompatible selections.
+"""
+
+query AliasCollision {
+  person: user(id: "1") { id }
+  person: adminUser(id: "1") { id name }
+}
+```
+
+##### Expected Verify errors
+
+- `Expected Object or Type`
+
 ### empty.gql+
 
 ```gqlp
@@ -20,6 +38,18 @@
 
 - `Expected Object or Type`
 
+### frag-cycle.gql+
+
+```gqlp
+&fragA:Message{...fragB}
+&fragB:Message{...fragA}
+{...fragA}
+```
+
+##### Expected Verify errors
+
+- `Fragment has cyclic dependency`
+
 ### frag-undef.gql+
 
 ```gqlp
@@ -33,7 +63,8 @@
 ### frag-unused.gql+
 
 ```gqlp
-&named:Named{name}{name}
+&named:Named{name}
+{name}
 ```
 
 ##### Expected Verify errors
