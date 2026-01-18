@@ -58,7 +58,7 @@ query AliasCollision {
 
 ##### Expected Verify errors
 
-- `Spread not defined`
+- `'named' not defined`
 
 ### frag-unused.gql+
 
@@ -69,7 +69,7 @@ query AliasCollision {
 
 ##### Expected Verify errors
 
-- `Spread not used`
+- `'named' not used`
 
 ### list-map-def.gql+
 
@@ -129,7 +129,7 @@ query AliasCollision {
 
 ##### Expected Verify errors
 
-- `Variable not defined`
+- `'var' not defined`
 
 ### var-unused.gql+
 
@@ -139,4 +139,4 @@ query AliasCollision {
 
 ##### Expected Verify errors
 
-- `Variable not used`
+- `'var' not used`
