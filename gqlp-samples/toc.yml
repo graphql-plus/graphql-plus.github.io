@@ -1,6 +1,3 @@
-- name: Coding
-  href: Coding.md
-  items:
 - name: GraphQl
   href: GraphQl.md
   items:
