@@ -119,6 +119,11 @@ output _Operations {
     | _Type
 }
 
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
 output _Operation {
     : _Aliased
         category: _Name
@@ -130,11 +135,10 @@ output _Operation {
 }
 
 output _OpVariable {
-    : _Named
-        type: _ObjBase
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
         modifiers: _Modifiers[]
         default: Value?
-        directives: _OpDirective[]
 }
 
 dual _OpDirective {
@@ -143,9 +147,8 @@ dual _OpDirective {
 }
 
 output _OpFragment {
-    : _Named
-        type: _ObjBase
-        directives: _OpDirective[]
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
 }
 
 dual _OpArgument {
@@ -187,15 +190,14 @@ output _OpSelection {
 }
 
 output _OpField {
+    : _OpDirectives
         alias: String?
-        field: String
         argument: _OpArgument?
         modifiers: _Modifiers[]
-        directives: _OpDirective[]
 }
 
 output _OpInline {
-        type: _ObjBase?
+        type: _TypeRef<_TypeKind.Output>?
         directives: _OpDirective[]
 }
 
@@ -621,6 +623,11 @@ output _Operations {
     | _Type
 }
 
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
 output _Operation {
     : _Aliased
         category: _Name
@@ -632,11 +639,10 @@ output _Operation {
 }
 
 output _OpVariable {
-    : _Named
-        type: _ObjBase
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
         modifiers: _Modifiers[]
         default: Value?
-        directives: _OpDirective[]
 }
 
 dual _OpDirective {
@@ -645,9 +651,8 @@ dual _OpDirective {
 }
 
 output _OpFragment {
-    : _Named
-        type: _ObjBase
-        directives: _OpDirective[]
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
 }
 
 dual _OpArgument {
@@ -685,15 +690,14 @@ output _OpSelection {
 }
 
 output _OpField {
+    : _OpDirectives
         alias: String?
-        field: String
         argument: _OpArgument?
         modifiers: _Modifiers[]
-        directives: _OpDirective[]
 }
 
 output _OpInline {
-        type: _ObjBase?
+        type: _TypeRef<_TypeKind.Output>?
         directives: _OpDirective[]
 }
 
