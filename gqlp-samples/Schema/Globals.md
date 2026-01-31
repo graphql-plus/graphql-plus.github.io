@@ -139,9 +139,26 @@ input InName { }
 ### operation-category.graphql+
 
 ```gqlp
-operation Op { cat :String }
-category { Cat }
-output Cat { }
+operation Name { catName :String }
+category { CatName }
+output CatName { }
+```
+
+### operation-type.graphql+
+
+```gqlp
+operation Name { catName { first last address { street city country } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
 ```
 
 ### option-schema-alias.graphql+

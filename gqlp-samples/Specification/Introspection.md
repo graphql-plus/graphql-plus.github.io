@@ -39,7 +39,6 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
-
 output _Operations {
         operation: _Operation
         type: _Type
@@ -50,10 +49,11 @@ output _Operations {
 output _Operation {
     : _Aliased
         category: _Name
-        variables: _OpVariable[]
+        variables: _OpVariable[_Name]
         directives: _OpDirective[]
-        fragments: _OpFragment[]
+        fragments: _OpFragment[_Name]
         result: _OpResult
+        selections: _OpSelection[][_Path]
 }
 
 output _OpVariable {
@@ -96,15 +96,14 @@ dual _OpArgMap {
     | _OpArgValue[Scalar]
     }
 
-domain _Path { String /\$?\.*\w[\w\d]*(\.\w[\w\d]*)*/ }
-
 output _OpResult {
-        selections: _OpObject[_Path]
         argument: _OpArgument?
     | _TypeRef<_SimpleKind>
 }
 
-output _OpObject {
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
     |   _OpField
     |   _OpSpread
     |   _OpInline
@@ -274,7 +273,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -287,7 +286,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[\w\d.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -776,7 +775,7 @@ output _Schema {
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -789,7 +788,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[\w\d.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -831,7 +830,6 @@ output _Directive {
     }
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
-
 
 ```
 
@@ -1031,10 +1029,11 @@ output _Operations {
 output _Operation {
     : _Aliased
         category: _Name
-        variables: _OpVariable[]
+        variables: _OpVariable[_Name]
         directives: _OpDirective[]
-        fragments: _OpFragment[]
+        fragments: _OpFragment[_Name]
         result: _OpResult
+        selections: _OpSelection[][_Path]
 }
 
 output _OpVariable {
@@ -1077,15 +1076,14 @@ dual _OpArgMap {
     | _OpArgValue[Scalar]
     }
 
-domain _Path { String /\$?\.*\w[\w\d]*(\.\w[\w\d]*)*/ }
-
 output _OpResult {
-        selections: _OpObject[_Path]
         argument: _OpArgument?
     | _TypeRef<_SimpleKind>
 }
 
-output _OpObject {
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
     |   _OpField
     |   _OpSpread
     |   _OpInline
