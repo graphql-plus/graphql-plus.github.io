@@ -67,7 +67,7 @@ Jedi: 2001
   homePlanet: null
 ```
 
-### schema.gqlp
+### StarWars.graphql+
 
 ```gqlp
 output Query {
