@@ -116,13 +116,13 @@ output Bad { }
 
 ```gqlp
 domain Test { :Parent number 1> }
-domain Parent { number !1> }
+domain Parent { number !<1 }
 ```
 
 ##### Expected Verify errors
 
 - `Can't merge Test items into Parent Parent items`
-- `Group of DomainRange for '1>' not singular Excludes['False', 'True']`
+- `Group of DomainRange for '<1' not singular Excludes['False', 'True']`
 
 ### domain-parent-self-more.graphql+
 
