@@ -184,7 +184,8 @@ Scal_String = 'String' Scal_Regex*
 Scal_TrueFalse = Description? '!'? Boolean
 Scal_Label = Description? ( '!'? EnumValue | enum '.' '*' )
 Scal_Num = Description? '!'? Scal_NumRange
-Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
+Scal_NumRange = Scal_NumOrder NUMBER | NUMBER ( Scal_NumOrder NUMBER )? | NUMBER Scal_NumOrder
+Scal_NumOrder = '<' | '>'
 Scal_Regex = Description? '!'? REGEX
 ```
 
@@ -229,6 +230,7 @@ Comprises only those numbers included in (or excluded from) a given Range or spe
 If no included or excluded values are specified, a Number domain includes all values.
 
 A Range may specify either or both of its upper or lower bounds and is inclusive of those bounds.
+A Range may be defined in either direction, but is canonically shown as Lower? <? Upper?.
 
 Ranges are merged by their bounds, but can only be merged if their inclusion/exclusion matches.
 
@@ -552,7 +554,8 @@ Scal_String = 'String' Scal_Regex*
 Scal_TrueFalse = Description? '!'? Boolean
 Scal_Label = Description? ( '!'? EnumValue | enum '.' '*' )
 Scal_Num = Description? '!'? Scal_NumRange
-Scal_NumRange = '<' NUMBER | NUMBER ( '~' NUMBER )? | NUMBER '>'
+Scal_NumRange = Scal_NumOrder NUMBER | NUMBER ( Scal_NumOrder NUMBER )? | NUMBER Scal_NumOrder
+Scal_NumOrder = '<' | '>'
 Scal_Regex = Description? '!'? REGEX
 
 Enum = 'enum' enum Aliases? '{' Parent? En_Label+ '}'

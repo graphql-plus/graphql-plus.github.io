@@ -508,7 +508,7 @@ input InName { param: Number | String }
 ```gqlp
 output Name { field(InName[DomName]): DomName }
 input InName { param: Number | String }
-domain DomName { number 1 ~ 10 }
+domain DomName { number 1 < 10 }
 ```
 
 ### output-param-mod-param.graphql+
@@ -516,7 +516,7 @@ domain DomName { number 1 ~ 10 }
 ```gqlp
 output Name<$mod:String> { field(InName[$mod]): DomName }
 input InName { param: Number | String }
-domain DomName { number 1 ~ 10 }
+domain DomName { number 1 > 10 }
 ```
 
 ### output-param-type-descr.graphql+
