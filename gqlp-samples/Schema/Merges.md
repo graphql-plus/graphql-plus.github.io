@@ -101,15 +101,15 @@ domain Name { enum true }
 ### domain-number-diff.graphql+
 
 ```gqlp
-domain Name { number 1~9 }
+domain Name { number 1<9 }
 domain Name { number }
 ```
 
 ### domain-number-same.graphql+
 
 ```gqlp
-domain Name { number 1~9 }
-domain Name { number 1~9 }
+domain Name { number 1>9 }
+domain Name { number 9<1 }
 ```
 
 ### domain-number.graphql+
