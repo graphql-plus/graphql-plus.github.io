@@ -128,7 +128,7 @@ domain Name { Number "DomNumber" "Descr" <2 }
 ### domain-number-parent-descr.graphql+
 
 ```gqlp
-domain Name { :"Parent comment"PrntName Number 2>}
+domain Name { :"Parent comment"PrntName Number 2<}
 domain PrntName { Number <2 }
 ```
 
@@ -143,6 +143,12 @@ domain PrntName { Number <2 }
 
 ```gqlp
 domain Name { Number !<0 }
+```
+
+### domain-number-range.graphql+
+
+```gqlp
+domain Name { Number 1<9 21>12 }
 ```
 
 ### domain-string-descr.graphql+
