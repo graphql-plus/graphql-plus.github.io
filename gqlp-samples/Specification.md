@@ -274,7 +274,7 @@ dual _Collections {
 dual _ModifierKeyed<$kind:_ModifierKind> {
     : _Modifier<$kind>
         by: _TypeSimple
-        optional: Boolean
+        isOptional: Boolean
     }
 
 dual _Modifiers {
@@ -362,7 +362,7 @@ output _DomainItemRegex {
 
 dual _EnumLabel {
     : _Aliased
-        enum: _Name
+        enumType: _Name
     }
 
 output _EnumValue {
@@ -424,7 +424,7 @@ output _ObjAlternateEnum {
     }
 output _ObjectFor<$for:_ForParam> {
     : $for
-        object: _Name
+        objectType: _Name
     }
 
 output _ObjField<$type:_ObjFieldType> {
@@ -458,7 +458,7 @@ output _InputField {
 
 output _InputFieldType {
     : _ObjFieldType
-        default: Value?
+        defaultValue: Value?
     }
 
 output _InputParam {
