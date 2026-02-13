@@ -111,7 +111,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $section = ""
 
   Get-ChildItem "samples/$name" -Recurse -File -Name | ForEach-Object {
-    if ($_ -notmatch ".*\.g.*") {
+    if ($_ -match ".*\.*errors$") {
       return
     }
 

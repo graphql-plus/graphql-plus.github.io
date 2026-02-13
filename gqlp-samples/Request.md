@@ -19,6 +19,17 @@ types:
       name: _TypeObject
 ```
 
+### categories.resp
+
+```
+types:
+  _TypeInput:
+    name: _TypeInput
+    typeKind: Input
+    parent:
+      name: _TypeObject
+```
+
 ### dual-input-types.g+req
 
 ```
@@ -39,6 +50,17 @@ types:
       name: _TypeObject
 ```
 
+### dual-input-types.resp
+
+```
+types:
+  _TypeInput:
+    name: _TypeInput
+    typeKind: Input
+    parent:
+      name: _TypeObject
+```
+
 ### enum-types.g+req
 
 ```
@@ -48,6 +70,17 @@ parameters.filter.kinds = Enum
 ```
 
 ##### Expected response enum-types.resp
+
+```
+types:
+  _TypeInput:
+    name: _TypeInput
+    typeKind: Input
+    parent:
+      name: _TypeObject
+```
+
+### enum-types.resp
 
 ```
 types:

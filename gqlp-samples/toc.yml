@@ -39,3 +39,6 @@
       href: Specification/Request.md
     - name: Schema
       href: Specification/Schema.md
+- name: StarWars
+  href: StarWars.md
+  items:
