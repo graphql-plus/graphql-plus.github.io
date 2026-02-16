@@ -50,7 +50,7 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
