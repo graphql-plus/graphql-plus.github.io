@@ -32,7 +32,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -143,17 +143,13 @@ output _InputFieldType {
         defaultValue: Value?
     }
 
-output _InputParam {
-    : _InputFieldType
-    }
-
 output _OutputField {
     : _ObjField<_ObjFieldType>
     }
 
 output _OutputFieldType {
     : _ObjFieldType
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
     }
 
 ```
@@ -730,7 +726,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -882,10 +878,6 @@ output _InputFieldType {
         defaultValue: Value?
     }
 
-output _InputParam {
-    : _InputFieldType
-    }
-
 ```
 
 ##### Expected Verify errors
@@ -946,7 +938,7 @@ output _OutputField {
 
 output _OutputFieldType {
     : _ObjFieldType
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
     }
 
 ```
