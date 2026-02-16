@@ -98,13 +98,13 @@ Categories can be merged if their Options and Modified Output Types match.
 ### Directive declaration
 
 ```PEG
-Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParam? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 ```
 
 A Directive is defined with a set of Locations where it may appear in an Operation.
-A Directive may have Input Parameters.
+A Directive may have an Input Parameter.
 
 By default a Directive can only appear once at any Location,
 but this can be changed with the `repeatable` Directive option.
@@ -501,10 +501,10 @@ after replacing "object" with "input" and "Obj" with "In".
 ```PEG
 In_FieldType = In_Type Modifiers? Default?
 
-InputParams = '(' In_FieldType+ ')'
+InputParam = '(' In_FieldType ')'
 ```
 
-Input types define the Input Parameters of Directives or Output fields.
+Input types define the Input Parameter of Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
 
@@ -532,7 +532,7 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_FieldType = InputParams? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParam? fieldAlias* ':' Out_Type Modifiers?
 ```
 
 Output types define the result values for Categories.
@@ -543,7 +543,7 @@ An Output Field redefines an object Field as follows:
 
 - optional field description strings
 - a Field name
-- optional Input Parameters
+- optional Input Parameter
 - zero or more Field Aliases
 - optional type description strings
 - a type parameter or an Output type reference
@@ -563,7 +563,7 @@ Aliases = '[' alias+ ']'
 Category = 'category' category? Aliases? '{' ( '(' Cat_Option ')' )? Description? output Modifiers? '}'
 Cat_Option = 'parallel' | 'sequential' | 'single'
 
-Directive = 'directive' '@'directive InputParams? Aliases? '{' Dir_Option? Dir_Location+ '}'
+Directive = 'directive' '@'directive InputParam? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
@@ -620,9 +620,9 @@ Obj_Constraint = Simple | object
 
 In_FieldType = In_Type Modifiers? Default?
 
-InputParams = '(' In_FieldType+ ')'
+InputParam = '(' In_FieldType ')'
 
-Out_FieldType = InputParams? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParam? fieldAlias* ':' Out_Type Modifiers?
 
 ```
 

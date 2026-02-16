@@ -32,7 +32,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -50,7 +50,7 @@ output _Setting {
 ##### Expected Verify errors
 
 - `'_Aliased' not defined`
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 - `'_Modifiers' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
@@ -143,17 +143,13 @@ output _InputFieldType {
         defaultValue: Value?
     }
 
-output _InputParam {
-    : _InputFieldType
-    }
-
 output _OutputField {
     : _ObjField<_ObjFieldType>
     }
 
 output _OutputFieldType {
     : _ObjFieldType
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
     }
 
 ```
@@ -730,7 +726,7 @@ output _Directives {
 
 output _Directive {
     : _Aliased
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
         repeatable: Boolean
         locations: _[_Location]
     }
@@ -744,7 +740,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 
 ### Domain.graphql+
 
@@ -882,10 +878,6 @@ output _InputFieldType {
         defaultValue: Value?
     }
 
-output _InputParam {
-    : _InputFieldType
-    }
-
 ```
 
 ##### Expected Verify errors
@@ -946,14 +938,14 @@ output _OutputField {
 
 output _OutputFieldType {
     : _ObjFieldType
-        parameters: _InputParam[]
+        parameter: _InputFieldType?
     }
 
 ```
 
 ##### Expected Verify errors
 
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
