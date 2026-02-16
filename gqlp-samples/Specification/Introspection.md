@@ -740,7 +740,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 
 ### Domain.graphql+
 
@@ -945,7 +945,7 @@ output _OutputFieldType {
 
 ##### Expected Verify errors
 
-- `'_InputParam' not defined`
+- `'_InputFieldType' not defined`
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
