@@ -469,7 +469,7 @@ In_FieldType = In_Type Modifiers? Default?
 InputParam = '(' In_FieldType ')'
 ```
 
-Input types define the Input Parameters of Directives or Output fields.
+Input types define the Input Parameter of Directives or Output fields.
 
 An Input type is defined as an object type with the following alterations.
 
