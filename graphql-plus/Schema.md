@@ -113,6 +113,52 @@ Directives can be merged if their Options match.
 
 Locations will be merged by value.
 
+### Operation declaration
+
+```PEG
+Operation = 'operation' name Aliases? '{' Oper_Definition '}'
+Oper_Definition = category Oper_Variables? Oper_Directive* Oper_Fragment* Oper_Result
+```
+
+An Operation declaration defines a named Operation for the Schema as a whole.
+The definition is essentially the same as in [Operation](Operation.md)
+but the Term's names are prefixed with `Oper_` and the following are redefined.
+
+```PEG
+Oper_TypeCondition = ':' type
+```
+
+Note the `category` is required, the name is specified outside definition and
+most of the GraphQl compatibility options are dropped.
+Specifically trailing Fragment definitions and the alternate `on` keyword for Type Conditions.
+
+Operations can only be merged if their Categories match.
+
+#### Operation Selections
+
+To cope with the recursive nature of an Operation definition, Selections are stored as a Map by Selection Path of Lists of Selection.
+
+A Selection Path begins with the name of the fragment (the operation's fragment name is the empty string),
+followed by a dot separated list of indexes into the List of Selections defined for that fragment.
+
+eq
+
+```gql+
+&name :Name { first list |{ salutation } |{ middle } }
+{ name { |name } emailAddress |{ address { street city country } } |:Customer { customerId } }
+```
+
+resolves to :
+
+> ["name"] = first last | |<br>
+> ["name.3"] = salutation<br>
+> ["name.4"] = middle<br>
+> [""] = name emailAddress | |:Customer<br>
+> [".1"] = |name<br>
+> [".3"] = address <br>
+> [".3.1"] = street city country<br>
+> [".4"] = customerId
+
 ### Option declaration
 
 ```PEG
@@ -531,6 +577,11 @@ Cat_Option = 'parallel' | 'sequential' | 'single'
 Directive = 'directive' '@'directive InputParam? Aliases? '{' Dir_Option? Dir_Location+ '}'
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
+
+Operation = 'operation' name Aliases? '{' Oper_Definition '}'
+Oper_Definition = category Oper_Variables? Oper_Directive* Oper_Fragment* Oper_Result
+
+Oper_TypeCondition = ':' type
 
 Option = 'option' name Aliases? '{' Opt_Setting* '}'
 Opt_Setting = Description? setting Default

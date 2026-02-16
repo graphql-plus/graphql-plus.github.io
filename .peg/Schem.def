@@ -22,3 +22,9 @@ In_Type = Obj_Type
 In_TypeArg = Obj_TypeArg
 Output = Object
 Out_Type = Obj_Type
+
+type = ID
+Oper_Variables = ID
+Oper_Directive = ID
+Oper_Fragment = ID
+Oper_Result = ID

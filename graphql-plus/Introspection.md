@@ -12,11 +12,12 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Name]
         directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
         types(_TypeFilter?): _Type[_Name]
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -29,7 +30,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -106,7 +107,104 @@ output _Directive {
     }
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
+```
 
+### Operation declaration
+
+```gqlp
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
+output _Operation {
+    : _Aliased
+        category: _Name
+        variables: _OpVariable[_Name]
+        directives: _OpDirective[]
+        fragments: _OpFragment[_Name]
+        result: _OpResult
+        selections: _OpSelection[][_Path]
+}
+
+output _OpVariable {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
+        modifiers: _Modifiers[]
+        default: Value?
+}
+
+dual _OpDirective {
+    : _Named
+        argument: _OpArgument?
+}
+
+output _OpFragment {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
+}
+
+dual _OpArgument {
+    |   _OpArgValue
+    |   _OpArgList
+    |   _OpArgMap
+    }
+
+dual _OpArgValue {
+        variable: _Name
+    |   Value
+    }
+
+dual _OpArgList {
+    | _OpArgValue[]
+    }
+
+dual _OpArgMap {
+        value: _OpArgValue
+        byVariable: _Name
+    | _OpArgValue[Scalar]
+    }
+
+output _OpResult {
+        argument: _OpArgument?
+    | _TypeRef<_SimpleKind>
+}
+```
+
+#### Operation Selections
+
+```gqlp
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+    : _OpDirectives
+        alias: String?
+        argument: _OpArgument?
+        modifiers: _Modifiers[]
+}
+
+output _OpInline {
+        type: _TypeRef<_TypeKind.Output>?
+        directives: _OpDirective[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
 ```
 
 ### Option declaration
@@ -434,11 +532,12 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Name]
         directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
         types(_TypeFilter?): _Type[_Name]
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -451,7 +550,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -513,6 +612,95 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+output _Operations {
+        operation: _Operation
+        type: _Type
+    | _Operation
+    | _Type
+}
+
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
+output _Operation {
+    : _Aliased
+        category: _Name
+        variables: _OpVariable[_Name]
+        directives: _OpDirective[]
+        fragments: _OpFragment[_Name]
+        result: _OpResult
+        selections: _OpSelection[][_Path]
+}
+
+output _OpVariable {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
+        modifiers: _Modifiers[]
+        default: Value?
+}
+
+dual _OpDirective {
+    : _Named
+        argument: _OpArgument?
+}
+
+output _OpFragment {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
+}
+
+dual _OpArgument {
+    |   _OpArgValue
+    |   _OpArgList
+    |   _OpArgMap
+    }
+
+dual _OpArgValue {
+        variable: _Name
+    |   Value
+    }
+
+dual _OpArgList {
+    | _OpArgValue[]
+    }
+
+dual _OpArgMap {
+        value: _OpArgValue
+        byVariable: _Name
+    | _OpArgValue[Scalar]
+    }
+
+output _OpResult {
+        argument: _OpArgument?
+    | _TypeRef<_SimpleKind>
+}
+
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output _OpField {
+    : _OpDirectives
+        alias: String?
+        argument: _OpArgument?
+        modifiers: _Modifiers[]
+}
+
+output _OpInline {
+        type: _TypeRef<_TypeKind.Output>?
+        directives: _OpDirective[]
+}
+
+output _OpSpread {
+        fragment: String
+        directives: _OpDirective[]
+}
 
 output _Setting {
     : _Named
