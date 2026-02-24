@@ -152,10 +152,12 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
       foreach ($suffix in $suffixes) {
         Add-Errors $base $suffix "Parse"
         Add-Errors $base $suffix "Verify"
+        Add-Errors $base $suffix "Model"
       }
     } else {
       Add-Errors $base "" "Parse"
       Add-Errors $base "" "Verify"
+      Add-Errors $base "" "Model"
     }
   }
 }
