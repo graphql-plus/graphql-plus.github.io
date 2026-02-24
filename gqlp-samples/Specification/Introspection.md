@@ -58,7 +58,7 @@ output _Setting {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -172,7 +172,7 @@ output _OutputFieldType {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
@@ -349,7 +349,7 @@ output _UnionMember {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Described'`
@@ -459,7 +459,7 @@ dual _Modifier<$kind:_ModifierKind> {
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -551,7 +551,7 @@ output _ForParam<$type:_ObjFieldType> {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
@@ -620,7 +620,7 @@ enum _Resolution { Parallel Sequential Single }
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
@@ -705,7 +705,7 @@ dual _TypeSimple {
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -758,7 +758,7 @@ input _TypeFilter {
 - `'_Type' not defined`
 - `'_TypeKind' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Named'`
 
@@ -789,7 +789,7 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 - `'_AndType' not defined`
 - `'_InputFieldType' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
@@ -881,7 +881,7 @@ output _DomainItemRegex {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Described'`
 - `can't get model for type '_ParentType'`
@@ -901,7 +901,7 @@ output _DualField {
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
 
@@ -928,7 +928,7 @@ output _EnumValue {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_TypeRef'`
@@ -952,7 +952,7 @@ output _InputFieldType {
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
@@ -1001,7 +1001,7 @@ output _Setting {
 
 - `'_Named' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_Named'`
 
@@ -1025,7 +1025,7 @@ output _OutputFieldType {
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
@@ -1050,6 +1050,6 @@ output _UnionMember {
 - `'_SimpleKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Model errors
+##### Expected Encode errors
 
 - `can't get model for type '_TypeRef'`
