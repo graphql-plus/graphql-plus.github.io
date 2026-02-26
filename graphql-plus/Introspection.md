@@ -179,8 +179,8 @@ dual _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-dual _ModifierKeyed<$kind:_ModifierKind> {
-    : _Modifier<$kind>
+dual _ModifierKeyed<$modifier:_ModifierKind> {
+    : _Modifier<$modifier>
         by: _TypeSimple
         isOptional: Boolean
     }
@@ -192,8 +192,8 @@ dual _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-dual _Modifier<$kind:_ModifierKind> {
-        modifierKind: $kind
+dual _Modifier<$modifier:_ModifierKind> {
+        modifierKind: $modifier
     }
 ```
 
@@ -204,9 +204,9 @@ dual _Modifier<$kind:_ModifierKind> {
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
 
-output _DomainRef<$kind:_DomainKind> {
+output _DomainRef<$domain:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
+        domainKind: $domain
     }
 
 output _BaseDomain<$domain:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
@@ -224,8 +224,8 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Name
     }
 
-output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
-    : _DomainRef<$kind>
+output _DomainValue<$domain:_DomainKind $value:_BasicValue> {
+    : _DomainRef<$domain>
         value: $value
     | $value
     }
@@ -325,8 +325,8 @@ output _UnionMember {
 ```gqlp
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
-    : _ChildType<$kind _ObjBase>
+output _TypeObject<$object:_ObjectKind $field:_ObjField> {
+    : _ChildType<$object _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: _ObjAlternate[]
@@ -571,8 +571,8 @@ dual _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-dual _ModifierKeyed<$kind:_ModifierKind> {
-    : _Modifier<$kind>
+dual _ModifierKeyed<$modifier:_ModifierKind> {
+    : _Modifier<$modifier>
         by: _TypeSimple
         isOptional: Boolean
     }
@@ -584,15 +584,15 @@ dual _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-dual _Modifier<$kind:_ModifierKind> {
-        modifierKind: $kind
+dual _Modifier<$modifier:_ModifierKind> {
+        modifierKind: $modifier
     }
 
 enum _DomainKind { Boolean Enum Number String }
 
-output _DomainRef<$kind:_DomainKind> {
+output _DomainRef<$domain:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
+        domainKind: $domain
     }
 
 output _BaseDomain<$domain:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
@@ -610,8 +610,8 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Name
     }
 
-output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
-    : _DomainRef<$kind>
+output _DomainValue<$domain:_DomainKind $value:_BasicValue> {
+    : _DomainRef<$domain>
         value: $value
     | $value
     }
@@ -681,8 +681,8 @@ output _UnionMember {
 
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
-    : _ChildType<$kind _ObjBase>
+output _TypeObject<$object:_ObjectKind $field:_ObjField> {
+    : _ChildType<$object _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: _ObjAlternate[]
