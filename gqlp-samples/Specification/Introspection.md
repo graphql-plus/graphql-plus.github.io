@@ -68,8 +68,8 @@ output _Setting {
 ```gqlp
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
-    : _ChildType<$kind _ObjBase>
+output _TypeObject<$objectKind:_ObjectKind $field:_ObjField> {
+    : _ChildType<$objectKind _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: _ObjAlternate[]
@@ -246,14 +246,14 @@ dual _Described {
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
 
-output _DomainRef<$kind:_DomainKind> {
+output _DomainRef<$domainKind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
+        domainKind: $domainKind
     }
 
-output _BaseDomain<$domain:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
+output _BaseDomain<$domainKind:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
     : _ParentType<_TypeKind.Domain $item $domainItem>
-        domainKind: $domain
+        domainKind: $domainKind
     }
 
 dual _BaseDomainItem {
@@ -266,8 +266,8 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Name
     }
 
-output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
-    : _DomainRef<$kind>
+output _DomainValue<$domainKind:_DomainKind $value:_BasicValue> {
+    : _DomainRef<$domainKind>
         value: $value
     | $value
     }
@@ -373,18 +373,18 @@ output _Type {
     | _TypeObject<_TypeKind.Output _OutputField>
     }
 
-output _BaseType<$kind:_TypeKind> {
+output _BaseType<$typeKind:_TypeKind> {
     : _Aliased
-        typeKind: $kind
+        typeKind: $typeKind
     }
 
-output _ChildType<$kind:_TypeKind $parent:_Described> {
-    : _BaseType<$kind>
+output _ChildType<$typeKind:_TypeKind $parent:_Described> {
+    : _BaseType<$typeKind>
         parent: $parent
     }
 
-output _ParentType<$kind:_TypeKind $item:_Described $allItem:_Described> {
-    : _ChildType<$kind _Named>
+output _ParentType<$typeKind:_TypeKind $item:_Described $allItem:_Described> {
+    : _ChildType<$typeKind _Named>
         items: $item[]
         allItems: $allItem[]
     }
@@ -393,9 +393,9 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-dual _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$typeKind:_TypeKind> {
     : _Named
-        typeKind: $kind
+        typeKind: $typeKind
 }
 
 dual _TypeSimple {
@@ -411,8 +411,8 @@ dual _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-dual _ModifierKeyed<$kind:_ModifierKind> {
-    : _Modifier<$kind>
+dual _ModifierKeyed<$modifierKind:_ModifierKind> {
+    : _Modifier<$modifierKind>
         by: _TypeSimple
         isOptional: Boolean
     }
@@ -424,8 +424,8 @@ dual _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-dual _Modifier<$kind:_ModifierKind> {
-        modifierKind: $kind
+dual _Modifier<$modifierKind:_ModifierKind> {
+        modifierKind: $modifierKind
     }
 
 ```
@@ -469,8 +469,8 @@ dual _Modifier<$kind:_ModifierKind> {
 ```gqlp
 domain _ObjectKind { enum _TypeKind.Dual _TypeKind.Input _TypeKind.Output }
 
-output _TypeObject<$kind:_ObjectKind $field:_ObjField> {
-    : _ChildType<$kind _ObjBase>
+output _TypeObject<$objectKind:_ObjectKind $field:_ObjField> {
+    : _ChildType<$objectKind _ObjBase>
         typeParams: _ObjTypeParam[]
         fields: $field[]
         alternates: _ObjAlternate[]
@@ -568,8 +568,8 @@ dual _Collections {
     | _ModifierKeyed<_ModifierKind.TypeParam>
     }
 
-dual _ModifierKeyed<$kind:_ModifierKind> {
-    : _Modifier<$kind>
+dual _ModifierKeyed<$modifierKind:_ModifierKind> {
+    : _Modifier<$modifierKind>
         by: _TypeSimple
         isOptional: Boolean
     }
@@ -581,8 +581,8 @@ dual _Modifiers {
 
 enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
-dual _Modifier<$kind:_ModifierKind> {
-        modifierKind: $kind
+dual _Modifier<$modifierKind:_ModifierKind> {
+        modifierKind: $modifierKind
     }
 
 ```
@@ -642,18 +642,18 @@ output _Type {
     | _TypeObject<_TypeKind.Output _OutputField>
     }
 
-output _BaseType<$kind:_TypeKind> {
+output _BaseType<$typeKind:_TypeKind> {
     : _Aliased
-        typeKind: $kind
+        typeKind: $typeKind
     }
 
-output _ChildType<$kind:_TypeKind $parent:_Described> {
-    : _BaseType<$kind>
+output _ChildType<$typeKind:_TypeKind $parent:_Described> {
+    : _BaseType<$typeKind>
         parent: $parent
     }
 
-output _ParentType<$kind:_TypeKind $item:_Described $allItem:_Described> {
-    : _ChildType<$kind _Named>
+output _ParentType<$typeKind:_TypeKind $item:_Described $allItem:_Described> {
+    : _ChildType<$typeKind _Named>
         items: $item[]
         allItems: $allItem[]
     }
@@ -662,9 +662,9 @@ enum _SimpleKind { Basic Enum Internal Domain Union }
 
 enum _TypeKind { :_SimpleKind Dual Input Output }
 
-dual _TypeRef<$kind:_TypeKind> {
+dual _TypeRef<$typeKind:_TypeKind> {
     : _Named
-        typeKind: $kind
+        typeKind: $typeKind
 }
 
 dual _TypeSimple {
@@ -799,14 +799,14 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 ```gqlp
 enum _DomainKind { Boolean Enum Number String }
 
-output _DomainRef<$kind:_DomainKind> {
+output _DomainRef<$domainKind:_DomainKind> {
     : _TypeRef<_TypeKind.Domain>
-        domainKind: $kind
+        domainKind: $domainKind
     }
 
-output _BaseDomain<$domain:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
+output _BaseDomain<$domainKind:_DomainKind $item:_BaseDomainItem $domainItem:_DomainItem> {
     : _ParentType<_TypeKind.Domain $item $domainItem>
-        domainKind: $domain
+        domainKind: $domainKind
     }
 
 dual _BaseDomainItem {
@@ -819,8 +819,8 @@ output _DomainItem<$item:_BaseDomainItem> {
         domain: _Name
     }
 
-output _DomainValue<$kind:_DomainKind $value:_BasicValue> {
-    : _DomainRef<$kind>
+output _DomainValue<$domainKind:_DomainKind $value:_BasicValue> {
+    : _DomainRef<$domainKind>
         value: $value
     | $value
     }
