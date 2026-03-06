@@ -138,7 +138,7 @@ output _OpVariable {
     : _OpDirectives
         type: _TypeRef<_TypeKind.Input>
         modifiers: _Modifiers[]
-        default: Value?
+        defaultValue: Value?
 }
 
 dual _OpDirective {
@@ -191,7 +191,7 @@ output _OpSelection {
 
 output _OpField {
     : _OpDirectives
-        alias: String?
+        fieldAlias: String?
         argument: _OpArgument?
         modifiers: _Modifiers[]
 }
@@ -638,7 +638,7 @@ output _OpVariable {
     : _OpDirectives
         type: _TypeRef<_TypeKind.Input>
         modifiers: _Modifiers[]
-        default: Value?
+        defaultValue: Value?
 }
 
 dual _OpDirective {
@@ -687,7 +687,7 @@ output _OpSelection {
 
 output _OpField {
     : _OpDirectives
-        alias: String?
+        fieldAlias: String?
         argument: _OpArgument?
         modifiers: _Modifiers[]
 }
