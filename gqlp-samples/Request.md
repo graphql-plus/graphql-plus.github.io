@@ -11,7 +11,7 @@ _Schema { categories { name } }
 ##### Expected response categories.resp
 
 ```
-types:
+categories:
   _TypeInput:
     name: _TypeInput
     typeKind: Input
@@ -22,7 +22,7 @@ types:
 ### categories.resp
 
 ```
-types:
+categories:
   _TypeInput:
     name: _TypeInput
     typeKind: Input
@@ -73,20 +73,16 @@ parameters.filter.kinds = Enum
 
 ```
 types:
-  _TypeInput:
-    name: _TypeInput
-    typeKind: Input
-    parent:
-      name: _TypeObject
+  _TypeEnum:
+    name: _TypeEnum
+    typeKind: Enum
 ```
 
 ### enum-types.resp
 
 ```
 types:
-  _TypeInput:
-    name: _TypeInput
-    typeKind: Input
-    parent:
-      name: _TypeObject
+  _TypeEnum:
+    name: _TypeEnum
+    typeKind: Enum
 ```

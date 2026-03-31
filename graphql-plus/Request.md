@@ -15,8 +15,8 @@ which is then transformed into an untyped Request.
 This Request is matched with a Schema by Category to find the expected Output type of this Request.
 
 This Request is then Decoded using the expected Output type to create a typed Request.
-Note that this include fully typing the Request's Parameters.
-Decoding will proceed recursively though the entirety of the Request and Parameters.
+Note that this includes fully typing the Request's Parameters.
+Decoding will proceed recursively through the entirety of the Request and Parameters.
 
 Any decoding errors will cause Handling to not be attempted for the field where Error was raised.
 
