@@ -45,7 +45,7 @@ Many named items can also have Aliases, which are a list of alternate ids for a 
 
 Within any list of named items with Aliases, after merging all Aliases must be unique.
 Any conflicts between names and Aliases will be resolved in the favour of the name,
-ie. Any Aliases in a list of items that match any names of the items will be removed.
+i.e. Any Aliases in a list of items that match any names of the items will be removed.
 
 ### Merging (and de-duplicating)
 
@@ -116,7 +116,7 @@ Locations will be merged by value.
 ### Include declaration
 
 ```PEG
-Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path+ '}'
+Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path '}'
 Inc_Option = '(' 'settings' ')'
 Inc_Path = STRING
 ```
@@ -128,11 +128,12 @@ Their Name in the current schema is their Name in the included Schema prefixed w
 and an underscore (`_`). Any Enum labels are similarly named.
 
 Any Aliases of the Include create Aliases on the included Type, Directive or Enum Label in a similar fashion.
-They also have their original name as an Alias as well as any Aliases from the Included Schema
+They also have their original name as an Alias as well as any Aliases from the Included Schema.
 
-ie. Given the following Schema at `./plus.graphql+`
+i.e. Given the following Schema at `./plus.graphql+`
 
-```directive @help[h] { }
+```
+directive @help[h] { }
 enum NameKind [nk] {
   Legal[l] Primary[p]
 }
@@ -141,7 +142,8 @@ dual Named [n] { name: String }
 
 The Include declaration `include Plus [p] { "./plus.graphql+" }` would result in effectively the following
 
-```directive @Plus_help[help h p_help] { }
+```
+directive @Plus_help[help h p_help] { }
 enum Plus_NameKind [NameKind nk p_NameKind] {
   Plus_Legal[Legal l p_Legal] Plus_Primary[Primary p p_Primary]
 }
@@ -239,7 +241,7 @@ Domain declarations can be merged if their Domains and Parents match.
 #### Boolean domain
 
 Comprises only those Boolean values explicitly included (or excluded).
-If no included or excluded values are specified, a Boolean domain includes both values, ie. true and false.
+If no included or excluded values are specified, a Boolean domain includes both values, i.e. true and false.
 
 Boolean values can only be merged if their inclusion/exclusion matches.
 
@@ -567,7 +569,7 @@ Directive = 'directive' '@'directive InputParam? Aliases? '{' Dir_Option? Dir_Lo
 Dir_Option = '(' 'repeatable' ')'
 Dir_Location = 'Operation' | 'Variable' | 'Field' | 'Inline' | 'Spread' | 'Fragment'
 
-Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path+ '}'
+Include = 'include' schema Aliases? '{' Inc_Option? Inc_Path '}'
 Inc_Option = '(' 'settings' ')'
 Inc_Path = STRING
 
