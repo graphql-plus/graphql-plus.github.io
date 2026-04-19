@@ -330,3 +330,101 @@ query getZuckProfile($devicePicSize: Int) {
   }
 }
 ```
+
+### Samples.graphql+
+
+```gqlp
+output Query {
+    user(UserFilter): User
+    likeStory(StoryFilter) : Story
+    field(FieldFilter): String
+    me: User
+    picture(PicFilter): String
+    profiles(ProfileFilter): Profile[]
+    nearestThing(ThingFilter): String
+  | User
+}
+
+output Mutation {
+    sendEmail(Email): Boolean
+}
+
+dual UserFilter {
+     id: Number
+}
+
+output User {
+    id: Number
+    name: String
+    firstName: String
+    lastName: String
+    birthday: Date
+    profilePic(PicFilter): String
+    friends(FriendsFilter): UserList
+    mutualFriends(FriendsFilter): UserList
+}
+
+output UserList {
+    count: Number
+    users: User[]
+  | User[]
+}
+
+dual StoryFilter {
+    storyID: Number
+}
+
+dual Story {
+    likeCount: Number
+}
+
+dual FieldFilter {
+    arg: String?
+}
+
+dual PicFilter {
+    size: Number
+    width: Number
+    height: Number
+}
+
+dual FriendsFilter {
+    first: Number
+}
+
+output Profile {
+  : User
+    handle: String
+  | Page
+}
+
+dual ProfileFilter {
+    handles: String[]
+}
+
+dual Page {
+    handle: String
+    likers: UserList
+}
+
+directive @include (IncludeParams) { Inline }
+
+dual IncludeParams {
+    if: Boolean
+}
+
+dual Email {
+    message: String
+}
+
+dual ThingFilter {
+    location: Location
+}
+
+dual Location {
+    lat: Number
+    lon: Number
+}
+
+domain Int { Number >0 }
+```
