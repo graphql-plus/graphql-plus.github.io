@@ -336,13 +336,13 @@ query getZuckProfile($devicePicSize: Int) {
 ```gqlp
 output Query {
     user(UserFilter): FullUser
-    likeStory(StoryFilter) : Story
+    likeStory(StoryFilter): Story
     field(FieldFilter): String
     me: FullUser
     picture(PicFilter): String
     profiles(ProfileFilter): Profile[]
     nearestThing(ThingFilter): String
-  | FullUser
+    | FullUser
 }
 
 output Mutation {
@@ -362,7 +362,7 @@ dual User {
 }
 
 output FullUser {
-  : User
+    : User
     profilePic(PicFilter): String
     friends(FriendsFilter): UserList
     mutualFriends(FriendsFilter): UserList
@@ -371,7 +371,7 @@ output FullUser {
 output UserList {
     count: Number
     users: User[]
-  | User[]
+    | User[]
 }
 
 dual StoryFilter {
@@ -397,9 +397,9 @@ dual FriendsFilter {
 }
 
 output Profile {
-  : User
+    : User
     handle: String
-  | Page
+    | Page
 }
 
 dual ProfileFilter {
