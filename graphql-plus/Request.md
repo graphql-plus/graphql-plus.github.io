@@ -22,6 +22,32 @@ Any decoding errors will cause Handling to not be attempted for the field where 
 
 A Warning message will be output for each Parameter supplied that wasn't used in the Decoding of the Response.
 
+### Operation Selections
+
+To cope with the recursive nature of an Operation definition,
+Selections are stored as a Map by Selection Path of Lists of Selection.
+
+A Selection Path begins with the name of the fragment (the operation's fragment name is the empty string),
+followed by a dot separated list of indexes into the List of Selections defined for that fragment.
+
+eq
+
+```gql+
+&name :Name { first list |{ salutation } |{ middle } }
+{ name { |name } emailAddress |{ address { street city country } } |:Customer { customerId } }
+```
+
+resolves to :
+
+> ["name"] = first last | |<br>
+> ["name.3"] = salutation<br>
+> ["name.4"] = middle<br>
+> [""] = name emailAddress | |:Customer<br>
+> [".1"] = |name<br>
+> [".3"] = address <br>
+> [".3.1"] = street city country<br>
+> [".4"] = customerId
+
 ### Handling
 
 Each top level field in the Request results in a call to the appropriate Handling function,
@@ -58,6 +84,29 @@ input _Request {
     }
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
+
+dual _Collections {
+    | _Modifier<_ModifierKind.List>
+    | _ModifierKeyed<_ModifierKind.Dictionary>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
+    }
+
+dual _ModifierKeyed<$modifierKind:_ModifierKind> {
+    : _Modifier<$modifierKind>
+        by: _Identifier
+        isOptional: Boolean
+    }
+
+dual _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+dual _Modifier<$modifierKind:_ModifierKind> {
+        modifierKind: $modifierKind
+    }
 ```
 
 ### Operation
@@ -68,15 +117,23 @@ input _Operation {
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
+        selections: _OpSelection[][_Path]
     | "Parsed into above fields, plus Request category and operation" String
     }
 
-input _OpVariable {
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+dual _OpDirectives {
         name: _Identifier
-        type: _Identifier? = null
-        modifiers: _Modifier[]
-        default: Value?
+        description: String[]
         directives: _OpDirective[]
+
+}
+input _OpVariable {
+    : _OpDirectives
+        type: _Identifier? = null
+        modifiers: _Modifiers[]
+        defaultValue: Value?
     }
 
 dual _OpDirective {
@@ -85,18 +142,13 @@ dual _OpDirective {
     }
 
 input _OpFragment {
-        name: _Identifier
+    : _OpDirectives
         type: _Identifier? = null
-        directives: _OpDirective[]
-        body: _OpObject[]
     }
 
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
-
-input _Modifier {
-        modifierKind: _ModifierKind
-        by: _Identifier?
-        optional: Boolean?
+input _OpResult {
+        domain: _Identifier? = null
+        argument: _OpArgument?
     }
 
 dual _OpArgument {
@@ -121,36 +173,25 @@ dual _OpArgMap {
     }
 ```
 
-### Result
+### Selections
 
 ```gqlp
-input _OpResult {
-        domain: _Identifier? = null
-        argument: _OpArgument?
-        body: _OpObject[]
-    }
-
-input _OpObject {
+input _OpSelection {
     |   _OpField
     |   _OpSpread
     |   _OpInline
     }
 
 input _OpField {
-        alias: _Identifier? = null
-        field: _Identifier
+    : _OpDirectives
+        fieldAlias: _Identifier? = null
         argument: _OpArgument?
-        modifiers: _Modifier[]
-        directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
+        modifiers: _Modifiers[]
     }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
     }
 
 dual _OpSpread {
@@ -172,20 +213,51 @@ input _Request {
 
 domain _Identifier { String /[A-Za-z_][A-Za-z0-9_]*/ }
 
+dual _Collections {
+    | _Modifier<_ModifierKind.List>
+    | _ModifierKeyed<_ModifierKind.Dictionary>
+    | _ModifierKeyed<_ModifierKind.TypeParam>
+    }
+
+dual _ModifierKeyed<$modifierKind:_ModifierKind> {
+    : _Modifier<$modifierKind>
+        by: _Identifier
+        isOptional: Boolean
+    }
+
+dual _Modifiers {
+    | _Modifier<_ModifierKind.Optional>
+    | _Collections
+    }
+
+enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+
+dual _Modifier<$modifierKind:_ModifierKind> {
+        modifierKind: $modifierKind
+    }
+
 input _Operation {
         variables: _OpVariable[]
         directives: _OpDirective[]
         fragments: _OpFragment[]
         result: _OpResult
+        selections: _OpSelection[][_Path]
     | "Parsed into above fields, plus Request category and operation" String
     }
 
-input _OpVariable {
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+dual _OpDirectives {
         name: _Identifier
-        type: _Identifier? = null
-        modifiers: _Modifier[]
-        default: Value?
+        description: String[]
         directives: _OpDirective[]
+
+}
+input _OpVariable {
+    : _OpDirectives
+        type: _Identifier? = null
+        modifiers: _Modifiers[]
+        defaultValue: Value?
     }
 
 dual _OpDirective {
@@ -194,18 +266,13 @@ dual _OpDirective {
     }
 
 input _OpFragment {
-        name: _Identifier
+    : _OpDirectives
         type: _Identifier? = null
-        directives: _OpDirective[]
-        body: _OpObject[]
     }
 
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
-
-input _Modifier {
-        modifierKind: _ModifierKind
-        by: _Identifier?
-        optional: Boolean?
+input _OpResult {
+        domain: _Identifier? = null
+        argument: _OpArgument?
     }
 
 dual _OpArgument {
@@ -229,33 +296,22 @@ dual _OpArgMap {
     | _OpArgValue[Scalar]
     }
 
-input _OpResult {
-        domain: _Identifier? = null
-        argument: _OpArgument?
-        body: _OpObject[]
-    }
-
-input _OpObject {
+input _OpSelection {
     |   _OpField
     |   _OpSpread
     |   _OpInline
     }
 
 input _OpField {
-        alias: _Identifier? = null
-        field: _Identifier
+    : _OpDirectives
+        fieldAlias: _Identifier? = null
         argument: _OpArgument?
-        modifiers: _Modifier[]
-        directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
+        modifiers: _Modifiers[]
     }
 
 input _OpInline {
         type: _Identifier? = null
         directives: _OpDirective[]
-        "The body as a string as we can't have nested objects."
-        body: String
     }
 
 dual _OpSpread {
