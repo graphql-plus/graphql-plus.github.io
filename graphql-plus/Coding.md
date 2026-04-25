@@ -4,8 +4,8 @@ GraphQL+ is decoded from and encoded into simple values using the following rule
 
 Simple values are either:
 
-- a string, numeric or boolean value
-- a list of simples values, possibly empty
+- a string, numeric or boolean value aka. a scalar value
+- a list of simple values, possibly empty
 - a map of strings (keys) to values, possibly empty
 
 Simple values may also have a tag.
@@ -33,12 +33,17 @@ ie. HTTP Request Headers, URI path segments, URI parameters, filename sections, 
 Parameters will be decoded from their input values into their expected GraphQL+ types differently
 if they are Plain or Tagged values.
 
-## Decoding simple values
-
-A Plain value is one that is a list, doesn't have a tag, or has a tag that doesn't match any known type.
-A warning is raised when a list has a tag or any tag doesn't match the known GraphQL+ type.
+A Plain value is one that doesn't have a tag, or has a tag that doesn't match any known type.
+A warning is raised when a tag doesn't match a known GraphQL+ type.
 
 A Tagged value has a tag that matches a known GraphQL+ type.
+
+### Decoding a Tagged value
+
+If the Tagged value's tag matches the expected type, the value is decoded as a Plain value of that type.
+Note that matching may mean the tag's type is a Child of the expected type.
+
+If the Tagged value's tag doesn't match the expected type, an error is raised.
 
 ### Decoding to Union Members or Object Alternate
 
@@ -58,12 +63,7 @@ If none of the Members or Alternates can decode the value, an error is raised.
 If the expected type has a list modifier, and the input is **NOT** a list,
 the value is decoded to the type and, successful, set to be the only value in the resulting list.
 
-### Decoding a Tagged value
-
-If the Tagged value's tag matches the expected type, the value is decoded as a Plain value of that type.
-If the Tagged value's tag doesn't match the expected type, an error is raised.
-
-### Decoding Plain scalar values
+### Decoding Scalar values
 
 | Expected type | String               | Number                | Boolean               |
 | ------------- | -------------------- | --------------------- | --------------------- |
@@ -100,7 +100,7 @@ If the expected type is a Set, duplicate values are removed. If any duplicates a
 
 In all other cases an error is raised.
 
-### Plain map values
+### Decoding Map values
 
 If the expected type has a dictionary modifier, for each key / value pair,
 the key is decoded to the key type and the value is decoded to the value type.

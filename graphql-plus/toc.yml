@@ -8,5 +8,7 @@
   href: Diagrams.md
 - name: Introspection
   href: Introspection.md
+- name: Request
+  href: Request.md
 - name: Encoding and Decoding
   href: Coding.md
