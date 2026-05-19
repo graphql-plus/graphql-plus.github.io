@@ -271,6 +271,24 @@ object Name { }
 object Name { }
 ```
 
+### operation-alias.graphql+
+
+```gqlp
+operation Operation[Op1] { op :String }
+operation Operation[Op2] { op :String }
+category { Op }
+output Op { }
+```
+
+### operation.graphql+
+
+```gqlp
+operation Operation { op :String }
+operation Operation { op :String }
+category { Op }
+output Op { }
+```
+
 ### option-alias.graphql+
 
 ```gqlp

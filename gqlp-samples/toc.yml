@@ -1,6 +1,5 @@
 - name: GraphQl
   href: GraphQl.md
-  items:
 - name: Operation
   href: Operation.md
   items:
@@ -36,4 +35,3 @@
       href: Specification/Schema.md
 - name: StarWars
   href: StarWars.md
-  items:
