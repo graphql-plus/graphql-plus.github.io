@@ -74,6 +74,7 @@ output Query {
     hero(Episode?): Character
     human(String): Human
     droid(Id): Droid
+    characters(Id[]?): Character[]
 }
 
 enum Episode {
@@ -82,22 +83,31 @@ enum Episode {
     Jedi
 }
 
-output Character {
+domain Id { Number > 999 }
+
+output Role {
     id: Id
     name: String
-    friends: Character[]?
     appearsIn: Episode[]
 }
 
-domain Id { Number > 1000 }
+output Associate {
+    : Role
+    friends: Role[]
+}
 
 output Human {
-    :  Character
-    homePlanet: String
+    : Associate
+    homePlanet: String?
 }
 
 output Droid {
-    :  Character
+    : Associate
     primaryFunction: String
+}
+
+output Character {
+    | Human
+    | Droid
 }
 ```
