@@ -29,12 +29,12 @@ A Variable's Type name (`type`) is only included for GraphQL compatibility and i
 
 If a Variable's Modifiers and Default are both specified they should be validated, recursively, as follows:
 
-| Modifiers | Default       | Comment                                                                      |
-| --------- | ------------- | ---------------------------------------------------------------------------- |
-| `?`       | `null`        | A default of `null` is only allowed on Optional types.                       |
-| `[]`      | object        | **ERROR** A List type cannot have an Object default.                         |
-| `[]`      | value         | A value is equivalent to a list containing just that value, ie. `[`value`]`. |
-| `[`any`]` | list or value | **ERROR** An Object type can only have an object default.                    |
+| Modifiers | Default       | Comment                                                                       |
+| --------- | ------------- | ----------------------------------------------------------------------------- |
+| `?`       | `null`        | A default of `null` is only allowed on Optional types.                        |
+| `[]`      | object        | **ERROR** A List type cannot have an Object default.                          |
+| `[]`      | value         | A value is equivalent to a list containing just that value, i.e. `[`value`]`. |
+| `[`any`]` | list or value | **ERROR** An Object type can only have an object default.                     |
 
 ### Directives
 
@@ -133,7 +133,7 @@ Arg_Field = Arg_Scalar ':' Arg_Value
 An Argument is usually a single value. If multiple values are provided they are treated as a list.
 If one or more fields are provided they are treated as an object.
 
-Note that variables can only appear in the first level of an Argument, ie. Variables can't be used in an inner list or object.
+Note that variables can only appear in the first level of an Argument, i.e. Variables can't be used in an inner list or object.
 
 Commas (`,`) can be used to separate list values and object fields.
 

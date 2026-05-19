@@ -16,7 +16,7 @@ A GraphQL+ request must have a definition and may have a category, operation and
 Category and operation are identifiers and parameters may have any type.
 
 Simple GraphQL+ requests can have the category, operation, definition and parameter values set by side-channel means,
-ie. HTTP Request Headers, URI path segments, URI parameters, filename sections, etc.
+i.e. HTTP Request Headers, URI path segments, URI parameters, filename sections, etc.
 
 ### Decoding the request body
 
@@ -79,7 +79,7 @@ If the expected type is a matching Domain type, the value is decoded,
 then if it is valid by the Domain constraints it is used.
 Otherwise an error is raised.
 
-In the various mapping cases (ie. x => y) above, if the input can be mapped into the expected type,
+In the various mapping cases (i.e. x => y) above, if the input can be mapped into the expected type,
 a warning is raised, otherwise an error is raised.
 
 In the Parse cases above, if the Parsing fails, an error is raised.
@@ -121,7 +121,7 @@ In all other cases an error is raised.
 ### Simple responses
 
 Simple responses will have the category, operation and warnings returned by side-channel means,
-ie. HTTP Response Headers, filename sections, etc.
+i.e. HTTP Response Headers, filename sections, etc.
 
 The response value will either be the representation of the GraphQL+ response or a list of errors.
 
