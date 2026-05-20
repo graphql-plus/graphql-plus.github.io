@@ -144,7 +144,48 @@ category { CatName }
 output CatName { }
 ```
 
-### operation-type.graphql+
+### operation-domain-args.graphql+
+
+```gqlp
+operation Name { catName : String (String) }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain-mods.graphql+
+
+```gqlp
+operation Name { catName : Boolean[String] }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain.graphql+
+
+```gqlp
+operation Name { catName : Number }
+category { CatName }
+output CatName { }
+```
+
+### operation-selection-mods.graphql+
+
+```gqlp
+operation Name { catName { first last address { street city country } }[] }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
+```
+
+### operation-selection.graphql+
 
 ```gqlp
 operation Name { catName { first last address { street city country } } }
