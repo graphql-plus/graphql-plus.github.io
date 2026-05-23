@@ -130,8 +130,9 @@ output _Operation {
         variables: _OpVariable[_Name]
         directives: _OpDirective[]
         fragments: _OpFragment[_Name]
-        result: _OpResult
+        result: _OpResult?
         selections: _OpSelection[][_Path]
+        modifiers: _Modifiers[]
 }
 
 output _OpVariable {
@@ -173,9 +174,9 @@ dual _OpArgMap {
     }
 
 output _OpResult {
+        domain: _TypeRef<_SimpleKind>
         argument: _OpArgument?
-    | _TypeRef<_SimpleKind>
-}
+    }
 ```
 
 #### Operation Selections
@@ -630,8 +631,9 @@ output _Operation {
         variables: _OpVariable[_Name]
         directives: _OpDirective[]
         fragments: _OpFragment[_Name]
-        result: _OpResult
+        result: _OpResult?
         selections: _OpSelection[][_Path]
+        modifiers: _Modifiers[]
 }
 
 output _OpVariable {
@@ -673,9 +675,9 @@ dual _OpArgMap {
     }
 
 output _OpResult {
+        domain: _TypeRef<_SimpleKind>
         argument: _OpArgument?
-    | _TypeRef<_SimpleKind>
-}
+    }
 
 domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
 
