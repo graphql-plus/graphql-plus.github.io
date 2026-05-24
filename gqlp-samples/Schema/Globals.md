@@ -144,10 +144,10 @@ category { CatName }
 output CatName { }
 ```
 
-### operation-domain-args.graphql+
+### operation-domain-arg.graphql+
 
 ```gqlp
-operation Name { catName : String (String) }
+operation Name { catName : String ("Value") }
 category { CatName }
 output CatName { }
 ```
@@ -160,12 +160,37 @@ category { CatName }
 output CatName { }
 ```
 
+### operation-domain-var.graphql+
+
+```gqlp
+operation Name { catName ($arg): String ($arg) }
+category { CatName }
+output CatName { }
+```
+
 ### operation-domain.graphql+
 
 ```gqlp
 operation Name { catName : Number }
 category { CatName }
 output CatName { }
+```
+
+### operation-selection-frag.graphql+
+
+```gqlp
+operation Name { catName &firstLast:CatName { first last } { |firstLast address { street city country } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
 ```
 
 ### operation-selection-mods.graphql+
