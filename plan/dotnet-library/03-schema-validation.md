@@ -27,14 +27,14 @@ public sealed record SchemaValidateResult(
 
 Before processing user declarations, inject the built-in type declarations:
 
-| Name | Kind |
-|------|------|
-| `Void` | Built-in (Enum-like) |
-| `Null` | Built-in (Enum-like) |
-| `Unit` | Built-in (Enum-like) |
+| Name      | Kind                             |
+| --------- | -------------------------------- |
+| `Void`    | Built-in (Enum-like)             |
+| `Null`    | Built-in (Enum-like)             |
+| `Unit`    | Built-in (Enum-like)             |
 | `Boolean` | Built-in (Enum: `false`, `true`) |
-| `Number` | Built-in (Domain: any number) |
-| `String` | Built-in (Domain: any string) |
+| `Number`  | Built-in (Domain: any number)    |
+| `String`  | Built-in (Domain: any string)    |
 
 User declarations with any of these names are errors.
 
@@ -48,13 +48,13 @@ by an uppercase letter are errors.
 
 Declarations sharing a name are merged according to these rules:
 
-| Kind | Merge rule |
-|------|-----------|
-| `enum` | Labels from all declarations combined. Duplicate labels are errors. |
-| `domain` | Items from all declarations combined. Kind must match across all. |
-| `input`, `output`, `dual` | Fields and alternates merged. Type params must be identical across all. |
-| `union` | Members merged; order of first declaration is preserved; subsequent unique members appended. |
-| `category`, `directive`, `option` | Duplicate names are errors. |
+| Kind                              | Merge rule                                                                                   |
+| --------------------------------- | -------------------------------------------------------------------------------------------- |
+| `enum`                            | Labels from all declarations combined. Duplicate labels are errors.                          |
+| `domain`                          | Items from all declarations combined. Kind must match across all.                            |
+| `input`, `output`, `dual`         | Fields and alternates merged. Type params must be identical across all.                      |
+| `union`                           | Members merged; order of first declaration is preserved; subsequent unique members appended. |
+| `category`, `directive`, `option` | Duplicate names are errors.                                                                  |
 
 Declarations with the same name but different kinds are always errors.
 

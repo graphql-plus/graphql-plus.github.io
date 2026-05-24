@@ -45,25 +45,25 @@ public sealed record EncodedResponse(
 
 ### Built-in values
 
-| GraphQL+ value | Encoded representation |
-|----------------|----------------------|
-| `String` | plain string (no tag) |
-| `Number` | plain number (no tag) |
-| `Boolean` | plain boolean (no tag) |
-| `Null` | `null` literal with `!Null` tag |
-| `Unit` | `_` literal with `!Unit` tag |
-| `Void` | `~` literal with `!Void` tag |
-| List (`T[]`) | plain array (no tag) |
-| Dict (`T[K]`) | map object with tag `!Map(KeyType)` |
+| GraphQL+ value | Encoded representation              |
+| -------------- | ----------------------------------- |
+| `String`       | plain string (no tag)               |
+| `Number`       | plain number (no tag)               |
+| `Boolean`      | plain boolean (no tag)              |
+| `Null`         | `null` literal with `!Null` tag     |
+| `Unit`         | `_` literal with `!Unit` tag        |
+| `Void`         | `~` literal with `!Void` tag        |
+| List (`T[]`)   | plain array (no tag)                |
+| Dict (`T[K]`)  | map object with tag `!Map(KeyType)` |
 
 ### Typed values
 
-| GraphQL+ value | Encoded representation |
-|----------------|----------------------|
-| Enum label | label string with `!EnumTypeName` tag |
-| Domain value | base-type encoding with `!DomainTypeName` tag |
-| Union value | encoded as the specific member type with that type's tag |
-| Object | map of field-name → encoded value with `!TypeName` tag |
+| GraphQL+ value | Encoded representation                                   |
+| -------------- | -------------------------------------------------------- |
+| Enum label     | label string with `!EnumTypeName` tag                    |
+| Domain value   | base-type encoding with `!DomainTypeName` tag            |
+| Union value    | encoded as the specific member type with that type's tag |
+| Object         | map of field-name → encoded value with `!TypeName` tag   |
 
 **Type aliases must never appear in tags.** Only the canonical type name is used.
 
@@ -71,10 +71,10 @@ public sealed record EncodedResponse(
 
 Tags are an abstract concept; each serialiser implements them differently:
 
-| Format | Tag representation |
-|--------|--------------------|
-| YAML | `!TagName value` (native YAML tag syntax) |
-| JSON | `{ "$type": "TagName", "$value": <value> }` wrapper object |
+| Format | Tag representation                                         |
+| ------ | ---------------------------------------------------------- |
+| YAML   | `!TagName value` (native YAML tag syntax)                  |
+| JSON   | `{ "$type": "TagName", "$value": <value> }` wrapper object |
 
 The JSON wrapper format is configurable via `GqlpOptions.JsonTagFormat` for interoperability
 with different consumer conventions.
@@ -85,6 +85,7 @@ with different consumer conventions.
 
 Category, operation name, and warnings are returned in HTTP response headers
 (names configured in `GqlpOptions`; see Stage 8). The response body contains either:
+
 - The encoded `IGqlpValue` (success), or
 - A JSON/YAML list of error strings (failure).
 
@@ -93,14 +94,13 @@ Category, operation name, and warnings are returned in HTTP response headers
 The response body is a JSON/YAML map with the following keys:
 
 ```yaml
-category: Query           # string; from request
-operation: All            # string; from request
-request: "All { ... }"   # string; only if GqlpOptions.IncludeRequestInComplexResponse
+category: Query # string; from request
+operation: All # string; from request
+request: "All { ... }" # string; only if GqlpOptions.IncludeRequestInComplexResponse
 warnings:
   - "Warning text"
 errors: []
-response:
-  <encoded value>
+response: <encoded value>
 ```
 
 On failure, `response` is absent and `errors` contains one or more error strings or
@@ -119,10 +119,10 @@ public interface IGqlpValueSerializer
 
 Two built-in implementations:
 
-| Class | Package | Notes |
-|-------|---------|-------|
-| `SystemTextJsonGqlpSerializer` | `GraphQLPlus.Execution` | Default; no extra deps |
-| `YamlDotNetGqlpSerializer` | `GraphQLPlus.Yaml` (optional) | Requires `YamlDotNet` |
+| Class                          | Package                       | Notes                  |
+| ------------------------------ | ----------------------------- | ---------------------- |
+| `SystemTextJsonGqlpSerializer` | `GraphQLPlus.Execution`       | Default; no extra deps |
+| `YamlDotNetGqlpSerializer`     | `GraphQLPlus.Yaml` (optional) | Requires `YamlDotNet`  |
 
 Both respect the same tag encoding contract.
 

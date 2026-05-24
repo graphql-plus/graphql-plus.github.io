@@ -119,11 +119,11 @@ performs this substitution, producing a concrete `GqlpOutputType` at execution t
 
 After a resolver returns `rawValue`, apply modifiers (outermost to innermost):
 
-| Modifier | Rule |
-|----------|------|
+| Modifier   | Rule                                             |
+| ---------- | ------------------------------------------------ |
 | `Optional` | `null` raw → `GqlpNull`; non-null passes through |
-| `List` | wrap in `GqlpList`; coerce each element |
-| `Dict(K)` | wrap in `GqlpMap`; coerce each key and value |
+| `List`     | wrap in `GqlpList`; coerce each element          |
+| `Dict(K)`  | wrap in `GqlpMap`; coerce each key and value     |
 
 If a non-optional field receives `null`, record an error and substitute `GqlpNull`
 to allow execution to continue and collect further errors.

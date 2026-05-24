@@ -62,6 +62,7 @@ Argument   = '(' VALUE ')'
 ### Variable defaults and optionality
 
 Per the spec:
+
 - A variable with an `Optional` (`?`) modifier has an implied default of `null`.
 - A variable with a default of `null` has an implied `Optional` modifier.
 
@@ -77,12 +78,12 @@ for execution. The runtime parameter type is inferred from the validated schema.
 
 These are checked immediately after the AST is built, before returning:
 
-| Check | Rule |
-|-------|------|
-| Fragment name uniqueness | Two fragments with the same name within one operation are errors |
-| Spread resolution | Every `...name` / `&name` spread must reference a defined fragment or Frag_End |
-| Fragment cycle detection | DFS over spread graph; cycles are errors |
-| Alias collision | Two fields in the same `Object` with the same effective name (alias or field name) are errors |
+| Check                    | Rule                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
+| Fragment name uniqueness | Two fragments with the same name within one operation are errors                              |
+| Spread resolution        | Every `...name` / `&name` spread must reference a defined fragment or Frag_End                |
+| Fragment cycle detection | DFS over spread graph; cycles are errors                                                      |
+| Alias collision          | Two fields in the same `Object` with the same effective name (alias or field name) are errors |
 
 ## Tests
 

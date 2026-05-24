@@ -54,15 +54,15 @@ match the cursor is restored; on a failed required match an error is recorded.
 
 ### Terminal parsers
 
-| Method | Matches |
-|--------|---------|
-| `TryParseNumber` | `[-+]?[0-9_]+(\.[0-9_]+)?` |
-| `TryParseString` | single- or double-quoted, backslash escapes, multiline |
-| `TryParseRegex` | `/` … `/` POSIX ERE, any characters including newlines |
-| `TryParseIdentifier` | `[A-Za-z][A-Za-z0-9_.]*` |
+| Method                    | Matches                                                             |
+| ------------------------- | ------------------------------------------------------------------- |
+| `TryParseNumber`          | `[-+]?[0-9_]+(\.[0-9_]+)?`                                          |
+| `TryParseString`          | single- or double-quoted, backslash escapes, multiline              |
+| `TryParseRegex`           | `/` … `/` POSIX ERE, any characters including newlines              |
+| `TryParseIdentifier`      | `[A-Za-z][A-Za-z0-9_.]*`                                            |
 | `SkipWhitespaceAndCommas` | spaces, tabs, CR, LF, `,` (commas are whitespace outside Constants) |
-| `TryParseLiteral(string)` | exact string match after whitespace skip |
-| `TryParseKeyword(string)` | literal followed by non-identifier character |
+| `TryParseLiteral(string)` | exact string match after whitespace skip                            |
+| `TryParseKeyword(string)` | literal followed by non-identifier character                        |
 
 ### Non-terminal parsers (one method per grammar rule)
 

@@ -46,14 +46,14 @@ public sealed record RequestDecodeResult(
 The raw body bytes are first deserialised to `IGqlpValue` via a pluggable
 `IGqlpValueDeserializer` (default: JSON; YAML via an optional add-on package).
 
-| Condition | Interpretation |
-|-----------|----------------|
-| `sidechannelDefinition` is set | body = parameters (bypass definition extraction) |
-| body is empty, boolean, or number | error |
-| body is a string | definition = body string |
-| body is a list | first string item = definition; remaining items = parameters |
-| body is a map with key `definition` | definition from that key; optional `category`, `operation`, `parameters` keys |
-| body is a map without `definition` key | error |
+| Condition                              | Interpretation                                                                |
+| -------------------------------------- | ----------------------------------------------------------------------------- |
+| `sidechannelDefinition` is set         | body = parameters (bypass definition extraction)                              |
+| body is empty, boolean, or number      | error                                                                         |
+| body is a string                       | definition = body string                                                      |
+| body is a list                         | first string item = definition; remaining items = parameters                  |
+| body is a map with key `definition`    | definition from that key; optional `category`, `operation`, `parameters` keys |
+| body is a map without `definition` key | error                                                                         |
 
 The resulting `GqlpRequest` carries raw `IGqlpValue` parameters; typed decoding occurs in
 `DecodeParameters` once the operation is parsed and the schema is known.
@@ -74,37 +74,37 @@ when no parameter was supplied).
 
 ### Scalar decoding table
 
-| Expected type | String value | Number value | Boolean value |
-|---------------|-------------|-------------|---------------|
-| `String` | used as-is | convert to string + warning | convert to string + warning |
-| `Number` | parse number or error | used as-is | `true`→1, `false`→0, else warning |
-| `Boolean` | `"true"`/`"false"` or error | `1`→`true`, `0`→`false`, else warning | used as-is |
-| `Enum` | parse label or alias or error | n → nth label or error | error |
-| `Domain` | decode for base kind, check constraint or error | same | same |
+| Expected type | String value                                    | Number value                          | Boolean value                     |
+| ------------- | ----------------------------------------------- | ------------------------------------- | --------------------------------- |
+| `String`      | used as-is                                      | convert to string + warning           | convert to string + warning       |
+| `Number`      | parse number or error                           | used as-is                            | `true`→1, `false`→0, else warning |
+| `Boolean`     | `"true"`/`"false"` or error                     | `1`→`true`, `0`→`false`, else warning | used as-is                        |
+| `Enum`        | parse label or alias or error                   | n → nth label or error                | error                             |
+| `Domain`      | decode for base kind, check constraint or error | same                                  | same                              |
 
 For warnings (the mapping cases), if the conversion succeeds a warning is raised;
 if it is not possible, an error is raised instead.
 
 ### List decoding
 
-| Input | Expected type | Result |
-|-------|--------------|--------|
-| list | `T[]` | each item decoded to `T` |
-| non-list | `T[]` | wrap as single-element list |
-| list (0 or 2+ items) | `T` (no modifier) | error |
-| list (1 item) | `T` (no modifier) | unwrap and decode |
-| empty list | `T?` | `null` + warning |
-| list | `T[K]` (dict) | error |
-| list with duplicates | `_Set<T>` | deduplicate + warning |
+| Input                | Expected type     | Result                      |
+| -------------------- | ----------------- | --------------------------- |
+| list                 | `T[]`             | each item decoded to `T`    |
+| non-list             | `T[]`             | wrap as single-element list |
+| list (0 or 2+ items) | `T` (no modifier) | error                       |
+| list (1 item)        | `T` (no modifier) | unwrap and decode           |
+| empty list           | `T?`              | `null` + warning            |
+| list                 | `T[K]` (dict)     | error                       |
+| list with duplicates | `_Set<T>`         | deduplicate + warning       |
 
 ### Map decoding
 
-| Input | Expected type | Result |
-|-------|--------------|--------|
-| map | `T[K]` | each k→K, v→T; error on failed pair |
-| empty map | `T?` | `null` + warning |
-| map | object type | all keys must match fields; missing fields need defaults or modifiers |
-| map | anything else | error |
+| Input     | Expected type | Result                                                                |
+| --------- | ------------- | --------------------------------------------------------------------- |
+| map       | `T[K]`        | each k→K, v→T; error on failed pair                                   |
+| empty map | `T?`          | `null` + warning                                                      |
+| map       | object type   | all keys must match fields; missing fields need defaults or modifiers |
+| map       | anything else | error                                                                 |
 
 ### Union and Alternate decoding
 

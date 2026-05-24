@@ -17,30 +17,30 @@ They are treated as sealed — any user declaration using a reserved name is an 
 
 ### Injected types (summary)
 
-| Name | Kind | Purpose |
-|------|------|---------|
-| `_Schema` | output | Root introspection query type |
-| `_Named` | dual | Base type providing `name` and `aliases` fields |
-| `_Described` | dual | Extends `_Named` with `description` |
-| `_Category` | output | Single category descriptor |
-| `_Directive` | output | Single directive descriptor |
-| `_Setting` | output | Single option setting |
-| `_Filter` | input | General name-based filter |
-| `_CategoryFilter` | input | Filter with resolution and output type constraints |
-| `_TypeFilter` | input | Filter with type-kind constraints |
-| `_NameFilter` | domain | String domain for `.`/`*` pattern matching |
-| `_Resolution` | enum | `Parallel`, `Sequential`, `Single` |
-| `_TypeKind` | enum | `Basic`, `Internal`, `Domain`, `Enum`, `Union`, `Input`, `Output`, `Dual` |
-| `_DomainKind` | enum | `Boolean`, `Enum`, `Number`, `String` |
-| `_Type` | union | Union of all `_Type*` alternates |
-| `_TypeBasic` | output | Represents built-in types |
-| `_TypeInternal` | output | Represents Null/Unit/Void |
-| `_TypeDomain*` | output | One per domain kind |
-| `_TypeEnum` | output | Enum type descriptor |
-| `_TypeUnion` | output | Union type descriptor |
-| `_TypeInput` | output | Input object type descriptor |
-| `_TypeOutput` | output | Output object type descriptor |
-| `_TypeDual` | output | Dual object type descriptor |
+| Name              | Kind   | Purpose                                                                   |
+| ----------------- | ------ | ------------------------------------------------------------------------- |
+| `_Schema`         | output | Root introspection query type                                             |
+| `_Named`          | dual   | Base type providing `name` and `aliases` fields                           |
+| `_Described`      | dual   | Extends `_Named` with `description`                                       |
+| `_Category`       | output | Single category descriptor                                                |
+| `_Directive`      | output | Single directive descriptor                                               |
+| `_Setting`        | output | Single option setting                                                     |
+| `_Filter`         | input  | General name-based filter                                                 |
+| `_CategoryFilter` | input  | Filter with resolution and output type constraints                        |
+| `_TypeFilter`     | input  | Filter with type-kind constraints                                         |
+| `_NameFilter`     | domain | String domain for `.`/`*` pattern matching                                |
+| `_Resolution`     | enum   | `Parallel`, `Sequential`, `Single`                                        |
+| `_TypeKind`       | enum   | `Basic`, `Internal`, `Domain`, `Enum`, `Union`, `Input`, `Output`, `Dual` |
+| `_DomainKind`     | enum   | `Boolean`, `Enum`, `Number`, `String`                                     |
+| `_Type`           | union  | Union of all `_Type*` alternates                                          |
+| `_TypeBasic`      | output | Represents built-in types                                                 |
+| `_TypeInternal`   | output | Represents Null/Unit/Void                                                 |
+| `_TypeDomain*`    | output | One per domain kind                                                       |
+| `_TypeEnum`       | output | Enum type descriptor                                                      |
+| `_TypeUnion`      | output | Union type descriptor                                                     |
+| `_TypeInput`      | output | Input object type descriptor                                              |
+| `_TypeOutput`     | output | Output object type descriptor                                             |
+| `_TypeDual`       | output | Dual object type descriptor                                               |
 
 The `_Schema` category is also injected:
 
@@ -85,19 +85,19 @@ The provider is registered as a singleton in DI and registered as a resolver for
 Each `IGqlpType` subtype maps to a `_Type*` output alternate. The introspection resolver
 performs this mapping when building the response value:
 
-| C# type | `_Type` alternate |
-|---------|------------------|
-| `GqlpBuiltInType` (Void/Null/Unit) | `_TypeInternal` |
-| `GqlpBuiltInType` (Boolean/Number/String) | `_TypeBasic` |
-| `GqlpDomainType` (Boolean kind) | `_TypeDomainBoolean` |
-| `GqlpDomainType` (Enum kind) | `_TypeDomainEnum` |
-| `GqlpDomainType` (Number kind) | `_TypeDomainNumber` |
-| `GqlpDomainType` (String kind) | `_TypeDomainString` |
-| `GqlpEnumType` | `_TypeEnum` |
-| `GqlpUnionType` | `_TypeUnion` |
-| `GqlpInputType` | `_TypeInput` |
-| `GqlpOutputType` | `_TypeOutput` |
-| `GqlpDualType` | `_TypeDual` |
+| C# type                                   | `_Type` alternate    |
+| ----------------------------------------- | -------------------- |
+| `GqlpBuiltInType` (Void/Null/Unit)        | `_TypeInternal`      |
+| `GqlpBuiltInType` (Boolean/Number/String) | `_TypeBasic`         |
+| `GqlpDomainType` (Boolean kind)           | `_TypeDomainBoolean` |
+| `GqlpDomainType` (Enum kind)              | `_TypeDomainEnum`    |
+| `GqlpDomainType` (Number kind)            | `_TypeDomainNumber`  |
+| `GqlpDomainType` (String kind)            | `_TypeDomainString`  |
+| `GqlpEnumType`                            | `_TypeEnum`          |
+| `GqlpUnionType`                           | `_TypeUnion`         |
+| `GqlpInputType`                           | `_TypeInput`         |
+| `GqlpOutputType`                          | `_TypeOutput`        |
+| `GqlpDualType`                            | `_TypeDual`          |
 
 Field-level details provided per type:
 

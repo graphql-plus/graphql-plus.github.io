@@ -33,18 +33,18 @@ public static IServiceCollection AddGraphQLPlus(
 
 Registers the following services (all singletons unless noted):
 
-| Service | Implementation | Notes |
-|---------|---------------|-------|
-| `ISchemaParser` | `GqlpSchemaParser` | Parsing package |
-| `ISchemaValidator` | `GqlpSchemaValidator` | Parsing package |
-| `IOperationParser` | `GqlpOperationParser` | Parsing package |
-| `IRequestDecoder` | `GqlpRequestDecoder` | Execution package |
-| `ISchemaExecutor` | `GqlpSchemaExecutor` | Execution package |
-| `IResponseEncoder` | `GqlpResponseEncoder` | Execution package |
-| `IGqlpIntrospectionProvider` | `GqlpIntrospectionProvider` | Stage 9; Execution package |
-| `GqlpSchema` | resolved at startup | Built from registered sources |
-| `GqlpResolverRegistry` | populated by `Field<T>()` calls | |
-| `GqlpOptions` | from configuration / builder | |
+| Service                      | Implementation                  | Notes                         |
+| ---------------------------- | ------------------------------- | ----------------------------- |
+| `ISchemaParser`              | `GqlpSchemaParser`              | Parsing package               |
+| `ISchemaValidator`           | `GqlpSchemaValidator`           | Parsing package               |
+| `IOperationParser`           | `GqlpOperationParser`           | Parsing package               |
+| `IRequestDecoder`            | `GqlpRequestDecoder`            | Execution package             |
+| `ISchemaExecutor`            | `GqlpSchemaExecutor`            | Execution package             |
+| `IResponseEncoder`           | `GqlpResponseEncoder`           | Execution package             |
+| `IGqlpIntrospectionProvider` | `GqlpIntrospectionProvider`     | Stage 9; Execution package    |
+| `GqlpSchema`                 | resolved at startup             | Built from registered sources |
+| `GqlpResolverRegistry`       | populated by `Field<T>()` calls |                               |
+| `GqlpOptions`                | from configuration / builder    |                               |
 
 Schema validation runs at startup (`IHostedService` or `IStartupFilter`). If validation
 errors exist and `GqlpOptions.SchemaValidationOnStartup` is `true` (default), startup fails
@@ -132,12 +132,12 @@ POST /graphql+
 
 ### Content-type negotiation
 
-| Request `Content-Type` | Normal body deserialiser | Body-as-parameters deserialiser |
-|------------------------|-------------------------|---------------------------------|
-| `application/json` (default) | `SystemTextJsonGqlpDeserializer` | `SystemTextJsonGqlpDeserializer` (body decoded as `IGqlpValue`) |
-| `application/yaml` | `YamlDotNetGqlpDeserializer` (if registered) | `YamlDotNetGqlpDeserializer` (body decoded as `IGqlpValue`) |
-| `application/x-www-form-urlencoded` | `FormGqlpDeserializer` (built-in) | `FormGqlpDeserializer` — `parameters` field only; other fields ignored |
-| `multipart/form-data` | `FormGqlpDeserializer` (built-in, via `IFormCollection`) | `FormGqlpDeserializer` — `parameters` field only; other fields ignored |
+| Request `Content-Type`              | Normal body deserialiser                                 | Body-as-parameters deserialiser                                        |
+| ----------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `application/json` (default)        | `SystemTextJsonGqlpDeserializer`                         | `SystemTextJsonGqlpDeserializer` (body decoded as `IGqlpValue`)        |
+| `application/yaml`                  | `YamlDotNetGqlpDeserializer` (if registered)             | `YamlDotNetGqlpDeserializer` (body decoded as `IGqlpValue`)            |
+| `application/x-www-form-urlencoded` | `FormGqlpDeserializer` (built-in)                        | `FormGqlpDeserializer` — `parameters` field only; other fields ignored |
+| `multipart/form-data`               | `FormGqlpDeserializer` (built-in, via `IFormCollection`) | `FormGqlpDeserializer` — `parameters` field only; other fields ignored |
 
 When body-as-parameters mode is active, `IRequestDecoder.DecodeBody` skips the normal
 envelope parsing and instead decodes the body as a single `IGqlpValue` (or a JSON/YAML
@@ -152,13 +152,13 @@ When the request `Content-Type` is `application/x-www-form-urlencoded` or
 (`HttpRequest.ReadFormAsync`) is used. The `FormGqlpDeserializer` then maps
 form fields to GraphQL+ request components as follows:
 
-| Form field name | GraphQL+ component | Notes |
-|-----------------|--------------------|-------|
-| `definition` | definition string | Required unless supplied via side-channel |
-| `category` | category identifier | Optional; overrides side-channel |
-| `operation` | operation name | Optional; overrides side-channel |
-| `parameters` | parameters value | Interpreted as a JSON-encoded `IGqlpValue` |
-| `parameters[n]` | nth parameter | Positional shorthand; `parameters[0]`, `parameters[1]`, … |
+| Form field name | GraphQL+ component  | Notes                                                     |
+| --------------- | ------------------- | --------------------------------------------------------- |
+| `definition`    | definition string   | Required unless supplied via side-channel                 |
+| `category`      | category identifier | Optional; overrides side-channel                          |
+| `operation`     | operation name      | Optional; overrides side-channel                          |
+| `parameters`    | parameters value    | Interpreted as a JSON-encoded `IGqlpValue`                |
+| `parameters[n]` | nth parameter       | Positional shorthand; `parameters[0]`, `parameters[1]`, … |
 
 Form fields that do not match any of the above are ignored.
 
@@ -171,10 +171,10 @@ File uploads via `multipart/form-data` are not decoded as parameters; a `multipa
 request that contains file parts alongside form fields is accepted but the file parts
 are ignored.
 
-| Response `Accept` | Serialiser used |
-|-------------------|----------------|
-| `application/json` (default) | `SystemTextJsonGqlpSerializer` |
-| `application/yaml` | `YamlDotNetGqlpSerializer` (if registered) |
+| Response `Accept`            | Serialiser used                            |
+| ---------------------------- | ------------------------------------------ |
+| `application/json` (default) | `SystemTextJsonGqlpSerializer`             |
+| `application/yaml`           | `YamlDotNetGqlpSerializer` (if registered) |
 
 ## Multiple endpoints
 
