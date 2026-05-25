@@ -176,10 +176,31 @@ category { CatName }
 output CatName { }
 ```
 
-### operation-selection-frag.graphql+
+### operation-selection-inline.graphql+
 
 ```gqlp
-operation Name { catName &firstLast:CatName { first last } { |firstLast address { street city country } } }
+operation Name { catName { first last address { |:AddrName { street city country } } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    | FullName
+    | String
+}
+output FullName {
+    street: String
+    city: String
+    country: String
+}
+```
+
+### operation-selection-mods.graphql+
+
+```gqlp
+operation Name { catName { first last address { street city country } }[] }
 category { CatName }
 output CatName {
     first: String
@@ -193,10 +214,10 @@ output AddrName {
 }
 ```
 
-### operation-selection-mods.graphql+
+### operation-selection-spread.graphql+
 
 ```gqlp
-operation Name { catName { first last address { street city country } }[] }
+operation Name { catName &firstLast:CatName { first last } { |firstLast address { street city country } } }
 category { CatName }
 output CatName {
     first: String

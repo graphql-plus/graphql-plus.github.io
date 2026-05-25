@@ -327,8 +327,8 @@ Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Base )? Obj_Field+
 Obj_Field = Description? field ( Obj_FieldType | Obj_FieldEnum )
-Obj_FieldType = fieldAlias* ':' Obj_Type Modifiers?
-Obj_FieldEnum = fieldAlias* '=' Description? EnumValue
+Obj_FieldType = Aliases? ':' Obj_Type Modifiers?
+Obj_FieldEnum = Aliases? '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
 Obj_Base = Description? ( '$'typeParam | object ( '<' ( Description? Obj_TypeArg )+ '>' )? )
@@ -620,8 +620,8 @@ Object = 'object' object Obj_TypeParams? Aliases? '{' Obj_Definition '}'
 Obj_Definition = Obj_Object? Obj_Alternate*
 Obj_Object = ( ':' Obj_Base )? Obj_Field+
 Obj_Field = Description? field ( Obj_FieldType | Obj_FieldEnum )
-Obj_FieldType = fieldAlias* ':' Obj_Type Modifiers?
-Obj_FieldEnum = fieldAlias* '=' Description? EnumValue
+Obj_FieldType = Aliases? ':' Obj_Type Modifiers?
+Obj_FieldEnum = Aliases? '=' Description? EnumValue
 
 Obj_Alternate = '|' Obj_Type Collections? | '!' Description? EnumValue
 Obj_Base = Description? ( '$'typeParam | object ( '<' ( Description? Obj_TypeArg )+ '>' )? )
