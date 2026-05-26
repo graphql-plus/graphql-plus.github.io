@@ -82,7 +82,7 @@ Modifiers are either Required or zero or more Collections optionally followed by
 
 | Modifier   | Syntax           | Notes                                                                                                                         | Description                   |
 | ---------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| Required   | `!`              | An Required Result may not have the value of `null`. And is always as Scalar or Object value, never a List or Dictionary      | Required _type_               |
+| Required   | `!`              | A Required Result may not have the value of `null`. It is always a Scalar or Object value, never a List or Dictionary.       | Required _type_               |
 | Optional   | `?`              | An Optional Result may have the value of `null`. <br/> The `Null` type is effectively the same as `Void?` and so is `Null?`.  | Optional _type_               |
 | List       | `[]`             | A List Result will be an array with zero or more entries.                                                                     | List of _type_                |
 | Dictionary | `[`Simple`?`?`]` | A Dictionary Result will be an object with the given Simple type as the Key. <br/> The Key may be Optional.                   | Dictionary by _key_ of _type_ |
