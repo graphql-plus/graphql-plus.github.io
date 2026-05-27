@@ -51,7 +51,7 @@ output _Setting {
 
 - `'_Aliased' not defined`
 - `'_InputFieldType' not defined`
-- `'_Modifiers[]' not defined`
+- `'_Modifiers' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not an Enum type`
@@ -163,9 +163,9 @@ output _OutputFieldType {
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
-- `'_Collections[]' not defined`
+- `'_Collections' not defined`
 - `'_Described' not defined`
-- `'_Modifiers[]' not defined`
+- `'_Modifiers' not defined`
 - `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
@@ -543,9 +543,9 @@ output _ForParam<$type:_ObjFieldType> {
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
-- `'_Collections[]' not defined`
+- `'_Collections' not defined`
 - `'_Described' not defined`
-- `'_Modifiers[]' not defined`
+- `'_Modifiers' not defined`
 - `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
@@ -617,7 +617,7 @@ enum _Resolution { Parallel Sequential Single }
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
-- `'_Modifiers[]' not defined`
+- `'_Modifiers' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
