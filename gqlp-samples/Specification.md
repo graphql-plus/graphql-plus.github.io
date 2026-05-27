@@ -104,7 +104,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers[]
+        modifiers: _Modifiers
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -267,6 +267,10 @@ dual _TypeSimple {
     }
 
 dual _Collections {
+    | _ACollection[]
+    }
+
+dual _ACollection {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
     | _ModifierKeyed<_ModifierKind.TypeParam>
@@ -279,11 +283,16 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
     }
 
 dual _Modifiers {
-    | _Modifier<_ModifierKind.Optional>
-    | _Collections
+    | _Modifier<_ModifierKind.Required>
+    | _AModifier[]
     }
 
-enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
+dual _AModifier {
+    | _Modifier<_ModifierKind.Optional>
+    | _ACollection
+    }
+
+enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 
 dual _Modifier<$modifierKind:_ModifierKind> {
         modifierKind: $modifierKind
@@ -415,7 +424,7 @@ output _TypeParam {
 
 output _ObjAlternate {
       type: _ObjBase
-      collections: _Collections[]
+      collections: _Collections
     | _ObjAlternateEnum
     }
 
@@ -435,7 +444,7 @@ output _ObjField<$type:_ObjFieldType> {
 
 output _ObjFieldType {
     : _ObjBase
-        modifiers: _Modifiers[]
+        modifiers: _Modifiers
     | _ObjFieldEnum
     }
 
@@ -476,6 +485,9 @@ output _OutputFieldType {
 ### Schema.graphql+
 
 ```gqlp
+"$T!"
+dual _Req<$T:_Any> [Req] { | $T }
+
 "$T?"
 dual _Opt<$T:_Any> [Opt] { | $T | Null }
 

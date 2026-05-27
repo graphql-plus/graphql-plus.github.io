@@ -454,6 +454,9 @@ And Object Collections (and Modifiers) also include Type parameters as valid Dic
 Modifiers are equivalent to predefined generic Input and Output types as follows:
 
 ```gqlp
+"$T!"
+dual _Req<$T:_Any> [Req] { | $T }
+
 "$T?"
 dual _Opt<$T:_Any> [Opt] { | $T | Null }
 
@@ -483,9 +486,7 @@ union _Key { }
 dual _Any { }
 ```
 
-These Generic types are the Input types if `$T` is an Input type and Output types if `$T` is an Output type.
-
-`Set`, `Object` and `Mask` are both Input and Output types.
+Most of these Generic types are Input types if `$T` is an Input type and Output types if `$T` is an Output type.
 
 </details>
 
@@ -641,6 +642,9 @@ Out_FieldType = InputParam? fieldAlias* ':' Out_Type Modifiers?
 ## Complete Definition
 
 ```gqlp
+"$T!"
+dual _Req<$T:_Any> [Req] { | $T }
+
 "$T?"
 dual _Opt<$T:_Any> [Opt] { | $T | Null }
 

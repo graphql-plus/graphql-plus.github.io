@@ -3,6 +3,9 @@
 ### -Object.graphql+
 
 ```gqlp
+"$T!"
+dual _Req<$T:_Any> [Req] { | $T }
+
 "$T?"
 dual _Opt<$T:_Any> [Opt] { | $T | Null }
 
@@ -28,6 +31,9 @@ dual _Any { }
 ### Modifiers.graphql+
 
 ```gqlp
+"$T!"
+dual _Req<$T:_Any> [Req] { | $T }
+
 "$T?"
 dual _Opt<$T:_Any> [Opt] { | $T | Null }
 
