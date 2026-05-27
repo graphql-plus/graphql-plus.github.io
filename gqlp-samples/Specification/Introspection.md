@@ -420,7 +420,7 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
     | _Modifier<_ModifierKind.Optional>
-    | _ACollection
+    | _Collections
     }
 
 enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
@@ -578,7 +578,7 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
     | _Modifier<_ModifierKind.Optional>
-    | _ACollection
+    | _Collections
     }
 
 enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
