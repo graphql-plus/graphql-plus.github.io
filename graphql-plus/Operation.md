@@ -90,8 +90,8 @@ Any unknown \_Identifier used as a Dictionary key Type will be treated as an Enu
 Object = '{' ( Selection | Field )+ '}'
 Field = ( alias ':' )? field Argument? Modifiers? Directive* Object?
 Selection = ( '...' | '|' ) ( Inline | Spread )
-Inline = TypeCondition? Directive* Object
-Spread = fragment Directive*
+Inline = TypeCondition? Modifiers? Directive* Object
+Spread = fragment Modifiers? Directive*
 TypeCondition = ( 'on' | ':' ) type
 ```
 
@@ -162,8 +162,8 @@ Domain = Internal | Simple
 Object = '{' ( Selection | Field )+ '}'
 Field = ( alias ':' )? field Argument? Modifiers? Directive* Object?
 Selection = ( '...' | '|' ) ( Inline | Spread )
-Inline = TypeCondition? Directive* Object
-Spread = fragment Directive*
+Inline = TypeCondition? Modifiers? Directive* Object
+Spread = fragment Modifiers? Directive*
 TypeCondition = ( 'on' | ':' ) type
 
 Argument = '(' Arg_List | Arg_Object | Arg_Fields+ | Arg_Values+ ')'
