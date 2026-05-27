@@ -19,7 +19,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -51,7 +51,7 @@ output _Setting {
 
 - `'_Aliased' not defined`
 - `'_InputFieldType' not defined`
-- `'_Modifiers' not defined`
+- `'_Modifiers[]' not defined`
 - `'_Named' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not an Enum type`
@@ -101,7 +101,7 @@ output _TypeParam {
 
 output _ObjAlternate {
       type: _ObjBase
-      collections: _Collections
+      collections: _Collections[]
     | _ObjAlternateEnum
     }
 
@@ -121,7 +121,7 @@ output _ObjField<$type:_ObjFieldType> {
 
 output _ObjFieldType {
     : _ObjBase
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     | _ObjFieldEnum
     }
 
@@ -163,9 +163,9 @@ output _OutputFieldType {
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
-- `'_Collections' not defined`
+- `'_Collections[]' not defined`
 - `'_Described' not defined`
-- `'_Modifiers' not defined`
+- `'_Modifiers[]' not defined`
 - `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
@@ -406,10 +406,6 @@ dual _TypeSimple {
     }
 
 dual _Collections {
-    | _ACollection[]
-    }
-
-dual _ACollection {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
     | _ModifierKeyed<_ModifierKind.TypeParam>
@@ -423,10 +419,6 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
-    | _AModifier[]
-    }
-
-dual _AModifier {
     | _Modifier<_ModifierKind.Optional>
     | _ACollection
     }
@@ -511,7 +503,7 @@ output _TypeParam {
 
 output _ObjAlternate {
       type: _ObjBase
-      collections: _Collections
+      collections: _Collections[]
     | _ObjAlternateEnum
     }
 
@@ -531,7 +523,7 @@ output _ObjField<$type:_ObjFieldType> {
 
 output _ObjFieldType {
     : _ObjBase
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     | _ObjFieldEnum
     }
 
@@ -551,9 +543,9 @@ output _ForParam<$type:_ObjFieldType> {
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
-- `'_Collections' not defined`
+- `'_Collections[]' not defined`
 - `'_Described' not defined`
-- `'_Modifiers' not defined`
+- `'_Modifiers[]' not defined`
 - `'_Name' not defined`
 - `'_Named' not defined`
 - `'_TypeKind' not an Enum type`
@@ -572,10 +564,6 @@ output _ForParam<$type:_ObjFieldType> {
 
 ```gqlp
 dual _Collections {
-    | _ACollection[]
-    }
-
-dual _ACollection {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
     | _ModifierKeyed<_ModifierKind.TypeParam>
@@ -589,10 +577,6 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
-    | _AModifier[]
-    }
-
-dual _AModifier {
     | _Modifier<_ModifierKind.Optional>
     | _ACollection
     }
@@ -622,7 +606,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -633,7 +617,7 @@ enum _Resolution { Parallel Sequential Single }
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
-- `'_Modifiers' not defined`
+- `'_Modifiers[]' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
