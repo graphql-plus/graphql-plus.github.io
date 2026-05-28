@@ -19,7 +19,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
@@ -193,7 +193,7 @@ output _TypeParam {
 
 output _ObjAlternate {
       type: _ObjBase
-      collections: _Collections
+      collections: _Collections[]
     | _ObjAlternateEnum
     }
 
@@ -213,7 +213,7 @@ output _ObjField<$type:_ObjFieldType> {
 
 output _ObjFieldType {
     : _ObjBase
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     | _ObjFieldEnum
     }
 
@@ -500,10 +500,6 @@ dual _TypeSimple {
     }
 
 dual _Collections {
-    | _ACollection[]
-    }
-
-dual _ACollection {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
     | _ModifierKeyed<_ModifierKind.TypeParam>
@@ -517,12 +513,8 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
-    | _AModifier[]
-    }
-
-dual _AModifier {
     | _Modifier<_ModifierKind.Optional>
-    | _ACollection
+    | _Collections
     }
 
 enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
@@ -605,7 +597,7 @@ output _TypeParam {
 
 output _ObjAlternate {
       type: _ObjBase
-      collections: _Collections
+      collections: _Collections[]
     | _ObjAlternateEnum
     }
 
@@ -625,7 +617,7 @@ output _ObjField<$type:_ObjFieldType> {
 
 output _ObjFieldType {
     : _ObjBase
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     | _ObjFieldEnum
     }
 
@@ -666,10 +658,6 @@ output _ForParam<$type:_ObjFieldType> {
 
 ```gqlp
 dual _Collections {
-    | _ACollection[]
-    }
-
-dual _ACollection {
     | _Modifier<_ModifierKind.List>
     | _ModifierKeyed<_ModifierKind.Dictionary>
     | _ModifierKeyed<_ModifierKind.TypeParam>
@@ -683,12 +671,8 @@ dual _ModifierKeyed<$modifierKind:_ModifierKind> {
 
 dual _Modifiers {
     | _Modifier<_ModifierKind.Required>
-    | _AModifier[]
-    }
-
-dual _AModifier {
     | _Modifier<_ModifierKind.Optional>
-    | _ACollection
+    | _Collections
     }
 
 enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
@@ -716,7 +700,7 @@ output _Category {
     : _Aliased
         resolution: _Resolution
         output: _TypeRef<_TypeKind.Output>
-        modifiers: _Modifiers
+        modifiers: _Modifiers[]
     }
 
 enum _Resolution { Parallel Sequential Single }
