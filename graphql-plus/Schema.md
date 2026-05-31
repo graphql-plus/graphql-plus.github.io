@@ -544,7 +544,7 @@ An Output type is an Object type with the following Term differences,
 after replacing "object" with "output" and "Obj" with "Out".
 
 ```PEG
-Out_FieldType = InputParam? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParam? Aliases? ':' Out_Type Modifiers?
 ```
 
 Output types define the result values for Categories.
@@ -635,7 +635,7 @@ In_FieldType = In_Type Modifiers? Default?
 
 InputParam = '(' In_FieldType ')'
 
-Out_FieldType = InputParam? fieldAlias* ':' Out_Type Modifiers?
+Out_FieldType = InputParam? Aliases? ':' Out_Type Modifiers?
 
 ```
 

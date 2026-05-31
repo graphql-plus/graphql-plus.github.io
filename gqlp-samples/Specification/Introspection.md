@@ -40,10 +40,10 @@ output _Directive {
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
 output _Operations {
+    : _AndType
+
         operation: _Operation
-        type: _Type
     | _Operation
-    | _Type
 }
 
 output _OpDirectives {
@@ -1093,10 +1093,10 @@ output _AndType {
 
 ```gqlp
 output _Operations {
+    : _AndType
+
         operation: _Operation
-        type: _Type
     | _Operation
-    | _Type
 }
 
 output _OpDirectives {
