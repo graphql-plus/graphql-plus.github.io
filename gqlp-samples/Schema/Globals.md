@@ -136,6 +136,118 @@ directive @Name(InName?) { all }
 input InName { }
 ```
 
+### operation-category.graphql+
+
+```gqlp
+operation Name { catName :String }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain-arg.graphql+
+
+```gqlp
+operation Name { catName : String ("Value") }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain-mods.graphql+
+
+```gqlp
+operation Name { catName : Boolean[String] }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain-var.graphql+
+
+```gqlp
+operation Name { catName ($arg): String ($arg) }
+category { CatName }
+output CatName { }
+```
+
+### operation-domain.graphql+
+
+```gqlp
+operation Name { catName : Number }
+category { CatName }
+output CatName { }
+```
+
+### operation-selection-inline.graphql+
+
+```gqlp
+operation Name { catName { first last address { |:AddrName { street city country } } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    | FullName
+    | String
+}
+output FullName {
+    street: String
+    city: String
+    country: String
+}
+```
+
+### operation-selection-mods.graphql+
+
+```gqlp
+operation Name { catName { first last address { street city country } }[] }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
+```
+
+### operation-selection-spread.graphql+
+
+```gqlp
+operation Name { catName &firstLast:CatName { first last } { |firstLast address { street city country } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
+```
+
+### operation-selection.graphql+
+
+```gqlp
+operation Name { catName { first last address { street city country } } }
+category { CatName }
+output CatName {
+    first: String
+    last: String
+    address: AddrName
+}
+output AddrName {
+    street: String
+    city: String
+    country: String
+}
+```
+
 ### option-schema-alias.graphql+
 
 ```gqlp

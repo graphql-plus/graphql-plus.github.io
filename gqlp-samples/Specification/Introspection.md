@@ -39,6 +39,101 @@ output _Directive {
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
 
+output _Operations {
+    : _AndType
+
+        operation: _Operation
+    | _Operation
+}
+
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
+output _Operation {
+    : _Aliased
+        category: _Name
+        variables: _OpVariable[_Name]
+        directives: _OpDirective[]
+        fragments: _OpFragment[_Name]
+        result: _OpResult?
+        selections: _OpSelection[][_Path]
+        modifiers: _Modifiers[]
+}
+
+output _OpVariable {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
+        modifiers: _Modifiers[]
+        defaultValue: Value?
+}
+
+dual _OpDirective {
+    : _Named
+        argument: _OpArgument?
+}
+
+output _OpFragment {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
+}
+
+dual _OpArgument {
+    |   _OpArgValue
+    |   _OpArgList
+    |   _OpArgMap
+    }
+
+dual _OpArgValue {
+        variable: _Name
+    |   Value
+    }
+
+dual _OpArgList {
+    | _OpArgValue[]
+    }
+
+dual _OpArgMap {
+        value: _OpArgValue
+        byVariable: _Name
+    | _OpArgValue[Scalar]
+    }
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>
+        argument: _OpArgument?
+    }
+
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output OpSelectionBase {
+        directives: _OpDirective[]
+        modifiers: _Modifiers[]
+}
+
+output _OpField {
+    : OpSelectionBase
+        name: String
+        fieldAlias: String?
+        argument: _OpArgument?
+}
+
+output _OpInline {
+    : OpSelectionBase
+        type: _TypeRef<_TypeKind.Output>?
+}
+
+output _OpSpread {
+    : OpSelectionBase
+        fragment: String
+}
 
 output _Setting {
     : _Named
@@ -52,7 +147,9 @@ output _Setting {
 - `'_Aliased' not defined`
 - `'_InputFieldType' not defined`
 - `'_Modifiers' not defined`
+- `'_Name' not defined`
 - `'_Named' not defined`
+- `'_SimpleKind' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
@@ -187,11 +284,12 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Name]
         directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
         types(_TypeFilter?): _Type[_Name]
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -204,7 +302,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -236,6 +334,7 @@ dual _Described {
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
+- `'_Operations' not defined`
 - `'_Resolution' not defined`
 - `'_Setting' not defined`
 - `'_Type' not defined`
@@ -719,11 +818,12 @@ output _Schema {
     : _Named
         categories(_CategoryFilter?): _Categories[_Name]
         directives(_Filter?): _Directives[_Name]
+        operations(_Filter?): _Operations[_Name]
         types(_TypeFilter?): _Type[_Name]
         settings(_Filter?): _Setting[_Name]
     }
 
-domain _Name { String /[A-Za-z_][A-Za-z0-9_]*/ }
+domain _Name { String /[A-Za-z_]\w*/ }
 
 input _Filter {
         names: _NameFilter[]
@@ -736,7 +836,7 @@ input _Filter {
 
 "_NameFilter is a simple match expression against _Name"
 "where '.' matches any single character and '*' matches zero or more of any character."
-domain _NameFilter { String /[A-Za-z_.*]+/ }
+domain _NameFilter { String /[\w.*]+/ }
 
 input _CategoryFilter {
     : _Filter
@@ -755,6 +855,7 @@ input _TypeFilter {
 - `'_Categories' not defined`
 - `'_Directives' not defined`
 - `'_Named' not defined`
+- `'_Operations' not defined`
 - `'_Resolution' not defined`
 - `'_Setting' not defined`
 - `'_Type' not defined`
@@ -781,7 +882,6 @@ output _Directive {
     }
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
-
 
 ```
 
@@ -988,6 +1088,125 @@ output _AndType {
 
 - `'_Name' not defined`
 - `'_Type' not defined`
+
+### Operation.graphql+
+
+```gqlp
+output _Operations {
+    : _AndType
+
+        operation: _Operation
+    | _Operation
+}
+
+output _OpDirectives {
+    : _Named
+        directives: _OpDirective[]
+}
+
+output _Operation {
+    : _Aliased
+        category: _Name
+        variables: _OpVariable[_Name]
+        directives: _OpDirective[]
+        fragments: _OpFragment[_Name]
+        result: _OpResult?
+        selections: _OpSelection[][_Path]
+        modifiers: _Modifiers[]
+}
+
+output _OpVariable {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Input>
+        modifiers: _Modifiers[]
+        defaultValue: Value?
+}
+
+dual _OpDirective {
+    : _Named
+        argument: _OpArgument?
+}
+
+output _OpFragment {
+    : _OpDirectives
+        type: _TypeRef<_TypeKind.Output>
+}
+
+dual _OpArgument {
+    |   _OpArgValue
+    |   _OpArgList
+    |   _OpArgMap
+    }
+
+dual _OpArgValue {
+        variable: _Name
+    |   Value
+    }
+
+dual _OpArgList {
+    | _OpArgValue[]
+    }
+
+dual _OpArgMap {
+        value: _OpArgValue
+        byVariable: _Name
+    | _OpArgValue[Scalar]
+    }
+
+output _OpResult {
+        domain: _TypeRef<_SimpleKind>
+        argument: _OpArgument?
+    }
+
+domain _Path { String /(\$([A-Za-z]\w*)?|\.+)?\d+(\.\d+)*/ }
+
+output _OpSelection {
+    |   _OpField
+    |   _OpSpread
+    |   _OpInline
+}
+
+output OpSelectionBase {
+        directives: _OpDirective[]
+        modifiers: _Modifiers[]
+}
+
+output _OpField {
+    : OpSelectionBase
+        name: String
+        fieldAlias: String?
+        argument: _OpArgument?
+}
+
+output _OpInline {
+    : OpSelectionBase
+        type: _TypeRef<_TypeKind.Output>?
+}
+
+output _OpSpread {
+    : OpSelectionBase
+        fragment: String
+}
+
+```
+
+##### Expected Verify errors
+
+- `'_Aliased' not defined`
+- `'_Modifiers' not defined`
+- `'_Name' not defined`
+- `'_Named' not defined`
+- `'_SimpleKind' not defined`
+- `'_AndType' not defined`
+- `'_TypeKind' not defined`
+- `'_TypeKind' not an Enum`
+- `'_TypeRef' not defined`
+
+##### Expected Encode errors
+
+- `can't get model for type '_Aliased'`
+- `can't get model for type '_Named'`
+- `can't get model for type '_AndType'`
 
 ### Option.graphql+
 
