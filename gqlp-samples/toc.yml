@@ -1,6 +1,5 @@
 - name: GraphQl
   href: GraphQl.md
-  items:
 - name: Operation
   href: Operation.md
   items:
@@ -8,7 +7,6 @@
       href: Operation/Invalid.md
 - name: Request
   href: Request.md
-  items:
 - name: Schema
   href: Schema.md
   items:
@@ -41,4 +39,3 @@
       href: Specification/Schema.md
 - name: StarWars
   href: StarWars.md
-  items:

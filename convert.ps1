@@ -166,7 +166,11 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
 
 $file = "gqlp-samples/toc.yml"
 foreach ($name in $toc.Keys | Sort-Object) {
-  "- name: $name`n  href: $name.md`n  items:" | Add-Content $file
+  "- name: $name`n  href: $name.md" | Add-Content $file
+  if ($toc[$name]) {
+    "  items:" | Add-Content $file
+  }
+
   foreach ($section in $toc[$name]) {
     "    - name: $section`n      href: $name/$section.md" | Add-Content $file
   }
