@@ -1197,7 +1197,7 @@ output _OpSpread {
 - `'_Name' not defined`
 - `'_Named' not defined`
 - `'_SimpleKind' not defined`
-- `'_Type' not defined`
+- `'_AndType' not defined`
 - `'_TypeKind' not defined`
 - `'_TypeKind' not an Enum`
 - `'_TypeRef' not defined`
@@ -1206,6 +1206,7 @@ output _OpSpread {
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
+- `can't get model for type '_AndType'`
 
 ### Option.graphql+
 
