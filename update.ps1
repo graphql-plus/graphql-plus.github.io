@@ -1,5 +1,5 @@
 Write-Host "GitHub Actions ..."
-npx actions-up --yes
+npx actions-up --style preserve --yes
 
 Write-Host "NPM ..."
 npx npm-check-updates -u
