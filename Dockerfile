@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends git bash \
- && apt-get install -y --no-install-recommends libglib2.0-0 libnss3 libnspr4 libdbus-1-3 libxss1 libappindicator3-1 libsecret-1-0 fonts-liberation xdg-utils libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxinerama1 libxrandr2 libxrender1 libxshmfence1 libgconf-2-4 \
+ && apt-get install -y --no-install-recommends libglib2.0-0 libnss3 libnspr4 libdbus-1-3 libxss1 libappindicator3-1 libsecret-1-0 fonts-liberation xdg-utils libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxinerama1 libxrandr2 libxrender1 libxshmfence1 libgconf-2-4 libgbm1 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
