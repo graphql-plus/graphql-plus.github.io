@@ -2,13 +2,12 @@
   "build": {
     "content": [
       {
-        "files": ["**/toc.yml", "*.md", "articles/*.md", "graphql-plus/*.md", "gqlp-samples/**.md"],
-        "exclude": ["init/*"]
+        "files": ["toc.yml", "index.md"]
       }
     ],
     "resource": [
       {
-        "files": ["images/**"]
+        "files": ["GraphQL_Logo.svg"]
       }
     ],
     "output": "_site",
