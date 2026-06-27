@@ -176,7 +176,7 @@ foreach ($name in $toc.Keys | Sort-Object) {
   }
 }
 
-prettier -w .
+npx prettier -w .
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
   Write-Host "PEG linting $_"
