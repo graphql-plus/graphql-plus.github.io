@@ -10,22 +10,6 @@ default:
     - npm --version
     - dotnet --version
 
-copilot_setup_steps:
-  stage: setup
-  script:
-    - npm ci
-    - npm install --global prettier
-    - dotnet tool restore
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-      changes:
-        - .github/workflows/copilot-setup-steps.yml
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
-        - .github/workflows/copilot-setup-steps.yml
-    - when: never
-
 build_site:
   stage: build
   script:
@@ -47,8 +31,7 @@ pages:
   script:
     - mkdir -p public
     - cp -r _site/. public/
-  artifacts:
-    paths:
-      - public/
+  pages:
+    publish: public/
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
