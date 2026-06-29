@@ -29,9 +29,8 @@ pages:
     - job: build_site
       artifacts: true
   script:
-    - mkdir -p public
-    - cp -r _site/. public/
+    - echo Publishing
   pages:
-    publish: public/
+    publish: _site/
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
