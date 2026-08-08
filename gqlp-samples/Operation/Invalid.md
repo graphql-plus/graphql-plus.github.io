@@ -14,17 +14,40 @@ Validator should flag conflicting response names with incompatible selections.
 }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Expected Object or Type`
+
+### argument-field-syntax-invalid.gql+
+
+```gqlp
+{data { field1: value1 field2: value2 } }
+```
+
+### argument-type-mismatch.gql+
+
+```gqlp
+{user(id: "string"){id}}
+```
+
+### default-conflicts.gql+
+
+```gqlp
+($var: String[]? = 5){user($var){id}}
+```
+
+### directive-location-invalid.gql+
+
+```gqlp
+{name} @skip(if: true)
+```
 
 ### empty.gql+
 
 ```gqlp
-
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Expected text`
 
@@ -34,7 +57,7 @@ Validator should flag conflicting response names with incompatible selections.
 {}
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Expected Object or Type`
 
@@ -46,7 +69,7 @@ Validator should flag conflicting response names with incompatible selections.
 {...fragA}
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Fragment has cyclic dependency`
 
@@ -56,7 +79,7 @@ Validator should flag conflicting response names with incompatible selections.
 {...named}
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'named' not defined`
 
@@ -67,7 +90,7 @@ Validator should flag conflicting response names with incompatible selections.
 {name}
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'named' not used`
 
@@ -77,7 +100,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var:Id[]={a:b}):Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `List Type cannot have Object default`
 
@@ -87,7 +110,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var:Id[]?={a:b}):Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Optional List Type cannot have Object default`
 
@@ -97,7 +120,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var:Id[*]=[a]):Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Dictionary Type must have Object default`
 
@@ -107,7 +130,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var:Id[*]?=[a]):Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Optional Dictionary Type must have Object default`
 
@@ -117,7 +140,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var:Id=null):Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Default of 'null' must be on Optional Type`
 
@@ -127,7 +150,7 @@ Validator should flag conflicting response names with incompatible selections.
 :Boolean($var)
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'var' not defined`
 
@@ -137,6 +160,7 @@ Validator should flag conflicting response names with incompatible selections.
 ($var):Boolean
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'var' not used`
+

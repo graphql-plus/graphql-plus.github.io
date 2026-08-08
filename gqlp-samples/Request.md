@@ -86,3 +86,39 @@ types:
     name: _TypeEnum
     typeKind: Enum
 ```
+
+### format-list-with-params.gql+
+
+```gqlp
+["{user{id name email}}", {"userId": 42}, "additional_param"]
+```
+
+### format-map-full.gql+
+
+```gqlp
+{
+  "definition": "{user{id name}}",
+  "category": "query",
+  "operation": "getUser",
+  "parameters": {"id": 123}
+}
+```
+
+### format-side-channel.gql+
+
+```gqlp
+{id name email address{street city}}
+```
+
+### format-string-definition.gql+
+
+```gqlp
+{name email}
+```
+
+### request-tagged-values.gql+
+
+```gqlp
+[!String "{id name}", !String "data"]
+```
+

@@ -7,7 +7,7 @@ domain Test { enum !Enum.* }
 enum Enum { value single enumValue }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `All labels excluded`
 
@@ -20,7 +20,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'value' duplicated from these Enums: Dup Enum`
 
@@ -30,7 +30,7 @@ enum Dup { value }
 domain Test { enum Undef.* }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Undef' not an Enum type`
 
@@ -41,7 +41,7 @@ domain Test { enum Enum.undef }
 enum Enum { value }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'undef' not a Label of 'Enum'`
 
@@ -51,7 +51,7 @@ enum Enum { value }
 domain Test { enum Undef.value }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Undef' not an Enum type`
 
@@ -61,7 +61,7 @@ domain Test { enum Undef.value }
 domain Test { enum undef }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Enum Label 'undef' not defined`
 
@@ -73,7 +73,7 @@ enum Enum { value single enumValue }
 enum Dup { value duplicate dupValue }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'value' duplicated from these Enums: Enum Dup`
 
@@ -85,7 +85,7 @@ enum Enum { value }
 enum Dup { value duplicate dupValue }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'value' duplicated from these Enums: Enum Dup`
 
@@ -97,7 +97,7 @@ enum Enum { value }
 enum Dup { value }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'value' duplicated from these Enums: Enum Dup`
 
@@ -108,7 +108,7 @@ domain Test { enum Bad.value }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Bad' not an Enum type`
 
@@ -119,7 +119,7 @@ domain Test { :Parent number 1> }
 domain Parent { number !<1 }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test items into Parent Parent items`
 - `Group of DomainRange for '<1' not singular Excludes['False', 'True']`
@@ -133,7 +133,7 @@ domain Recurse { :More Boolean }
 domain More { :Test Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself, even recursively via More`
 - `'Parent' cannot be a child of itself, even recursively via Test`
@@ -147,7 +147,7 @@ domain Test { :Parent Boolean }
 domain Parent { :Test Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself, even recursively via Parent`
 - `'Parent' cannot be a child of itself, even recursively via Test`
@@ -160,7 +160,7 @@ domain Parent { :Recurse Boolean }
 domain Recurse { :Test Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself, even recursively via Recurse`
 - `'Parent' cannot be a child of itself, even recursively via Test`
@@ -172,7 +172,7 @@ domain Recurse { :Test Boolean }
 domain Test { :Test Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself`
 
@@ -182,7 +182,7 @@ domain Test { :Test Boolean }
 domain Test { :Parent Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' not defined`
 
@@ -193,7 +193,7 @@ domain Test { :Parent Boolean }
 domain Parent { String }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' invalid domain. Found 'String'`
 
@@ -204,7 +204,7 @@ domain Test { :Parent Boolean }
 output Parent { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' invalid type. Found 'Output'`
 
@@ -215,7 +215,7 @@ domain Test { :Parent string /a+/}
 domain Parent { string !/a+/ }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test items into Parent Parent items`
 - `Group of DomainRegex for 'a+' not singular Excludes['False', 'True']`
@@ -227,7 +227,7 @@ enum Test [a] { test }
 enum Dup [a] { dup }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Enums with alias 'a' found. Names 'Test' 'Dup'`
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
@@ -239,7 +239,7 @@ enum Test { :Parent test[alias] }
 enum Parent { parent[alias] }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test into Parent Parent`
 - `Aliases of EnumLabel for 'alias' not singular Name['parent', 'test']`
@@ -250,7 +250,7 @@ enum Parent { parent[alias] }
 enum Test { :Parent test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' not defined`
 
@@ -261,7 +261,7 @@ enum Test { :Parent test }
 output Parent { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' invalid type. Found 'Output'`
 
@@ -275,7 +275,7 @@ union More { :Bad }
 union Bad { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'More' cannot refer to self, even recursively`
 - `'Recurse' cannot refer to self, even recursively`
@@ -290,7 +290,7 @@ union Bad { More }
 union More { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 - `'Bad' cannot refer to self, even recursively`
@@ -305,7 +305,7 @@ union More { :Bad String }
 union Bad { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 - `'More' cannot refer to self, even recursively`
@@ -318,7 +318,7 @@ union Parent { Bad }
 union Bad { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 - `'Bad' cannot refer to self, even recursively`
@@ -329,7 +329,7 @@ union Bad { Test }
 union Test { :Parent Number }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' not defined`
 
@@ -340,7 +340,7 @@ union Test { :Parent Number }
 output Parent { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' invalid type. Found 'Output'`
 
@@ -351,7 +351,7 @@ union Test { :Parent String }
 union Parent { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 
@@ -363,7 +363,7 @@ union Bad { :Parent String }
 union Parent { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 - `'Bad' cannot refer to self, even recursively`
@@ -375,7 +375,7 @@ union Test { Bad }
 union Bad { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self, even recursively`
 - `'Bad' cannot refer to self, even recursively`
@@ -386,7 +386,7 @@ union Bad { Test }
 union Test { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot refer to self`
 
@@ -396,7 +396,7 @@ union Test { Test }
 union Test { Bad }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Bad' not defined`
 
@@ -407,7 +407,7 @@ union Test { Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -418,7 +418,7 @@ enum Test [a] { Value }
 output Dup [a] { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
@@ -429,7 +429,8 @@ enum Test { Value }
 output Test { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Types with name 'Test' can't be merged`
 - `Group of Type for 'Test' not singular Type['Enum', 'Output']`
+

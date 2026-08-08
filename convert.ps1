@@ -3,6 +3,7 @@ $specifications = "Defin", "Intro", "Reque", "Schem"
 
 Get-ChildItem $specificationDir -Recurse -Filter "*.graphql+" | Remove-Item -Force -ErrorAction Ignore
 
+Write-Host "Extracting from files in ./graphql-plus:"
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
   $baseName = $_.BaseName
@@ -12,7 +13,9 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $type = ""
   $doc = @()
   $end = $false
-  $name = $_.Name.Substring(0,5)
+  $name = $baseName.Substring(0,5)
+
+  Write-Host " $($_.Name)" -NoNewline
 
   $_ | Get-Content | ForEach-Object {
     if ($end) { return }
@@ -25,7 +28,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($_ -match "^### ([-a-zA-Z]+)") {
       $subSection = $baseName + "/" + $Matches[1]
     }
-    
+
     if ($type) {
       if ($_ -eq "``````") {
         $all[$type] += $current + @("")
@@ -44,7 +47,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
       if ($_ -match "^## Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
-          
+
           $all["PEG"] -replace ' \| ', ' / ' | Set-Content ".peg/$name.pegjs"
           Get-Content ".peg/$name.def" | Add-Content ".peg/$name.pegjs"
           if ($name -ne "Defin") {
@@ -53,13 +56,13 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 
           if ($all.Keys -contains "gqlp") {
             $doc += @("", "## Complete Definition", "", "``````gqlp") + $all["gqlp"] + @("``````")
-          }     
+          }
 
           $end = $true
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
           $end = $true
-        }        
+        }
       }
 
       if ($_ -match "``````(\w+)") {
@@ -77,6 +80,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     }
   }
 }
+Write-Host ""
 
 $suffixes = @("", "dual", "input", "output")
 
@@ -99,7 +103,10 @@ $toc = @{}
 
 Remove-Item gqlp-samples/* -Recurse -Force -ErrorAction Ignore
 
+Write-Host "Collecting samples from directories:"
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
+  Write-Host " $_" -NoNewline
+
   $name = $_
   $file = "gqlp-samples/$name.md"
 
@@ -163,6 +170,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     }
   }
 }
+Write-Host ""
 
 $file = "gqlp-samples/toc.yml"
 foreach ($name in $toc.Keys | Sort-Object) {
@@ -176,9 +184,10 @@ foreach ($name in $toc.Keys | Sort-Object) {
   }
 }
 
-npx prettier -w .
+Write-Host "Formatting files"
+npx biome format -w .
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
-  Write-Host "PEG linting $_"
+  Write-Host "PEG linting $($_.Name)"
   npx peggy $_.FullName
 }

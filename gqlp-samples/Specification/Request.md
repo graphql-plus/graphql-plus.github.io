@@ -159,7 +159,7 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Operation' not defined`
 
@@ -228,7 +228,7 @@ dual _OpArgMap {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
@@ -262,7 +262,7 @@ dual _OpSpread {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
@@ -270,6 +270,7 @@ dual _OpSpread {
 - `'_OpDirective' not defined`
 - `'_OpDirectives' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_OpDirectives'`
+

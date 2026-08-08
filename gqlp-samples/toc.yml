@@ -1,5 +1,7 @@
 - name: GraphQl
   href: GraphQl.md
+- name: Introspection
+  href: Introspection.md
 - name: Operation
   href: Operation.md
   items:

@@ -8,7 +8,7 @@ object Test { | Test1[] }
 object Test1 { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of Alternate for 'Test1' not singular Modifiers['', '[]']`
@@ -21,7 +21,7 @@ category { Test? }
 output Test { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'test' can't be merged`
 - `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
@@ -35,7 +35,7 @@ output Test { }
 output Output { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `alias 'a' found. Names 'test' 'output'`
 
@@ -48,7 +48,7 @@ output Test { }
 output Output { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'test' can't be merged`
 - `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
@@ -60,7 +60,7 @@ object Test<$type:0> { num: $type }
 object Test<$type:String> { str: $type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Different values merging p => p.Constraint`
@@ -72,7 +72,7 @@ directive @Test { all }
 directive @Test { ( repeatable ) all }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of SchemaDirective for 'Test' not singular Option['Repeatable', 'Unique']`
@@ -85,7 +85,7 @@ directive @Test(Test?) { all }
 input Test { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of InputParam for 'Test' not singular Modifiers['', '?']`
@@ -97,7 +97,7 @@ domain Test { string }
 domain Test { number }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of Domain for 'Test' not singular Domain['Number', 'String']`
@@ -109,7 +109,7 @@ domain Test [a] { Boolean }
 domain Dup [a] { Boolean }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
 
@@ -120,7 +120,7 @@ domain Test { string /a+/}
 domain Test { string !/a+/ }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of DomainRegex for 'a+' not singular Excludes['False', 'True']`
@@ -132,7 +132,7 @@ enum Test [a] { test }
 enum Dup [a] { dup }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
 
@@ -144,7 +144,7 @@ enum Test { test }
 enum Parent { parent }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of Enum for 'Test' not singular Parent['', 'Parent']`
@@ -157,7 +157,7 @@ object Test { field: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
@@ -171,7 +171,7 @@ object Test1 { }
 object Test2 { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
@@ -183,7 +183,7 @@ option Test { }
 option Schema { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Schema names (Options) found`
 
@@ -194,7 +194,7 @@ union Test [a] { String }
 union Dup [a] { Number }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
 
@@ -206,7 +206,8 @@ union Test { Number }
 union Parent { String }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' can't be merged`
 - `Group of Union for 'Test' not singular Parent['', 'Parent']`
+

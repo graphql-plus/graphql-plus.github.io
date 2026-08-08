@@ -8,4 +8,4 @@ npm install
 Write-Host "Dotnet Tools ..."
 dotnet tool update --all
 
-npx prettier -w .
+npx biome format --write .

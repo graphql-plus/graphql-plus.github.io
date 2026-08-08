@@ -7,7 +7,7 @@ object Test { | Alt[$a] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'a' not defined`
 
@@ -18,7 +18,7 @@ object Test { | Alt[Dom] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Dom' not defined`
 
@@ -29,7 +29,7 @@ object Test { | Alt[Test] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' invalid type`
 
@@ -41,7 +41,7 @@ object Recurse { | More }
 object More { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via More`
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -54,7 +54,7 @@ object Test { | Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Recurse' cannot be an alternate of itself, even recursively via Test`
@@ -65,7 +65,7 @@ object Recurse { | Test }
 object Test { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself`
 
@@ -75,7 +75,7 @@ object Test { | Test }
 object Test { | Number<String> }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on Number. Expected none, given 1`
 
@@ -85,7 +85,7 @@ object Test { | Number<String> }
 object Test { | Undef }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Undef' not defined`
 
@@ -95,7 +95,7 @@ object Test { | Undef }
 object Test<$type:Undef> { | $type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Undef' not defined`
 
@@ -107,7 +107,7 @@ object Test<$ref:String> { | $ref }
 domain Dom { Number }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Dom' not match 'String'`
 
@@ -118,7 +118,7 @@ dual Test { | Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -129,7 +129,7 @@ dual Test { | Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -141,7 +141,7 @@ dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -154,7 +154,7 @@ dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -166,7 +166,7 @@ dual Test { field: Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -177,7 +177,7 @@ dual Test { field: Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -189,7 +189,7 @@ dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -202,7 +202,7 @@ dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -214,7 +214,7 @@ dual Test { :Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind for Bad. Input`
 
@@ -225,7 +225,7 @@ dual Test { :Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind for Bad. Output`
 
@@ -237,7 +237,7 @@ dual Param<$T:_Dual> { | $T }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -250,7 +250,7 @@ dual Param<$T:_Dual> { | $T }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 - `'Bad' not match '_Dual'`
@@ -261,7 +261,7 @@ output Bad { }
 object Test { field = unknown }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Enum Label 'unknown' not defined`
 
@@ -272,7 +272,7 @@ object Test { field = true }
 object Test { field = false }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `name 'Test' can't be merged`
 - `'field' not singular ModifiedType_Label['Boolean.false', 'Boolean.true']`
@@ -283,7 +283,7 @@ object Test { field = false }
 object Test { field = Boolean.unknown }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'unknown' not a Label of 'Boolean'`
 
@@ -294,7 +294,7 @@ object Test { field = Wrong.unknown }
 input Wrong { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Wrong' not an Enum type`
 
@@ -306,7 +306,7 @@ object Test { field2 [alias]: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
@@ -319,7 +319,7 @@ object Test { field: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
@@ -333,7 +333,7 @@ object Test1 { }
 object Test2 { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
@@ -345,7 +345,7 @@ object Test { field: Field[$a] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'a' not defined`
 
@@ -356,7 +356,7 @@ object Test { field: Field[Random] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Random' not defined`
 
@@ -367,7 +367,7 @@ object Test { field: Field[Field] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Field' invalid type`
 
@@ -377,7 +377,7 @@ object Field { }
 object Test { field: String<0> }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on String. Expected none, given 1`
 
@@ -387,7 +387,7 @@ object Test { field: String<0> }
 object Test { field: Undef }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Undef' not defined`
 
@@ -397,7 +397,7 @@ object Test { field: Undef }
 object Test { | $type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'$type' not defined`
 
@@ -408,7 +408,7 @@ object Test { field: Ref }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on Ref. Expected 1, given 0`
 
@@ -419,7 +419,7 @@ object Test<$type:String> { field: Ref<$type> }
 object Ref { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on Ref. Expected 0, given 1`
 
@@ -430,7 +430,7 @@ object Test { field: Ref<$type> }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'$type' not defined`
 - `Invalid Constraint on $ref of Ref`
@@ -442,7 +442,7 @@ object Test { | Ref<Boolean.unknown> }
 object Ref<$type:_Enum> { field: $type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'unknown' not a Label of 'Boolean'`
 
@@ -454,7 +454,7 @@ object Ref<$type:_Enum> { field: $type }
 object Wrong { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Wrong' not an Enum type`
 - `'Wrong' not match '_Enum'`
@@ -465,7 +465,7 @@ object Wrong { }
 object Test { field: $type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'$type' not defined`
 
@@ -476,7 +476,7 @@ object Test { field: Ref<Test1> }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test1' not defined`
 - `'Test1' not match 'String'`
@@ -488,7 +488,7 @@ object Test { :Ref }
 object Ref<$ref:String> { | $ref }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on Ref. Expected 1, given 0`
 
@@ -499,7 +499,7 @@ object Test { :Ref<Number> }
 object Ref { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Args mismatch on Ref. Expected 0, given 1`
 
@@ -509,7 +509,7 @@ object Ref { }
 object Test { :$type }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'$type' not defined`
 
@@ -519,7 +519,7 @@ object Test { :$type }
 object Test<$type:String> { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'$type' not used`
 
@@ -530,7 +530,7 @@ input Test { | Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -541,7 +541,7 @@ input Test { field: Field = null }
 input Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'null' default requires Optional type, not 'Field'`
 
@@ -552,7 +552,7 @@ input Test { field: Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -563,7 +563,7 @@ input Test { :Bad }
 output Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind for Bad. Output`
 
@@ -574,7 +574,7 @@ output Test { | Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -585,7 +585,7 @@ output Test { field: Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind`
 
@@ -598,7 +598,7 @@ input Param { }
 output Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Outputs with name 'Test' can't be merged`
 - `Group of InputParam for 'Param' not singular Modifiers['', '?']`
@@ -612,7 +612,7 @@ input Param { }
 output Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'a' not defined`
 
@@ -624,7 +624,7 @@ input Param { }
 output Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Dom' not defined`
 
@@ -636,7 +636,7 @@ input Param { }
 output Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' invalid type`
 
@@ -647,7 +647,7 @@ output Test { field(Param): Field }
 output Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Param' not defined`
 
@@ -658,7 +658,7 @@ output Test { :Bad }
 input Bad { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind for Bad. Input`
 
@@ -671,7 +671,7 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'Test' not singular Parent['', 'Parent']`
@@ -686,7 +686,7 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test alternates into Parent Recurse alternates`
 - `not singular Modifiers['', '[]']`
@@ -700,7 +700,7 @@ object Parent { | Alt[] }
 object Alt { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test alternates into Parent Recurse alternates`
 - `not singular Modifiers['', '[]']`
@@ -714,7 +714,7 @@ object More { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -729,7 +729,7 @@ object Alt { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -742,7 +742,7 @@ object Test { :Alt }
 object Alt { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Alt`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -757,7 +757,7 @@ object Parent { field2 [alias]: Field }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test into Parent Recurse`
 - `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
@@ -771,7 +771,7 @@ object Parent { field2 [alias]: Field }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test into Parent Recurse`
 - `for 'alias' not singular ModifiedType_Label['field1', 'field2']`
@@ -785,7 +785,7 @@ object Parent { field2 [alias]: Field }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'Test' not singular Parent['', 'Parent']`
@@ -800,7 +800,7 @@ object Parent { field: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test into Parent Recurse`
 - `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
@@ -814,7 +814,7 @@ object Parent { field: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Can't merge Test into Parent Recurse`
 - `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
@@ -828,7 +828,7 @@ object Parent { field: Field[] }
 object Field { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `with name 'Test' can't be merged`
 - `for 'Test' not singular Parent['', 'Parent']`
@@ -841,7 +841,7 @@ object Recurse { :More }
 object More { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself, even recursively via More`
 - `'Recurse' cannot be a child of itself, even recursively via Test`
@@ -854,7 +854,7 @@ object Test { :Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself, even recursively via Recurse`
 - `'Recurse' cannot be a child of itself, even recursively via Test`
@@ -868,7 +868,7 @@ object More { | Recurse }
 object Recurse { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -883,7 +883,7 @@ object Alt { :Recurse }
 object Recurse { | Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Recurse`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -896,7 +896,7 @@ object Test { | Alt }
 object Alt { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be an alternate of itself, even recursively via Alt`
 - `'Alt' cannot be an alternate of itself, even recursively via Test`
@@ -907,7 +907,7 @@ object Alt { :Test }
 object Test { :Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' cannot be a child of itself`
 
@@ -917,7 +917,7 @@ object Test { :Test }
 object Test { :String }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Invalid Kind for String. Domain`
 
@@ -927,7 +927,7 @@ object Test { :String }
 object Test { :Parent }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Parent' not defined`
 
@@ -938,7 +938,7 @@ object Test [a] { }
 object Dup [a] { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `Multiple Types with alias 'a' found. Names 'Test' 'Dup'`
 
@@ -953,3 +953,4 @@ object Dup [a] { }
 ##### Expected Verify errors Output
 
 - `Multiple Outputs with alias 'a' found. Names 'Test' 'Dup'`
+

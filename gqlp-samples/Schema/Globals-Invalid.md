@@ -7,7 +7,7 @@ category { Test }
 output Test<$a:_Output> { | $a }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' is a generic Output type`
 
@@ -18,7 +18,7 @@ category { Test[$a] }
 output Test { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'a' not defined`
 
@@ -28,7 +28,7 @@ output Test { }
 category { Test }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' not defined or not an Output type`
 
@@ -39,7 +39,7 @@ category { Test }
 input Test { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' not defined or not an Output type`
 
@@ -49,7 +49,7 @@ input Test { }
 directive @Test(Test) { all }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'Test' not defined`
 
@@ -60,6 +60,7 @@ directive @Test(TestIn[$a]) { all }
 input TestIn { }
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'a' not defined`
+

@@ -142,7 +142,7 @@ output _Setting {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_InputFieldType' not defined`
@@ -155,7 +155,7 @@ output _Setting {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -256,7 +256,7 @@ output _OutputFieldType {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
@@ -269,7 +269,7 @@ output _OutputFieldType {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
@@ -330,7 +330,7 @@ dual _Described {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
@@ -436,7 +436,7 @@ output _UnionMember {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_Aliased' not defined`
@@ -448,7 +448,7 @@ output _UnionMember {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Described'`
@@ -530,7 +530,7 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_Aliased' not match '_Described'`
@@ -559,7 +559,7 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -638,7 +638,7 @@ output _ForParam<$type:_ObjFieldType> {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
@@ -651,7 +651,7 @@ output _ForParam<$type:_ObjFieldType> {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
@@ -688,7 +688,7 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_TypeSimple' not defined`
 
@@ -712,7 +712,7 @@ enum _Resolution { Parallel Sequential Single }
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
@@ -721,7 +721,7 @@ enum _Resolution { Parallel Sequential Single }
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
@@ -777,7 +777,7 @@ dual _TypeSimple {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_Aliased' not match '_Described'`
@@ -806,7 +806,7 @@ dual _TypeSimple {
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -850,7 +850,7 @@ input _TypeFilter {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
@@ -861,7 +861,7 @@ input _TypeFilter {
 - `'_Type' not defined`
 - `'_TypeKind' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Named'`
 
@@ -885,13 +885,13 @@ enum _Location { Operation Variable Field Inline Spread Fragment }
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
 - `'_InputFieldType' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
@@ -973,7 +973,7 @@ output _DomainItemRegex {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Described' not defined`
 - `'_EnumValue' not defined`
@@ -983,7 +983,7 @@ output _DomainItemRegex {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Described'`
 - `can't get model for type '_ParentType'`
@@ -998,12 +998,12 @@ output _DualField {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_ObjField'`
 
@@ -1022,7 +1022,7 @@ output _EnumValue {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_Name' not defined`
@@ -1030,7 +1030,7 @@ output _EnumValue {
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_TypeRef'`
@@ -1049,12 +1049,12 @@ output _InputFieldType {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
@@ -1084,7 +1084,7 @@ output _AndType {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Name' not defined`
 - `'_Type' not defined`
@@ -1190,7 +1190,7 @@ output _OpSpread {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Aliased' not defined`
 - `'_Modifiers' not defined`
@@ -1202,7 +1202,7 @@ output _OpSpread {
 - `'_TypeKind' not an Enum`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
@@ -1218,11 +1218,11 @@ output _Setting {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Named' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_Named'`
 
@@ -1240,13 +1240,13 @@ output _OutputFieldType {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_InputFieldType' not defined`
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
@@ -1265,12 +1265,13 @@ output _UnionMember {
 
 ```
 
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'_Name' not defined`
 - `'_SimpleKind' not defined`
 - `'_TypeRef' not defined`
 
-##### Expected Encode errors
+##### Expected Encode errors 
 
 - `can't get model for type '_TypeRef'`
+

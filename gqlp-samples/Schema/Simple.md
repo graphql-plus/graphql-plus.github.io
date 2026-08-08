@@ -108,7 +108,7 @@ enum DupName { name dup_name nameDup }
 
 ```gqlp
 domain Name { Enum EnumName.prnt_name }
-enum EnumName { :PrntName name }
+enum EnumName { :PrntName name } 
 enum PrntName { prnt_name }
 ```
 
@@ -237,3 +237,4 @@ union PrntName { Number }
 union Name { :PrntName String }
 union PrntName { Number }
 ```
+
