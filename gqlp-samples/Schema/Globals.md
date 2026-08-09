@@ -181,7 +181,7 @@ output CatName { }
 ```gqlp
 operation Name { catName { first last address { |:AddrName { street city country } } } }
 category { CatName }
-output CatName {
+output CatName { 
     first: String
     last: String
     address: AddrName
@@ -202,7 +202,7 @@ output FullName {
 ```gqlp
 operation Name { catName { first last address { street city country } }[] }
 category { CatName }
-output CatName {
+output CatName { 
     first: String
     last: String
     address: AddrName
@@ -219,7 +219,7 @@ output AddrName {
 ```gqlp
 operation Name { catName &firstLast:CatName { first last } { |firstLast address { street city country } } }
 category { CatName }
-output CatName {
+output CatName { 
     first: String
     last: String
     address: AddrName
@@ -236,7 +236,7 @@ output AddrName {
 ```gqlp
 operation Name { catName { first last address { street city country } } }
 category { CatName }
-output CatName {
+output CatName { 
     first: String
     last: String
     address: AddrName
@@ -265,3 +265,4 @@ option Schema { "Option" "Descr" descr=true }
 ```gqlp
 option Schema { global=true }
 ```
+

@@ -13,7 +13,7 @@ This repository is a DocFX documentation site for GraphQL+.
 
 - Prefer editing source files instead of generated files. If a change affects content under `gqlp-samples\` or `samples\Specification\`, update the source file and regenerate.
 - After completing edits, always run `.\convert.ps1` before committing. This is part of the normal repository workflow.
-- Review the output of `convert.ps1` carefully. It runs `prettier -w .`, regenerates sample markdown, and performs PEG validation, so it can surface unrelated churn if a change was too broad.
+- Review the output of `convert.ps1` carefully. It runs `npx biome format --write .`, regenerates sample markdown, and performs PEG validation, so it can surface unrelated churn if a change was too broad.
 - When sample content is duplicated in both `samples\` and `gqlp-samples\`, treat `samples\` as the source of truth unless the content is clearly authored directly in markdown.
 
 ## Validation and preview

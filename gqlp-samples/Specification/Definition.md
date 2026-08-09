@@ -69,3 +69,4 @@ dual _Object [Object, obj, %] { }
 union _Simple [Simple] { _Enum _Domain _Union }
 
 ```
+
