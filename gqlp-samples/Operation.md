@@ -20,6 +20,12 @@
 ($first: String, $last: String) {person(name:{firstName: $first lastName: $last}){id}}
 ```
 
+### complex-dict.gql+
+
+```gqlp
+{complex[String]{first last}}
+```
+
 ### complex-list.gql+
 
 ```gqlp
@@ -92,10 +98,40 @@
 ($skip: Boolean = false) {name @include(if: $skip)}
 ```
 
+### domain-argument.gql+
+
+```gqlp
+:Number("first")
+```
+
+### domain-dict.gql+
+
+```gqlp
+:Number[String]
+```
+
+### domain-list.gql+
+
+```gqlp
+:Number[]
+```
+
+### domain-optional.gql+
+
+```gqlp
+:Number?
+```
+
 ### domain-string-pattern.gql+
 
 ```gqlp
 :String(/^[A-Z]/)
+```
+
+### domain.gql+
+
+```gqlp
+:Number
 ```
 
 ### field-directive-multiple.gql+

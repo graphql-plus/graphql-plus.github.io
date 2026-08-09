@@ -65,8 +65,6 @@ output NoParams<> {}
 - `Expected output type`
 - `Expected type name`
 - `Expected no more text`
-
 ##### Expected Verify errors 
 
 - `'query' not defined or not an Output type`
-

@@ -137,6 +137,7 @@ domain PrntName { Number <2 }
 ```gqlp
 domain Name { :PrntName Number 2>}
 domain PrntName { Number <2 }
+domain RegexName { Number 3> }
 ```
 
 ### domain-number-positive.graphql+
@@ -149,6 +150,7 @@ domain Name { Number !<0 }
 
 ```gqlp
 domain Name { Number 1<9 21>12 }
+domain RegexName { Number 4<10 }
 ```
 
 ### domain-string-descr.graphql+
@@ -161,6 +163,7 @@ domain Name { String "DomString" "Descr" /a+/ }
 
 ```gqlp
 domain Name { String !/\s*/ }
+domain RegexName { String /[A-Z]+/ }
 ```
 
 ### domain-string-parent-descr.graphql+
@@ -175,6 +178,7 @@ domain PrntName { String /b+/ }
 ```gqlp
 domain Name { :PrntName String /a+/ }
 domain PrntName { String /b+/ }
+domain RegexName { String /c+/ }
 ```
 
 ### enum-descr.graphql+

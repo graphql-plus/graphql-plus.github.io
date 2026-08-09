@@ -12,7 +12,6 @@ object Test1 { }
 
 - `'Test' can't be merged`
 - `Group of Alternate for 'Test1' not singular Modifiers['', '[]']`
-
 ### category-diff-mod.graphql+
 
 ```gqlp
@@ -25,7 +24,6 @@ output Test { }
 
 - `'test' can't be merged`
 - `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Test~?~Parallel', 'Test~~Parallel']`
-
 ### category-dup-alias.graphql+
 
 ```gqlp
@@ -38,7 +36,6 @@ output Output { }
 ##### Expected Verify errors 
 
 - `alias 'a' found. Names 'test' 'output'`
-
 ### category-duplicate.graphql+
 
 ```gqlp
@@ -52,7 +49,6 @@ output Output { }
 
 - `'test' can't be merged`
 - `Group of SchemaCategory for 'test' not singular Output~Modifiers~Option['Output~~Parallel', 'Test~~Parallel']`
-
 ### constraint-diff.graphql+
 
 ```gqlp
@@ -64,7 +60,6 @@ object Test<$type:String> { str: $type }
 
 - `'Test' can't be merged`
 - `Different values merging p => p.Constraint`
-
 ### directive-diff-option.graphql+
 
 ```gqlp
@@ -76,7 +71,6 @@ directive @Test { ( repeatable ) all }
 
 - `'Test' can't be merged`
 - `Group of SchemaDirective for 'Test' not singular Option['Repeatable', 'Unique']`
-
 ### directive-diff-param.graphql+
 
 ```gqlp
@@ -89,7 +83,6 @@ input Test { }
 
 - `'Test' can't be merged`
 - `Group of InputParam for 'Test' not singular Modifiers['', '?']`
-
 ### domain-diff-kind.graphql+
 
 ```gqlp
@@ -101,7 +94,6 @@ domain Test { number }
 
 - `'Test' can't be merged`
 - `Group of Domain for 'Test' not singular Domain['Number', 'String']`
-
 ### domain-dup-alias.graphql+
 
 ```gqlp
@@ -112,7 +104,6 @@ domain Dup [a] { Boolean }
 ##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
-
 ### domain-string-diff.graphql+
 
 ```gqlp
@@ -124,7 +115,6 @@ domain Test { string !/a+/ }
 
 - `'Test' can't be merged`
 - `Group of DomainRegex for 'a+' not singular Excludes['False', 'True']`
-
 ### enum-dup-alias.graphql+
 
 ```gqlp
@@ -135,7 +125,6 @@ enum Dup [a] { dup }
 ##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
-
 ### enum-parent-diff.graphql+
 
 ```gqlp
@@ -148,7 +137,6 @@ enum Parent { parent }
 
 - `'Test' can't be merged`
 - `Group of Enum for 'Test' not singular Parent['', 'Parent']`
-
 ### field-diff-mod.graphql+
 
 ```gqlp
@@ -161,7 +149,6 @@ object Field { }
 
 - `'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Field', 'Field []']`
-
 ### field-diff-type.graphql+
 
 ```gqlp
@@ -175,7 +162,6 @@ object Test2 { }
 
 - `'Test' can't be merged`
 - `for 'field' not singular ModifiedType_Label['Test1', 'Test2']`
-
 ### option-diff-name.graphql+
 
 ```gqlp
@@ -186,7 +172,6 @@ option Schema { }
 ##### Expected Verify errors 
 
 - `Multiple Schema names (Options) found`
-
 ### union-dup-alias.graphql+
 
 ```gqlp
@@ -197,7 +182,6 @@ union Dup [a] { Number }
 ##### Expected Verify errors 
 
 - `alias 'a' found. Names 'Test' 'Dup'`
-
 ### union-parent-diff.graphql+
 
 ```gqlp
@@ -210,4 +194,3 @@ union Parent { String }
 
 - `'Test' can't be merged`
 - `Group of Union for 'Test' not singular Parent['', 'Parent']`
-

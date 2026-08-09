@@ -3,7 +3,7 @@ $specifications = "Defin", "Intro", "Reque", "Schem"
 
 Get-ChildItem $specificationDir -Recurse -Filter "*.graphql+" | Remove-Item -Force -ErrorAction Ignore
 
-Write-Host "Extracting from files in ./graphql-plus:"
+Write-Host "Extracting samples from:"
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
   $baseName = $_.BaseName
@@ -15,7 +15,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $end = $false
   $name = $baseName.Substring(0,5)
 
-  Write-Host " $($_.Name)" -NoNewline
+  Write-Host " $baseName" -NoNewline
 
   $_ | Get-Content | ForEach-Object {
     if ($end) { return }
@@ -95,7 +95,6 @@ function Add-Errors($base, $suffix, $type, $label = "") {
   if (Test-Path $expected) {
     "##### Expected $type errors $label`n" | Add-Content $file
     Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-    "" | Add-Content $file
   }
 }
 
@@ -103,7 +102,7 @@ $toc = @{}
 
 Remove-Item gqlp-samples/* -Recurse -Force -ErrorAction Ignore
 
-Write-Host "Collecting samples from directories:"
+Write-Host "Collecting samples from:"
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   Write-Host " $_" -NoNewline
 
@@ -172,6 +171,7 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
 }
 Write-Host ""
 
+Write-Host "Creating TOC"
 $file = "gqlp-samples/toc.yml"
 foreach ($name in $toc.Keys | Sort-Object) {
   "- name: $name`n  href: $name.md" | Add-Content $file
@@ -185,7 +185,7 @@ foreach ($name in $toc.Keys | Sort-Object) {
 }
 
 Write-Host "Formatting files"
-npx biome format -w .
+npx biome format --write .
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
   Write-Host "PEG linting $($_.Name)"

@@ -162,7 +162,6 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 ##### Expected Verify errors 
 
 - `'_Operation' not defined`
-
 ### Operation.graphql+
 
 ```gqlp
@@ -233,7 +232,6 @@ dual _OpArgMap {
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_OpSelection' not defined`
-
 ### Selections.graphql+
 
 ```gqlp
@@ -269,8 +267,6 @@ dual _OpSpread {
 - `'_OpArgument' not defined`
 - `'_OpDirective' not defined`
 - `'_OpDirectives' not defined`
-
 ##### Expected Encode errors 
 
 - `can't get model for type '_OpDirectives'`
-
