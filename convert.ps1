@@ -1,7 +1,7 @@
 $specificationDir = "samples\Specification"
 $specifications = "Defin", "Intro", "Reque", "Schem"
 
-Get-ChildItem .\samples\Specification\ -filter "*.graphql+" -Recurse | Remove-Item -Force -ErrorAction Ignore
+Get-ChildItem $specificationDir -Recurse -Filter "*.graphql+" | Remove-Item -Force -ErrorAction Ignore
 
 Write-Host "Extracting samples from:"
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
@@ -95,7 +95,6 @@ function Add-Errors($base, $suffix, $type, $label = "") {
   if (Test-Path $expected) {
     "##### Expected $type errors $label`n" | Add-Content $file
     Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-#     "" | Add-Content $file
   }
 }
 
@@ -105,10 +104,10 @@ Remove-Item gqlp-samples/* -Recurse -Force -ErrorAction Ignore
 
 Write-Host "Collecting samples from:"
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
+  Write-Host " $_" -NoNewline
+
   $name = $_
   $file = "gqlp-samples/$name.md"
-
-  Write-Host " $name" -NoNewline
 
   "# $name Samples`n" | Set-Content $file
   "## Root`n" | Add-Content $file

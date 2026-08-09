@@ -257,6 +257,7 @@ union Bad { Test }
 - `'More' cannot refer to self, even recursively`
 - `'Recurse' cannot refer to self, even recursively`
 - `'Test' cannot refer to self, even recursively`
+- `Must have at least one member`
 ### union-more.graphql+
 
 ```gqlp
