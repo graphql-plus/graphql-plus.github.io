@@ -285,6 +285,8 @@ Ranges are merged by their bounds, but can only be merged if their inclusion/exc
 Comprises only those strings that match (or don't match) one or more Regular expressions.
 If no included or excluded values are specified, a String domain includes all values.
 
+A REGEX is a regular expression delimited by slashes (`/`) conforming to POSIX ERE. eg. `/[a-z]+/``.
+
 Regular expressions can only be merged if their inclusion/exclusion matches.
 
 ### Enum type

@@ -60,12 +60,11 @@ input Empty {}
 output NoParams<> {}
 ```
 
-##### Expected Parse errors
+##### Expected Parse errors 
 
 - `Expected output type`
 - `Expected type name`
 - `Expected no more text`
-
-##### Expected Verify errors
+##### Expected Verify errors 
 
 - `'query' not defined or not an Output type`

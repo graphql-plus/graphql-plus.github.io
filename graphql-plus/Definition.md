@@ -39,10 +39,9 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 | -------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
 | NUMBER   | `[-+]?[0-9_]+(\.[0-9_]+)?`           | A number, possibly signed and/or with a fractional portion. An underscore (`_`) can be used to separate digit groups                 | 1 2.3 45 67.89 0.10 -11 +12 -13.14 +15.16 17_18.19_20 |
 | STRING   | `"([^"]\|\\.)*"` or `'([^']\|\\.)*'` | A string delimited by either single (`'`) or double (`"`) quotes and with any characters in the string escaped by a backslash (`\`). | "" "a" "b\\"c" "d'e" <br/> '' 'f' 'g"h' 'i\\'j'       |
-| REGEX    | `/.*/`                               | A regex delimited by slashes (`/`) conforming to POSIX ERE                                                                           | /.\*/                                                 |
 | VALUE    | _See below_                          | A literal value as defined below. Can be scalar or complex. below.                                                                   | {"a":"b"} ["a" "b"]                                   |
 
-**Note:** Both STRING and REGEX constants can include end-of-line and other control characters.
+**Note:** A STRING constant can include end-of-line and other control characters.
 
 ## Common
 
