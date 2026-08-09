@@ -2,6 +2,12 @@
 
 ## Root
 
+### complex-dict.gql+
+
+```gqlp
+{complex[String]{first last}}
+```
+
 ### complex-list.gql+
 
 ```gqlp
@@ -18,6 +24,36 @@
 
 ```gqlp
 {dict[String]}
+```
+
+### domain-argument.gql+
+
+```gqlp
+:Number("first")
+```
+
+### domain-dict.gql+
+
+```gqlp
+:Number[String]
+```
+
+### domain-list.gql+
+
+```gqlp
+:Number[]
+```
+
+### domain-optional.gql+
+
+```gqlp
+:Number?
+```
+
+### domain.gql+
+
+```gqlp
+:Number
 ```
 
 ### fragment-end.gql+
@@ -103,3 +139,4 @@
 ```gqlp
 ($var):Boolean($var)
 ```
+

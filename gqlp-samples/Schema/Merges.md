@@ -117,6 +117,7 @@ domain Name { number 9<1 }
 ```gqlp
 domain Name { number }
 domain Name { number }
+domain Name { number 5<8 }
 ```
 
 ### domain-string-diff.graphql+
@@ -138,6 +139,7 @@ domain Name { string /a+/ }
 ```gqlp
 domain Name { string }
 domain Name { string }
+domain Name { string /z+/ }
 ```
 
 ### enum-alias.graphql+
@@ -348,3 +350,4 @@ union PrntName { String }
 union Name { Boolean }
 union Name { Boolean }
 ```
+

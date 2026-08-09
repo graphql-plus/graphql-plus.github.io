@@ -3,6 +3,7 @@ $specifications = "Defin", "Intro", "Reque", "Schem"
 
 Get-ChildItem .\samples\Specification\ -filter "*.graphql+" -Recurse | Remove-Item -Force -ErrorAction Ignore
 
+Write-Host "Extracting samples from:"
 Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $all = @{}
   $baseName = $_.BaseName
@@ -12,7 +13,9 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
   $type = ""
   $doc = @()
   $end = $false
-  $name = $_.Name.Substring(0,5)
+  $name = $baseName.Substring(0,5)
+
+  Write-Host " $baseName" -NoNewline
 
   $_ | Get-Content | ForEach-Object {
     if ($end) { return }
@@ -25,7 +28,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     if ($_ -match "^### ([-a-zA-Z]+)") {
       $subSection = $baseName + "/" + $Matches[1]
     }
-    
+
     if ($type) {
       if ($_ -eq "``````") {
         $all[$type] += $current + @("")
@@ -44,7 +47,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
       if ($_ -match "^## Complete") {
         if ($all.Keys -contains "PEG") {
           $doc += @("", "``````PEG") + $all["PEG"] + @("``````")
-          
+
           $all["PEG"] -replace ' \| ', ' / ' | Set-Content ".peg/$name.pegjs"
           Get-Content ".peg/$name.def" | Add-Content ".peg/$name.pegjs"
           if ($name -ne "Defin") {
@@ -53,13 +56,13 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
 
           if ($all.Keys -contains "gqlp") {
             $doc += @("", "## Complete Definition", "", "``````gqlp") + $all["gqlp"] + @("``````")
-          }     
+          }
 
           $end = $true
         } elseif ($all.Keys -contains "gqlp") {
           $doc += @("", "``````gqlp") + $all["gqlp"] + @("``````")
           $end = $true
-        }        
+        }
       }
 
       if ($_ -match "``````(\w+)") {
@@ -77,6 +80,7 @@ Get-ChildItem ./graphql-plus -Filter *.md | ForEach-Object {
     }
   }
 }
+Write-Host ""
 
 $suffixes = @("", "dual", "input", "output")
 
@@ -91,7 +95,7 @@ function Add-Errors($base, $suffix, $type, $label = "") {
   if (Test-Path $expected) {
     "##### Expected $type errors $label`n" | Add-Content $file
     Get-Content $expected | Foreach-Object { "- ``$_``" } | Add-Content $file
-    "" | Add-Content $file
+#     "" | Add-Content $file
   }
 }
 
@@ -99,9 +103,12 @@ $toc = @{}
 
 Remove-Item gqlp-samples/* -Recurse -Force -ErrorAction Ignore
 
+Write-Host "Collecting samples from:"
 Get-ChildItem ./samples -Directory -Name | ForEach-Object {
   $name = $_
   $file = "gqlp-samples/$name.md"
+
+  Write-Host " $name" -NoNewline
 
   "# $name Samples`n" | Set-Content $file
   "## Root`n" | Add-Content $file
@@ -163,7 +170,9 @@ Get-ChildItem ./samples -Directory -Name | ForEach-Object {
     }
   }
 }
+Write-Host ""
 
+Write-Host "Creating TOC"
 $file = "gqlp-samples/toc.yml"
 foreach ($name in $toc.Keys | Sort-Object) {
   "- name: $name`n  href: $name.md" | Add-Content $file
@@ -176,9 +185,10 @@ foreach ($name in $toc.Keys | Sort-Object) {
   }
 }
 
-npx prettier -w .
+Write-Host "Formatting files"
+npx biome format --write .
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
-  Write-Host "PEG linting $_"
+  Write-Host "PEG linting $($_.Name)"
   npx peggy $_.FullName
 }
