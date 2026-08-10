@@ -38,9 +38,12 @@ Validator should flag conflicting response names with incompatible selections.
 ### directive-location-invalid.gql+
 
 ```gqlp
-{name} @skip(if: true)
+Expected no more text
 ```
 
+##### Expected Verify errors 
+
+- `Expected Object or Type`
 ### empty.gql+
 
 ```gqlp
@@ -61,9 +64,9 @@ Validator should flag conflicting response names with incompatible selections.
 ### frag-cycle.gql+
 
 ```gqlp
-&fragA:Message{...fragB}
-&fragB:Message{...fragA}
-{...fragA}
+&fragA:Message{|fragB}
+&fragB:Message{|fragA}
+{|fragA}
 ```
 
 ##### Expected Verify errors 
@@ -72,7 +75,7 @@ Validator should flag conflicting response names with incompatible selections.
 ### frag-undef.gql+
 
 ```gqlp
-{...named}
+{|named}
 ```
 
 ##### Expected Verify errors 

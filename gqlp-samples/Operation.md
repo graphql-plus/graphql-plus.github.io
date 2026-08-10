@@ -77,7 +77,7 @@
 ### directive-inline.gql+
 
 ```gqlp
-{entity {...:User @auth {id name} ...@admin {email secret}}}
+{entity {|:User @auth {id name} |@admin {email secret}}}
 ```
 
 ### directive-repeatable.gql+
@@ -89,7 +89,7 @@
 ### directive-spread.gql+
 
 ```gqlp
-&addr:Address{street city} {user{...addr @deprecated}}
+&addr:Address{street city} {user{|addr @deprecated}}
 ```
 
 ### directive-variable.gql+
@@ -122,12 +122,6 @@
 :Number?
 ```
 
-### domain-string-pattern.gql+
-
-```gqlp
-:String(/^[A-Z]/)
-```
-
 ### domain.gql+
 
 ```gqlp
@@ -149,7 +143,7 @@
 ### fragment-end.gql+
 
 ```gqlp
-{...named}fragment named on Named{name}
+{|named}fragment named on Named{name}
 ```
 
 ### fragment-list.gql+
@@ -173,7 +167,9 @@
 ### inline-nested-complex.gql+
 
 ```gqlp
-{entity{... on User{profile{...address}}...on Admin{permissions{...role}}}}
+&address:Profile{email website}
+&role:Permission{name}
+{entity{|:User{profile{|address}}|:Admin{permissions{|role}}}}
 ```
 
 ### inline-typed.gql+
@@ -185,13 +181,13 @@
 ### inline-with-directive.gql+
 
 ```gqlp
-{entity{... on Admin @auth @restrict {secret}}}
+{entity|:Admin @auth @restrict {secret}}
 ```
 
 ### inline-with-modifiers.gql+
 
 ```gqlp
-{entity{... on User []{id name}}}
+{entity|:User []{id name}}
 ```
 
 ### inline.gql+
@@ -239,7 +235,7 @@
 ### spread-with-features.gql+
 
 ```gqlp
-&baseFields:User{id name} {user{...baseFields[]}} {admin{...baseFields}}
+&baseFields:User{id name} {user{|baseFields[]} admin{|baseFields}}
 ```
 
 ### variable-null.gql+
