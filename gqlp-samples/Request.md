@@ -5,6 +5,8 @@
 ### categories.g+req
 
 ```
+Content-Type: text/plain
+
 _Schema { categories { name } }
 ```
 
@@ -33,6 +35,8 @@ categories:
 ### dual-input-types.g+req
 
 ```
+Content-Type: application/x-simple
+
 category = _Schema
 definition = ($names[]) { types($names) { name typeKind parent { name } } }
 parameters.names = *Dual*
@@ -64,6 +68,8 @@ types:
 ### enum-types.g+req
 
 ```
+Content-Type: application/x-simple
+
 category = _Schema
 definition = ($filter) { types($filter) { name typeKind parent { name } } }
 parameters.filter.kinds = Enum
@@ -87,38 +93,51 @@ types:
     typeKind: Enum
 ```
 
-### format-list-with-params.gql+
+### format-list-with-params.g+req
 
-```gqlp
-["{user{id name email}}", {"userId": 42}, "additional_param"]
+```
+Content-Type: application/json
+
+[
+    "Sample {user{id name email}}",
+    {"userId": 42},
+    "additional_param"
+]
 ```
 
-### format-map-full.gql+
+### format-map-full.g+req
 
-```gqlp
+```
+Content-Type: application/json
+
 {
+  "category": "Sample",
   "definition": "{user{id name}}",
-  "category": "query",
   "operation": "getUser",
   "parameters": {"id": 123}
 }
 ```
 
-### format-side-channel.gql+
+### format-side-channel.g+req
 
-```gqlp
+```
+GQL-Category: Sample
+
 {id name email address{street city}}
 ```
 
-### format-string-definition.gql+
+### format-string-definition.g+req
 
-```gqlp
+```
 {name email}
 ```
 
-### request-tagged-values.gql+
+### request-tagged-values.g+req
 
-```gqlp
-[!String "{id name}", !String "data"]
+```
+Content-Type: application/yaml
+
+- !String "{id name}"
+- !String "data"
 ```
 
