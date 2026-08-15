@@ -20,22 +20,18 @@
 ($first: String, $last: String) {person(name:{firstName: $first lastName: $last}){id}}
 ```
 
-### complex-dict.gql+
-
-```gqlp
-{complex[String]{first last}}
-```
-
-### complex-list.gql+
-
-```gqlp
-{complex[]{first last}}
-```
-
 ### complex.gql+
 
 ```gqlp
-{complex{first last}}
+query Complex
+($arg:String)
+&named:Named{firstName lastName}
+{complex(arg: $arg) {
+  id
+  |named
+  relations[String]{|named}
+  emails[] {|:String{address} |{userName domain}}
+}}
 ```
 
 ### dictionary-argument-key.gql+
@@ -202,6 +198,24 @@
 {list[]}
 ```
 
+### object-dict.gql+
+
+```gqlp
+{object[String]{first last}}
+```
+
+### object-list.gql+
+
+```gqlp
+{object[]{first last}}
+```
+
+### object.gql+
+
+```gqlp
+{object{first last}}
+```
+
 ### simple-alias.gql+
 
 ```gqlp
@@ -232,10 +246,16 @@
 {simple}
 ```
 
-### spread-with-features.gql+
+### spread-with-modifiers.gql+
 
 ```gqlp
 &baseFields:User{id name} {user{|baseFields[]} admin{|baseFields}}
+```
+
+### spread.gql+
+
+```gqlp
+&baseFields:User{id name} {user{|baseFields}}
 ```
 
 ### variable-null.gql+
