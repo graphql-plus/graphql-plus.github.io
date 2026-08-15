@@ -5,8 +5,6 @@
 ### categories.g+req
 
 ```
-Content-Type: text/plain
-
 _Schema { categories { name } }
 ```
 
@@ -35,12 +33,10 @@ categories:
 ### dual-input-types.g+req
 
 ```
-Content-Type: application/x-simple
-
 category = _Schema
 definition = ($names[]) { types($names) { name typeKind parent { name } } }
-parameters.names = *Dual*
-parameters.names = *Input*
+parameters.names = Dual
+parameters.names = Input
 ```
 
 ##### Expected response dual-input-types.resp
@@ -68,8 +64,6 @@ types:
 ### enum-types.g+req
 
 ```
-Content-Type: application/x-simple
-
 category = _Schema
 definition = ($filter) { types($filter) { name typeKind parent { name } } }
 parameters.filter.kinds = Enum
@@ -96,34 +90,24 @@ types:
 ### format-list-with-params.g+req
 
 ```
-Content-Type: application/json
-
-[
-    "Sample {user{id name email}}",
-    {"userId": 42},
-    "additional_param"
-]
+definition = Sample {user{id name email}}
+parameters.userId = 42
 ```
 
 ### format-map-full.g+req
 
 ```
-Content-Type: application/json
-
-{
-  "category": "Sample",
-  "definition": "{user{id name}}",
-  "operation": "getUser",
-  "parameters": {"id": 123}
-}
+category = Sample
+operation = getUser
+definition = {user{id name}}
+parameters.id = 123
 ```
 
 ### format-side-channel.g+req
 
 ```
-GQL-Category: Sample
-
-{id name email address{street city}}
+category = Sample
+definition = {id name email address{street city}}
 ```
 
 ### format-string-definition.g+req
@@ -135,9 +119,7 @@ GQL-Category: Sample
 ### request-tagged-values.g+req
 
 ```
-Content-Type: application/yaml
-
-- !String "{id name}"
-- !String "data"
+definition = {id name}
+parameters = data
 ```
 
