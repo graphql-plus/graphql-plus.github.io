@@ -32,7 +32,6 @@ dual _Object [Object, obj, %] { }
 "All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
-
 ```
 
 ### Built-In.graphql+
@@ -67,6 +66,4 @@ dual _Object [Object, obj, %] { }
 "All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
-
 ```
-

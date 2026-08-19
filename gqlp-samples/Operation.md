@@ -139,4 +139,3 @@
 ```gqlp
 ($var):Boolean($var)
 ```
-

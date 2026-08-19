@@ -11,24 +11,24 @@ Language definitions are given in a modified PEG (Parsing Expression Grammar)
 | Operator   | Example       | Description                                                                              |
 | ---------- | ------------- | ---------------------------------------------------------------------------------------- |
 | Grouping   | `(` exp `)`   | The expression is treated as a single term.                                              |
-|            |
+|            |               |                                                                                          |
 | Lookahead  |               | These two operators don't consume the input for the expression                           |
 | Positive   | `&` exp       | The expression must match at this point.                                                 |
 | Negative   | `!` exp       | The expression must NOT match at this point.                                             |
-|            |
+|            |               |                                                                                          |
 | Term       | `Operation`   | Defined elsewhere in the language definition. Terms are capitalized.                     |
 | Word       | `category`    | A simple name defined by the regex `\[A-Za-z][A-Za-z0-9_.]+`                             |
 | Prefix     | `'$'variable` | A String surrounded by quotes immediately followed by a Word.                            |
 | Literal    | `'('`         | A String surrounded by quotes that must appear exactly as written.                       |
 | Constant   | `NUMBER`      | An expression that matches a specific regex as defined below. Constants are in all-caps. |
-|            |
-| Repetition |
+|            |               |                                                                                          |
+| Repetition |               |                                                                                          |
 | Optional   | exp `?`       | The expression occurs zero or one times.                                                 |
 | Some       | exp `*`       | The expression occurs zero or more times.                                                |
 | Many       | exp `+`       | The expression occurs one or more times.                                                 |
-|            |
+|            |               |                                                                                          |
 | Sequence   | exp exp       | The expressions must occur in the given order.                                           |
-|            |
+|            |               |                                                                                          |
 | Alternate  | exp `\|` exp  | If the first expression doesn't match, try the second expression instead.                |
 
 **Note:** The above are in descending order of precedence
@@ -85,7 +85,7 @@ Modifiers are either Required or zero or more Collections optionally followed by
 | Optional   | `?`              | An Optional Result may have the value of `null`. <br/> The `Null` type is effectively the same as `Void?` and so is `Null?`.  | Optional _type_               |
 | List       | `[]`             | A List Result will be an array with zero or more entries.                                                                     | List of _type_                |
 | Dictionary | `[`Simple`?`?`]` | A Dictionary Result will be an object with the given Simple type as the Key. <br/> The Key may be Optional.                   | Dictionary by _key_ of _type_ |
-| Dictionary | `[$`param`?`?`]` | In Schema Objects, a Type parameter may be used to set the Key type. It is an error if the Type Argument is not a Simple type |
+| Dictionary | `[$`param`?`?`]` | In Schema Objects, a Type parameter may be used to set the Key type. It is an error if the Type Argument is not a Simple type |                               |
 
 Multiple Modifiers from left to right are from outside to inside finishing with the initial type.
 
@@ -104,11 +104,11 @@ Multiple Modifiers from left to right are from outside to inside finishing with 
 [
   {
     0: { _: null, null: "a" },
-    1: { _: "" },
+    1: { _: "" }
   },
   {
-    2: { null: "b" },
-  },
+    2: { null: "b" }
+  }
 ];
 ```
 
@@ -229,7 +229,6 @@ Val_Values = VALUE ',' Val_Values | VALUE
 Val_Object = '{' Val_Fields* '}'
 Val_Fields = Val_Field ',' Val_Fields | Val_Field
 Val_Field = Scalar ':' VALUE
-
 ```
 
 ## Complete Definition
@@ -264,5 +263,4 @@ dual _Object [Object, obj, %] { }
 "All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
-
 ```

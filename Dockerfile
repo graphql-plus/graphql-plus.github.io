@@ -23,5 +23,5 @@ RUN dotnet tool update -g docfx && \
 WORKDIR /docs
 VOLUME [ "/docs" ]
 
-ENTRYPOINT [ "docfx" ]
-CMD [ "docfx.json" ]
+ENTRYPOINT ["docfx"]
+CMD ["docfx.json"]
