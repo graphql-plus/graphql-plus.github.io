@@ -1,5 +1,5 @@
 /** @type LanguageFn */
-export default function (hljs) {
+export default function(hljs) {
   const regex = hljs.regex;
   const GQL_NAME = /[_A-Za-z][_0-9A-Za-z]*/;
   return {
@@ -18,9 +18,9 @@ export default function (hljs) {
         "option",
         "output",
         "schema",
-        "union",
+        "union"
       ],
-      literal: ["true", "false", "null", "_"],
+      literal: ["true", "false", "null", "_"]
     },
     contains: [
       hljs.HASH_COMMENT_MODE,
@@ -29,31 +29,31 @@ export default function (hljs) {
       {
         scope: "punctuation",
         match: /[.]{3}/,
-        relevance: 0,
+        relevance: 0
       },
       {
         scope: "punctuation",
         begin: /[\!\(\)\:\=\[\]\{\|\}]{1}/,
-        relevance: 0,
+        relevance: 0
       },
       {
         scope: "variable",
         begin: /\$/,
         end: /\W/,
         excludeEnd: true,
-        relevance: 0,
+        relevance: 0
       },
       {
         scope: "meta",
         match: /@\w+/,
-        excludeEnd: true,
+        excludeEnd: true
       },
       {
         scope: "symbol",
         begin: regex.concat(GQL_NAME, regex.lookahead(/\s*[:=]/)),
-        relevance: 0,
-      },
+        relevance: 0
+      }
     ],
-    illegal: [/[;<']/, /BEGIN/],
+    illegal: [/[;<']/, /BEGIN/]
   };
 }

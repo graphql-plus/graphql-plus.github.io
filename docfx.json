@@ -1,16 +1,12 @@
 {
   "build": {
-    "content": [
-      {
-        "files": ["**/toc.yml", "*.md", "articles/*.md", "graphql-plus/*.md", "gqlp-samples/**.md"],
-        "exclude": ["init/*"]
-      }
-    ],
-    "resource": [
-      {
-        "files": ["images/**"]
-      }
-    ],
+    "content": [{
+      "files": ["**/toc.yml", "*.md", "articles/*.md", "graphql-plus/*.md", "gqlp-samples/**.md"],
+      "exclude": ["init/*"]
+    }],
+    "resource": [{
+      "files": ["images/**"]
+    }],
     "output": "_site",
     "globalMetadataFiles": ["global-metadata.json"],
     "fileMetadataFiles": [],
