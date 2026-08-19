@@ -34,7 +34,6 @@ dual _Object [Object, obj, %] { }
 "All user defined Union types" union _Union [Union] { }
 
 union _Simple [Simple] { _Enum _Domain _Union }
-
 ```
 
 ### Introspection.graphql+
@@ -476,7 +475,6 @@ output _OutputFieldType {
     : _ObjFieldType
         parameter: _InputFieldType?
     }
-
 ```
 
 ### Schema.graphql+
@@ -504,6 +502,4 @@ dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 
 union _Key { }
 dual _Any { }
-
 ```
-

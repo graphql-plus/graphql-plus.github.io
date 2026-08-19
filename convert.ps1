@@ -186,7 +186,7 @@ foreach ($name in $toc.Keys | Sort-Object) {
 }
 
 Write-Host "Formatting files"
-npx biome format --write .
+dprint fmt
 
 Get-ChildItem ./.peg -Filter *.pegjs | ForEach-Object {
   Write-Host "PEG linting $($_.Name)"

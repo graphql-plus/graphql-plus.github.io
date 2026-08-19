@@ -638,7 +638,6 @@ In_FieldType = In_Type Modifiers? Default?
 InputParam = '(' In_FieldType ')'
 
 Out_FieldType = InputParam? Aliases? ':' Out_Type Modifiers?
-
 ```
 
 ## Complete Definition
@@ -666,5 +665,4 @@ dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 
 union _Key { }
 dual _Any { }
-
 ```

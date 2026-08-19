@@ -265,4 +265,3 @@ option Schema { "Option" "Descr" descr=true }
 ```gqlp
 option Schema { global=true }
 ```
-

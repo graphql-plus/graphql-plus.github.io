@@ -25,7 +25,6 @@ dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 
 union _Key { }
 dual _Any { }
-
 ```
 
 ### Modifiers.graphql+
@@ -53,6 +52,4 @@ dual _Mask<$K:_Key> [Mask] { | ^[$K] }
 
 union _Key { }
 dual _Any { }
-
 ```
-

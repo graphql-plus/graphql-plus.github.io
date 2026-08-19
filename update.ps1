@@ -9,4 +9,4 @@ Write-Host "Dotnet Tools ..."
 dotnet tool update --all
 
 Write-Host "Formatting files ..."
-npx -y biome format --write .
+dprint fmt

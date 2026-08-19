@@ -139,10 +139,9 @@ output _Setting {
     : _Named
         value: Value
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_InputFieldType' not defined`
@@ -154,10 +153,12 @@ output _Setting {
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
+
 ### -Object.graphql+
 
 ```gqlp
@@ -251,10 +252,9 @@ output _OutputFieldType {
     : _ObjFieldType
         parameter: _InputFieldType?
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
@@ -266,13 +266,15 @@ output _OutputFieldType {
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
 - `can't get model for type '_Described'`
 - `can't get model for type '_Named'`
 - `can't get model for type '_TypeRef'`
+
 ### -Schema.graphql+
 
 ```gqlp
@@ -323,10 +325,9 @@ dual _Named {
 dual _Described {
         description: String[]
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
@@ -335,6 +336,7 @@ dual _Described {
 - `'_Setting' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not defined`
+
 ### -Simple.graphql+
 
 ```gqlp
@@ -428,10 +430,9 @@ output _UnionMember {
     : _UnionRef
         union: _Name
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_Aliased' not defined`
@@ -442,12 +443,14 @@ output _UnionMember {
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Described'`
 - `can't get model for type '_ParentType'`
 - `can't get model for type '_TypeRef'`
+
 ### -Type.graphql+
 
 ```gqlp
@@ -520,10 +523,9 @@ enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[Typ
 dual _Modifier<$modifierKind:_ModifierKind> {
         modifierKind: $modifierKind
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_Aliased' not match '_Described'`
@@ -551,10 +553,12 @@ dual _Modifier<$modifierKind:_ModifierKind> {
 - `'_UnionMember' not match '_Described'`
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
+
 ### Base.graphql+
 
 ```gqlp
@@ -626,10 +630,9 @@ output _ForParam<$type:_ObjFieldType> {
     | _ObjAlternate
     | _ObjField<$type>
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_ChildType' not defined`
@@ -641,13 +644,15 @@ output _ForParam<$type:_ObjFieldType> {
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_ChildType'`
 - `can't get model for type '_Described'`
 - `can't get model for type '_Named'`
 - `can't get model for type '_TypeRef'`
+
 ### Built-In.graphql+
 
 ```gqlp
@@ -674,12 +679,12 @@ enum _ModifierKind { Req[Required] Opt[Optional] List Dict[Dictionary] Param[Typ
 dual _Modifier<$modifierKind:_ModifierKind> {
         modifierKind: $modifierKind
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_TypeSimple' not defined`
+
 ### Category.graphql+
 
 ```gqlp
@@ -697,10 +702,9 @@ output _Category {
     }
 
 enum _Resolution { Parallel Sequential Single }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
@@ -708,10 +712,12 @@ enum _Resolution { Parallel Sequential Single }
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
+
 ### Common.graphql+
 
 ```gqlp
@@ -760,10 +766,9 @@ dual _TypeSimple {
     | _TypeRef<_TypeKind.Domain>
     | _TypeRef<_TypeKind.Union>
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_Aliased' not match '_Described'`
@@ -791,10 +796,12 @@ dual _TypeSimple {
 - `'_UnionMember' not match '_Described'`
 - `'_UnionRef' not defined`
 - `'_UnionRef' not match '_Described'`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
+
 ### Declarations.graphql+
 
 ```gqlp
@@ -831,10 +838,9 @@ input _TypeFilter {
     : _Filter
         kinds: _TypeKind[]
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Categories' not defined`
 - `'_Directives' not defined`
@@ -844,9 +850,11 @@ input _TypeFilter {
 - `'_Setting' not defined`
 - `'_Type' not defined`
 - `'_TypeKind' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Named'`
+
 ### Directive.graphql+
 
 ```gqlp
@@ -864,18 +872,19 @@ output _Directive {
     }
 
 enum _Location { Operation Variable Field Inline Spread Fragment }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_AndType' not defined`
 - `'_InputFieldType' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_AndType'`
+
 ### Domain.graphql+
 
 ```gqlp
@@ -950,10 +959,9 @@ dual _DomainRegex {
 output _DomainItemRegex {
     : _DomainItem<_DomainRegex>
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Described' not defined`
 - `'_EnumValue' not defined`
@@ -962,27 +970,30 @@ output _DomainItemRegex {
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Described'`
 - `can't get model for type '_ParentType'`
 - `can't get model for type '_TypeRef'`
+
 ### Dual.graphql+
 
 ```gqlp
 output _DualField {
     : _ObjField<_ObjFieldType>
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
+
 ### Enum.graphql+
 
 ```gqlp
@@ -995,20 +1006,21 @@ output _EnumValue {
     : _TypeRef<_TypeKind.Enum>
         label: _Name
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_Name' not defined`
 - `'_TypeKind' not an Enum type`
 - `'_TypeKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_TypeRef'`
+
 ### Input.graphql+
 
 ```gqlp
@@ -1020,17 +1032,18 @@ output _InputFieldType {
     : _ObjFieldType
         defaultValue: Value?
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
+
 ### Names.graphql+
 
 ```gqlp
@@ -1053,13 +1066,13 @@ output _AndType {
         type: _Type
     | _Type
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Name' not defined`
 - `'_Type' not defined`
+
 ### Operation.graphql+
 
 ```gqlp
@@ -1158,10 +1171,9 @@ output _OpSpread {
     : OpSelectionBase
         fragment: String
 }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Aliased' not defined`
 - `'_Modifiers' not defined`
@@ -1172,11 +1184,13 @@ output _OpSpread {
 - `'_TypeKind' not defined`
 - `'_TypeKind' not an Enum`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Aliased'`
 - `can't get model for type '_Named'`
 - `can't get model for type '_AndType'`
+
 ### Option.graphql+
 
 ```gqlp
@@ -1184,15 +1198,16 @@ output _Setting {
     : _Named
         value: Value
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Named' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_Named'`
+
 ### Output.graphql+
 
 ```gqlp
@@ -1204,18 +1219,19 @@ output _OutputFieldType {
     : _ObjFieldType
         parameter: _InputFieldType?
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_InputFieldType' not defined`
 - `'_ObjField' not defined`
 - `'_ObjFieldType' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_ObjField'`
 - `can't get model for type '_ObjFieldType'`
+
 ### Union.graphql+
 
 ```gqlp
@@ -1227,14 +1243,14 @@ output _UnionMember {
     : _UnionRef
         union: _Name
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Name' not defined`
 - `'_SimpleKind' not defined`
 - `'_TypeRef' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_TypeRef'`

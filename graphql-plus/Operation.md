@@ -73,10 +73,10 @@ Domain = Internal | Simple
 
 | Type    | Value(s)          | Description                                                                 |
 | ------- | ----------------- | --------------------------------------------------------------------------- |
-|         | _Internal types_  |
+|         | _Internal types_  |                                                                             |
 | Void    |                   | The Void type has no values.                                                |
 | Null    | `null`            | The Null type only has one value, but can't be the type of a Dictionary Key |
-|         | _Basic types_     |
+|         | _Basic types_     |                                                                             |
 | Unit    | `_`               | The Unit type only has one value.                                           |
 | Boolean | `false` or `true` | The Boolean type only has two values.                                       |
 | Number  | NUMBER            |                                                                             |
@@ -175,5 +175,4 @@ Arg_Values = Arg_Value ',' Arg_Values | Arg_Value
 Arg_Object = '{' Arg_Fields* '}'
 Arg_Fields = Arg_Field ',' Arg_Fields | Arg_Field
 Arg_Field = Arg_Scalar ':' Arg_Value
-
 ```
