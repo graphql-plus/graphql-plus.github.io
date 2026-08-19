@@ -118,7 +118,6 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
-
 ```
 
 ### Full.graphql+
@@ -156,12 +155,12 @@ enum _ModifierKind { Opt[Optional] List Dict[Dictionary] Param[TypeParam] }
 dual _Modifier<$modifierKind:_ModifierKind> {
         modifierKind: $modifierKind
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Operation' not defined`
+
 ### Operation.graphql+
 
 ```gqlp
@@ -224,14 +223,14 @@ dual _OpArgMap {
         byVariable: _Identifier
     | _OpArgValue[Scalar]
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_OpSelection' not defined`
+
 ### Selections.graphql+
 
 ```gqlp
@@ -257,16 +256,16 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
-
 ```
 
-##### Expected Verify errors 
+##### Expected Verify errors
 
 - `'_Identifier' not defined`
 - `'_Modifiers' not defined`
 - `'_OpArgument' not defined`
 - `'_OpDirective' not defined`
 - `'_OpDirectives' not defined`
-##### Expected Encode errors 
+
+##### Expected Encode errors
 
 - `can't get model for type '_OpDirectives'`

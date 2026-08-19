@@ -150,4 +150,3 @@ output Character {
     | Droid
 }
 ```
-

@@ -350,4 +350,3 @@ union PrntName { String }
 union Name { Boolean }
 union Name { Boolean }
 ```
-

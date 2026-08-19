@@ -241,4 +241,3 @@ union PrntName { Number }
 union Name { :PrntName String }
 union PrntName { Number }
 ```
-

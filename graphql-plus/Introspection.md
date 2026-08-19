@@ -971,5 +971,4 @@ output _OutputFieldType {
     : _ObjFieldType
         parameter: _InputFieldType?
     }
-
 ```

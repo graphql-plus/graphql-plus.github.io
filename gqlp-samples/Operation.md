@@ -269,4 +269,3 @@ query Complex
 ```gqlp
 ($var):Boolean($var)
 ```
-

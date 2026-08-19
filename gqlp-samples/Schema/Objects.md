@@ -602,4 +602,3 @@ object RefName<$a:String> { | $a }
 object Name { :RefName }
 object RefName { parent: Number | String }
 ```
-

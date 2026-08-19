@@ -31,4 +31,3 @@
 ```gqlp
 {_Schema{types(_TypeFilter:{kinds:["Object" "Input"]}){name}}}
 ```
-

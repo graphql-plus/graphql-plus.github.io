@@ -122,4 +122,3 @@ definition = {id name email address{street city}}
 definition = {id name}
 parameters = data
 ```
-

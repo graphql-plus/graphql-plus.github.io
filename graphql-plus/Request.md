@@ -318,5 +318,4 @@ dual _OpSpread {
         fragment: _Identifier
         directives: _OpDirective[]
     }
-
 ```
