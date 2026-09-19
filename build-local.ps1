@@ -1,5 +1,5 @@
 dotnet tool restore
-nvs use 22
+nvs use 26
 try
 {
     dotnet tool run docfx -s -p 8765
