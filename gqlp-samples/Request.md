@@ -55,3 +55,24 @@ types:
     name: _TypeEnum
     typeKind: Enum
 ```
+
+### positional-no-parameters.g+req
+
+```
+- _Schema { categories { name } }
+```
+
+### positional-parameters.g+req
+
+```
+- ($names[]) { types($names) { name typeKind parent { name } } }
+- Dual
+- Input
+```
+
+### positional-single-parameter.g+req
+
+```
+- ($names[]) { types($names) { name typeKind parent { name } } }
+- Dual
+```
