@@ -10,6 +10,7 @@ name = ID
 object = ID
 output = ID
 parent = ID
+schema = ID
 setting = ID
 typeParam = ID
 union = ID
