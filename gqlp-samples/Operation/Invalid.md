@@ -1,5 +1,51 @@
 # Invalid Operation Samples
 
+### alias-collision.gql+
+
+```gqlp
+"""
+Invalid example: alias/response-name collision where the same response name is used for different field shapes.
+Validator should flag conflicting response names with incompatible selections.
+"""
+
+{
+  person: user(id: "1") { id }
+  person: adminUser(id: "1") { id name }
+}
+```
+
+##### Expected Verify errors
+
+- `Expected Object or Type`
+
+### argument-field-syntax-invalid.gql+
+
+```gqlp
+{data { field1: value1 field2: value2 } }
+```
+
+### argument-type-mismatch.gql+
+
+```gqlp
+{user(id: "string"){id}}
+```
+
+### default-conflicts.gql+
+
+```gqlp
+($var: String[]? = 5){user($var){id}}
+```
+
+### directive-location-invalid.gql+
+
+```gqlp
+Expected no more text
+```
+
+##### Expected Verify errors
+
+- `Expected Object or Type`
+
 ### empty.gql+
 
 ```gqlp
@@ -19,25 +65,38 @@
 
 - `Expected Object or Type`
 
-### frag-undef.gql+
+### frag-cycle.gql+
 
 ```gqlp
-{...named}
+&fragA:Message{|fragB}
+&fragB:Message{|fragA}
+{|fragA}
 ```
 
 ##### Expected Verify errors
 
-- `Spread not defined`
+- `Fragment has cyclic dependency`
+
+### frag-undef.gql+
+
+```gqlp
+{|named}
+```
+
+##### Expected Verify errors
+
+- `'named' not defined`
 
 ### frag-unused.gql+
 
 ```gqlp
-&named:Named{name}{name}
+&named:Named{name}
+{name}
 ```
 
 ##### Expected Verify errors
 
-- `Spread not used`
+- `'named' not used`
 
 ### list-map-def.gql+
 
@@ -97,7 +156,7 @@
 
 ##### Expected Verify errors
 
-- `Variable not defined`
+- `'var' not defined`
 
 ### var-unused.gql+
 
@@ -107,4 +166,4 @@
 
 ##### Expected Verify errors
 
-- `Variable not used`
+- `'var' not used`
